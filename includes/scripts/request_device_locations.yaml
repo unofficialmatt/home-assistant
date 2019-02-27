@@ -1,0 +1,8 @@
+request_location_update:
+  sequence:
+    - service: notify.ios_matt
+      data:
+        message: "request_location_update"
+    - service: notify.ios_sarah
+      data:
+        message: "request_location_update"

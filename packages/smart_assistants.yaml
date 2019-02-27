@@ -1,0 +1,146 @@
+#######################################################
+#
+#  This package contains the components and sensors 
+#  used to interact with Home Assistant via smart 
+#  assistants
+#
+#  ----------------------------------------------------
+#
+#  DEPENDS ON: XXXXXX
+#  
+#######################################################
+
+# HOME KIT (SIRI/APPLE)
+homekit:
+  filter:
+    include_domains:
+      - light
+      - switch
+      - input_boolean
+      - climate
+      - media_player
+      - device_tracker
+    include_entities:
+      - automation.rain_alert
+    exclude_entities:
+      - light.lounge
+      - light.dining_room
+      - light.kitchen
+      - light.master_bedroom
+      - light.bedroom_entertainment_area
+      - light.guest_bedroom
+      - light.office
+      - light.landing
+      - light.hallway
+      - media_player.speakers
+      - media_player.spotify
+      - media_player.upstairs
+
+# GOOGLE
+google_assistant:
+  project_id: !secret gass_projectid
+  api_key: !secret gass_apikey
+  exposed_domains:
+    - switch
+    - light
+    - input_boolean
+    - climate
+  entity_config:
+    #UTILS
+    input_boolean.entertaining:
+      room: Utilities
+      aliases:
+        - entertaining mode
+        - entertaining
+        - guests over
+        - guests downstairs
+        - keep the lights on
+    input_boolean.alarm_clock:
+      room: Utilities
+      aliases:
+        - alarm clock
+        - radio alarm
+    input_boolean.guests_staying:
+      room: Utilities
+      aliases:
+        - guest mode
+        - guests staying
+        - guest bedroom
+    #Lounge
+    light.lounge:
+      expose: false    
+    light.lounge_colour:
+      room: Lounge
+    light.lounge_lamp:
+      room: Lounge
+    light.hue_go:
+      room: Lounge
+    media_player.lounge_tv:
+      expose: true
+      room: Lounge
+    switch.tuya_2:
+      room: Lounge
+    #Dining Room
+    light.dining_room:
+      expose: false    
+    light.dining_room_colour:
+      room: Dining Room
+    light.dining_room_lamp:
+      room: Dining Room
+    switch.tuya_1:
+      room: Dining Room
+    #Kitchen
+    light.kitchen:
+      expose: false    
+    light.kitchen_oven_1:
+      room: Kitchen
+    light.kitchen_oven_2:
+      room: Kitchen
+    light.kitchen_sink_1:
+      room: Kitchen
+    light.kitchen_sink_2:
+      room: Kitchen
+    #Master Bedroom
+    light.master_bedroom:
+      expose: false
+    light.bedroom_entertainment_area:
+      expose: false
+    light.master_bedroom_colour:
+      room: Bedroom
+    light.master_bedroom_lightstrip:
+      room: Bedroom
+    switch.tp_link:
+      room: Bedroom
+      aliases:
+        - heated blanket
+        - fan
+        - bedroom fan        
+    #Guest Bedroom
+    light.guest_bedroom:
+      expose: false
+    light.guest_bedroom_colour:
+      room: Guest Bedroom
+    light.guest_bedroom_opihr:
+      room: Guest Bedroom
+    light.guest_bedroom_sovereign:
+      room: Guest Bedroom
+    #Office
+    light.office:
+      expose: false
+    light.office_white:
+      room: Office
+    #Landing and Hall
+    light.landing:
+      expose: false
+    light.hallway:
+      expose: false
+    light.landing_bathroom:
+      room: Landing
+    light.landing_middle:
+      room: Landing
+    light.landing_bedrooms:
+      room: Landing
+    light.hallway_white:
+      room: Hallway
+    climate.hallway:
+      room: Hallway

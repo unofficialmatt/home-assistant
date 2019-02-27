@@ -1,0 +1,172 @@
+#######################################################
+#
+#  This package contains the components and sensors 
+#  used to monitor and interact with the media players
+#  connected to Home Assistant
+#
+#  ----------------------------------------------------
+#
+#  DEPENDS ON: Occupancy, Environment
+#  
+#######################################################
+
+homeassistant:
+  customize_domain:
+    media_player:
+      icon: mdi:speaker
+  customize_glob:
+    "media_player.plex*":
+      icon: mdi:plex
+  customize:
+    media_player.lounge_tv:
+      icon: mdi:television
+    media_player.sarahs_3rd_fire:
+      hidden: true
+    media_player.matts_2nd_echo:
+      hidden: true
+    media_player.matts_alexa_apps:
+      hidden: true
+    media_player.matts_echosim_beta:
+      hidden: true
+    media_player.matts_fire_tv_stick:
+      hidden: true
+    media_player.this_device:
+      hidden: true
+    media_player.bedroom:
+      friendly_name: Bedroom Speaker
+    media_player.lounge:
+      friendly_name: Lounge Speaker
+    media_player.office:
+      friendly_name: Office Speaker
+    media_player.dining_room_echo:
+      friendly_name: Dining Room Speaker
+    media_player.speakers:
+      hidden: true
+    media_player.upstairs:
+      hidden: true
+      
+    media_player.plex_plex_jo3rrkm3r8peb3u1kngczj9z:
+      friendly_name: Plex Macbook
+      icon: mdi:plex
+      
+    automation.weekday_evening_music:
+      icon: mdi:music
+    automation.weekend_morning_music:
+      icon: mdi:music
+      
+cast:
+
+media_player:
+  - platform: alexa
+    email: !secret alexa_email
+    password: !secret alexa_password
+    url: "amazon.co.uk"
+    scan_interval: 30
+  - platform: webostv
+    host: !secret ip_webostv
+    #mac: !secret mac_webostv
+    #name: Lounge TV
+    #homebridge_media_player_switch: play_pause
+    customize:
+      sources:
+        - LiveTV
+        - Netflix
+        - Playstation4
+        - Playstation3
+        - Plex
+        - YouTube
+        - "Now TV"
+  - platform: plex
+    #name: Plex
+    entity_namespace: 'plex'
+    use_custom_entity_ids: true
+    #homebridge_media_player_switch: play_pause
+
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+  - alias: 'Weekday Evening Music'
+    trigger:
+      - platform: state
+        entity_id: input_select.home_status
+        to: "Home"
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: 'on'
+        - condition: time
+          after: '15:00:00'
+        - condition: time
+          before: '20:30:00'
+    action:
+      - service: media_player.play_media
+        entity_id: media_player.dining_room_echo
+        data:
+          media_content_id: 'Radio 1'
+          media_content_type: 'TUNEIN'  
+          
+  - alias: 'Weekend Morning Music'
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: sensor.kitchen_motion_sensor
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: 'off' 
+        - condition: time
+          after: '08:00:00'
+          before: '10:00:00'
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.dining_room_echo
+          volume_level: 0.15
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.spotify
+          source: Dining Room Echo
+      - service: media_player.shuffle_set
+        data:
+          entity_id: media_player.spotify
+          shuffle: true          
+      - service: media_player.play_media
+        entity_id: media_player.spotify
+        data_template:
+          media_content_type: playlist
+          media_content_id: >
+            {{ [
+            "spotify:user:spotify:playlist:37i9dQZF1DXcxacyAXkQDu", 
+            "spotify:user:spotify:playlist:37i9dQZF1DX0UrRvztWcAU", 
+            "spotify:user:motown_records:playlist:5mByrIFuUzwKk8H6XnE5BZ", 
+            "spotify:user:spotify:playlist:37i9dQZF1DWY4lFlS4Pnso", 
+            "spotify:user:spotify:playlist:37i9dQZF1DX9u7XXOp0l5L", 
+            "spotify:user:spotify:playlist:37i9dQZF1DWZdL27osEgj6", 
+            "spotify:user:spotify:playlist:37i9dQZF1DX2sUQwD7tbmL" 
+            ] | random }}
+        # RANDOM PLAYLISTS IN ORDER:
+        # Wake up and smell the coffee
+        # Wake up happy
+        # Motown
+        # Hot Hits UK
+        # Happy Tunes
+        # Weekendhygge
+        # Feel Good Indie Rock
+      - service: automation.turn_off
+        entity_id: automation.weekend_morning_music
+      - delay: '02:05:00'
+      - service: automation.turn_on
+        entity_id: automation.weekend_morning_music
+        
+
+      

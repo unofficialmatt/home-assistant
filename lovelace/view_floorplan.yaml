@@ -1,0 +1,243 @@
+title: Floorplan
+path: floorplan
+icon: mdi:floor-plan
+background: linear-gradient(#d3cce3,#e9e4f0)
+panel: true
+cards:  
+  - type: vertical-stack
+    cards:
+      - type: custom:plan-coordinates
+      - type: picture-elements
+        image: /local/floorplan.png
+        elements:
+        
+        ## DINING ROOM        
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.dining_room_colour
+            style:
+              top: 72.5%
+              left: 53%
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.dining_room_lamp
+            style:
+              top: 59%
+              left: 45%
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: switch.tuya_1
+            style:
+              top: 86%
+              left: 53%    
+          - type: state-icon
+            tap_action:
+              action: more-info
+            entity: media_player.dining_room_echo
+            style:
+              top: 59%
+              left: 53%              
+          - type: state-label
+            entity: input_select.scene_dining_room
+            prefix: 'Scene: '
+            style:
+              top: 91%
+              left: 53%
+              font-size: 80%
+          
+          ## GUEST BEDROOM
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.guest_bedroom_colour
+            style:
+              top: 32%
+              left: 57%
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.guest_bedroom_opihr
+            style:
+              top: 22.3%
+              left: 44.7%
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.guest_bedroom_sovereign
+            style:
+              top: 41.5%
+              left: 44.7%
+          - type: state-label
+            entity: input_select.scene_guest_bedroom
+            prefix: 'Scene: '
+            style:
+              top: 47%
+              left: 53%
+              font-size: 80%
+              
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.hallway_white
+            style:
+              top: 85%
+              left: 65%
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.landing_bathroom
+            style:
+              top: 15%
+              left: 34%     
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.landing_middle
+            style:
+              top: 15%
+              left: 50% 
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.landing_bedrooms
+            style:
+              top: 15%
+              left: 66% 
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.kitchen_oven_1
+            style:
+              top: 60%
+              left: 33% 
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.kitchen_oven_2
+            style:
+              top: 60%
+              left: 40%    
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.kitchen_sink_1
+            style:
+              top: 76%
+              left: 33%    
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.kitchen_sink_2
+            style:
+              top: 76%
+              left: 40%  
+              
+          ## LOUNGE      
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.lounge_colour
+            style:
+              top: 70%
+              left: 79%  
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.lounge_lamp
+            style:
+              top: 59%
+              left: 88%
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.hue_go
+            style:
+              top: 86%
+              left: 88.2%   
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: switch.tuya_2
+            style:
+              top: 59%
+              left: 69.5%         
+          - type: state-icon
+            tap_action:
+              action: more-info
+            entity: media_player.lounge
+            style:
+              top: 59%
+              left: 72%               
+          - type: state-label
+            entity: input_select.scene_lounge
+            prefix: 'Scene: '
+            style:
+              top: 91%
+              left: 80%
+              font-size: 80%              
+              
+              
+          ## MASTER BEDROOM      
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.master_bedroom_colour
+            style:
+              top: 30%
+              left: 79%
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.master_bedroom_lightstrip
+            style:
+              top: 43%
+              left: 80.5%    
+          - type: state-icon
+            tap_action:
+              action: more-info
+            entity: media_player.bedroom
+            style:
+              top: 24%
+              left: 69.5%              
+          - type: state-label
+            entity: input_select.scene_master_bedroom
+            prefix: 'Scene: '
+            style:
+              top: 47%
+              left: 80%
+              font-size: 80%              
+              
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.office_white
+            style:
+              top: 22%
+              left: 30%
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: light.office_lamp
+            style:
+              top: 27%
+              left: 36.5%  
+          - type: state-icon
+            tap_action:
+              action: more-info
+            entity: media_player.office
+            style:
+              top: 22%
+              left: 32.5%              
+              
+      - type: custom:compact-custom-header
+        header: true
+        menu: false
+        notification: false
+        voice: false
+        options: true
+        clock: options
+        clock_format: 2
+        background_image: true

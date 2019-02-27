@@ -1,0 +1,112 @@
+#######################################################
+#
+#  This package contains the components and sensors   
+#  used to monitor external and environmental factors 
+#
+#  ----------------------------------------------------
+#
+#  DEPENDS ON: Lights, Weather
+#
+#######################################################
+
+homeassistant:
+  customize:
+    sun.sun:
+      hidden: true
+      
+    climate.hallway:
+      friendly_name: Thermostat
+      entity_picture: /local/nest.png
+    sensor.hallway_thermostat_humidity:
+      friendly_name: Humidity
+      icon: mdi:water
+    sensor.hallway_thermostat_temperature:
+      friendly_name: Hallway Temperature
+    sensor.hallway_thermostat_target:
+      hidden: true
+    sensor.hallway_thermostat_hvac_state:
+      hidden: true
+    sensor.hallway_thermostat_operation_mode:
+      hidden: true
+    sensor.home_eta:
+      hidden: true
+    binary_sensor.hallway_thermostat_fan:
+      hidden: true
+    binary_sensor.hallway_thermostat_has_leaf:
+      hidden: true
+    binary_sensor.hallway_thermostat_is_locked:
+      hidden: true
+    binary_sensor.home_away:
+      hidden: true
+    binary_sensor.hallway_thermostat_is_using_emergency_heat:
+      hidden: true
+    binary_sensor.hallway_thermostat_online:
+      hidden: true
+      
+    binary_sensor.is_workday_tomorrow:
+      hidden: true
+    binary_sensor.workday_sensor:
+      hidden: true
+      
+    sensor.outside_light_level:
+      icon: mdi:weather-partlycloudy
+      
+nest:
+  client_id: !secret nest_client_id
+  client_secret: !secret nest_client_secret
+  
+sun:
+
+zone:
+  - name: Home
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    elevation: !secret home_elevation
+    radius: 200
+    icon: mdi:home
+  - name: Matt Work
+    friendly_name: Work
+    latitude: !secret work_latitude
+    longitude: !secret work_longitude
+    radius: 200
+    icon: mdi:worker
+  - name: Sarah Work
+    friendly_name: Work
+    latitude: !secret work_sarah_latitude
+    longitude: !secret work_sarah_longitude
+    radius: 200
+    icon: mdi:worker
+    
+binary_sensor:
+  - platform: workday
+    country: UK    
+  - platform: workday
+    name: is_workday_tomorrow
+    country: UK
+    days_offset: 1
+    
+sensor:
+  # CURRENT TIME
+  - platform: time_date
+    display_options:
+      - 'time'
+  # AVERAGE HOME TEMP
+  - platform: min_max
+    name: Average Home Temperature
+    type: mean
+    entity_ids:
+      - sensor.hallway_thermostat_temperature
+      - sensor.kitchen_temperature
+      - sensor.landing_temperature
+  # COMPUTED OUTSIDE LIGHT LEVEL
+  - platform: template
+    sensors:
+      outside_light_level:
+        friendly_name: 'Sunlight Level'
+        unit_of_measurement: 'lux'
+        value_template: >
+          {%- if states.sun.sun.attributes.elevation < 0 -%}
+            {{ states.sun.sun.attributes.elevation }}
+          {%- else -%}
+             {{ (states.sun.sun.attributes.elevation | int ) * ((states.sun.sun.attributes.elevation | int / 10) - (states.sensor.darksky_cloud_coverage.state | int / 100 ))}}
+          {% endif %}

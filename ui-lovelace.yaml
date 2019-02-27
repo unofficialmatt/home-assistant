@@ -1,0 +1,26 @@
+title: Home
+resources:
+  - url: /local/custom-lovelace/tracker-card/tracker-card.js?v=0.3.2
+    type: js 
+  - url: /local/custom-lovelace/compact-custom-header/compact-custom-header.js?v=1.0.0b5
+    type: module
+  - url: /local/custom-lovelace/mini-media-player/mini-media-player-bundle.js?v=1.0.1
+    type: module
+  - url: /local/custom-lovelace/mini-graph-card/mini-graph-card-bundle.js?v=0.2.4
+    type: module
+  - url: https://unpkg.com/moment@2.22.2/moment.js
+    type: js
+  - url: /local/custom-lovelace/homeassistant-lovelace-google-calendar-card/calendar-card.js?v=1.0.1
+    type: module
+  - url: /local/custom-lovelace/simple-thermostat/simple-thermostat.js?v=0.1.1
+    type: module
+  - url: /local/custom-lovelace/plan-coordinates/plan-coordinates.js?v=0.1.0
+    type: module    
+views:
+  - !include lovelace/view_home.yaml
+  - !include lovelace/view_rooms.yaml
+#  - !include lovelace/view_lights.yaml
+  - !include lovelace/view_media.yaml
+  - !include lovelace/view_climate.yaml
+  - !include lovelace/view_floorplan.yaml
+  - !include lovelace/view_config.yaml

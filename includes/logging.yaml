@@ -1,0 +1,48 @@
+########################################
+#                                      #
+# This file defines what is logged in  #
+# Home Assistant's History and Logbook #
+#                                      #
+########################################
+
+include:
+  domains:
+    - climate
+    - device_tracker
+    - light
+    - switch
+    - media_player
+    - input_boolean
+    - automation
+  entities:
+    - group.occupants
+    - binary_sensor.matt_bayesian
+    - binary_sensor.sarah_bayesian
+    - input_select.home_status
+    - input_select.bedtime_trigger
+    - sensor.alarm_time
+    - sensor.average_home_temperature
+    - sensor.chance_of_rain
+    - sensor.darksky_hourly_summary
+    - sensor.darksky_nearest_storm_distance
+    - sensor.darksky_temperature
+    - sensor.darksky_wind_speed
+    - sensor.kitchen_motion_sensor
+    - sensor.landing_motion_sensor
+    - sensor.hallway_thermostat_humidity  
+exclude:
+  entities:
+    - light.bedroom_entertainment_area
+    - light.landing_bathroom
+    - light.landing_bedrooms
+    - light.landing_middle
+    - light.hallway_white
+    - light.kitchen_oven_1
+    - light.kitchen_oven_2
+    - light.kitchen_sink_1
+    - light.kitchen_sink_2
+    - light.lounge
+    - light.dining_room
+    - light.office_white
+    - light.master_bedroom
+    - light.guest_bedroom

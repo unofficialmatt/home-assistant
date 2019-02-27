@@ -1,0 +1,27 @@
+#######################################################
+#
+#  This installation of Home Assistant uses a package-   
+#  based configuration format, allowing easy grouping
+#  of related components into self-contained files.
+#  For more info on packages, see the HA documentation
+#
+#######################################################
+
+homeassistant:
+  name: Home
+  
+  unit_system: metric
+  time_zone: !secret timezone
+  
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  elevation: !secret home_elevation
+  
+  packages: !include_dir_named packages
+
+
+# Will be deprecated soon, but a bug requires it stays here in the main config file in order for iOS to work (it wont work from within a package)
+http:
+  api_password: !secret api_password
+
+script: !include_dir_merge_named includes/scripts

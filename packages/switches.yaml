@@ -1,0 +1,30 @@
+#######################################################
+#
+#  This package contains the components used to set up
+#  and manage switches
+#
+#######################################################
+
+homeassistant:
+  customize_domain:
+    switch:
+      icon: mdi:power-plug    
+  customize:
+    switch.tuya_1:
+      icon: mdi:star-four-points
+      friendly_name: Fairy Lights
+    switch.tuya_2:
+      icon: mdi:lamp
+      friendly_name: Star Lamp
+      
+tuya:
+  username: !secret tuya_user
+  password: !secret tuya_pass
+  country_code: 44
+  platform: smart_life  
+  
+switch:
+  - platform: tplink
+    host: !secret ip_switch_tplink
+    name: TP Link
+    

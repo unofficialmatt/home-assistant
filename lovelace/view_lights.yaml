@@ -1,0 +1,36 @@
+title: Lights
+path: lights
+icon: mdi:lightbulb
+background: linear-gradient(#d3cce3,#e9e4f0)
+cards:  
+  - type: custom:compact-custom-header
+    header: true
+    menu: false
+    notification: false
+    voice: false
+    options: true
+    clock: options
+    clock_format: 24
+    background_image: true
+
+  - type: vertical-stack
+    cards:
+      - type: light
+        entity: light.master_bedroom
+      - type: entities
+        entities: 
+          - input_select.scene_master_bedroom
+  - type: light
+    entity: light.guest_bedroom
+  - type: light
+    entity: light.office
+  - type: light
+    entity: light.landing
+  - type: light
+    entity: light.lounge
+  - type: light
+    entity: light.dining_room
+  - type: light
+    entity: light.kitchen
+  - type: light
+    entity: light.hallway

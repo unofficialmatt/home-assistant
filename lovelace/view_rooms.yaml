@@ -1,0 +1,101 @@
+title: Rooms
+path: rooms
+icon: mdi:home-map-marker
+background: linear-gradient(#d3cce3,#e9e4f0)
+cards:  
+  - type: custom:compact-custom-header
+    header: true
+    menu: false
+    notification: false
+    voice: false
+    options: true
+    clock: options
+    clock_format: 24
+    background_image: true
+  
+  - type: picture-glance
+    title: Master Bedroom
+    entities:
+      - light.master_bedroom_colour
+      - light.master_bedroom_lightstrip
+      - media_player.bedroom
+      - switch.tp_link
+#          - automation.bedtime_comfort
+      - input_boolean.alarm_clock
+    state_image: 
+      "on": /local/custom-lovelace/master-bedroom.jpg
+      "off": /local/custom-lovelace/master-bedroom-bw.jpg
+    entity: light.master_bedroom
+    
+  - type: picture-glance
+    title: Guest Bedroom
+    entities:
+      - light.guest_bedroom_colour
+      - light.guest_bedroom_opihr
+      - light.guest_bedroom_sovereign
+    state_image: 
+      "on": /local/custom-lovelace/guest-bedroom.jpg
+      "off": /local/custom-lovelace/guest-bedroom-bw.jpg
+    entity: light.guest_bedroom
+    
+  - type: picture-glance
+    title: Office
+    entities:
+      - light.office_white
+      - light.office_lamp
+      - media_player.office
+    state_image: 
+      "on": /local/custom-lovelace/office.jpg
+      "off": /local/custom-lovelace/office-bw.jpg
+    entity: light.office
+    
+  - type: picture-glance
+    title: Hallways
+    entities:
+      - light.landing_bathroom
+      - light.landing_middle
+      - light.landing_bedrooms
+      - light.hallway_white
+      - climate.hallway
+    state_image: 
+      "on": /local/custom-lovelace/landing.jpg
+      "off": /local/custom-lovelace/landing-bw.jpg
+    entity: light.landing
+    
+  - type: picture-glance
+    title: Lounge
+    entities:
+      - light.lounge_colour
+      - light.lounge_lamp
+      - light.hue_go
+      - switch.tuya_2
+      - media_player.lounge_tv
+      - media_player.lounge
+    state_image: 
+      "on": /local/custom-lovelace/lounge.jpg
+      "off": /local/custom-lovelace/lounge-bw.jpg
+    entity: light.lounge
+    
+  - type: picture-glance
+    title: Dining Room
+    entities:
+      - light.dining_room_colour
+      - light.dining_room_lamp
+      - media_player.dining_room_echo
+      - switch.tuya_1
+    state_image: 
+      "on": /local/custom-lovelace/dining-room.jpg
+      "off": /local/custom-lovelace/dining-room-bw.jpg
+    entity: light.dining_room
+    
+  - type: picture-glance
+    title: Kitchen
+    entities:
+      - light.kitchen_oven_1
+      - light.kitchen_oven_2
+      - light.kitchen_sink_1
+      - light.kitchen_sink_2
+    state_image: 
+      "on": /local/custom-lovelace/kitchen.jpg
+      "off": /local/custom-lovelace/kitchen-bw.jpg
+    entity: light.kitchen

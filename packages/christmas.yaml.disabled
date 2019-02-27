@@ -1,0 +1,70 @@
+#######################################################
+#
+#  This package contains components, sensor and 
+#  automations which are currently in a WIP state.
+#
+#
+#######################################################
+
+homeassistant:
+  customize:
+    switch.tuya_1:
+      icon: mdi:star-four-points
+      friendly_name: Fairy Lights
+    switch.tuya_2:
+      icon: mdi:pine-tree
+      friendly_name: Christmas Tree
+
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+##################
+# CHRISTMAS LIGHTS
+##################
+
+automation:
+  - alias: 'Xmas Lights On PM'
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id: input_select.home_status
+        to: "Home"
+      - platform: time
+        at: '18:00:00'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          before: '20:30:00'
+        - condition: time
+          after: '15:00:00'
+        - condition: state
+          entity_id: input_select.home_status
+          state: "Home"
+    action:
+      - service: switch.turn_on
+        entity_id: switch.tuya_1
+      - service: switch.turn_on
+        entity_id: switch.tuya_2   
+  - alias: 'Xmas Lights On AM'
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id: sensor.landing_motion_sensor
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          before: '08:30:00'
+        - condition: time
+          after: '06:00:00'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.tuya_1
+      - service: switch.turn_on
+        entity_id: switch.tuya_2

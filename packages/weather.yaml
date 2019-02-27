@@ -1,0 +1,150 @@
+#######################################################
+#
+#  This package contains the components and sensors 
+#  used to monitor and act on changes in the weather
+#
+#  ----------------------------------------------------
+#
+#  DEPENDS ON: Occupancy, Environment, Alarm Clock,
+#  Script/Rain Warning
+#  
+#######################################################
+
+homeassistant:
+  customize:
+    sensor.darksky_nearest_storm_distance:
+      friendly_name: Nearest Storm
+      icon: mdi:weather-lightning  
+    sensor.darksky_precip_probability:
+      friendly_name: Chance of rain  
+    sensor.darksky_temperature:
+      friendly_name: Temperature
+      icon: mdi:thermometer-lines
+    sensor.darksky_hourly_summary:
+      friendly_name: Forecast
+    sensor.darksky_daily_high_temperature:
+      friendly_name: High Temperature
+      icon: mdi:arrow-up-bold
+    sensor.darksky_daily_low_temperature:
+      friendly_name: Low Temperature
+      icon: mdi:arrow-down-bold  
+    
+    automation.rain_alert:
+      icon: mdi:weather-rainy
+      
+sensor:
+  - platform: darksky
+    api_key: !secret dark_sky_key
+    name: darksky
+    monitored_conditions:
+      - nearest_storm_distance
+      - summary
+      - precip_probability
+      - temperature
+      - cloud_cover
+      - icon
+      - hourly_summary
+      - temperature_high
+      - temperature_low
+    units: auto
+    scan_interval: '00:05'
+  - platform: wunderground
+    api_key: !secret wu_key
+    monitored_conditions:
+      - precip_1d
+      - weather
+  - platform: min_max
+    name: Chance of Rain
+    type: mean
+    entity_ids:
+      - sensor.pws_precip_1d
+      - sensor.darksky_precip_probability
+ 
+weather:
+  - platform: darksky
+    api_key: !secret dark_sky_key
+
+scene:
+  - name: Rain Warning
+    entities:
+      light.dining_room_lamp:
+        state: on
+        transition: 5
+        brightness: 255
+        rgb_color: [0,0,255]
+      light.hue_go:
+        state: on
+        transition: 5
+        brightness: 255
+        rgb_color: [0,0,255]
+      light.lounge_lamp:
+        state: on
+        transition: 5
+        brightness: 255
+        rgb_color: [0,0,255]
+      light.master_bedroom_lightstrip:
+        state: on
+        transition: 5
+        brightness: 255
+        rgb_color: [0,0,255]
+          
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+
+  - alias: "Morning Rain Notification"
+    hide_entity: true
+    trigger:
+      #sarah
+      - platform: time
+        at: '06:45'
+      #matt
+      - platform: time
+        at: '08:05'
+    condition:
+      condition: and
+      conditions:
+        - condition: or
+          conditions:
+            - condition: numeric_state
+              entity_id: sensor.darksky_nearest_storm_distance
+              below: 15
+            - condition: numeric_state
+              entity_id: sensor.chance_of_rain
+              above: 60
+        - condition: state
+          entity_id: 'binary_sensor.workday_sensor'
+          state: 'on'
+        - condition: state
+          entity_id: input_select.home_status
+          state: 'Home'
+        - condition: state
+          entity_id: input_boolean.alarm_clock
+          state: 'on'
+    action:
+      - service: script.turn_on
+        entity_id: script.rain_warning
+      
+  - alias: "Rain Alert"
+    initial_state: 'off'
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.darksky_nearest_storm_distance
+        below: 15
+      - platform: numeric_state
+        entity_id: sensor.chance_of_rain
+        above: 60
+    condition:
+      - condition: state
+        entity_id: input_select.home_status
+        state: 'Home'
+    action:
+      - service: script.turn_on
+        entity_id: script.rain_warning
+
+
+

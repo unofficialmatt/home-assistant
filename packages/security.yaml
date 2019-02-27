@@ -1,0 +1,51 @@
+#######################################################
+#
+#  This package contains the components, sensors
+#  and automations used to monitor home security 
+#
+#  ----------------------------------------------------
+#
+#  DEPENDS ON: Lights, Notify,
+#  Scripts/Request Device Locations
+#  
+#######################################################
+
+homeassistant:
+  customize:
+    automation.intruder_alerts:
+      icon: mdi:shield
+    
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+  - alias: "Intruder Alerts"
+    trigger:
+      - platform: state
+        entity_id: sensor.landing_motion_sensor, sensor.kitchen_motion_sensor
+        to: 'on'
+      - platform: state
+        entity_id: sensor.nest_mode
+        to: 'Home'
+        from: 'Away'
+    condition:
+      condition: or
+      conditions:
+        - condition: state
+          entity_id: input_select.home_status
+          state: 'Away'
+        - condition: state
+          entity_id: input_select.home_status
+          state: 'Holiday'
+    action:
+      - service: notify.ios_matt
+        data_template: 
+          title: >
+            {{ "\uD83D\uDC6E" }} Intruder Alert!
+          message: "The {{ trigger.to_state.attributes.friendly_name }} has been triggered."
+      - service: script.turn_on
+        entity_id: script.request_location_update
+      - delay: '00:01:00'

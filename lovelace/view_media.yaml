@@ -1,0 +1,60 @@
+title: Media
+path: media
+icon: mdi:play-box-outline
+background: linear-gradient(#d3cce3,#e9e4f0)
+cards:  
+  - type: custom:compact-custom-header
+    header: true
+    menu: false
+    notification: false
+    voice: false
+    options: true
+    clock: options
+    clock_format: 24
+    background_image: true
+
+  - type: vertical-stack
+    cards:
+      - type: markdown
+        content: '## Audio'
+      - entity: media_player.dining_room_echo
+        type: custom:mini-media-player
+        artwork: full-cover
+        idle_view: after 5        
+      - entity: media_player.bedroom
+        type: custom:mini-media-player
+        name: Master Bedroom
+        artwork: full-cover
+        idle_view: when_idle
+        #shortcuts:
+        #  buttons:
+        #    - name: Radio 1
+        #      icon: mdi:radio
+        #      type: music
+        #      id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p'
+        #    - name: Radio 2
+        #      icon: mdi:radio
+        #      type: music
+        #      id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p'
+              
+      - entity: media_player.office
+        type: custom:mini-media-player
+        artwork: full-cover
+        idle_view: when_idle
+      - entity: media_player.lounge
+        type: custom:mini-media-player
+        artwork: full-cover
+        idle_view: when_idle
+
+        
+  
+  - type: vertical-stack
+    cards:        
+      - type: markdown
+        content: '## Video'
+      - type: media-control
+        entity: media_player.lounge_tv
+        artwork: full-cover
+        idle_view: when_idle        
+      - type: media-control
+        entity: media_player.plex_macbook

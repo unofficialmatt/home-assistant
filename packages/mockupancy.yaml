@@ -1,0 +1,107 @@
+#######################################################
+#
+#  This package simulates occupancy when we are away on
+#  holiday. It is triggered when input_select.home_status
+#  is set to 'Holiday'
+#
+#  ----------------------------------------------------
+#
+#  DEPENDS ON: Occupancy, Lights
+#  
+#######################################################
+
+
+    
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+  - alias: "Scene - Holiday AM M-F"
+    hide_entity: true
+    trigger:
+      - platform: time
+        at: '06:10:00'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_select.home_status
+          state: 'Holiday'
+        - condition: state
+          entity_id: 'binary_sensor.workday_sensor'
+          state: 'on'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.master_bedroom
+          rgb_color: [172,138,78]
+          transition: 10
+      - delay: '00:10:00'
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.scene_dining_room
+          option: "Dimmed"
+      - service: scene.turn_on
+        entity_id: scene.hallway_dimmed
+      - delay: '01:50:00'
+      - service: light.turn_off
+        entity_id: group.all_lights
+      
+  - alias: "Scene - Holiday AM S-S"
+    hide_entity: true
+    trigger:
+      - platform: time
+        at: '08:15:00'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_select.home_status
+          state: 'Holiday'
+        - condition: state
+          entity_id: 'binary_sensor.workday_sensor'
+          state: 'off'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.master_bedroom
+          rgb_color: [172,138,78]
+          transition: 10
+      - delay: '00:10:00'
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.scene_dining_room
+          option: "Dimmed"
+      - service: scene.turn_on
+        entity_id: scene.hallway_dimmed
+      - delay: '01:15:00'
+      - service: light.turn_off
+        entity_id: group.all_lights      
+        
+  - alias: "Scene - Holiday PM"
+    hide_entity: true
+    trigger:
+      - platform: time
+        at: '18:00:00'
+    condition:
+      - condition: state
+        entity_id: input_select.home_status
+        state: 'Holiday'
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.scene_dining_room
+          option: "Neutral"
+      - service: scene.turn_on
+        entity_id: scene.hallway_dimmed
+      - delay: '02:30:00'
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.scene_master_bedroom
+          option: "Bedtime"
+      - delay: '01:00:00'
+      - service: light.turn_off
+        entity_id: group.all_lights

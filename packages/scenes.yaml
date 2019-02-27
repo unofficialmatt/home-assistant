@@ -1,0 +1,294 @@
+#######################################################
+#
+#  This package contains the components and automations 
+#  used to define and control scenes.
+#
+#  ----------------------------------------------------
+#
+#  DEPENDS ON: Lights, Includes/Hue-Scenes
+#  
+#######################################################
+
+homeassistant:
+  customize_domain:
+    scene:
+      hidden: true
+  customize_glob:
+    "input_select.scene_*":
+      icon: mdi:brightness-6  
+      
+input_select:
+  scene_master_bedroom:
+    name: Scene
+    options:
+      - Energise
+      - Bright
+      - Bedtime
+      - Dimmed
+      - Relax
+      - "-"
+    initial: "-"  
+  scene_guest_bedroom:
+    name: Scene
+    options:
+      - Energise
+      - Bright
+      - Bedtime
+      - Dimmed
+      - Relax
+      - "-"
+    initial: "-"  
+  scene_dining_room:
+    name: Scene
+    options:
+      - Energise
+      - Bright
+      - Dimmed
+      - Relax
+      - Warm
+      - Entertaining
+      - "-"
+    initial: "-"  
+  scene_lounge:
+    name: Scene
+    options:
+      - Energise
+      - Bright
+      - Dimmed
+      - Relax
+      - Warm
+      - Movie
+      - "-"
+    initial: "-"
+  scene_office:
+    name: Scene
+    options:
+      - Energise
+      - Bright
+      - Dimmed
+      - Relax
+      - "-"
+    initial: "-" 
+    
+scene:
+
+  - name: Hallway Dimmed
+    entities:
+      light.hallway:
+        state: on
+        transition: 3
+        brightness: 5
+        
+  - name: Master Bedroom Energise
+    entities:
+      light.master_bedroom:
+        !include ../includes/hue-scenes/energise.yaml
+  - name: Master Bedroom Bright
+    entities:
+      light.master_bedroom:
+        !include ../includes/hue-scenes/bright.yaml
+  - name: Master Bedroom Bedtime
+    entities:
+      light.master_bedroom_colour:
+        state: on
+        brightness: 125
+        transition: 3
+        rgb_color: [255,44,57]
+      light.master_bedroom_lightstrip:
+        state: on
+        brightness: 57
+        transition: 3
+        rgb_color: [215,80,255]
+  - name: Master Bedroom Dimmed
+    entities:
+      light.master_bedroom:
+        state: on
+        brightness: 77
+        transition: 3
+        rgb_color: [255,207,120]
+  - name: Master Bedroom Relax
+    entities:
+      light.master_bedroom:
+        !include ../includes/hue-scenes/relax.yaml
+        
+  - name: Guest Bedroom Energise
+    entities:
+      light.guest_bedroom:
+        !include ../includes/hue-scenes/energise.yaml
+  - name: Guest Bedroom Bright
+    entities:
+      light.guest_bedroom:
+        !include ../includes/hue-scenes/bright.yaml
+  - name: Guest Bedroom Bedtime
+    entities:
+      light.guest_bedroom_colour:
+        state: on
+        brightness: 36
+        transition: 5
+        rgb_color: [255,163,74]
+      light.guest_bedroom_opihr:
+        state: on
+        brightness: 61
+        transition: 5
+        rgb_color: [114,148,255]
+      light.guest_bedroom_sovereign:
+        state: on
+        brightness: 70
+        transition: 5
+        rgb_color: [255,56,119]
+  - name: Guest Bedroom Dimmed
+    entities:
+      light.guest_bedroom:
+        !include ../includes/hue-scenes/dimmed.yaml
+  - name: Guest Bedroom Relax
+    entities:
+      light.guest_bedroom:
+        !include ../includes/hue-scenes/relax.yaml
+  
+  - name: Dining Room Energise
+    entities:
+      light.dining_room:
+        !include ../includes/hue-scenes/energise.yaml
+  - name: Dining Room Bright
+    entities:
+      light.dining_room:
+        !include ../includes/hue-scenes/bright.yaml
+  - name: Dining Room Dimmed
+    entities:
+      light.dining_room:
+        !include ../includes/hue-scenes/dimmed.yaml
+  - name: Dining Room Relax
+    entities:
+      light.dining_room:
+        !include ../includes/hue-scenes/relax.yaml
+  - name: Dining Room Warm
+    entities:
+      light.dining_room_colour:
+        state: on
+        transition: 3
+        brightness: 174
+        color_temp: 448
+      light.dining_room_lamp:
+        state: off
+  - name: Dining Room Entertaining
+    entities:
+      light.dining_room_colour:
+        state: on
+        transition: 3
+        brightness: 75
+        rgb_color: [255,119,75]
+      light.dining_room_lamp:
+        state: on
+        transition: 3
+        brightness: 222
+        rgb_color: [255,42,201]
+
+  - name: Office Energise
+    entities:
+      light.office:
+        !include ../includes/hue-scenes/energise.yaml
+  - name: Office Bright
+    entities:
+      light.office:
+        !include ../includes/hue-scenes/bright.yaml
+  - name: Office Dimmed
+    entities:
+      light.office:
+        !include ../includes/hue-scenes/dimmed.yaml
+  - name: Office Relax
+    entities:
+      light.office:
+        !include ../includes/hue-scenes/relax.yaml
+  
+  - name: Lounge Energise
+    entities:
+      light.lounge:
+        !include ../includes/hue-scenes/energise.yaml
+  - name: Lounge Bright
+    entities:
+      light.lounge:
+        !include ../includes/hue-scenes/bright.yaml
+  - name: Lounge Dimmed
+    entities:
+      light.lounge:
+        !include ../includes/hue-scenes/dimmed.yaml
+  - name: Lounge Relax
+    entities:
+      light.lounge:
+        !include ../includes/hue-scenes/relax.yaml
+  - name: Lounge Warm
+    entities:
+      light.lounge_colour:
+        state: on
+        transition: 3
+        brightness: 257
+        rgb_color: [255,163,74]
+      light.lounge_lamp:
+        state: on
+        transition: 3
+        brightness: 75
+        rgb_color: [255,119,75]
+      light.hue_go:
+        state: off
+  - name: Lounge Movie
+    entities:
+      light.lounge_colour:
+        state: on
+        transition: 2
+        brightness: 40
+        rgb_color: [158,14,108]
+      light.lounge_lamp:
+        state: off
+        transition: 2
+      light.hue_go:
+        state: off
+  - name: Lounge Movie Up
+    entities:
+      light.lounge_colour:
+        state: on
+        transition: 2
+        brightness: 175
+        rgb_color: [255,163,74]
+      light.lounge_lamp:
+        state: on
+        transition: 2
+        brightness: 40
+        rgb_color: [255,119,75]
+      light.hue_go:
+        state: on
+        transition: 2
+        brightness: 20
+        rgb_color: [255,119,75]
+      
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+  - alias: 'Scene Selector'
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id: input_select.scene_master_bedroom, input_select.scene_guest_bedroom, input_select.scene_lounge, input_select.scene_dining_room, input_select.scene_office
+    condition:
+      - condition: template
+        value_template: >
+          {{ not is_state('{{ trigger.entity_id }}', '-') }}
+    action:
+      - service: scene.turn_on
+        data_template:
+          entity_id: "scene.{{ trigger.entity_id|replace('input_select.scene_', '') }}_{{ trigger.to_state.state }}"
+          
+  - alias: 'Scene Reset'
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id: light.master_bedroom, light.guest_bedroom, light.lounge, light.dining_room, light.office
+        to: 'off'
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: "input_select.scene_{{ trigger.entity_id|replace('light.', '') }}"
+          option: "-"

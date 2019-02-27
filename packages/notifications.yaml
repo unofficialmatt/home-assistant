@@ -1,0 +1,29 @@
+#######################################################
+#
+#  This package contains the components used to notify,
+#  and be notified by, Home Assistant 
+#
+#######################################################
+
+tts:
+  - platform: google
+    cache_dir: /mnt/usbdrive/tts/
+    
+notify:
+  - platform: webostv
+    host: !secret ip_webostv
+    name: lounge_tv
+#    icon: /local/home_assistant.png
+  - name: all_phones
+    platform: group
+    services:
+      - service: ios_matt
+      - service: ios_sarah
+  - name: matt
+    platform: group
+    services:
+      - service: ios_matt
+  - name: sarah
+    platform: group
+    services:
+      - service: ios_sarah

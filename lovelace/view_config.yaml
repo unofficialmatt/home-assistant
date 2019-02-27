@@ -1,0 +1,79 @@
+title: Config
+path: config
+icon: mdi:settings
+background: linear-gradient(#d3cce3,#e9e4f0)
+cards:  
+  - type: custom:compact-custom-header
+    header: true
+    menu: false
+    notification: false
+    voice: false
+    options: true
+    clock: options
+    clock_format: 2
+    background_image: true
+  - type: custom:tracker-card
+    title:
+    trackers:
+      - sensor.custom_card_tracker
+      - sensor.custom_component_tracker
+  - type: entities
+    show_header_toggle: false
+    title: Scripts
+    entities:
+      - script.restart_hass
+      - script.request_location_update
+
+  - type: entity-button
+    entity: group.all_lights
+  
+
+
+  - type: conditional
+    conditions:
+      - entity: input_boolean.alarm_clock
+        state: 'on'
+    cards:
+      type: markdown
+      title: Alarm Time
+      content: >
+        ## Alarm
+        Alarm set for {{ states.sensor.alarm_time.state }
+    
+  - type: entities
+    title: Alarm Clock / Morning Routines
+    show_header_toggle: false
+    entities:
+      - input_boolean.alarm_clock
+      - input_number.alarm_hour
+      - input_number.alarm_minutes
+      - entity:
+        type: divider
+      - automation.auto_set_alarm_clock
+      - automation.commute_light
+      - automation.commute_notify_speaker
+      - entity:
+        type: divider
+      - automation.weekend_morning_music
+      
+  - type: entities
+    title: Heated Mattress
+    show_header_toggle: false
+    entities:
+      - switch.tp_link
+      - automation.bedtime_comfort
+      
+  - type: entities
+    title: Peeps
+    show_header_toggle: false
+    entities:
+      - person.matt
+      - person.sarah
+   
+  - type: conditional
+    conditions:
+      - entity: input_select.home_status
+        state: 'Home'
+    card:
+      type: thermostat
+      entity: climate.hallway      

@@ -1,0 +1,109 @@
+#######################################################
+#
+#  This package contains the components, sensors and
+#  automations used to control morning routines
+#
+#  ----------------------------------------------------
+#
+#  DEPENDS ON: Occupancy, Alarm Clock, Environment, 
+#  Scenes, Media Players
+#  
+#######################################################
+
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+- alias: "Scene - Morning Getting Dressed"
+  hide_entity: true
+  trigger:
+    # sarah
+    - platform: time
+      at: '06:35:00'
+    # matt
+    - platform: time
+      at: '07:45:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.home_status
+        state: 'Home'
+      - condition: state
+        entity_id: input_boolean.alarm_clock
+        state: 'on' 
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'on'
+      - condition: template
+        value_template: >
+          {{ states.sensor.time.state >= states.sensor.alarm_time.state }}
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.scene_master_bedroom
+        option: "Energise"
+        
+- alias: "Scene - Morning Relax"
+  hide_entity: true
+  trigger:
+    - platform: time
+      at: '06:55:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.home_status
+        state: 'Home'
+      - condition: state
+        entity_id: input_boolean.alarm_clock
+        state: 'on' 
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'on'
+      - condition: template
+        value_template: >
+          {{ states.sensor.time.state >= states.sensor.alarm_time.state }}
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.scene_master_bedroom
+        option: "Dimmed"
+    - service: media_player.media_stop
+      entity_id: media_player.bedroom
+      
+- alias: "Morning Getting Amped Up"
+  hide_entity: true
+  trigger:
+    - platform: time
+      at: '07:45:00'
+  condition:  
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.home_status
+        state: 'Home'
+      - condition: state
+        entity_id: input_boolean.alarm_clock
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'on'
+      - condition: template
+        value_template: >
+          {{ states.sensor.time.state >= states.sensor.alarm_time.state }}
+  action:   
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.bedroom
+        volume_level: 0.45
+    - service: media_player.play_media
+      entity_id: media_player.bedroom
+      data:
+        # BBC Radio 1
+        media_content_id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p'
+        media_content_type: 'music' 

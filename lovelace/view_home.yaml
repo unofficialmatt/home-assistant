@@ -1,0 +1,152 @@
+title: Home
+path: home
+icon: mdi:home
+#panel: true
+background: linear-gradient(#444444,#494949)
+cards:  
+  - type: custom:compact-custom-header
+    header: true
+    menu: false
+    notification: false
+    voice: false
+    options: true
+    clock: options
+    clock_format: 2
+    background_image: true
+
+## OCCUPANTS
+  - type: vertical-stack
+    cards:
+    - type: horizontal-stack    
+      cards:
+      - type: picture-elements
+        entity: device_tracker.matt
+        image: /local/people/matt.jpg
+        state_image: 
+          "home": /local/people/matt.jpg
+          "not_home": /local/people/matt-bw.jpg
+          "Matt Work": /local/people/matt-bw.jpg
+        elements:
+          - type: state-label
+            entity: device_tracker.matt
+            prefix: 'Matt - '
+            style: {color: white, font-size: 150%, bottom: 0%, background-color: "rgba(0, 0, 0, 0.4)", width: 100%, transform: initial}
+      - type: picture-elements
+        entity: device_tracker.sarah
+        image: /local/people/sarah.jpg
+        state_image: 
+          "home": /local/people/sarah.jpg
+          "not_home": /local/people/sarah-bw.jpg
+          "Sarah Work": /local/people/sarah-bw.jpg
+        elements:
+          - type: state-label
+            entity: device_tracker.sarah
+            prefix: 'Sarah - '
+            style: {color: white, font-size: 150%, bottom: 0%, background-color: "rgba(0, 0, 0, 0.4)", width: 100%, transform: initial}
+    - type: conditional
+      conditions:
+        - entity: input_select.home_status
+          state_not: 'Home'
+      card:
+        type: map
+        aspect_ratio: 4:3
+        default_zoom: 12
+        entities:
+          - device_tracker.matt
+          - device_tracker.sarah
+    - type: "custom:calendar-card"
+      name: Upcoming Events
+      entities:
+        - calendar.matt
+        - calendar.joint
+        - calendar.sarah
+      numberOfDays: 14
+      showProgressBar: false            
+
+## GUESTS
+    - type: entity-filter
+      show_empty: false
+      entities:
+        - device_tracker.aimee
+        - device_tracker.james
+        - device_tracker.katt
+        - device_tracker.rashida
+      state_filter:
+        - 'home'
+      card:
+        type: glance
+        title: 'Guests'
+        show_state: false
+      
+    - type: conditional
+      conditions:
+        - entity: group.guests
+          state: 'home'
+      card:
+        type: entities
+        title: Guest Options
+        show_header_toggle: false
+        entities:
+          - input_boolean.guests_staying
+          - input_boolean.entertaining
+   
+  - type: vertical-stack
+    cards:
+    - type: custom:simple-thermostat
+      entity: climate.hallway
+    - type: horizontal-stack
+      cards:
+        - type: custom:mini-graph-card
+          entities: 
+            - sensor.chance_of_rain
+        - type: custom:mini-graph-card
+          entities: 
+            - sensor.darksky_temperature            
+      
+
+## ACTIVE DEVICES 
+  - type: entity-filter
+    show_empty: false
+    entities:
+      - light.lounge
+      - light.dining_room
+      - light.kitchen
+      - light.master_bedroom
+      - light.guest_bedroom
+      - light.office
+      - light.hallway
+      - light.landing
+      - switch.tuya_1
+      - switch.tuya_2
+    state_filter:
+      - 'on'
+    card:
+      type: entities
+      title: Lights On
+      show_state: false    
+  
+  - type: entity-filter
+    show_empty: false
+    show_header_toggle: false
+    state_filter:
+      - 'playing'
+    entities:
+      - entity: media_player.lounge_tv
+        type: custom:mini-media-player
+        group: true
+      - entity: media_player.bedroom
+        type: custom:mini-media-player
+        group: true
+      - entity: media_player.office
+        type: custom:mini-media-player
+        group: true
+      - entity: media_player.lounge
+        type: custom:mini-media-player
+        group: true
+      - entity: media_player.dining_room_echo
+        type: custom:mini-media-player
+        group: true
+    card:
+      type: entities
+      show_header_toggle: false
+      title: Media Playing

@@ -1,0 +1,48 @@
+title: Climate
+path: climate
+icon: mdi:thermometer-lines
+background: linear-gradient(#d3cce3,#e9e4f0)
+cards:  
+  - type: custom:compact-custom-header
+    header: true
+    menu: false
+    notification: false
+    voice: false
+    options: true
+    clock: options
+    clock_format: 2
+    background_image: true  
+        
+  - type: vertical-stack
+    cards:
+      - type: weather-forecast
+        entity: weather.dark_sky
+               
+  - type: vertical-stack
+    cards:
+      - type: custom:mini-graph-card
+        entities: 
+          - sensor.hallway_thermostat_temperature
+        animate: true
+        height: 100
+        line_color: red
+        show:
+          fill: false
+      - type: custom:mini-graph-card
+        entities:           
+          - sensor.kitchen_temperature
+      - type: custom:mini-graph-card
+        entities:           
+          - sensor.landing_temperature
+          
+  - type: vertical-stack
+    cards:
+      - type: custom:mini-graph-card
+        entities: 
+          - sensor.hallway_thermostat_humidity
+      - type: custom:mini-graph-card
+        entities: 
+          - sensor.kitchen_humidity
+      - type: custom:mini-graph-card
+        entities: 
+          - sensor.landing_humidity

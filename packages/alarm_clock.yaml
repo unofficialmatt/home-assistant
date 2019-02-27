@@ -1,0 +1,225 @@
+#######################################################
+#
+#  This package contains the components, sensors and
+#  automations used to create a programmable alarm
+#  clock.
+#
+#  ----------------------------------------------------
+#
+#  DEPENDS ON: Environment, Occupancy, Scenes, Lights
+#  
+#######################################################
+
+homeassistant:
+  customize_glob:
+    "*alarm*":
+      icon: mdi:alarm 
+  customize:
+    automation.auto_set_alarm_clock:
+      icon: mdi:timer
+    sensor.relative_alarm_time:
+      hidden: true
+    sensor.time_until_alarm:
+      hidden: true
+      icon: mdi:timelapse
+    
+sensor:  
+  - platform: template
+    sensors:
+      alarm_time:
+        friendly_name: 'Wake Up Time'
+        entity_id:
+           - input_number.alarm_hour
+           - input_number.alarm_minutes
+        value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.alarm_hour") | int, states("input_number.alarm_minutes") | int) }}'
+      relative_alarm_time:
+        friendly_name: Seconds until next alarm
+        entity_id:
+           - input_number.alarm_hour
+           - input_number.alarm_minutes
+           - sensor.time
+        value_template: >
+          {% set relative_time =  (states.input_number.alarm_hour.state|float|multiply(60) + states.input_number.alarm_minutes.state|float) - (now().hour|float|multiply(60) + now().minute) %}
+          {%- if relative_time < 0 -%}
+            {{23*60+relative_time}}
+          {%- else -%}
+            {{relative_time - 60}}
+          {% endif %}
+      time_until_alarm:
+        friendly_name: Time until next alarm
+        entity_id:
+           - sensor.relative_alarm_time
+        value_template: '{{  (states.sensor.relative_alarm_time.state.split(" ")[0] | int *60 ) | timestamp_custom("%H:%M") }}'
+        
+input_number:
+  alarm_hour:
+    name: Hours
+    icon: mdi:timer
+    initial: 6
+    min: 0
+    max: 23
+    step: 1   
+  alarm_minutes:
+    name: Minutes
+    icon: mdi:timer
+    initial: 10
+    min: 0
+    max: 59
+    step: 5
+
+input_boolean:
+  alarm_clock:
+    name: Enable Alarm Clock
+    initial: on
+    icon: mdi:alarm-check
+  
+scene:
+  - name: Master Bedroom Wake Up
+    entities:
+      light.master_bedroom_colour:
+        state: on
+        transition: 900
+        rgb_color: [165,115,42]
+        
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+  - alias: "Auto set alarm clock"
+    trigger:
+      platform: time
+      at: '12:00:00'
+    action:
+      service_template: >
+        {% if is_state('binary_sensor.is_workday_tomorrow', 'off') %}
+          input_boolean.turn_off
+        {% else %}
+          input_boolean.turn_on
+        {% endif %}
+      entity_id: input_boolean.alarm_clock
+      
+  # BIRD SOUNDS AND ARTIFICIAL SUNRISE
+  - alias: "Alarm Clock - Birds and Sunrise"
+    hide_entity: true
+    trigger:
+      platform: template
+      value_template: >
+        {{ states.sensor.time_until_alarm.state == '00:15' }}
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_select.home_status
+          state: 'Home'
+        - condition: state
+          entity_id: input_boolean.alarm_clock
+          state: 'on' 
+    action:
+      - service: scene.turn_on
+        entity_id: scene.master_bedroom_wake_up
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.scene_master_bedroom
+          option: "-"    
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom
+          volume_level: 0.2
+      - service: media_player.play_media
+        entity_id: media_player.bedroom
+        data:
+          media_content_id: 'https://www.gstatic.com/voice_delight/sounds/long/forest.mp3'
+          media_content_type: 'music'  
+
+  # TURN ON DOWNSTAIRS LIGHTS IF STILL DARK OUT
+  - alias: "Alarm Clock - Downstairs Lights On"
+    hide_entity: true
+    trigger:
+      platform: template
+      value_template: >
+        {{ states.sensor.time.state == states.sensor.alarm_time.state }}
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_select.home_status
+          state: 'Home'
+        - condition: state
+          entity_id: input_boolean.alarm_clock
+          state: 'on' 
+        - condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: 'on'
+        - condition: sun
+          before: sunrise
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.scene_dining_room
+          option: "Dimmed"
+      - service: scene.turn_on
+        entity_id: scene.hallway_dimmed
+        
+  # MORNING BRIEFING
+  - alias: "Alarm Clock - Morning Briefing"
+    hide_entity: true
+    trigger:
+      platform: template
+      value_template: >
+        {{ states.sensor.time.state == states.sensor.alarm_time.state }}
+    condition:  
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_select.home_status
+          state: 'Home'
+        - condition: state
+          entity_id: input_boolean.alarm_clock
+          state: 'on'
+        - condition: template
+          value_template: >
+            {{ states.sensor.time.state >= states.sensor.alarm_time.state }}
+    action:
+      - service_template: >
+          {% if is_state('sensor.is_matt_home', 'home') %}
+            notify.ios_matt
+          {% endif %}
+        data_template:
+          title: >
+            {{ "\uD83C\uDF1E" }} Weather Briefing
+          message: >
+            The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daily_high_temperature')}}°C. The forecast is {{states('sensor.pws_weather')}}
+      - service_template: >
+          {% if is_state('sensor.is_sarah_home', 'home') %}
+            notify.ios_sarah
+          {% endif %}
+        data_template:
+          title: >
+            {{ "\uD83C\uDF1E" }} Weather Briefing
+          message: >
+            The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daily_high_temperature')}}°C. The forecast is {{states('sensor.pws_weather')}}    
+      - delay: '00:00:10'
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom
+          volume_level: 0.3
+      - service: tts.google_say
+        entity_id: media_player.bedroom
+        data_template:
+          message: >
+            Good morning! The time is {{states.sensor.time.state}}. The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daily_high_temperature')}} degrees celcius. The forecast is {{states('sensor.pws_weather')}}. Have a great day.
+      #- wait_template: "{{ is_state('media_player.bedroom', 'idle') or is_state('media_player.bedroom', 'off') }}"
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom
+          volume_level: 0.2
+      - service: media_player.play_media
+        entity_id: media_player.bedroom
+        data:
+          # BBC Radio 1
+          media_content_id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p'
+          media_content_type: 'music'  
+      
