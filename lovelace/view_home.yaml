@@ -1,8 +1,8 @@
 title: Home
 path: home
 icon: mdi:home
-#panel: true
-background: linear-gradient(#444444,#494949)
+background: var(--background-image)
+
 cards:  
   - type: custom:compact-custom-header
     header: true
@@ -15,7 +15,7 @@ cards:
     background_image: true
 
 ## OCCUPANTS
-  - type: vertical-stack
+  - type: vertical-stack  
     cards:
     - type: horizontal-stack    
       cards:
@@ -92,61 +92,193 @@ cards:
    
   - type: vertical-stack
     cards:
-    - type: custom:simple-thermostat
-      entity: climate.hallway
+    - type: custom:simple-weather-card
+      entity: weather.dark_sky
+      backdrop: true
+      name: "in Southampton"        
+    - type: conditional
+      conditions:
+        - entity: input_select.home_status
+          state: 'Home'
+      card:
+        type: thermostat
+        entity: climate.hallway
+    - type: horizontal-stack
+      cards:    
+        - type: custom:mini-graph-card
+          name: Indoor Temp
+          entities: 
+            - sensor.average_home_temperature
+          more_info: false
+          show:
+            points: hover
+            fill: false
+          animate: true
+          line_width: 10
+          color_thresholds:
+            - value: 10
+              color: "#2d98da"
+            - value: 12
+              color: "#45aaf2"              
+            - value: 16
+              color: "#fed330"
+            - value: 18
+              color: "#f7b731"
+            - value: 20
+              color: "#fd9644"
+            - value: 22
+              color: "#fa8231"  
+        - type: custom:mini-graph-card
+          name: Outdoor Temp
+          entities: 
+            - sensor.darksky_temperature
+          more_info: false
+          show:
+            points: hover
+            fill: false
+          animate: true
+          line_width: 10
+          color_thresholds:
+            - value: 0
+              color: "#2d98da"
+            - value: 10
+              color: "#45aaf2"              
+            - value: 15
+              color: "#fed330"
+            - value: 20
+              color: "#f7b731"
+            - value: 25
+              color: "#fd9644"
+            - value: 30
+              color: "#fa8231"              
     - type: horizontal-stack
       cards:
         - type: custom:mini-graph-card
           entities: 
             - sensor.chance_of_rain
+          more_info: false
+          show:
+            points: hover
+            fill: false
+          animate: true
+          line_width: 10
+          color_thresholds:
+            - value: 0
+              color: "#7AE5FF"  # 30% tint
+            - value: 30
+              color: "#60CBFF"  # 40% tint
+            - value: 70
+              color: "#2d98da"  # 100% tint
         - type: custom:mini-graph-card
+          name: Cloud Coverage
           entities: 
-            - sensor.darksky_temperature            
-      
+            - sensor.darksky_cloud_coverage
+          more_info: false
+          show:
+            points: hover
+            fill: false
+          animate: true
+          line_width: 10
+          color_thresholds:
+            - value: 0
+              color: "#7AE5FF"  # 30% tint
+            - value: 30
+              color: "#60CBFF"  # 40% tint
+            - value: 70
+              color: "#2d98da"  # 100% tint
+            
+
+           
 
 ## ACTIVE DEVICES 
-  - type: entity-filter
-    show_empty: false
-    entities:
-      - light.lounge
-      - light.dining_room
-      - light.kitchen
-      - light.master_bedroom
-      - light.guest_bedroom
-      - light.office
-      - light.hallway
-      - light.landing
-      - switch.tuya_1
-      - switch.tuya_2
-    state_filter:
-      - 'on'
-    card:
-      type: entities
-      title: Lights On
-      show_state: false    
-  
-  - type: entity-filter
-    show_empty: false
-    show_header_toggle: false
-    state_filter:
-      - 'playing'
-    entities:
-      - entity: media_player.lounge_tv
-        type: custom:mini-media-player
-        group: true
-      - entity: media_player.bedroom
-        type: custom:mini-media-player
-        group: true
-      - entity: media_player.office
-        type: custom:mini-media-player
-        group: true
-      - entity: media_player.lounge
-        type: custom:mini-media-player
-        group: true
-      - entity: media_player.dining_room_echo
-        type: custom:mini-media-player
-        group: true
-    card:
-      type: entities
+  - type: vertical-stack
+    cards:
+    
+    - type: conditional
+      conditions:
+        - entity: binary_sensor.workday_sensor
+          state: "on"
+        - entity: sensor.time_of_day
+          state: "Morning"
+      card:
+        type: vertical-stack
+        cards:
+          - type: custom:mini-graph-card
+            entities: 
+              - sensor.morning_commute
+            more_info: false
+            show:
+              points: hover
+              fill: false
+            animate: true
+            hours_to_show: 6
+            line_width: 5
+            points_per_hour: 2
+            color_thresholds:
+              - value: 20
+                color: "#20bf6b"
+              - value: 40
+                color: "#f7b731"
+              - value: 50
+                color: "#eb3b5a"
+        
+    - type: conditional
+      conditions:
+        - entity: input_boolean.alarm_clock
+          state: "on"
+      card:
+        type: custom:useful-markdown-card
+        title: Alarm
+        content: >
+          The wake-up alarm is set for **[[ sensor.alarm_time ]]**.
+    - type: entity-filter
+      show_empty: false
+      entities:
+        - light.lounge
+        - light.dining_room
+        - light.kitchen
+        - light.master_bedroom
+        - light.guest_bedroom
+        - light.office
+        - light.hallway
+        - light.landing
+        - switch.tuya_1
+        - switch.tuya_2
+      state_filter:
+        - 'on'
+      card:
+        type: entities
+        title: Lights On
+        show_state: false    
+    
+    - type: entity-filter
+      show_empty: false
       show_header_toggle: false
-      title: Media Playing
+      state_filter:
+        - 'playing'
+      entities:
+        - entity: media_player.lounge_tv
+          type: custom:mini-media-player
+          group: true
+        - entity: media_player.playstation_4
+          type: custom:mini-media-player
+          group: true
+        - entity: media_player.bedroom
+          type: custom:mini-media-player
+          group: true
+        - entity: media_player.office
+          type: custom:mini-media-player
+          group: true
+        - entity: media_player.lounge
+          type: custom:mini-media-player
+          group: true
+        - entity: media_player.dining_room
+          type: custom:mini-media-player
+          group: true
+      card:
+        type: entities
+        show_header_toggle: false
+        title: Media Playing
+#    - type: 'custom:spotify-card'
+#      client_id: !secret spotify_client_id
+#      limit: 10        

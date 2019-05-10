@@ -16,7 +16,7 @@ homeassistant:
     automation.bedtime_comfort:
       icon: mdi:radiator
       friendly_name: Heated Mattress on at Bedtime
-    switch.tp_link:
+    switch.heated_blanket:
       icon: mdi:radiator
       friendly_name: Heated Mattress
       
@@ -40,7 +40,7 @@ automation:
     hide_entity: true
     trigger:
       - platform: state
-        entity_id: sensor.landing_motion_sensor
+        entity_id: binary_sensor.landing_sensor_motion
         to: 'on'
     condition:
       condition: and
@@ -170,7 +170,7 @@ automation:
         state: 'Home'
     action:
       - service: switch.turn_on
-        entity_id: switch.tp_link
+        entity_id: switch.heated_blanket
   
   - alias: 'Heated Mattress / Fan Off'
     hide_entity: true
@@ -182,8 +182,8 @@ automation:
           minutes: 60
     condition:
       - condition: state
-        entity_id: switch.tp_link
+        entity_id: switch.heated_blanket
         state: 'on'
     action:
       - service: switch.turn_off
-        entity_id: switch.tp_link
+        entity_id: switch.heated_blanket

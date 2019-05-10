@@ -1,7 +1,7 @@
 title: Lights
 path: lights
 icon: mdi:lightbulb
-background: linear-gradient(#d3cce3,#e9e4f0)
+background: var(--background-image)
 cards:  
   - type: custom:compact-custom-header
     header: true
@@ -13,24 +13,86 @@ cards:
     clock_format: 24
     background_image: true
 
-  - type: vertical-stack
+#  - type: custom:vertical-stack-in-card
+#    cards:
+#      - type: light
+#        entity: light.master_bedroom
+#      - type: entities
+#        entities: 
+#          - input_select.scene_master_bedroom
+  - type: custom:vertical-stack-in-card
     cards:
-      - type: light
+      - type: picture-glance
+        title: Master Bedroom
+        entities:
+          - light.master_bedroom_colour
+          - light.master_bedroom_lightstrip
+          - media_player.bedroom
+          - switch.heated_blanket
+          - input_boolean.alarm_clock
+        state_image: 
+          "on": /local/rooms/master-bedroom.jpg
+          "off": /local/rooms/master-bedroom-bw.jpg
         entity: light.master_bedroom
+        aspect_ratio: 4x2
+#        tap_action:
+#          action: toggle
       - type: entities
-        entities: 
+        #title: Master Bedroom
+        show_header_toggle: false
+        entities:
+          - type: custom:slider-entity-row
+            entity: light.master_bedroom
+            toggle: true
           - input_select.scene_master_bedroom
-  - type: light
-    entity: light.guest_bedroom
-  - type: light
-    entity: light.office
-  - type: light
-    entity: light.landing
-  - type: light
-    entity: light.lounge
-  - type: light
-    entity: light.dining_room
-  - type: light
-    entity: light.kitchen
-  - type: light
-    entity: light.hallway
+  - type: entities
+    title: Guest Bedroom
+    show_header_toggle: false
+    entities:
+      - type: custom:slider-entity-row
+        entity: light.guest_bedroom
+        toggle: true
+      - input_select.scene_guest_bedroom
+  - type: entities
+    title: Office
+    show_header_toggle: false
+    entities:
+      - type: custom:slider-entity-row
+        entity: light.office
+        toggle: true
+      - input_select.scene_office
+      
+  - type: entities
+    title: Lounge
+    show_header_toggle: false
+    entities:
+      - type: custom:slider-entity-row
+        entity: light.lounge
+        toggle: true
+      - input_select.scene_lounge
+  - type: entities
+    title: Dining Room
+    show_header_toggle: false
+    entities:
+      - type: custom:slider-entity-row
+        entity: light.dining_room
+        toggle: true
+      - input_select.scene_dining_room
+  - type: entities
+    title: Dining Room
+    show_header_toggle: false
+    entities:
+      - type: custom:slider-entity-row
+        entity: light.kitchen
+        toggle: true
+      - input_select.scene_kitchen
+  - type: entities
+    title: Landing and Hallway
+    show_header_toggle: false
+    entities:
+      - type: custom:slider-entity-row
+        entity: light.landing
+        toggle: true
+      - type: custom:slider-entity-row
+        entity: light.hallway
+        toggle: true

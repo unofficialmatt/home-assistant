@@ -20,7 +20,7 @@ homeassistant:
       friendly_name: Restart Home Assistant
   customize_glob:
     "automation.*scene*":
-      icon: mdi:brightness-6  
+      icon: mdi:brightness-6      
       
 http:
   ssl_certificate: !secret ssl_certificate
@@ -28,21 +28,24 @@ http:
   ip_ban_enabled: True
   login_attempts_threshold: 15
   base_url: !secret base_url
-  trusted_networks:
-  # Allow access to known devices without having to enter a password
-    - !secret ip_macbook
-    - !secret ip_matt_phone
-    - !secret ip_sarah_phone
   
 frontend:
   javascript_version: latest
+  themes: !include_dir_merge_named ../themes
   
 system_health:
+
+mobile_app:
   
 lovelace:
   mode: yaml
   
 custom_updater:
+  component_urls:
+    # Dev build (unstable)
+    - https://raw.githubusercontent.com/keatontaylor/alexa_media_player/next/custom_components.json
+    # Released build
+    - https://raw.githubusercontent.com/keatontaylor/alexa_media_player/master/custom_components.json  
   track:
     - cards
     - components
@@ -52,6 +55,7 @@ custom_updater:
     - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
     - https://raw.githubusercontent.com/rdehuyss/homeassistant-lovelace-google-calendar-card/master/custom_updater.json
     - https://raw.githubusercontent.com/nervetattoo/simple-thermostat/master/tracker.json
+    - https://raw.githubusercontent.com/kalkih/simple-weather-card/master/tracker.json
   
 config:
 
@@ -64,14 +68,16 @@ recorder:
   purge_interval: 2
   purge_keep_days: 6
   
-history: !include ../includes/logging.yaml
+history: #!include ../includes/logging.yaml
 
-logbook: !include ../includes/logging.yaml
+logbook: #!include ../includes/logging.yaml
 
 # Check for updates
 updater:
 
-#discovery:
+discovery:
+  ignore:
+    - igd
 
 api:
 
@@ -119,3 +125,20 @@ automation:
       data_template: 
         title: '{{ "\u2699\uFE0F"}} Home Assistant shut down'
         message: "Logging off..."
+        
+#  - alias: 'Theme Switch'
+#    hide_entity: True
+#    trigger:
+#      - platform: homeassistant
+#        event: start
+#      - platform: state
+#        entity_id: sun.sun
+#    action:
+#      - service_template: frontend.set_theme
+#        data_template:
+#          name: >
+#            {% if states.sun.sun.state == "above_horizon" %}
+#              modern
+#            {% else %}
+#              modern-dark
+#            {% endif %}

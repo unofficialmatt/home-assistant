@@ -1,12 +1,11 @@
 title: Floorplan
 path: floorplan
 icon: mdi:floor-plan
-background: linear-gradient(#d3cce3,#e9e4f0)
+background: var(--background-image)
 panel: true
 cards:  
   - type: vertical-stack
     cards:
-      - type: custom:plan-coordinates
       - type: picture-elements
         image: /local/floorplan.png
         elements:
@@ -36,7 +35,7 @@ cards:
           - type: state-icon
             tap_action:
               action: more-info
-            entity: media_player.dining_room_echo
+            entity: media_player.dining_room
             style:
               top: 59%
               left: 53%              
@@ -170,7 +169,14 @@ cards:
             entity: media_player.lounge
             style:
               top: 59%
-              left: 72%               
+              left: 72%   
+          - type: state-icon
+            tap_action:
+              action: more-info
+            entity: media_player.lounge_tv
+            style:
+              top: 59%
+              left: 79%   
           - type: state-label
             entity: input_select.scene_lounge
             prefix: 'Scene: '

@@ -26,14 +26,14 @@ rain_warning:
         entity_id: media_player.speakers
         volume_level: 0.50
     - wait_template: "{{ is_state('media_player.speakers', 'idle') or is_state('media_player.speakers', 'off') }}"
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id: media_player.speakers
       data_template:
         message: >
           This is a weather alert from Home Assistant. There is a {{states('sensor.chance_of_rain')}} percent chance it might rain soon! There is a storm {{ states. sensor.darksky_nearest_storm_distance.state }} miles away.
-    - service: media_player.alexa_tts
+    - service: notify.alexa_media
       data_template:
-        entity_id: media.player.dining_room_echo
+        entity_id: media.player.dining_room
         message: >
           This is a weather alert from Home Assistant. There is a {{states('sensor.chance_of_rain')}} percent chance it might rain soon! There is a storm {{ states. sensor.darksky_nearest_storm_distance.state }} miles away.
     - wait_template: "{{ is_state('media_player.speakers', 'idle') }}"

@@ -6,14 +6,10 @@
 #######################################################
 
 tts:
-  - platform: google
+  - platform: google_translate
     cache_dir: /mnt/usbdrive/tts/
     
 notify:
-  - platform: webostv
-    host: !secret ip_webostv
-    name: lounge_tv
-#    icon: /local/home_assistant.png
   - name: all_phones
     platform: group
     services:
@@ -27,3 +23,5 @@ notify:
     platform: group
     services:
       - service: ios_sarah
+  - platform: alexa_media
+    name: alexa_media      

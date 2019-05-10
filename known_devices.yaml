@@ -69,18 +69,34 @@ rashida:
   name: Rashida
   picture: /local/people/rashida.jpg
   track: true
-matt_siphone8:
+rob:
   hide_if_away: false
   icon:
   mac:
-  name: matt siphone8
+  name: rob
   picture:
   track: true
 
-sarahkentsiphone:
+sarahs_ipad:
   hide_if_away: false
   icon:
   mac:
-  name: sarahkentsiphone
+  name: iPad
+  picture:
+  track: true
+
+matts_iphone_8_beta:
+  hide_if_away: false
+  icon:
+  mac:
+  name: Matt's iPhone 8+
+  picture:
+  track: true
+
+737f40136a904f13b5f9b8cbbad0acfb:
+  hide_if_away: false
+  icon:
+  mac:
+  name: 737f40136a904f13b5f9b8cbbad0acfb
   picture:
   track: true

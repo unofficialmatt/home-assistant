@@ -6,41 +6,54 @@
 #
 #######################################################
 
-calendar:
-  - platform: caldav
-    url: !secret icloud_cal_url
-    username: !secret icloud_email
-    password: !secret icloud_specific_password
-    calendars:
-      - 'Joint' 
-      - 'Sarah'
-      - 'Home'
-      
-automation:
-  - alias: Keep Google Home Alive
-    trigger:
-      platform: time
-      minutes: '/2'
-      seconds: 00
-    condition:
-      condition: or
-      conditions:
-        - condition: state
-          entity_id: media_player.bedroom
-          state: 'off'
-        - condition: state
-          entity_id: media_player.bedroom
-          state: 'idle'
-    action:
-      service: media_player.play_media
-      entity_id: media_player.bedroom
-      data:
-        media_content_id: https://mwsk.duckdns.org/local/1sec.mp3
-        media_content_type: music
+# iCal integration - doesn't seem to pull any calendar info in
 
+#calendar:
+#  - platform: caldav
+#    url: !secret icloud_cal_url
+#    username: !secret icloud_email
+#    password: !secret icloud_specific_password
+#    calendars:
+#      - 'Joint' 
+#      - 'Sarah'
+#      - 'Home'
+vacuum:
+  - platform: xiaomi_miio
+    friendly_name: Robbie
+    host: !secret ip_robbie
+    token: !secret token_robbie
+
+spotcast:
+  username: !secret spotify_username
+  password: !secret spotify_password
+    
+media_player:
+  - platform: philips_js
+    host: !secret ip_philips_tv
+    name: Philips TV
+    api_version: 6
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+#sensor:
+#  - platform: uk_transport
+#    app_id: !secret uk_transport_id
+#    app_key: !secret uk_transport_key
+#    queries:
+#      - mode: train
+#        origin: SOU
+#        destination: WIN       
+        
 
 # Add support for person component
-person:
+#person:
 #  - name: Matt
 #    id: matt
 #    user_id: 6727ee0d558348a5b33ea2b1534d5797
@@ -71,16 +84,16 @@ ios:
             activationMode: 'background'
             authenticationRequired: false
          
-notify:
-  - platform: html5
-    name: HTML
-    gcm_api_key: !secret google_notify_api_key
-    gcm_sender_id: !secret google_notify_sender_id
+#notify:
+#  - platform: html5
+#    name: HTML
+#    gcm_api_key: !secret google_notify_api_key
+#    gcm_sender_id: !secret google_notify_sender_id
 
 # GOOGLE CALENDARS
-#google:
-#  client_id: 859387401107-msgiilto1gl8mpmcjvrlsjr7rrupfa48.apps.googleusercontent.com
-#  client_secret: 9U9-jHm_yI8TRpBn1I9aeyiE
+google:
+  client_id: 859387401107-msgiilto1gl8mpmcjvrlsjr7rrupfa48.apps.googleusercontent.com
+  client_secret: 9U9-jHm_yI8TRpBn1I9aeyiE
       
 automation:
   - alias: "Pre-heat home"
@@ -96,12 +109,12 @@ automation:
           entity_id: 'binary_sensor.workday_sensor'
           state: 'on'
         - condition: time
-          after: '15:00:00'
+          after: '15:30:00'
         - condition: numeric_state
           entity_id: sensor.average_home_temperature
-          below: 15
+          below: 16
     action:
-      - service: notify.all_phones
+      - service: notify.ios_sarah
         data_template: 
           title: >
             {{ "\uD83C\uDF21" }} It's a little chilly at home
@@ -125,108 +138,49 @@ automation:
       - service: climate.set_operation_mode
         data:
           entity_id: climate.hallway
-          operation_mode: Heat
+          operation_mode: "heat"
       - service: climate.set_temperature
         data:
           entity_id: climate.hallway
           temperature: 20
-        
-          
 
+#  - alias: Automatic Theme Change
+#    trigger:
+#      - platform: homeassistant
+#        event: start
+#      - platform: state
+#        entity_id: sun.sun
+#    action:
+#      - service_template: frontend.set_theme
+#        data_template:
+#          name: >
+#            {% if states.sun.sun.state == "above_horizon" %}
+#              modern
+#            {% else %}
+#              modern-dark
+#            {% endif %}
 
-  - alias: "Morning Commute Notify"
+      
+automation:
+  - alias: "Commute Start Spotify"
+    hide_entity: true
     trigger:
-      - platform: time
-        at: '08:00:30'
+      platform: time
+      at: '08:15:00'
     condition:  
       condition: and
       conditions:
-        - condition: template
-          value_template: "{{states.sensor.morning_commute_variance.state != '0'}}"
         - condition: state
           entity_id: 'binary_sensor.workday_sensor'
           state: 'on'
         - condition: state
-          entity_id: device_tracker.matt
+          entity_id: sensor.is_matt_home
           state: 'home'
+        - condition: state
+          entity_id: input_boolean.alarm_clock
+          state: 'on'
     action:
-      - service: notify.ios_matt
-        data_template:
-          title: '{{ "\ud83d\udea6"}} Faster Commute'
-          message: >
-           There's a faster route to work today which should take {{ states.sensor.morning_commute.state }} minutes. Tap here for directions.
-          data:
-            url: 'comgooglemaps://?saddr=Home&daddr=Work&directionsmode=driving'
-              
-sensor:
-  - platform: template
-    sensors:
-      morning_commute_variance:
-        friendly_name: 'Morning Commute Variance'
-        value_template:  '{{ (states.sensor.morning_commute.attributes.distance.split(" ")[0] | int - 21 ) }}'
-      evening_commute_variance:
-        friendly_name: 'Evening Commute Variance'
-        value_template:  '{{ (states.sensor.evening_commute.attributes.distance.split(" ")[0] | int - 22 ) }}'
-
-#######################################################
-
-###### ALEXA DOES NOT SEEM TO BE ABLE TO SEE THESE DEVICES
-
-# ALEXA
-emulated_hue:
-  #expose_by_default: false
-  host_ip: !secret ip_raspberry_pi
-  #entities:
-  #  # do not expose any device to alexa except the below:
-  #  media_player.lounge_tv:
-  #    hidden: false
-  #  input_boolean.guests_staying:
-  #    name: "Guest Mode"
-  #    hidden: false
-  #  input_boolean.entertaining:
-  #    name: "Entertaining"
-  #    hidden: false
-  #  automation.rain_alert:
-  #    name: "Rain Alert"
-  #    hidden: false
-    
-# Note: The following devices are added to Alexa manually outside of home assistant, this is due to the limitations of emulated_hue which makes every entity appear as a light:
-# - Tuya and TP Link Switches
-# - Nest Thermostat
-# - Hue Bulbs
-
-media_player:
-  - platform: spotify
-    client_id: !secret spotify_client_id
-    client_secret: !secret spotify_client_secret
-    aliases:
-      f878d27f10cc4b3ba64241285b2da2f7: 'Bedroom'
-      752f4a23625967775bce0aef4df8edf0: 'Lounge Speaker'
-      da9ae9d81c37e7cbaee1eee6fc1a0c4d: 'Office Speaker'
-      03dd8e910dba2e2d66173c5a913975db: 'Bedroom Speaker'
-      A6D92C96-B8E3-49DE-911B-7617FBA6BDDD: 'Speakers'
-      e74eb3028232fd5f35a431d1ed9b597cad4e021a: 'iPhone'
-      
-      
-
-        
-#automation:        
-#  - alias: 'Spotify Test'
-#    trigger:
-#      - platform: state
-#        entity_id: switch.tp_link
-#    action:
-#      - service: media_player.turn_on
-#      - service: media_player.select_source
-#        entity_id: media_player.spotify
-#        data:
-#          source: Bedroom
-#      - service: media_player.shuffle_set
-#        data:
-#         entity_id: media_player.spotify
-#         shuffle: true
-#      - service: media_player.play_media
-#        entity_id: media_player.spotify
-#        data:
-#          media_content_type: playlist
-#          media_content_id: spotify:user:spotify:playlist:37i9dQZEVXcHsW4pFj4T0C
+      - service: media_player.select_source
+        entity_id: media_player.spotify
+        data:
+          source: "Matt's iPhone 8+"

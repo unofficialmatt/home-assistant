@@ -1,7 +1,7 @@
 title: Media
 path: media
 icon: mdi:play-box-outline
-background: linear-gradient(#d3cce3,#e9e4f0)
+background: var(--background-image)
 cards:  
   - type: custom:compact-custom-header
     header: true
@@ -17,7 +17,7 @@ cards:
     cards:
       - type: markdown
         content: '## Audio'
-      - entity: media_player.dining_room_echo
+      - entity: media_player.dining_room
         type: custom:mini-media-player
         artwork: full-cover
         idle_view: after 5        
@@ -58,3 +58,5 @@ cards:
         idle_view: when_idle        
       - type: media-control
         entity: media_player.plex_macbook
+      - type: media-control
+        entity: media_player.playstation_4

@@ -62,7 +62,7 @@ bedtime_message:
       data_template:
         entity_id: media_player.bedroom
         volume_level: 0.4
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id: media_player.bedroom
       data_template:
         message: >

@@ -27,7 +27,9 @@ homeassistant:
       icon: mdi:arrow-up-bold
     sensor.darksky_daily_low_temperature:
       friendly_name: Low Temperature
-      icon: mdi:arrow-down-bold  
+      icon: mdi:arrow-down-bold
+    sensor.chance_of_rain:
+      icon: mdi:weather-rainy
     
     automation.rain_alert:
       icon: mdi:weather-rainy
@@ -36,23 +38,32 @@ sensor:
   - platform: darksky
     api_key: !secret dark_sky_key
     name: darksky
+    scan_interval:
+      minutes: 10
     monitored_conditions:
       - nearest_storm_distance
       - summary
       - precip_probability
       - temperature
       - cloud_cover
-      - icon
       - hourly_summary
       - temperature_high
       - temperature_low
+      - apparent_temperature_high
     units: auto
-    scan_interval: '00:05'
-  - platform: wunderground
-    api_key: !secret wu_key
+  - platform: darksky
+    api_key: !secret dark_sky_key
+    name: darksky_work
+    scan_interval:
+      minutes: 10 
+    latitude: !secret work_latitude
+    longitude: !secret work_longitude
     monitored_conditions:
-      - precip_1d
-      - weather
+      - summary
+      - temperature
+      - temperature_high
+      - temperature_low
+    units: auto
   - platform: min_max
     name: Chance of Rain
     type: mean
@@ -63,6 +74,11 @@ sensor:
 weather:
   - platform: darksky
     api_key: !secret dark_sky_key
+  #- platform: darksky
+  #  name: Darksky Work
+  #  api_key: !secret dark_sky_key   
+  #  latitude: !secret work_latitude
+  #  longitude: !secret work_longitude    
 
 scene:
   - name: Rain Warning

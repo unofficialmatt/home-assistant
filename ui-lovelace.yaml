@@ -1,9 +1,19 @@
 title: Home
 resources:
+  - url: /local/custom-lovelace/card-tools/card-tools.js?v=0.3.2
+    type: js
   - url: /local/custom-lovelace/tracker-card/tracker-card.js?v=0.3.2
-    type: js 
+    type: js
+  - url: /local/custom-lovelace/xiaomi-vacuum-card/xiaomi-vacuum-card.js?v=1.1.1
+    type: js    
+  - url: /local/custom-lovelace/vertical-stack-in-card/vertical-stack-in-card.js?v=0.1.2
+    type: js    
+  - url: /local/custom-lovelace/useful-markdown-card/useful-markdown-card.js?v=1
+    type: module
   - url: /local/custom-lovelace/compact-custom-header/compact-custom-header.js?v=1.0.0b5
     type: module
+  - url: /local/custom-lovelace/slider-entity-row/slider-entity-row.js?v=1.1.1
+    type: module    
   - url: /local/custom-lovelace/mini-media-player/mini-media-player-bundle.js?v=1.0.1
     type: module
   - url: /local/custom-lovelace/mini-graph-card/mini-graph-card-bundle.js?v=0.2.4
@@ -12,15 +22,23 @@ resources:
     type: js
   - url: /local/custom-lovelace/homeassistant-lovelace-google-calendar-card/calendar-card.js?v=1.0.1
     type: module
-  - url: /local/custom-lovelace/simple-thermostat/simple-thermostat.js?v=0.1.1
+  - url: /local/custom-lovelace/simple-weather-card/simple-weather-card.bundle.js?v=0.1.0
     type: module
-  - url: /local/custom-lovelace/plan-coordinates/plan-coordinates.js?v=0.1.0
-    type: module    
+  - url: /local/custom-lovelace/button-card/button-card.js?v=1
+    type: module
+  - type: css
+    url: 'https://fonts.googleapis.com/css?family=Montserrat'   
+  - url: /local/styles.css?v=0.2
+    type: css    
+#  - type: module
+#    url: >-
+#      https://cdn.jsdelivr.net/gh/custom-cards/spotify-card@1.5/dist/spotify-card.umd.js    
 views:
   - !include lovelace/view_home.yaml
   - !include lovelace/view_rooms.yaml
-#  - !include lovelace/view_lights.yaml
+  - !include lovelace/view_lights.yaml
   - !include lovelace/view_media.yaml
   - !include lovelace/view_climate.yaml
-  - !include lovelace/view_floorplan.yaml
+#  - !include lovelace/view_floorplan.yaml
   - !include lovelace/view_config.yaml
+  - !include lovelace/view_debug.yaml

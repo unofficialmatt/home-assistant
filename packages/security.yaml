@@ -25,7 +25,7 @@ automation:
   - alias: "Intruder Alerts"
     trigger:
       - platform: state
-        entity_id: sensor.landing_motion_sensor, sensor.kitchen_motion_sensor
+        entity_id: binary_sensor.landing_sensor_motion, binary_sensor.kitchen_sensor_motion
         to: 'on'
       - platform: state
         entity_id: sensor.nest_mode

@@ -50,6 +50,8 @@ homeassistant:
       
     sensor.outside_light_level:
       icon: mdi:weather-partlycloudy
+    sensor.average_home_temperature:
+      icon: mdi:thermometer
       
 nest:
   client_id: !secret nest_client_id
@@ -110,3 +112,13 @@ sensor:
           {%- else -%}
              {{ (states.sun.sun.attributes.elevation | int ) * ((states.sun.sun.attributes.elevation | int / 10) - (states.sensor.darksky_cloud_coverage.state | int / 100 ))}}
           {% endif %}
+      time_of_day:
+        friendly_name: 'Time of Day'
+        entity_id: 
+          - sensor.time
+        value_template: >
+          {% if now().hour >= 7 and now().hour < 12  %} Morning
+          {% elif now().hour >= 12 and now().hour < 18 %} Afternoon
+          {% elif now().hour >= 18 and now().hour < 23 %} Evening
+          {% else %} Nighttime
+          {% endif %}          

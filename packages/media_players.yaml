@@ -20,30 +20,20 @@ homeassistant:
   customize:
     media_player.lounge_tv:
       icon: mdi:television
-    media_player.sarahs_3rd_fire:
-      hidden: true
-    media_player.matts_2nd_echo:
-      hidden: true
-    media_player.matts_alexa_apps:
-      hidden: true
-    media_player.matts_echosim_beta:
-      hidden: true
-    media_player.matts_fire_tv_stick:
-      hidden: true
-    media_player.this_device:
-      hidden: true
     media_player.bedroom:
       friendly_name: Bedroom Speaker
     media_player.lounge:
       friendly_name: Lounge Speaker
     media_player.office:
       friendly_name: Office Speaker
-    media_player.dining_room_echo:
+    media_player.dining_room:
       friendly_name: Dining Room Speaker
     media_player.speakers:
       hidden: true
     media_player.upstairs:
       hidden: true
+    media_player.spotify:
+      icon: mdi:spotify
       
     media_player.plex_plex_jo3rrkm3r8peb3u1kngczj9z:
       friendly_name: Plex Macbook
@@ -56,26 +46,22 @@ homeassistant:
       
 cast:
 
+alexa_media:
+  accounts:
+    - email: !secret alexa_email
+      password: !secret alexa_password
+      url: "amazon.co.uk"
+      exclude_devices:
+        - "This Device"
+        - "sarah's 3rd Fire"
+        - "Matt's Fire TV stick"
+        - "Matt's echosim_BETA"
+        - "Matt's Alexa Apps"
+
 media_player:
-  - platform: alexa
-    email: !secret alexa_email
-    password: !secret alexa_password
-    url: "amazon.co.uk"
-    scan_interval: 30
-  - platform: webostv
-    host: !secret ip_webostv
-    #mac: !secret mac_webostv
-    #name: Lounge TV
-    #homebridge_media_player_switch: play_pause
-    customize:
-      sources:
-        - LiveTV
-        - Netflix
-        - Playstation4
-        - Playstation3
-        - Plex
-        - YouTube
-        - "Now TV"
+  - platform: spotify
+    client_id: !secret spotify_client_id
+    client_secret: !secret spotify_client_secret
   - platform: plex
     #name: Plex
     entity_namespace: 'plex'
@@ -107,7 +93,7 @@ automation:
           before: '20:30:00'
     action:
       - service: media_player.play_media
-        entity_id: media_player.dining_room_echo
+        entity_id: media_player.dining_room
         data:
           media_content_id: 'Radio 1'
           media_content_type: 'TUNEIN'  
@@ -116,7 +102,7 @@ automation:
     initial_state: 'on'
     trigger:
       - platform: state
-        entity_id: sensor.kitchen_motion_sensor
+        entity_id: binary_sensor.kitchen_sensor_motion
         to: 'on'
     condition:
       condition: and
@@ -130,7 +116,7 @@ automation:
     action:
       - service: media_player.volume_set
         data_template:
-          entity_id: media_player.dining_room_echo
+          entity_id: media_player.dining_room
           volume_level: 0.15
       - service: media_player.select_source
         data:

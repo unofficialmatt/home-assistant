@@ -54,7 +54,7 @@ automation:
     hide_entity: true
     trigger:
       - platform: state
-        entity_id: sensor.landing_motion_sensor
+        entity_id: binary_sensor.landing_sensor_motion
         to: 'on'
     condition:
       condition: and

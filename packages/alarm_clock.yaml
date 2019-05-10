@@ -191,7 +191,7 @@ automation:
           title: >
             {{ "\uD83C\uDF1E" }} Weather Briefing
           message: >
-            The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daily_high_temperature')}}°C. The forecast is {{states('sensor.pws_weather')}}
+            The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daily_high_temperature')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}
       - service_template: >
           {% if is_state('sensor.is_sarah_home', 'home') %}
             notify.ios_sarah
@@ -200,26 +200,36 @@ automation:
           title: >
             {{ "\uD83C\uDF1E" }} Weather Briefing
           message: >
-            The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daily_high_temperature')}}°C. The forecast is {{states('sensor.pws_weather')}}    
+            The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daily_high_temperature')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}    
       - delay: '00:00:10'
       - service: media_player.volume_set
         data_template:
           entity_id: media_player.bedroom
           volume_level: 0.3
-      - service: tts.google_say
+      - service: tts.google_translate_say
         entity_id: media_player.bedroom
         data_template:
           message: >
-            Good morning! The time is {{states.sensor.time.state}}. The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daily_high_temperature')}} degrees celcius. The forecast is {{states('sensor.pws_weather')}}. Have a great day.
-      #- wait_template: "{{ is_state('media_player.bedroom', 'idle') or is_state('media_player.bedroom', 'off') }}"
+            Good morning! The time is {{states.sensor.time.state}}. The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daily_high_temperature')}} degrees celcius. The forecast is {{states('sensor.darksky_hourly_summary')}}. Have a great day.
+      - wait_template: "{{ is_state('media_player.bedroom', 'idle') or is_state('media_player.bedroom', 'off') }}"
       - service: media_player.volume_set
         data_template:
           entity_id: media_player.bedroom
           volume_level: 0.2
-      - service: media_player.play_media
-        entity_id: media_player.bedroom
+      - service: spotcast.start
+        data_template:
+          device_name: 'Bedroom Speaker'
+          uri: >
+            {{ [
+            'spotify:user:spotify:playlist:37i9dQZEVXcHsW4pFj4T0C', 
+            'spotify:user:spotify:playlist:37i9dQZEVXbtkYqvjNCAlq', 
+            'spotify:user:spotify:playlist:37i9dQZF1DX4W3aJJYCDfV', 
+            'spotify:user:spotify:playlist:37i9dQZF1DX32oVqaQE8BM',
+            'spotify:user:spotify:playlist:37i9dQZF1DWWLToO3EeTtX'
+            ] | random }}
+        # Discover Weekly, Release Radar, New Music Friday UK, Chill Out Music, Morning Stroll     
+      - service: media_player.shuffle_set
         data:
-          # BBC Radio 1
-          media_content_id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p'
-          media_content_type: 'music'  
+         entity_id: media_player.spotify
+         shuffle: true
       

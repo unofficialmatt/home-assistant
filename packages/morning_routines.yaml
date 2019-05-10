@@ -101,9 +101,5 @@ automation:
       data_template:
         entity_id: media_player.bedroom
         volume_level: 0.45
-    - service: media_player.play_media
+    - service: media_player.media_play
       entity_id: media_player.bedroom
-      data:
-        # BBC Radio 1
-        media_content_id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p'
-        media_content_type: 'music' 

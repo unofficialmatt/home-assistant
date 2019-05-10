@@ -15,7 +15,7 @@
 homeassistant:
   customize:
     sensor.matts_iphone_8_battery_level:
-      hidden: false
+      hidden: true
     sensor.matts_iphone_8_battery_state:
       hidden: true
     sensor.sarah_kents_iphone_battery_level:
@@ -25,7 +25,15 @@ homeassistant:
       
     device_tracker.matt_ping:
       hidden: true
+      icon: mdi:watch-variant
     device_tracker.sarah_ping:
+      hidden: true
+      icon: mdi:watch-variant
+    device_tracker.matt_watch:
+      icon: mdi:watch-variant
+    device_tracker.sarah_watch:
+      icon: mdi:watch-variant
+    device_tracker.sarahs_ipad:
       hidden: true
       
     binary_sensor.sarah_bayesian:
@@ -48,6 +56,7 @@ homeassistant:
 # TRACKERS
 device_tracker:
   # Pings devices every 5 minutes. If device not seen in 15 mins, change to away
+  
   - platform: ping
     interval_seconds: 300
     consider_home: 00:15:00
@@ -58,6 +67,7 @@ device_tracker:
       james: !secret ip_james_phone
       katt: !secret ip_katt_phone
       rashida: !secret ip_rashida_phone
+      #rob: !secret ip_rob_phone
       sarah_watch: !secret ip_sarah_watch
       matt_watch: !secret ip_matt_watch
  
@@ -159,14 +169,13 @@ group:
     entities:
       - device_tracker.katt
       - device_tracker.rashida
+#      - device_tracker.rob
   guests:
     name: Guests
     view: no
     entities:
-      - device_tracker.aimee
-      - device_tracker.james
-      - device_tracker.katt
-      - device_tracker.rashida
+      - group.friends
+      - group.family
     
 # HOME STATUS     
 input_select:

@@ -68,9 +68,9 @@ homeassistant:
       hidden: true
     sensor.office_switch:
       hidden: true
-    sensor.kitchen_motion_sensor:
+    binary_sensor.kitchen_sensor_motion:
       hidden: true
-    sensor.landing_motion_sensor:
+    binary_sensor.landing_sensor_motion:
       hidden: true
     sensor.landing_temperature:
       icon: mdi:thermometer
@@ -83,26 +83,26 @@ hue:
       allow_unreachable: true
       allow_hue_groups: true
 
-sensor:
-  - platform: hue_sensor
-  - platform: template
-    sensors:
-      kitchen_temperature:
-        value_template: '{{ states.sensor.kitchen_motion_sensor.attributes["temperature"] }}'
-        friendly_name: 'Kitchen Temperature'
-        unit_of_measurement: '°C'
-      landing_temperature:
-        value_template: '{{ states.sensor.landing_motion_sensor.attributes["temperature"] }}'
-        friendly_name: 'Landing Temperature'
-        unit_of_measurement: '°C'
-      kitchen_humidity:
-        value_template: '{{ states.sensor.kitchen_motion_sensor.attributes["humidity"] }}'
-        friendly_name: 'Kitchen Humidity'
-        unit_of_measurement: '%'
-      landing_humidity:
-        value_template: '{{ states.sensor.landing_motion_sensor.attributes["humidity"] }}'
-        friendly_name: 'Landing Humidity'
-        unit_of_measurement: '%'
+#sensor:
+#  - platform: hue_sensor
+#  - platform: template
+#    sensors:
+#      kitchen_temperature:
+#       value_template: '{{ states.sensor.kitchen_motion_sensor.attributes["temperature"] }}'
+#        friendly_name: 'Kitchen Temperature'
+#        unit_of_measurement: '°C'
+#      landing_temperature:
+#        value_template: '{{ states.sensor.landing_motion_sensor.attributes["temperature"] }}'
+#        friendly_name: 'Landing Temperature'
+#        unit_of_measurement: '°C'
+#      kitchen_humidity:
+#        value_template: '{{ states.sensor.kitchen_motion_sensor.attributes["humidity"] }}'
+#        friendly_name: 'Kitchen Humidity'
+#        unit_of_measurement: '%'
+#      landing_humidity:
+#        value_template: '{{ states.sensor.landing_motion_sensor.attributes["humidity"] }}'
+#        friendly_name: 'Landing Humidity'
+#        unit_of_measurement: '%'
       
 #######################################################
 #                                                     #

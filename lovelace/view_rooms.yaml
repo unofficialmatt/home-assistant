@@ -1,7 +1,7 @@
 title: Rooms
 path: rooms
 icon: mdi:home-map-marker
-background: linear-gradient(#d3cce3,#e9e4f0)
+background: var(--background-image)
 cards:  
   - type: custom:compact-custom-header
     header: true
@@ -12,90 +12,129 @@ cards:
     clock: options
     clock_format: 24
     background_image: true
-  
-  - type: picture-glance
-    title: Master Bedroom
-    entities:
-      - light.master_bedroom_colour
-      - light.master_bedroom_lightstrip
-      - media_player.bedroom
-      - switch.tp_link
-#          - automation.bedtime_comfort
-      - input_boolean.alarm_clock
-    state_image: 
-      "on": /local/custom-lovelace/master-bedroom.jpg
-      "off": /local/custom-lovelace/master-bedroom-bw.jpg
-    entity: light.master_bedroom
-    
-  - type: picture-glance
-    title: Guest Bedroom
-    entities:
-      - light.guest_bedroom_colour
-      - light.guest_bedroom_opihr
-      - light.guest_bedroom_sovereign
-    state_image: 
-      "on": /local/custom-lovelace/guest-bedroom.jpg
-      "off": /local/custom-lovelace/guest-bedroom-bw.jpg
-    entity: light.guest_bedroom
-    
-  - type: picture-glance
-    title: Office
-    entities:
-      - light.office_white
-      - light.office_lamp
-      - media_player.office
-    state_image: 
-      "on": /local/custom-lovelace/office.jpg
-      "off": /local/custom-lovelace/office-bw.jpg
-    entity: light.office
-    
-  - type: picture-glance
-    title: Hallways
-    entities:
-      - light.landing_bathroom
-      - light.landing_middle
-      - light.landing_bedrooms
-      - light.hallway_white
-      - climate.hallway
-    state_image: 
-      "on": /local/custom-lovelace/landing.jpg
-      "off": /local/custom-lovelace/landing-bw.jpg
-    entity: light.landing
-    
-  - type: picture-glance
-    title: Lounge
-    entities:
-      - light.lounge_colour
-      - light.lounge_lamp
-      - light.hue_go
-      - switch.tuya_2
-      - media_player.lounge_tv
-      - media_player.lounge
-    state_image: 
-      "on": /local/custom-lovelace/lounge.jpg
-      "off": /local/custom-lovelace/lounge-bw.jpg
-    entity: light.lounge
-    
-  - type: picture-glance
-    title: Dining Room
-    entities:
-      - light.dining_room_colour
-      - light.dining_room_lamp
-      - media_player.dining_room_echo
-      - switch.tuya_1
-    state_image: 
-      "on": /local/custom-lovelace/dining-room.jpg
-      "off": /local/custom-lovelace/dining-room-bw.jpg
-    entity: light.dining_room
-    
-  - type: picture-glance
-    title: Kitchen
-    entities:
-      - light.kitchen_oven_1
-      - light.kitchen_oven_2
-      - light.kitchen_sink_1
-      - light.kitchen_sink_2
-    state_image: 
-      "on": /local/custom-lovelace/kitchen.jpg
-      "off": /local/custom-lovelace/kitchen-bw.jpg
-    entity: light.kitchen
+
+  - type: vertical-stack
+    cards:
+    - type: picture-glance
+      title: Master Bedroom
+      entities:
+        - light.master_bedroom_colour
+        - light.master_bedroom_lightstrip
+        - media_player.bedroom
+        - switch.heated_blanket
+        - input_boolean.alarm_clock
+      state_image: 
+        "on": /local/rooms/master-bedroom.jpg
+        "off": /local/rooms/master-bedroom-bw.jpg
+      entity: light.master_bedroom
+      aspect_ratio: 4x3
+      tap_action:
+        action: toggle
+      
+    - type: picture-glance
+      title: Guest Bedroom
+      entities:
+        - light.guest_bedroom_colour
+        - light.guest_bedroom_opihr
+        - light.guest_bedroom_sovereign
+        - input_boolean.guest_mode
+      state_image: 
+        "on": /local/rooms/guest-bedroom.jpg
+        "off": /local/rooms/guest-bedroom-bw.jpg
+      entity: light.guest_bedroom
+      aspect_ratio: 4x3
+      tap_action:
+        action: toggle
+
+  - type: vertical-stack
+    cards:
+    - type: picture-glance
+      title: Lounge
+      entities:
+        - light.lounge_colour
+        - light.lounge_lamp
+        - light.hue_go
+        - switch.tuya_2
+        - media_player.lounge_tv
+        - media_player.lounge
+      state_image: 
+        "on": /local/rooms/lounge.jpg
+        "off": /local/rooms/lounge-bw.jpg
+      entity: light.lounge
+      aspect_ratio: 4x3
+      tap_action:
+        action: toggle
+      
+    - type: picture-glance
+      title: Dining Room
+      entities:
+        - light.dining_room_colour
+        - light.dining_room_lamp
+        - media_player.dining_room
+        - switch.tuya_1
+      state_image: 
+        "on": /local/rooms/dining-room.jpg
+        "off": /local/rooms/dining-room-bw.jpg
+      entity: light.dining_room
+      aspect_ratio: 4x3
+      tap_action:
+        action: toggle
+      
+  - type: vertical-stack
+    cards:
+    - type: picture-glance
+      title: Office
+      entities:
+        - media_player.office
+        - light.office_white
+        - light.office_lamp
+      state_image: 
+        "on": /local/rooms/office.jpg
+        "off": /local/rooms/office-bw.jpg
+      entity: light.office
+      aspect_ratio: 4x3
+      tap_action:
+        action: toggle
+          
+    - type: picture-glance
+      title: Kitchen
+      entities:
+        - light.kitchen_oven_1
+        - light.kitchen_oven_2
+        - light.kitchen_sink_1
+        - light.kitchen_sink_2
+      state_image: 
+        "on": /local/rooms/kitchen.jpg
+        "off": /local/rooms/kitchen-bw.jpg
+      entity: light.kitchen
+      aspect_ratio: 4x1.45
+      tap_action:
+        action: toggle
+      
+    - type: horizontal-stack
+      cards:
+      - type: picture-glance
+        title: Hall
+        entities:
+          - light.hallway_white
+        state_image: 
+          "on": /local/rooms/hallway.jpg
+          "off": /local/rooms/hallway-bw.jpg
+        entity: light.hallway
+        aspect_ratio: 4x3
+        tap_action:
+          action: toggle
+      - type: picture-glance
+        title: Land
+        entities:
+          - light.landing_bathroom
+          - light.landing_middle
+          - light.landing_bedrooms
+        state_image: 
+          "on": /local/rooms/landing.jpg
+          "off": /local/rooms/landing-bw.jpg
+        entity: light.landing
+        aspect_ratio: 4x3
+        tap_action:
+          action: toggle          
+        

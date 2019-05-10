@@ -19,9 +19,16 @@ homeassistant:
   
   packages: !include_dir_named packages
 
+  #auth_providers:
+    #- type: legacy_api_password
+    #  api_password: !secret api_password
+    #- type: trusted_networks
+    #  trusted_networks:
+    #  # Allow access to known devices without having to enter a password
+    #    - !secret ip_macbook
+    #    - !secret ip_matt_phone
+    #    - !secret ip_sarah_phone
+        
 
-# Will be deprecated soon, but a bug requires it stays here in the main config file in order for iOS to work (it wont work from within a package)
-http:
-  api_password: !secret api_password
 
 script: !include_dir_merge_named includes/scripts

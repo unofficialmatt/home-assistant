@@ -1,7 +1,7 @@
 title: Climate
 path: climate
 icon: mdi:thermometer-lines
-background: linear-gradient(#d3cce3,#e9e4f0)
+background: var(--background-image)
 cards:  
   - type: custom:compact-custom-header
     header: true
@@ -17,32 +17,94 @@ cards:
     cards:
       - type: weather-forecast
         entity: weather.dark_sky
-               
+      - type: custom:mini-graph-card
+        name: Hallway Humidity
+        entities: 
+          - sensor.hallway_thermostat_humidity
+        more_info: false
+        show:
+          points: hover
+          fill: false
+        animate: true
+        height: 60
+        line_width: 5
+        color_thresholds:
+          - value: 50
+            color: "#7AE5FF"  # 30% tint
+          - value: 55
+            color: "#60CBFF"  # 40% tint
+          - value: 60
+            color: "#2d98da"  # 100% tint
+      - type: thermostat
+        entity: climate.hallway 
+        
+
   - type: vertical-stack
     cards:
       - type: custom:mini-graph-card
         entities: 
           - sensor.hallway_thermostat_temperature
-        animate: true
-        height: 100
-        line_color: red
+        more_info: false
         show:
+          points: hover
           fill: false
+        animate: true
+        height: 60
+        line_width: 5
+        color_thresholds:
+          - value: 10
+            color: "#2d98da"
+          - value: 12
+            color: "#45aaf2"              
+          - value: 16
+            color: "#fed330"
+          - value: 18
+            color: "#f7b731"
+          - value: 20
+            color: "#fd9644"
+          - value: 22
+            color: "#fa8231"
       - type: custom:mini-graph-card
         entities:           
           - sensor.kitchen_temperature
+        more_info: false
+        show:
+          points: hover
+          fill: false
+        animate: true
+        height: 60
+        line_width: 5
+        color_thresholds:
+          - value: 10
+            color: "#2d98da"
+          - value: 12
+            color: "#45aaf2"              
+          - value: 16
+            color: "#fed330"
+          - value: 18
+            color: "#f7b731"
+          - value: 20
+            color: "#fd9644"
+          - value: 22          
       - type: custom:mini-graph-card
         entities:           
           - sensor.landing_temperature
-          
-  - type: vertical-stack
-    cards:
-      - type: custom:mini-graph-card
-        entities: 
-          - sensor.hallway_thermostat_humidity
-      - type: custom:mini-graph-card
-        entities: 
-          - sensor.kitchen_humidity
-      - type: custom:mini-graph-card
-        entities: 
-          - sensor.landing_humidity
+        more_info: false
+        show:
+          points: hover
+          fill: false
+        animate: true
+        height: 60
+        line_width: 5
+        color_thresholds:
+          - value: 10
+            color: "#2d98da"
+          - value: 12
+            color: "#45aaf2"              
+          - value: 16
+            color: "#fed330"
+          - value: 18
+            color: "#f7b731"
+          - value: 20
+            color: "#fd9644"
+          - value: 22

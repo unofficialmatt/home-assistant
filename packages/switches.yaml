@@ -23,8 +23,4 @@ tuya:
   country_code: 44
   platform: smart_life  
   
-switch:
-  - platform: tplink
-    host: !secret ip_switch_tplink
-    name: TP Link
-    
+tplink:    

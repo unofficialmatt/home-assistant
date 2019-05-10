@@ -27,6 +27,15 @@ sensor:
       avoid: tolls
       units: imperial
   - platform: google_travel_time
+    name: Morning Commute Alt
+    scan_interval: 900
+    api_key: !secret google_travel_key
+    origin: zone.home
+    destination: !secret am_commute_via
+    options:
+      avoid: tolls
+      units: imperial      
+  - platform: google_travel_time
     name: Evening Commute
     scan_interval: 900
     api_key: !secret google_travel_key
@@ -35,6 +44,23 @@ sensor:
     options:
       avoid: tolls
       units: imperial
+  - platform: google_travel_time
+    name: Evening Commute Alt
+    scan_interval: 900
+    api_key: !secret google_travel_key
+    origin: zone.matt_work
+    destination: !secret pm_commute_via
+    options:
+      avoid: tolls
+      units: imperial   
+  - platform: template
+    sensors:
+      morning_commute_variance:
+        friendly_name: 'Morning Commute Variance'
+        value_template:  '{{ (states.sensor.morning_commute.attributes.distance.split(" ")[0] | int - 17 ) }}'
+      evening_commute_variance:
+        friendly_name: 'Evening Commute Variance'
+        value_template:  '{{ (states.sensor.evening_commute.attributes.distance.split(" ")[0] | int - 18 ) }}'            
   
 #######################################################
 #                                                     #
@@ -121,9 +147,9 @@ automation:
         entity_id: light.master_bedroom_lightstrip
         data_template: 
           color_name: >
-                {% if states.sensor.morning_commute.state <= "40" %} green
-                {% elif states.sensor.morning_commute.state > "40" and states.sensor.morning_commute.state < "50" %} orange  
-                {% elif states.sensor.morning_commute.state >= "50" %} red
+                {% if states.sensor.morning_commute.state <= "35" %} green
+                {% elif states.sensor.morning_commute.state > "35" and states.sensor.morning_commute.state < "45" %} orange  
+                {% elif states.sensor.morning_commute.state >= "45" %} red
                 {% endif %}
           brightness: 255
           
@@ -152,20 +178,44 @@ automation:
         data_template:
           entity_id: media_player.bedroom
           volume_level: 0.3
-      - service: tts.google_say
+      - service: tts.google_translate_say
         entity_id: media_player.bedroom
         data_template:
           message: >
             Good morning. This is a travel update from Home Assistant. Traffic Conditions are
             {% if states.sensor.morning_commute.state <= "35" %} GREAT.
-            {% elif states.sensor.morning_commute.state > "35" and states.sensor.morning_commute.state < "50" %} AVERAGE.
-            {% elif states.sensor.morning_commute.state >= "50" %} BAD.
+            {% elif states.sensor.morning_commute.state > "35" and states.sensor.morning_commute.state < "45" %} AVERAGE.
+            {% elif states.sensor.morning_commute.state >= "45" %} BAD.
             {% endif %}
             {% if states.sensor.morning_commute_variance.state != "0" %} 
             There's a faster route to work today which will take {{ states.sensor.evening_commute.state }} minutes. I'll send the directions to your phone.
             {% else %}
             It should take about {{ states.sensor.morning_commute.state }} minutes to get to work today.
             {% endif %}
+
+  - alias: "Morning Commute Notify"
+    trigger:
+      - platform: time
+        at: '08:00:30'
+    condition:  
+      condition: and
+      conditions:
+        - condition: template
+          value_template: "{{states.sensor.morning_commute_variance.state != '0'}}"
+        - condition: state
+          entity_id: 'binary_sensor.workday_sensor'
+          state: 'on'
+        - condition: state
+          entity_id: device_tracker.matt
+          state: 'home'
+    action:
+      - service: notify.ios_matt
+        data_template:
+          title: '{{ "\ud83d\udea6"}} Faster Commute'
+          message: >
+           There's a faster route to work today which should take {{ states.sensor.morning_commute.state }} minutes. Tap here for directions.
+          data:
+            url: 'comgooglemaps://?saddr=Home&daddr=Work&directionsmode=driving'
             
   - alias: "Evening Commute Notify"
     trigger:
@@ -187,8 +237,8 @@ automation:
           message: >
            Traffic Conditions are
            {% if states.sensor.evening_commute.state <= "35" %} GREAT.
-           {% elif states.sensor.evening_commute.state > "35" and states.sensor.evening_commute.state < "50" %} AVERAGE.
-           {% elif states.sensor.evening_commute.state >= "50" %} BAD.
+           {% elif states.sensor.evening_commute.state > "35" and states.sensor.evening_commute.state < "45" %} AVERAGE.
+           {% elif states.sensor.evening_commute.state >= "45" %} BAD.
            {% endif %} 
            {% if states.sensor.evening_commute_variance.state != "0" %} 
            Take this faster route home today - which should take {{ states.sensor.evening_commute.state }} minutes.

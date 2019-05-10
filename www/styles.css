@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+body {
+  font-family: Montserrat !important;
+}
+paper-icon-item span {
+  font-family: Montserrat !important;
+}
