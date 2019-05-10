@@ -23,5 +23,3 @@ notify:
     platform: group
     services:
       - service: ios_sarah
-  - platform: alexa_media
-    name: alexa_media      

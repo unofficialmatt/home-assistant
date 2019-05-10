@@ -30,9 +30,9 @@ resources:
     url: 'https://fonts.googleapis.com/css?family=Montserrat'   
   - url: /local/styles.css?v=0.2
     type: css    
-#  - type: module
-#    url: >-
-#      https://cdn.jsdelivr.net/gh/custom-cards/spotify-card@1.5/dist/spotify-card.umd.js    
+  - type: module
+    url: >-
+      https://cdn.jsdelivr.net/gh/custom-cards/spotify-card@1.5/dist/spotify-card.umd.js    
 views:
   - !include lovelace/view_home.yaml
   - !include lovelace/view_rooms.yaml

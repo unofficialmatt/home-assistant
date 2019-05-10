@@ -45,6 +45,8 @@ cards:
         type: custom:mini-media-player
         artwork: full-cover
         idle_view: when_idle
+  - type: 'custom:spotify-card'
+    client_id: !secret spotify_client_id        
 
         
   

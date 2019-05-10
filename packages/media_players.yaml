@@ -21,16 +21,18 @@ homeassistant:
     media_player.lounge_tv:
       icon: mdi:television
     media_player.bedroom:
-      friendly_name: Bedroom Speaker
+      friendly_name: Bedroom
     media_player.lounge:
-      friendly_name: Lounge Speaker
+      friendly_name: Lounge
     media_player.office:
-      friendly_name: Office Speaker
+      friendly_name: Office
     media_player.dining_room:
-      friendly_name: Dining Room Speaker
+      friendly_name: Dining Room
     media_player.speakers:
       hidden: true
     media_player.upstairs:
+      hidden: true
+    media_player.downstairs:
       hidden: true
     media_player.spotify:
       icon: mdi:spotify
@@ -45,18 +47,6 @@ homeassistant:
       icon: mdi:music
       
 cast:
-
-alexa_media:
-  accounts:
-    - email: !secret alexa_email
-      password: !secret alexa_password
-      url: "amazon.co.uk"
-      exclude_devices:
-        - "This Device"
-        - "sarah's 3rd Fire"
-        - "Matt's Fire TV stick"
-        - "Matt's echosim_BETA"
-        - "Matt's Alexa Apps"
 
 media_player:
   - platform: spotify
@@ -118,28 +108,23 @@ automation:
         data_template:
           entity_id: media_player.dining_room
           volume_level: 0.15
-      - service: media_player.select_source
-        data:
-          entity_id: media_player.spotify
-          source: Dining Room Echo
       - service: media_player.shuffle_set
         data:
           entity_id: media_player.spotify
           shuffle: true          
-      - service: media_player.play_media
-        entity_id: media_player.spotify
+      - service: spotcast.start
         data_template:
-          media_content_type: playlist
-          media_content_id: >
+          device_name: 'Downstairs'
+          uri: >
             {{ [
-            "spotify:user:spotify:playlist:37i9dQZF1DXcxacyAXkQDu", 
-            "spotify:user:spotify:playlist:37i9dQZF1DX0UrRvztWcAU", 
-            "spotify:user:motown_records:playlist:5mByrIFuUzwKk8H6XnE5BZ", 
-            "spotify:user:spotify:playlist:37i9dQZF1DWY4lFlS4Pnso", 
-            "spotify:user:spotify:playlist:37i9dQZF1DX9u7XXOp0l5L", 
-            "spotify:user:spotify:playlist:37i9dQZF1DWZdL27osEgj6", 
-            "spotify:user:spotify:playlist:37i9dQZF1DX2sUQwD7tbmL" 
-            ] | random }}
+            'spotify:user:spotify:playlist:37i9dQZF1DXcxacyAXkQDu', 
+            'spotify:user:spotify:playlist:37i9dQZF1DX0UrRvztWcAU', 
+            'spotify:user:motown_records:playlist:5mByrIFuUzwKk8H6XnE5BZ', 
+            'spotify:user:spotify:playlist:37i9dQZF1DWY4lFlS4Pnso',
+            'spotify:user:spotify:playlist:37i9dQZF1DX9u7XXOp0l5L',
+            'spotify:user:spotify:playlist:37i9dQZF1DWZdL27osEgj6',
+            'spotify:user:spotify:playlist:37i9dQZF1DX2sUQwD7tbmL'
+            ] | random }}              
         # RANDOM PLAYLISTS IN ORDER:
         # Wake up and smell the coffee
         # Wake up happy
