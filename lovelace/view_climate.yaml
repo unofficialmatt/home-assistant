@@ -24,17 +24,10 @@ cards:
         more_info: false
         show:
           points: hover
-          fill: false
+          fill: true
         animate: true
-        height: 60
         line_width: 5
-        color_thresholds:
-          - value: 50
-            color: "#7AE5FF"  # 30% tint
-          - value: 55
-            color: "#60CBFF"  # 40% tint
-          - value: 60
-            color: "#2d98da"  # 100% tint
+        color: var(--accent-color-4)             
       - type: thermostat
         entity: climate.hallway 
         
@@ -47,64 +40,29 @@ cards:
         more_info: false
         show:
           points: hover
-          fill: false
+          fill: true
         animate: true
-        height: 60
         line_width: 5
-        color_thresholds:
-          - value: 10
-            color: "#2d98da"
-          - value: 12
-            color: "#45aaf2"              
-          - value: 16
-            color: "#fed330"
-          - value: 18
-            color: "#f7b731"
-          - value: 20
-            color: "#fd9644"
-          - value: 22
-            color: "#fa8231"
+        color: var(--accent-color-2)  
       - type: custom:mini-graph-card
         entities:           
           - sensor.kitchen_temperature
         more_info: false
         show:
           points: hover
-          fill: false
+          fill: true
         animate: true
         height: 60
         line_width: 5
-        color_thresholds:
-          - value: 10
-            color: "#2d98da"
-          - value: 12
-            color: "#45aaf2"              
-          - value: 16
-            color: "#fed330"
-          - value: 18
-            color: "#f7b731"
-          - value: 20
-            color: "#fd9644"
-          - value: 22          
+        color: var(--accent-color-2)         
       - type: custom:mini-graph-card
         entities:           
           - sensor.landing_temperature
         more_info: false
         show:
           points: hover
-          fill: false
+          fill: true
         animate: true
         height: 60
         line_width: 5
-        color_thresholds:
-          - value: 10
-            color: "#2d98da"
-          - value: 12
-            color: "#45aaf2"              
-          - value: 16
-            color: "#fed330"
-          - value: 18
-            color: "#f7b731"
-          - value: 20
-            color: "#fd9644"
-          - value: 22
+        color: var(--accent-color-2) 

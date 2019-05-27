@@ -1,0 +1,6 @@
+roborock_go_home:
+  alias: Roborock go home  
+  sequence:
+    - service: vacuum.return_to_base
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner

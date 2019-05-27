@@ -100,3 +100,11 @@ matts_iphone_8_beta:
   name: 737f40136a904f13b5f9b8cbbad0acfb
   picture:
   track: true
+
+lounge_tv:
+  hide_if_away: false
+  icon:
+  mac:
+  name: lounge tv
+  picture:
+  track: true

@@ -37,7 +37,7 @@ cards:
         - light.guest_bedroom_colour
         - light.guest_bedroom_opihr
         - light.guest_bedroom_sovereign
-        - input_boolean.guest_mode
+        - input_boolean.guests_staying
       state_image: 
         "on": /local/rooms/guest-bedroom.jpg
         "off": /local/rooms/guest-bedroom-bw.jpg

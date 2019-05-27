@@ -24,6 +24,8 @@ include:
     - sensor.morning_commute
     - binary_sensor.kitchen_sensor_motion
     - binary_sensor.landing_sensor_motion
+    - sensor.lounge_tv
+    - device_tracker.lounge_tv
 exclude:
   domains:
     - light

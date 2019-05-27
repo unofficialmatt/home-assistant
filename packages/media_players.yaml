@@ -58,6 +58,18 @@ media_player:
     use_custom_entity_ids: true
     #homebridge_media_player_switch: play_pause
 
+sensor:
+  - platform: template
+    sensors:
+      lounge_tv:
+        friendly_name: 'Lounge TV'
+        value_template: >-
+          {% if is_state('device_tracker.lounge_tv', 'home') %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
 
 #######################################################
 #                                                     #
@@ -85,8 +97,8 @@ automation:
       - service: media_player.play_media
         entity_id: media_player.dining_room
         data:
-          media_content_id: 'Radio 1'
-          media_content_type: 'TUNEIN'  
+          media_content_id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p'
+          media_content_type: 'music'  
           
   - alias: 'Weekend Morning Music'
     initial_state: 'on'
@@ -102,16 +114,16 @@ automation:
           state: 'off' 
         - condition: time
           after: '08:00:00'
-          before: '10:00:00'
+          before: '10:30:00'
     action:
       - service: media_player.volume_set
         data_template:
           entity_id: media_player.dining_room
           volume_level: 0.15
-      - service: media_player.shuffle_set
-        data:
-          entity_id: media_player.spotify
-          shuffle: true          
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.lounge
+          volume_level: 0.10
       - service: spotcast.start
         data_template:
           device_name: 'Downstairs'
@@ -133,6 +145,15 @@ automation:
         # Happy Tunes
         # Weekendhygge
         # Feel Good Indie Rock
+      #- service: media_player.shuffle_set
+      #  data:
+      #    entity_id: media_player.spotify
+      #    shuffle: true            
+      - delay: '00:00:30'    
+      - service: media_player.shuffle_set
+        data:
+         entity_id: media_player.spotify
+         shuffle: true
       - service: automation.turn_off
         entity_id: automation.weekend_morning_music
       - delay: '02:05:00'

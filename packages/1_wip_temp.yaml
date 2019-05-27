@@ -96,6 +96,29 @@ google:
   client_secret: 9U9-jHm_yI8TRpBn1I9aeyiE
       
 automation:
+  - alias: "Shuffle test"
+    trigger:
+      platform: time
+      at: '08:15:00'
+    action:
+      - service: spotcast.start
+        data_template:
+          device_name: 'Bedroom Speaker'
+          uri: >
+            {{ [
+            'spotify:user:spotify:playlist:37i9dQZEVXcHsW4pFj4T0C', 
+            'spotify:user:spotify:playlist:37i9dQZEVXbtkYqvjNCAlq', 
+            'spotify:user:spotify:playlist:37i9dQZF1DX4W3aJJYCDfV', 
+            'spotify:user:spotify:playlist:37i9dQZF1DX32oVqaQE8BM',
+            'spotify:user:spotify:playlist:37i9dQZF1DWWLToO3EeTtX'
+            ] | random }}    
+      - service: media_player.shuffle_set
+        data:
+         entity_id: media_player.spotify
+         shuffle: true
+      
+
+
   - alias: "Pre-heat home"
     trigger:
       - platform: zone
@@ -184,3 +207,8 @@ automation:
         entity_id: media_player.spotify
         data:
           source: "Matt's iPhone 8+"
+      - service: media_player.shuffle_set
+        data:
+         entity_id: media_player.spotify
+         shuffle: false
+          

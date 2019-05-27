@@ -55,11 +55,11 @@ homeassistant:
       
 # TRACKERS
 device_tracker:
-  # Pings devices every 5 minutes. If device not seen in 15 mins, change to away
+  # Pings devices every 3 minutes. If device not seen in 10 mins, change to away
   
   - platform: ping
-    interval_seconds: 300
-    consider_home: 00:15:00
+    interval_seconds: 180
+    consider_home: 00:10:00
     hosts:
       sarah_ping: !secret ip_sarah_phone
       matt_ping: !secret ip_matt_phone
@@ -70,6 +70,7 @@ device_tracker:
       #rob: !secret ip_rob_phone
       sarah_watch: !secret ip_sarah_watch
       matt_watch: !secret ip_matt_watch
+      lounge_tv: !secret ip_philips_tv
  
 # CONVERT TRACKERS TO BAYESIAN SENSORS
 binary_sensor:

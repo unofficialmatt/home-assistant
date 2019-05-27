@@ -63,9 +63,9 @@ recorder:
   purge_interval: 2
   purge_keep_days: 6
   
-history: #!include ../includes/logging.yaml
+history: !include ../includes/logging.yaml
 
-logbook: #!include ../includes/logging.yaml
+logbook: !include ../includes/logging.yaml
 
 # Check for updates
 updater:
@@ -76,10 +76,10 @@ discovery:
 
 api:
 
-logger:
-  default: warning
-  logs:
-    homeassistant.components.media_player.spotify: info
+#logger:
+#  default: warning
+#  logs:
+#    homeassistant.components.media_player.spotify: info
 
 #######################################################
 #                                                     #

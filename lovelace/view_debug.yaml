@@ -24,13 +24,13 @@ cards:
           name: Restart Hass
           color_type: icon
           icon: attribute
-          color: "#0fb9b1"
+          color: var(--accent-color)
         - type: custom:button-card
           entity: script.request_location_update
           name: Request Locations
           color_type: icon
           icon: attribute
-          color: "#0fb9b1"      
+          color: var(--accent-color)
         
   - type: vertical-stack
     cards:        

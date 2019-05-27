@@ -7,6 +7,12 @@ modern:
   text-medium-color: '#778ca3'                                                    # Medium grey text
   text-light-color: '#a5b1c2'                                                     # Light grey text
   accent-color: '#0fb9b1'                                                         # Turquoise
+  accent-color-2: '#fd9644'                                                       # Orange
+  accent-color-3: '#fed330'                                                       # Yellow
+  accent-color-4: '#45aaf2'                                                       # Blue
+  accent-color-5: '#eb3b5a'                                                       # Red
+  accent-color-6: '#8854d0'                                                       # Purple
+  accent-color-7: '#20bf6b'                                                       # Green
   background-color: '#F7F8F9'                                                     # Light grey background
   background-color-2: '#F4F5F6'                                                   # Light grey background
   background-card-color: 'rgba(255,255,255,1.0)'                                  # White background

@@ -66,6 +66,33 @@ google_assistant:
         - guest mode
         - guests staying
         - guest bedroom
+    script.restart_hass:
+      expose: true
+      room: Utilities
+      aliases:
+        - restart home assistant
+    script.roborock_come_out:
+      expose: true
+      room: Utilities
+      aliases:
+        - Robbie Come Out
+        - Hoover Come Out
+        - Vaccum Come Out
+    script.roborock_mop:
+      expose: true
+      room: Utilities
+      aliases:
+        - Robbie Mop
+        - Hoover Mop
+        - Vaccum Mop
+    script.restart_hass:
+      expose: true
+      room: Utilities
+      aliases:
+        - restart home assistant
+    #Outside
+    switch.outside_lights:
+      room: Garden
     #Lounge
     switch.tuya_2:
       room: Lounge

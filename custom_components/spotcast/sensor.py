@@ -13,7 +13,6 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
 class ChromecastDevicesSensor(Entity):
 
     def __init__(self):
-        _LOGGER.info('NIKLAS constructor called')
         self._state = STATE_UNKNOWN
         self._chromecast_devices = []
         self._attributes = {
@@ -37,9 +36,9 @@ class ChromecastDevicesSensor(Entity):
 
     def update(self):
         import pychromecast
-        _LOGGER.info('updating')
+        _LOGGER.debug('updating')
         self._chromecast_devices = pychromecast.get_chromecasts()
-        _LOGGER.info('Found chromecast devices: %s', self._chromecast_devices)
+        _LOGGER.debug('Found chromecast devices: %s', self._chromecast_devices)
         # self._attributes['devices'] = [cast.name for cast in self._chromecast_devices]
         chromecasts = []
         for cast in self._chromecast_devices:
