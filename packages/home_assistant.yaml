@@ -25,6 +25,7 @@ homeassistant:
 http:
   ssl_certificate: !secret ssl_certificate
   ssl_key: !secret ssl_key
+  ssl_profile: intermediate
   ip_ban_enabled: True
   login_attempts_threshold: 15
   base_url: !secret base_url
@@ -40,26 +41,12 @@ mobile_app:
 lovelace:
   mode: yaml
   
-custom_updater:
-  track:
-    - cards
-    - components
-    - python_scripts
-  card_urls:
-    - https://raw.githubusercontent.com/kalkih/mini-media-player/master/tracker.json
-    - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
-    - https://raw.githubusercontent.com/rdehuyss/homeassistant-lovelace-google-calendar-card/master/custom_updater.json
-    - https://raw.githubusercontent.com/nervetattoo/simple-thermostat/master/tracker.json
-    - https://raw.githubusercontent.com/kalkih/simple-weather-card/master/tracker.json
-  
 config:
 
 map:
 
 recorder:
-  # The Home Assistant db is saved on a USB to prolonge the life of the SD card.
-  # Here we point to it's location
-  db_url: sqlite:///mnt/usbdrive/home-assistant_v2.db
+  db_url: !secret db_url
   purge_interval: 2
   purge_keep_days: 6
   
@@ -76,8 +63,8 @@ discovery:
 
 api:
 
-#logger:
-#  default: warning
+logger:
+  default: warning
 #  logs:
 #    homeassistant.components.media_player.spotify: info
 
@@ -120,7 +107,6 @@ automation:
       data_template: 
         title: '{{ "\u2699\uFE0F"}} Home Assistant shut down'
         message: "Logging off..."
-        
 #  - alias: 'Theme Switch'
 #    hide_entity: True
 #    trigger:

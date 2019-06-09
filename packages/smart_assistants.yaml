@@ -85,11 +85,6 @@ google_assistant:
         - Robbie Mop
         - Hoover Mop
         - Vaccum Mop
-    script.restart_hass:
-      expose: true
-      room: Utilities
-      aliases:
-        - restart home assistant
     #Outside
     switch.outside_lights:
       room: Garden

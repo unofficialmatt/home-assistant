@@ -50,6 +50,11 @@ cards:
         ## WIP Stuff
         
         Here is a dumping ground for bits I'm working on
+    - type: history-graph
+      entities:
+        - media_player.philips_tv
+        - sensor.lounge_tv
+        - device_tracker.lounge_tv
     - type: entities
       entities:
         - binary_sensor.kitchen_sensor_motion

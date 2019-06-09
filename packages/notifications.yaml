@@ -7,7 +7,6 @@
 
 tts:
   - platform: google_translate
-    cache_dir: /mnt/usbdrive/tts/
     
 notify:
   - name: all_phones

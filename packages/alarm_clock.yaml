@@ -218,7 +218,7 @@ automation:
           volume_level: 0.2
       - service: spotcast.start
         data_template:
-          device_name: 'Bedroom Dining'
+          entity_id: 'media_player.bedroom_dining'
           uri: >
             {{ [
             'spotify:user:spotify:playlist:37i9dQZEVXcHsW4pFj4T0C', 
@@ -228,6 +228,7 @@ automation:
             'spotify:user:spotify:playlist:37i9dQZF1DWWLToO3EeTtX'
             ] | random }}
         # Discover Weekly, Release Radar, New Music Friday UK, Chill Out Music, Morning Stroll    
+          transfer_playback: true
       - delay: '00:00:30'    
       - service: media_player.shuffle_set
         data:

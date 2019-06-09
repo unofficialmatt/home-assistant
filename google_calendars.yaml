@@ -33,3 +33,17 @@
     ignore_availability: true
     name: Matt
     track: true
+
+- cal_id: vsekv8d07v2ohs3i4mo63vm3h4@group.calendar.google.com
+  entities:
+  - device_id: joint
+    ignore_availability: true
+    name: Joint
+    track: true
+
+- cal_id: mwandsk@gmail.com
+  entities:
+  - device_id: mwandsk_gmail_com
+    ignore_availability: true
+    name: mwandsk@gmail.com
+    track: true

@@ -17,30 +17,11 @@
 #      - 'Joint' 
 #      - 'Sarah'
 #      - 'Home'
-vacuum:
-  - platform: xiaomi_miio
-    friendly_name: Robbie
-    host: !secret ip_robbie
-    token: !secret token_robbie
 
 spotcast:
   username: !secret spotify_username
   password: !secret spotify_password
-    
-media_player:
-  - platform: philips_js
-    host: !secret ip_philips_tv
-    name: Philips TV
-    api_version: 6
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
 #sensor:
 #  - platform: uk_transport
@@ -182,33 +163,4 @@ automation:
 #            {% else %}
 #              modern-dark
 #            {% endif %}
-
-      
-automation:
-  - alias: "Commute Start Spotify"
-    hide_entity: true
-    trigger:
-      platform: time
-      at: '08:15:00'
-    condition:  
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: 'binary_sensor.workday_sensor'
-          state: 'on'
-        - condition: state
-          entity_id: sensor.is_matt_home
-          state: 'home'
-        - condition: state
-          entity_id: input_boolean.alarm_clock
-          state: 'on'
-    action:
-      - service: media_player.select_source
-        entity_id: media_player.spotify
-        data:
-          source: "Matt's iPhone 8+"
-      - service: media_player.shuffle_set
-        data:
-         entity_id: media_player.spotify
-         shuffle: false
           

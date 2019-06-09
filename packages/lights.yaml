@@ -181,8 +181,8 @@ automation:
     hide_entity: true
     trigger:
     - platform: state
-      entity_id: media_player.lounge_tv
-      to: 'playing'
+      entity_id: media_player.philips_tv
+      to: 'on'
       from: 'off'
     condition:
     - condition: numeric_state

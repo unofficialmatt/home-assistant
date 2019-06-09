@@ -55,21 +55,13 @@ media_player:
   - platform: plex
     #name: Plex
     entity_namespace: 'plex'
-    use_custom_entity_ids: true
+    #use_custom_entity_ids: true
     #homebridge_media_player_switch: play_pause
-
-sensor:
-  - platform: template
-    sensors:
-      lounge_tv:
-        friendly_name: 'Lounge TV'
-        value_template: >-
-          {% if is_state('device_tracker.lounge_tv', 'home') %}
-            on
-          {% else %}
-            off
-          {% endif %}
-
+  - platform: philips_js
+    host: !secret ip_philips_tv
+    name: Philips TV
+    api_version: 6
+    
 
 #######################################################
 #                                                     #

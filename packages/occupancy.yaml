@@ -70,7 +70,6 @@ device_tracker:
       #rob: !secret ip_rob_phone
       sarah_watch: !secret ip_sarah_watch
       matt_watch: !secret ip_matt_watch
-      lounge_tv: !secret ip_philips_tv
  
 # CONVERT TRACKERS TO BAYESIAN SENSORS
 binary_sensor:

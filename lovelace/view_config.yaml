@@ -58,7 +58,6 @@ cards:
     cards: 
       - type: custom:xiaomi-vacuum-card
         entity: vacuum.xiaomi_vacuum_cleaner
-        background: false
         name: Robbie the Rover
         buttons: true
         background: robbie.jpeg
