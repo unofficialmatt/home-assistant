@@ -18,8 +18,8 @@ homeassistant:
     "media_player.plex*":
       icon: mdi:plex
   customize:
-    media_player.lounge_tv:
-      icon: mdi:television
+#    media_player.philips_tv:
+#      icon: mdi:television
     media_player.bedroom:
       friendly_name: Bedroom
     media_player.lounge:
@@ -53,10 +53,7 @@ media_player:
     client_id: !secret spotify_client_id
     client_secret: !secret spotify_client_secret
   - platform: plex
-    #name: Plex
     entity_namespace: 'plex'
-    #use_custom_entity_ids: true
-    #homebridge_media_player_switch: play_pause
   - platform: philips_js
     host: !secret ip_philips_tv
     name: Philips TV

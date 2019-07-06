@@ -55,7 +55,7 @@ cards:
       - type: markdown
         content: '## Video'
       - type: media-control
-        entity: media_player.lounge_tv
+        entity: media_player.philips_tv
         artwork: full-cover
         idle_view: when_idle        
       - type: media-control

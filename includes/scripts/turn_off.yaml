@@ -5,7 +5,7 @@ turn_off_all_hardware:
       data:
         transition: 10
     - service: media_player.turn_off
-      entity_id: media_player.lounge_tv, media_player.dining_room
+      entity_id: media_player.philips_tv, media_player.dining_room
     - service: media_player.media_stop
       entity_id: media_player.speakers
     - service: switch.turn_off
@@ -18,7 +18,7 @@ turn_off_bedtime:
       data:
         transition: 5
     - service: media_player.turn_off
-      entity_id: media_player.lounge_tv, media_player.dining_room
+      entity_id: media_player.philips_tv, media_player.dining_room
     - service: media_player.media_stop
       entity_id: media_player.speakers
     - service: switch.turn_off

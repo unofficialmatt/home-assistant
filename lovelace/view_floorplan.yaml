@@ -173,7 +173,7 @@ cards:
           - type: state-icon
             tap_action:
               action: more-info
-            entity: media_player.lounge_tv
+            entity: media_player.philips_tv
             style:
               top: 59%
               left: 79%   

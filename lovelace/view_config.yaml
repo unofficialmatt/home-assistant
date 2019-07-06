@@ -21,13 +21,13 @@ cards:
           entity: automation.rain_alert
           name: Rain Watch
           color_type: icon
-          icon: attribute
+          #icon: attribute
           color: "#0fb9b1"
         - type: custom:button-card
           entity: input_boolean.alarm_clock
           name: Alarm Clock
           color_type: icon
-          icon: attribute
+          #icon: attribute
           color: "#0fb9b1"
           
     - type: horizontal-stack
@@ -36,13 +36,13 @@ cards:
           entity: input_boolean.guests_staying
           name: Guests Staying
           color_type: icon
-          icon: attribute
+          #icon: attribute
           color: "#0fb9b1"
         - type: custom:button-card
           entity: input_boolean.entertaining
           name: Keep Lights On
           color_type: icon
-          icon: attribute
+          #icon: attribute
           color: "#0fb9b1"
     
   - type: entities

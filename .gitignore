@@ -1,0 +1,117 @@
+# Logs
+logs
+*.log
+# Python cache
+__pycache__
+*.pyc
+
+# Other
+*.uuid
+*.conf
+*.db
+*.db-journal
+*.log
+*.noload
+*.txt
+*.sqlite
+*.xml
+*.backup
+life360.sh
+.ip_authenticated.yaml
+.config_entries.json
+*.google.token
+.google.token
+.ring_cache.pickle
+.spotify-token-cache
+.storage
+abodepy_cache.pickle
+camera_recording.py
+home-assistant.env
+home-assistant.*
+known_devices.yaml
+ip_bans.yaml
+entity_registry.yaml
+secrets.yaml
+google_calendars.yaml
+components
+custom_components
+deps
+tts
+www/icons
+www/community
+www/floorplans
+downloads
+icloud
+dlib_faces
+dlib_nofaces
+dlib_known_faces
+dlib_unknown_faces
+.cloud
+*.pickle
+.pc-session
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### Windows ###
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*

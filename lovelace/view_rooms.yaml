@@ -55,7 +55,7 @@ cards:
         - light.lounge_lamp
         - light.hue_go
         - switch.tuya_2
-        - media_player.lounge_tv
+        - media_player.philips_tv
         - media_player.lounge
       state_image: 
         "on": /local/rooms/lounge.jpg

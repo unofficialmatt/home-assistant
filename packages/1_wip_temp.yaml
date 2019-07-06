@@ -73,31 +73,24 @@ ios:
 
 # GOOGLE CALENDARS
 google:
-  client_id: 859387401107-msgiilto1gl8mpmcjvrlsjr7rrupfa48.apps.googleusercontent.com
-  client_secret: 9U9-jHm_yI8TRpBn1I9aeyiE
+  client_id: 859387401107-51hpivpp2dnan3alrlvbe98n9ar3a87f.apps.googleusercontent.com
+  client_secret: 1BS_q90gr-tRn0AmfWWItXjy
       
 automation:
-  - alias: "Shuffle test"
+
+  - alias: 'Notify of Sonarr / Radarr activity'
     trigger:
-      platform: time
-      at: '08:15:00'
+      - platform: template
+        value_template: '{{ states.persistent_notification.notification.attributes.title == "Sonarr" }}'
+      - platform: template
+        value_template: '{{ states.persistent_notification.notification.attributes.title == "Radarr" }}'  
     action:
-      - service: spotcast.start
-        data_template:
-          device_name: 'Bedroom Speaker'
-          uri: >
-            {{ [
-            'spotify:user:spotify:playlist:37i9dQZEVXcHsW4pFj4T0C', 
-            'spotify:user:spotify:playlist:37i9dQZEVXbtkYqvjNCAlq', 
-            'spotify:user:spotify:playlist:37i9dQZF1DX4W3aJJYCDfV', 
-            'spotify:user:spotify:playlist:37i9dQZF1DX32oVqaQE8BM',
-            'spotify:user:spotify:playlist:37i9dQZF1DWWLToO3EeTtX'
-            ] | random }}    
-      - service: media_player.shuffle_set
-        data:
-         entity_id: media_player.spotify
-         shuffle: true
-      
+      service: notify.all_phones
+      data_template:
+        title: 'Incoming Media'
+        message: '{{ "\uD83C\uDFAC" }} {{ states.persistent_notification.notification.attributes.message }}'
+    # HOW TO DISMISS HERE
+   
 
 
   - alias: "Pre-heat home"

@@ -1,22 +1,22 @@
 title: Home
 resources:
   - url: /local/community/card-tools/card-tools.js?v=0.3.2
-    type: js
+    type: js 
   - url: /local/community/tracker-card/tracker-card.js?v=0.3.2
-    type: js
+    type: js 
   - url: /local/community/xiaomi-vacuum-card/xiaomi-vacuum-card.js?v=1.1.1
     type: js    
-  - url: /local/community/vertical-stack-in-card/vertical-stack-in-card.js?v=0.1.2
-    type: js    
+  - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
+    type: js
   - url: /local/community/useful-markdown-card/useful-markdown-card.js?v=1
     type: module
-  - url: /local/community/compact-custom-header/compact-custom-header.js?v=1.0.0b5
+  - url: /community_plugin/compact-custom-header/compact-custom-header.js
     type: module
-  - url: /local/community/slider-entity-row/slider-entity-row.js?v=1.1.1
+  - url: /community_plugin/lovelace-slider-entity-row/slider-entity-row.js
     type: module    
-  - url: /local/community/mini-media-player/mini-media-player-bundle.js?v=1.0.1
+  - url: /community_plugin/mini-media-player/mini-media-player.js
     type: module
-  - url: /local/community/mini-graph-card/mini-graph-card-bundle.js?v=0.2.4
+  - url: /community_plugin/mini-graph-card/mini-graph-card.js
     type: module
   - url: https://unpkg.com/moment@2.22.2/moment.js
     type: js
@@ -24,7 +24,7 @@ resources:
     type: module
   - url: /local/community/simple-weather-card/simple-weather-card.bundle.js?v=0.1.0
     type: module
-  - url: /local/community/button-card/button-card.js?v=1
+  - url: /community_plugin/button-card/button-card.js
     type: module
   - type: css
     url: 'https://fonts.googleapis.com/css?family=Montserrat'   

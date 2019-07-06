@@ -22,10 +22,10 @@ homeassistant:
       icon: mdi:thermometer-lines
     sensor.darksky_hourly_summary:
       friendly_name: Forecast
-    sensor.darksky_daily_high_temperature:
+    sensor.dark_sky_daytime_high_temperature_0d:
       friendly_name: High Temperature
       icon: mdi:arrow-up-bold
-    sensor.darksky_daily_low_temperature:
+    sensor.dark_sky_daytime_low_temperature_0d:
       friendly_name: Low Temperature
       icon: mdi:arrow-down-bold
     sensor.chance_of_rain:
@@ -40,6 +40,9 @@ sensor:
     name: darksky
     scan_interval:
       minutes: 10
+    forecast:
+      - 0
+      - 1
     monitored_conditions:
       - nearest_storm_distance
       - summary

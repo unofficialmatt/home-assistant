@@ -40,7 +40,6 @@
     ignore_availability: true
     name: Joint
     track: true
-
 - cal_id: mwandsk@gmail.com
   entities:
   - device_id: mwandsk_gmail_com

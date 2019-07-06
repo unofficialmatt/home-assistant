@@ -16,6 +16,9 @@ homeassistant:
     switch.tuya_2:
       icon: mdi:lamp
       friendly_name: Star Lamp
+    switch.tuya_3:
+      icon: mdi:white-balance-incandescent
+      friendly_name: Festoon Lights      
       
 tuya:
   username: !secret tuya_user
