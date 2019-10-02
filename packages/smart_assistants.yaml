@@ -95,9 +95,11 @@ google_assistant:
     switch.tuya_1:
       room: Dining Room
     #Master Bedroom
-    switch.heated_blanket:
+    switch.bedroom_comfort:
       room: Bedroom
       aliases:
         - heated blanket
         - fan
         - bedroom fan
+        - heated mattress
+        - blanket

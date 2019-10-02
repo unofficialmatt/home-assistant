@@ -2,7 +2,7 @@ title: Debug
 path: debug
 icon: mdi:bug
 background: var(--background-image)
-cards:  
+cards:
 #  - type: custom:compact-custom-header
 #    header: true
 #    menu: false
@@ -23,55 +23,47 @@ cards:
           entity: script.restart_hass
           name: Restart Hass
           color_type: icon
-          icon: attribute
+          #icon: attribute
           color: var(--accent-color)
         - type: custom:button-card
           entity: script.request_location_update
           name: Request Locations
           color_type: icon
-          icon: attribute
+          #icon: attribute
           color: var(--accent-color)
-        
+
   - type: vertical-stack
-    cards:        
+    cards:
       - type: custom:tracker-card
         title:
         trackers:
           - sensor.custom_card_tracker
           - sensor.custom_component_tracker
+  - type: markdown
+    content: &markdown |
+      ## WIP Stuff
 
+      Here is a dumping ground for bits I'm working on
+
+  - type: entities
+    title: Peeps
+    show_header_toggle: false
+    entities:
+      - person.matt
+      - person.sarah
 
 
 
   - type: vertical-stack
     cards:
-    - type: markdown
-      content: &markdown |
-        ## WIP Stuff
-        
-        Here is a dumping ground for bits I'm working on
-    - type: history-graph
-      entities:
-        - media_player.philips_tv
-        - sensor.lounge_tv
-        - device_tracker.lounge_tv
-    - type: entities
-      entities:
-        - binary_sensor.kitchen_sensor_motion
-        - binary_sensor.landing_sensor_motion
-    - type: entities
-      title: Peeps
-      show_header_toggle: false
-      entities:
-        - person.matt
-        - person.sarah
+
     - type: entities
       title: Input Selects
       show_header_toggle: false
-      entities: 
+      entities:
       - input_select.bedtime_trigger
       - input_select.home_status
-      
+
     - type: custom:mini-graph-card
       name: Commute
       entities:
@@ -86,9 +78,9 @@ cards:
         - automation.bedtime_comfort
         - automation.weekday_evening_music
         - automation.rain_alert
-        - automation.weekend_morning_music      
+        - automation.weekend_morning_music
         - entity:
           type: divider
         - automation.auto_set_alarm_clock
         - automation.commute_light
-        - automation.commute_notify_speaker        
+        - automation.commute_notify_speaker

@@ -9,7 +9,7 @@ turn_off_all_hardware:
     - service: media_player.media_stop
       entity_id: media_player.speakers
     - service: switch.turn_off
-      entity_id: switch.tuya_1, switch.tuya_2, switch.heated_blanket
+      entity_id: switch.tuya_1, switch.tuya_2, switch.bedroom_comfort
       
 turn_off_bedtime:
   sequence:

@@ -1,6 +1,6 @@
 #######################################################
 #
-#  This package contains components, sensor and 
+#  This package contains components, sensor and
 #  automations which are currently in a WIP state.
 #
 #
@@ -14,15 +14,10 @@
 #    username: !secret icloud_email
 #    password: !secret icloud_specific_password
 #    calendars:
-#      - 'Joint' 
+#      - 'Joint'
 #      - 'Sarah'
 #      - 'Home'
 
-spotcast:
-  username: !secret spotify_username
-  password: !secret spotify_password
-
-    
 #sensor:
 #  - platform: uk_transport
 #    app_id: !secret uk_transport_id
@@ -30,26 +25,26 @@ spotcast:
 #    queries:
 #      - mode: train
 #        origin: SOU
-#        destination: WIN       
-        
+#        destination: WIN
+
 
 # Add support for person component
-#person:
-#  - name: Matt
-#    id: matt
-#    user_id: 6727ee0d558348a5b33ea2b1534d5797
-#    device_trackers:
-#      - device_tracker.matt
-#      - device_tracker.matt_ping
-#      - device_tracker.matt_watch
-#  - name: Sarah
-#    id: sarah
-#    user_id: d40377bd5d284df2bf051236544fafcb
-#    device_trackers:
-#      - device_tracker.sarah
-#      - device_tracker.sarah_ping
-#      - device_tracker.sarah_watch
-    
+person:
+  - name: Matt
+    id: matt
+    user_id: c1937753d36940ff9bc20222e7c8ffa3
+    device_trackers:
+      - device_tracker.matt
+      - device_tracker.matt_ping
+      - device_tracker.matt_watch
+  - name: Sarah
+    id: sarah
+    user_id: 6484a01f3d07451aa10113e684fec320
+    device_trackers:
+      - device_tracker.sarah
+      - device_tracker.sarah_ping
+      - device_tracker.sarah_watch
+
 ios:
   push:
     categories:
@@ -64,18 +59,18 @@ ios:
             title: 'No'
             activationMode: 'background'
             authenticationRequired: false
-         
-#notify:
-#  - platform: html5
-#    name: HTML
-#    gcm_api_key: !secret google_notify_api_key
-#    gcm_sender_id: !secret google_notify_sender_id
+
+notify:
+  - platform: html5
+    name: HTML
+    gcm_api_key: !secret google_notify_api_key
+    gcm_sender_id: !secret google_notify_sender_id
 
 # GOOGLE CALENDARS
 google:
   client_id: 859387401107-51hpivpp2dnan3alrlvbe98n9ar3a87f.apps.googleusercontent.com
   client_secret: 1BS_q90gr-tRn0AmfWWItXjy
-      
+
 automation:
 
   - alias: 'Notify of Sonarr / Radarr activity'
@@ -83,15 +78,15 @@ automation:
       - platform: template
         value_template: '{{ states.persistent_notification.notification.attributes.title == "Sonarr" }}'
       - platform: template
-        value_template: '{{ states.persistent_notification.notification.attributes.title == "Radarr" }}'  
+        value_template: '{{ states.persistent_notification.notification.attributes.title == "Radarr" }}'
     action:
-      service: notify.all_phones
-      data_template:
-        title: 'Incoming Media'
-        message: '{{ "\uD83C\uDFAC" }} {{ states.persistent_notification.notification.attributes.message }}'
-    # HOW TO DISMISS HERE
-   
-
+      - service: notify.all_phones
+        data_template:
+          title: 'Incoming Media'
+          message: '{{ "\uD83C\uDFAC" }} {{ states.persistent_notification.notification.attributes.message }}'
+      - service: persistent_notification.dismiss
+        data_template:
+          notification_id: "{{ trigger.to_state.attributes.object_id }}"
 
   - alias: "Pre-heat home"
     trigger:
@@ -112,7 +107,7 @@ automation:
           below: 16
     action:
       - service: notify.ios_sarah
-        data_template: 
+        data_template:
           title: >
             {{ "\uD83C\uDF21" }} It's a little chilly at home
           message: "Hi Sarah, it's currently {{ states.sensor.average_home_temperature.state }}°C at home. Would you like me to pre-heat the house?"
@@ -129,13 +124,13 @@ automation:
         actionName: PREHEAT_YES
     action:
       - service: notify.ios_sarah
-        data_template: 
+        data_template:
           message: >
             {{ "\uD83C\uDF21" }} OK, I've turned the thermostat on. See you soon.
-      - service: climate.set_operation_mode
+      - service: climate.set_hvac_mode
         data:
           entity_id: climate.hallway
-          operation_mode: "heat"
+          operation_mode: heat_cool
       - service: climate.set_temperature
         data:
           entity_id: climate.hallway
@@ -156,4 +151,3 @@ automation:
 #            {% else %}
 #              modern-dark
 #            {% endif %}
-          

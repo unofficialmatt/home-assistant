@@ -1,14 +1,14 @@
 #######################################################
 #
 #  This package contains the components used to track
-#  and monitor occupancy, and provides relevant 
+#  and monitor occupancy, and provides relevant
 #  automations based on presence detection
 #
 #  ----------------------------------------------------
 #
-#  DEPENDS ON: Environment, Notifications, 
+#  DEPENDS ON: Environment, Notifications,
 #  Script/Turn_Off
-#  
+#
 #######################################################
 
 
@@ -22,20 +22,22 @@ homeassistant:
       hidden: true
     sensor.sarah_kents_iphone_battery_state:
       hidden: true
-      
+
     device_tracker.matt_ping:
       hidden: true
-      icon: mdi:watch-variant
+      icon: mdi:router-wireless
     device_tracker.sarah_ping:
       hidden: true
-      icon: mdi:watch-variant
+      icon: mdi:router-wireless
     device_tracker.matt_watch:
+      hidden: true
       icon: mdi:watch-variant
     device_tracker.sarah_watch:
+      hidden: true
       icon: mdi:watch-variant
     device_tracker.sarahs_ipad:
       hidden: true
-      
+
     binary_sensor.sarah_bayesian:
       hidden: true
     binary_sensor.matt_bayesian:
@@ -45,18 +47,18 @@ homeassistant:
     sensor.is_sarah_home:
       entity_picture: /local/people/sarah.jpg
     sensor.who_is_home:
-      hidden: true    
+      hidden: true
 
     script.request_location_update:
       hidden: false
       icon: mdi:crosshairs
       friendly_name: Request Device Locations
 
-      
+
 # TRACKERS
 device_tracker:
   # Pings devices every 3 minutes. If device not seen in 10 mins, change to away
-  
+
   - platform: ping
     interval_seconds: 180
     consider_home: 00:10:00
@@ -70,7 +72,7 @@ device_tracker:
       #rob: !secret ip_rob_phone
       sarah_watch: !secret ip_sarah_watch
       matt_watch: !secret ip_matt_watch
- 
+
 # CONVERT TRACKERS TO BAYESIAN SENSORS
 binary_sensor:
   # https://diyfuturism.com/index.php/2017/11/26/presence-detection-with-home-assistant-bayesian-probability/
@@ -94,7 +96,7 @@ binary_sensor:
         prob_given_false: 0.1
         platform: 'state'
         to_state: 'home'
-        
+
   - platform: bayesian
     prior: 0.5
     name: 'Sarah Bayesian'
@@ -115,7 +117,7 @@ binary_sensor:
         prob_given_false: 0.1
         platform: 'state'
         to_state: 'home'
-        
+
 # RE-WORD BAYESIAN ON/OFF TO HOME/NOT_HOME
 sensor:
   - platform: template
@@ -144,7 +146,7 @@ sensor:
         friendly_name: 'Sarah'
         value_template: >
           {% if is_state('binary_sensor.sarah_bayesian', 'on') %}
-            home 
+            home
           {% else %}
             not_home
           {% endif %}
@@ -176,8 +178,8 @@ group:
     entities:
       - group.friends
       - group.family
-    
-# HOME STATUS     
+
+# HOME STATUS
 input_select:
   home_status:
     name: Home Status
@@ -187,7 +189,7 @@ input_select:
       - Holiday
     initial: Home
     icon: mdi:home
-    
+
 # GUEST MODES
 input_boolean:
   guests_staying:
@@ -198,7 +200,7 @@ input_boolean:
     name: Keep Lights On At Bedtime (Entertaining)
     initial: off
     icon: mdi:lightbulb-on-outline
-    
+
 #######################################################
 #                                                     #
 #                     AUTOMATIONS                     #
@@ -222,7 +224,7 @@ automation:
             {% else %}
               Away
             {% endif %}
-            
+
   # We use seperate automations here, so that if home_status is changed manually (eg. by input select), the actions still occur.
   - alias: 'Home Status Home Actions'
     hide_entity: true
@@ -235,7 +237,7 @@ automation:
         data:
           entity_id: climate.hallway
           away_mode: off
-          
+
   - alias: 'Home Status Away Actions'
     hide_entity: true
     trigger:
@@ -249,7 +251,7 @@ automation:
         data:
           entity_id: climate.hallway
           away_mode: on
-          
+
   # ACTIVATE HOLIDAY MODE
   - alias: 'Home Status Holiday'
     hide_entity: true
@@ -264,16 +266,16 @@ automation:
         data_template:
           entity_id: input_select.home_status
           option: Holiday
-          
+
   # SEND NOTIFICATION OF STATUS CHANGE
   - alias: 'Home Status Notify'
     hide_entity: true
-    trigger: 
+    trigger:
       - platform: state
         entity_id: input_select.home_status
     action:
       - service: notify.ios_matt
-        data_template: 
+        data_template:
           title: >
             {% if is_state("input_select.home_status", "Holiday") %} {{ "\uD83C\uDFD6" }} Home set to {{ trigger.to_state.state }} mode
             {% else %} {{ "\uD83C\uDFE1" }} Home set to {{ trigger.to_state.state }} mode
@@ -282,7 +284,7 @@ automation:
             {% if is_state("input_select.home_status", "Holiday") %} Enjoy your trip!
             {% else %} Home Assistant status updated
             {% endif %}
-            
+
   # TRIGGER GUEST MODE
   - alias: 'Guest Modes Auto On'
     hide_entity: true

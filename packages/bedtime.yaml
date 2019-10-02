@@ -14,11 +14,11 @@ homeassistant:
     input_select.bedtime_trigger:
       icon: mdi:hotel
     automation.bedtime_comfort:
-      icon: mdi:radiator
+      icon: mdi:fan
       friendly_name: Heated Mattress on at Bedtime
-    switch.heated_blanket:
-      icon: mdi:radiator
-      friendly_name: Heated Mattress
+    switch.bedroom_comfort:
+      icon: mdi:fan
+      friendly_name: Bedroom Fan
       
 input_select:
   bedtime_trigger:
@@ -170,7 +170,7 @@ automation:
         state: 'Home'
     action:
       - service: switch.turn_on
-        entity_id: switch.heated_blanket
+        entity_id: switch.bedroom_comfort
   
   - alias: 'Heated Mattress / Fan Off'
     hide_entity: true
@@ -182,8 +182,8 @@ automation:
           minutes: 60
     condition:
       - condition: state
-        entity_id: switch.heated_blanket
+        entity_id: switch.bedroom_comfort
         state: 'on'
     action:
       - service: switch.turn_off
-        entity_id: switch.heated_blanket
+        entity_id: switch.bedroom_comfort

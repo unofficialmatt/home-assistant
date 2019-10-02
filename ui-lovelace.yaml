@@ -1,19 +1,17 @@
 title: Home
 resources:
   - url: /local/community/card-tools/card-tools.js?v=0.3.2
-    type: js 
+    type: js
   - url: /local/community/tracker-card/tracker-card.js?v=0.3.2
-    type: js 
+    type: js
   - url: /local/community/xiaomi-vacuum-card/xiaomi-vacuum-card.js?v=1.1.1
-    type: js    
+    type: js
   - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
     type: js
-  - url: /local/community/useful-markdown-card/useful-markdown-card.js?v=1
-    type: module
   - url: /community_plugin/compact-custom-header/compact-custom-header.js
     type: module
   - url: /community_plugin/lovelace-slider-entity-row/slider-entity-row.js
-    type: module    
+    type: module
   - url: /community_plugin/mini-media-player/mini-media-player.js
     type: module
   - url: /community_plugin/mini-graph-card/mini-graph-card.js
@@ -27,18 +25,17 @@ resources:
   - url: /community_plugin/button-card/button-card.js
     type: module
   - type: css
-    url: 'https://fonts.googleapis.com/css?family=Montserrat'   
+    url: 'https://fonts.googleapis.com/css?family=Montserrat'
   - url: /local/styles.css?v=0.2
-    type: css    
+    type: css
   - type: module
     url: >-
-      https://cdn.jsdelivr.net/gh/custom-cards/spotify-card@1.5/dist/spotify-card.umd.js    
+      https://cdn.jsdelivr.net/gh/custom-cards/spotify-card@1.5/dist/spotify-card.umd.js
 views:
   - !include lovelace/view_home.yaml
   - !include lovelace/view_rooms.yaml
-  - !include lovelace/view_lights.yaml
   - !include lovelace/view_media.yaml
   - !include lovelace/view_climate.yaml
-#  - !include lovelace/view_floorplan.yaml
+  - !include lovelace/view_floorplan.yaml
   - !include lovelace/view_config.yaml
   - !include lovelace/view_debug.yaml

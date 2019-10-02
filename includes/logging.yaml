@@ -9,6 +9,7 @@ include:
   domains:
     - climate
     - device_tracker
+    - light
   entities:
     - group.occupants
     - binary_sensor.matt_bayesian
@@ -19,7 +20,7 @@ include:
     - sensor.chance_of_rain
     - sensor.darksky_nearest_storm_distance
     - sensor.darksky_temperature
-    - sensor.hallway_thermostat_humidity  
+    - sensor.hallway_thermostat_humidity
     - sensor.evening_commute
     - sensor.morning_commute
     - binary_sensor.kitchen_sensor_motion
@@ -29,10 +30,9 @@ include:
     - media_player.philips_tv
 exclude:
   domains:
-    - light
-    - switch  
+    - switch
     - sensor
     - media_player
-    - automation    
+    - automation
     - input_boolean
     - input_select

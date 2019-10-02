@@ -1,4 +1,32 @@
 {
-    "CUSA08519": "Red Dead Redemption 2",
-    "CUSA09491": "Frantics"
+    "CUSA01703": {
+        "locked": false,
+        "media_content_type": "app",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/GB/en/19/EP4544-CUSA01703_00-WEBMAF000000PLEX/1553560242000/image",
+        "media_title": "Plex"
+    },
+    "CUSA04282": {
+        "locked": false,
+        "media_content_type": "game",
+        "media_image_url": null,
+        "media_title": "Don't Starve Together: Console Edition"
+    },
+    "CUSA08519": {
+        "locked": false,
+        "media_content_type": "game",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/GB/en/19/EP1004-CUSA08519_00-REDEMPTION000002/1568803282000/image",
+        "media_title": "Red Dead Redemption 2"
+    },
+    "CUSA09491": {
+        "locked": false,
+        "media_content_type": "game",
+        "media_image_url": null,
+        "media_title": "Frantics"
+    },
+    "CUSA11882": {
+        "locked": false,
+        "media_content_type": "game",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/GB/en/19/EP9000-CUSA11882_00-ERICA00000000000/1569243637000/image",
+        "media_title": "Erica"
+    }
 }

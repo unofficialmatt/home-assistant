@@ -1,12 +1,12 @@
 #######################################################
 #
-#  This package contains the components and automations 
+#  This package contains the components and automations
 #  used to define and control scenes.
 #
 #  ----------------------------------------------------
 #
 #  DEPENDS ON: Lights, Includes/Hue-Scenes
-#  
+#
 #######################################################
 
 homeassistant:
@@ -15,8 +15,8 @@ homeassistant:
       hidden: true
   customize_glob:
     "input_select.scene_*":
-      icon: mdi:brightness-6  
-      
+      icon: mdi:brightness-6
+
 input_select:
   scene_master_bedroom:
     name: Scene
@@ -27,7 +27,7 @@ input_select:
       - Dimmed
       - Relax
       - "-"
-    initial: "-"  
+    initial: "-"
   scene_guest_bedroom:
     name: Scene
     options:
@@ -37,7 +37,7 @@ input_select:
       - Dimmed
       - Relax
       - "-"
-    initial: "-"  
+    initial: "-"
   scene_dining_room:
     name: Scene
     options:
@@ -48,7 +48,7 @@ input_select:
       - Warm
       - Entertaining
       - "-"
-    initial: "-"  
+    initial: "-"
   scene_lounge:
     name: Scene
     options:
@@ -68,8 +68,17 @@ input_select:
       - Dimmed
       - Relax
       - "-"
-    initial: "-" 
-    
+    initial: "-"
+  scene_kitchen:
+    name: Scene
+    options:
+      - Energise
+      - Bright
+      - Dimmed
+      - Relax
+      - "-"
+    initial: "-"
+
 scene:
 
   - name: Hallway Dimmed
@@ -78,7 +87,7 @@ scene:
         state: on
         transition: 3
         brightness: 5
-        
+
   - name: Master Bedroom Energise
     entities:
       light.master_bedroom:
@@ -110,7 +119,7 @@ scene:
     entities:
       light.master_bedroom:
         !include ../includes/hue-scenes/relax.yaml
-        
+
   - name: Guest Bedroom Energise
     entities:
       light.guest_bedroom:
@@ -144,7 +153,7 @@ scene:
     entities:
       light.guest_bedroom:
         !include ../includes/hue-scenes/relax.yaml
-  
+
   - name: Dining Room Energise
     entities:
       light.dining_room:
@@ -199,7 +208,24 @@ scene:
     entities:
       light.office:
         !include ../includes/hue-scenes/relax.yaml
-  
+
+  - name: Kitchen Energise
+    entities:
+      light.kitchen:
+        !include ../includes/hue-scenes/energise.yaml
+  - name: Kitchen Bright
+    entities:
+      light.kitchen:
+        !include ../includes/hue-scenes/bright.yaml
+  - name: Kitchen Dimmed
+    entities:
+      light.kitchen:
+        !include ../includes/hue-scenes/dimmed.yaml
+  - name: Kitchen Relax
+    entities:
+      light.kitchen:
+        !include ../includes/hue-scenes/relax.yaml
+
   - name: Lounge Energise
     entities:
       light.lounge:
@@ -259,7 +285,7 @@ scene:
         transition: 2
         brightness: 20
         rgb_color: [255,119,75]
-      
+
 #######################################################
 #                                                     #
 #                     AUTOMATIONS                     #
@@ -280,7 +306,7 @@ automation:
       - service: scene.turn_on
         data_template:
           entity_id: "scene.{{ trigger.entity_id|replace('input_select.scene_', '') }}_{{ trigger.to_state.state }}"
-          
+
   - alias: 'Scene Reset'
     hide_entity: true
     trigger:

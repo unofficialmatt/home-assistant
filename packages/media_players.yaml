@@ -1,13 +1,13 @@
 #######################################################
 #
-#  This package contains the components and sensors 
+#  This package contains the components and sensors
 #  used to monitor and interact with the media players
 #  connected to Home Assistant
 #
 #  ----------------------------------------------------
 #
 #  DEPENDS ON: Occupancy, Environment
-#  
+#
 #######################################################
 
 homeassistant:
@@ -36,16 +36,18 @@ homeassistant:
       hidden: true
     media_player.spotify:
       icon: mdi:spotify
-      
+    media_player.philips_tv:
+      icon: mdi:television
+
     media_player.plex_plex_jo3rrkm3r8peb3u1kngczj9z:
       friendly_name: Plex Macbook
       icon: mdi:plex
-      
+
     automation.weekday_evening_music:
       icon: mdi:music
     automation.weekend_morning_music:
       icon: mdi:music
-      
+
 cast:
 
 media_player:
@@ -58,7 +60,11 @@ media_player:
     host: !secret ip_philips_tv
     name: Philips TV
     api_version: 6
-    
+
+spotcast:
+  username: !secret spotify_username
+  password: !secret spotify_password
+
 
 #######################################################
 #                                                     #
@@ -87,8 +93,8 @@ automation:
         entity_id: media_player.dining_room
         data:
           media_content_id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p'
-          media_content_type: 'music'  
-          
+          media_content_type: 'music'
+
   - alias: 'Weekend Morning Music'
     initial_state: 'on'
     trigger:
@@ -100,7 +106,7 @@ automation:
       conditions:
         - condition: state
           entity_id: binary_sensor.workday_sensor
-          state: 'off' 
+          state: 'off'
         - condition: time
           after: '08:00:00'
           before: '10:30:00'
@@ -109,23 +115,19 @@ automation:
         data_template:
           entity_id: media_player.dining_room
           volume_level: 0.15
-      - service: media_player.volume_set
-        data_template:
-          entity_id: media_player.lounge
-          volume_level: 0.10
       - service: spotcast.start
         data_template:
-          device_name: 'Downstairs'
+          device_name: 'Dining Room Speaker'
           uri: >
             {{ [
-            'spotify:user:spotify:playlist:37i9dQZF1DXcxacyAXkQDu', 
-            'spotify:user:spotify:playlist:37i9dQZF1DX0UrRvztWcAU', 
-            'spotify:user:motown_records:playlist:5mByrIFuUzwKk8H6XnE5BZ', 
+            'spotify:user:spotify:playlist:37i9dQZF1DXcxacyAXkQDu',
+            'spotify:user:spotify:playlist:37i9dQZF1DX0UrRvztWcAU',
+            'spotify:user:motown_records:playlist:5mByrIFuUzwKk8H6XnE5BZ',
             'spotify:user:spotify:playlist:37i9dQZF1DWY4lFlS4Pnso',
             'spotify:user:spotify:playlist:37i9dQZF1DX9u7XXOp0l5L',
             'spotify:user:spotify:playlist:37i9dQZF1DWZdL27osEgj6',
             'spotify:user:spotify:playlist:37i9dQZF1DX2sUQwD7tbmL'
-            ] | random }}              
+            ] | random }}
         # RANDOM PLAYLISTS IN ORDER:
         # Wake up and smell the coffee
         # Wake up happy
@@ -137,8 +139,8 @@ automation:
       #- service: media_player.shuffle_set
       #  data:
       #    entity_id: media_player.spotify
-      #    shuffle: true            
-      - delay: '00:00:30'    
+      #    shuffle: true
+      - delay: '00:00:30'
       - service: media_player.shuffle_set
         data:
          entity_id: media_player.spotify
@@ -148,6 +150,5 @@ automation:
       - delay: '02:05:00'
       - service: automation.turn_on
         entity_id: automation.weekend_morning_music
-        
 
-      
+

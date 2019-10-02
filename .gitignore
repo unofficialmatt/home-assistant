@@ -1,3 +1,9 @@
+# Hidden Files
+.*
+
+###### INCLUDE
+!.gitignore
+
 # Logs
 logs
 *.log
@@ -18,6 +24,8 @@ __pycache__
 *.backup
 life360.sh
 .ip_authenticated.yaml
+.HA_VERSION
+.ps4-games.json
 .config_entries.json
 *.google.token
 .google.token
@@ -34,12 +42,12 @@ entity_registry.yaml
 secrets.yaml
 google_calendars.yaml
 components
-custom_components
+custom_components/
 deps
 tts
-www/icons
-www/community
-www/floorplans
+www/icons/
+www/community/
+www/floorplans/
 downloads
 icloud
 dlib_faces

@@ -2,7 +2,7 @@ title: Media
 path: media
 icon: mdi:play-box-outline
 background: var(--background-image)
-cards:  
+cards:
   - type: custom:compact-custom-header
     header: true
     menu: false
@@ -20,7 +20,7 @@ cards:
       - entity: media_player.dining_room
         type: custom:mini-media-player
         artwork: full-cover
-        idle_view: after 5        
+        idle_view: after 5
       - entity: media_player.bedroom
         type: custom:mini-media-player
         name: Master Bedroom
@@ -36,7 +36,7 @@ cards:
         #      icon: mdi:radio
         #      type: music
         #      id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p'
-              
+
       - entity: media_player.office
         type: custom:mini-media-player
         artwork: full-cover
@@ -45,20 +45,20 @@ cards:
         type: custom:mini-media-player
         artwork: full-cover
         idle_view: when_idle
-  - type: 'custom:spotify-card'
-    client_id: !secret spotify_client_id        
+      - type: 'custom:spotify-card'
+        client_id: !secret spotify_client_id
 
-        
-  
+
+
   - type: vertical-stack
-    cards:        
+    cards:
       - type: markdown
         content: '## Video'
       - type: media-control
         entity: media_player.philips_tv
         artwork: full-cover
-        idle_view: when_idle        
-      - type: media-control
-        entity: media_player.plex_macbook
+        idle_view: when_idle
       - type: media-control
         entity: media_player.playstation_4
+      - type: media-control
+        entity: media_player.plex_macbook

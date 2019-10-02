@@ -1,13 +1,13 @@
 #######################################################
 #
 #  This package contains the components used to notify,
-#  and be notified by, Home Assistant 
+#  and be notified by, Home Assistant
 #
 #######################################################
 
 tts:
   - platform: google_translate
-    
+
 notify:
   - name: all_phones
     platform: group
@@ -22,3 +22,8 @@ notify:
     platform: group
     services:
       - service: ios_sarah
+  - platform: html5
+    name: matt_mbp
+    vapid_pub_key: !secret vapid_pub_key
+    vapid_prv_key: !secret vapid_prv_key
+    vapid_email: !secret tuya_user
