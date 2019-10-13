@@ -49,7 +49,7 @@ automation:
       - platform: event
         event_type: deconz_event
         event_data:
-          id: switch_5
+          id: doorbell
           event: 1000
     condition:
       - condition: state

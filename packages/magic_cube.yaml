@@ -1,38 +1,12 @@
 #######################################################
 #
-#  This package contains the components used to set up
-#  and manage switches
+#  This package contains the components used for Magic
+#  Cube automations
+#
+#  @link https://github.com/dresden-elektronik/deconz-rest-plugin/issues/138#issuecomment-325101635
+#  @link https://community.home-assistant.io/t/xiaomi-cube-rotate/34186/37
 #
 #######################################################
-
-homeassistant:
-  customize_domain:
-    switch:
-      icon: mdi:power-plug
-  customize:
-    switch.tuya_1:
-      icon: mdi:star-four-points
-      friendly_name: Fairy Lights
-    switch.tuya_2:
-      icon: mdi:lamp
-      friendly_name: Star Lamp
-    switch.tuya_3:
-      icon: mdi:white-balance-incandescent
-      friendly_name: Festoon Lights
-
-tuya:
-  username: !secret tuya_user
-  password: !secret tuya_pass
-  country_code: 44
-  platform: smart_life
-
-tplink:
-
-input_boolean:
-  doorbell_pressed:
-    name: Doorbell Pressed
-    initial: off
-    icon: mdi:bell-ring
 
 
 #######################################################
@@ -41,41 +15,35 @@ input_boolean:
 #                                                     #
 #######################################################
 
-# @link https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Xiaomi-WXKG01LM
-
 automation:
-  - alias: "Doorbell"
+  - alias: "MC Start Robbie"
     trigger:
       - platform: event
         event_type: deconz_event
         event_data:
-          id: switch_5
-          event: 1000
-    condition:
-      - condition: state
-        entity_id: input_boolean.doorbell_pressed
-        state: 'off'
+          id: magic_cube
+          event: 6001
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: magic_cube
+          event: 6002
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: magic_cube
+          event: 6003
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: magic_cube
+          event: 6004
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: magic_cube
+          event: 6005
     action:
-      - service: notify.matt
-        data_template:
-          title: >
-            {{ "\ud83d\udd14" }} Someone's at the door!
-          message: "The doorbell has been pressed."
-      - service: media_player.play_media
-        data_template:
-          entity_id: media_player.speakers
-          media_content_id: https://home.lynwood.club/local/doorbell.mp3
-          media_content_type: 'audio/mp3'
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.doorbell_pressed
-
-  - alias: "Reset Doorbell"
-    trigger:
-      platform: state
-      entity_id: input_boolean.doorbell_pressed
-      to: 'on'
-      for:
-        seconds: 6
-    action:
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.doorbell_pressed
+      - service: vacuum.start
+        data:
+          entity_id: vacuum.xiaomi_vacuum_cleaner

@@ -27,6 +27,26 @@
 #        origin: SOU
 #        destination: WIN
 
+sensor:
+  - platform: waze_travel_time
+    name: Travel Home to Work
+    origin: zone.home
+    destination: zone.matt_work
+    region: 'EU'
+  - platform: waze_travel_time
+    name: Travel Work to Home
+    origin: zone.matt_work
+    destination: zone.home
+    region: 'EU'
+  - platform: template
+    sensors:
+      morning_commute_variance:
+        friendly_name: 'Morning Commute WVariance'
+        value_template:  '{{ (states.sensor.travel_home_to_work.attributes.distance.split(" ")[0] | int - 17 ) }}'
+      evening_commute_variance:
+        friendly_name: 'Evening Commute WVariance'
+        value_template:  '{{ (states.sensor.travel_work_to_home.attributes.distance.split(" ")[0] | int - 18 ) }}'
+
 
 # Add support for person component
 person:

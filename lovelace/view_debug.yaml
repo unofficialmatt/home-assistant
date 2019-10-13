@@ -84,3 +84,9 @@ cards:
         - automation.auto_set_alarm_clock
         - automation.commute_light
         - automation.commute_notify_speaker
+
+    - type: custom:mini-graph-card
+      name: Sensors
+      entities:
+        - sensor.travel_home_to_work
+        - sensor.travel_work_to_home

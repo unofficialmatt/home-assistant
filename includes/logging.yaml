@@ -28,6 +28,10 @@ include:
     - sensor.lounge_tv
     - device_tracker.lounge_tv
     - media_player.philips_tv
+    - sensor.travel_home_to_work
+    - sensor.travel_work_to_home
+    - sensor.morning_commute_wvariance
+    - sensor.evening_commute_wvariance
 exclude:
   domains:
     - switch

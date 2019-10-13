@@ -9,8 +9,8 @@ turn_off_all_hardware:
     - service: media_player.media_stop
       entity_id: media_player.speakers
     - service: switch.turn_off
-      entity_id: switch.tuya_1, switch.tuya_2, switch.bedroom_comfort
-      
+      entity_id: switch.tuya_1, switch.tuya_2, switch.tuya_3, switch.bedroom_comfort
+
 turn_off_bedtime:
   sequence:
     - service: light.turn_off
@@ -22,7 +22,7 @@ turn_off_bedtime:
     - service: media_player.media_stop
       entity_id: media_player.speakers
     - service: switch.turn_off
-      entity_id: switch.tuya_1, switch.tuya_2
+      entity_id: switch.tuya_1, switch.tuya_2, switch.tuya_3
     - service: input_select.select_option
       data:
         entity_id: input_select.bedtime_trigger

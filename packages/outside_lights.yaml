@@ -1,0 +1,69 @@
+homeassistant:
+  customize:
+    binary_sensor.back_door_sensor:
+      icon: mdi:door
+
+ios:
+  push:
+    categories:
+      - name: Turn Off Outside Lights
+        identifier: 'outside-lights-off'
+        actions:
+          - identifier: 'DECK_LIGHTS_OFF'
+            title: 'Yes'
+            activationMode: 'background'
+            authenticationRequired: false
+          - identifier: 'DECK_LIGHTS_ON'
+            title: 'No'
+            activationMode: 'background'
+            authenticationRequired: false
+
+automation:
+  - alias: 'Turn On Outside Lights'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.back_door_sensor
+        to: 'on'
+    condition:
+      - condition: numeric_state
+        entity_id: sensor.outside_light_level
+        below: 5.0
+    action:
+      - service: switch.turn_on
+        entity_id: switch.tuya_3
+
+  - alias: 'Turn Off Outside Lights'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.back_door_sensor
+        to: 'off'
+        for:
+          minutes: 30
+      - platform: state
+        entity_id: binary_sensor.back_door_sensor
+        to: 'off'
+        for:
+          minutes: 120
+    condition:
+      - condition: state
+        entity_id: switch.tuya_3
+        state: 'on'
+    action:
+      - service: notify.all_phones
+        data_template:
+          title: >
+            {{ "\uD83D\uDCA1" }} Turn off outside lights?
+          message: "The back door has been closed for {{ trigger.for }}. Would you like me to turn off the outside lights?"
+          data:
+            push:
+              category: "pre-heat-home"
+
+  - alias: "Turn Off Outside Lights YES"
+    trigger:
+      platform: event
+      event_type: ios.notification_action_fired
+      event_data:
+        actionName: DECK_LIGHTS_OFF
+    action:
+      - service: switch.turn_off
+        entity_id: switch.tuya_3
