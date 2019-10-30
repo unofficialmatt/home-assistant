@@ -24,7 +24,6 @@ __pycache__
 *.backup
 life360.sh
 .ip_authenticated.yaml
-.HA_VERSION
 .ps4-games.json
 .config_entries.json
 *.google.token
@@ -42,7 +41,6 @@ entity_registry.yaml
 secrets.yaml
 google_calendars.yaml
 components
-custom_components/
 deps
 tts
 www/icons/

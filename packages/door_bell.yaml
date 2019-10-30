@@ -1,0 +1,45 @@
+# @link https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Xiaomi-WXKG01LM
+
+input_boolean:
+  doorbell_pressed:
+    name: Doorbell Pressed
+    initial: off
+    icon: mdi:bell-ring
+
+automation:
+  - alias: "Doorbell"
+    trigger:
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: doorbell
+          event: 1000
+    condition:
+      - condition: state
+        entity_id: input_boolean.doorbell_pressed
+        state: 'off'
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.doorbell_pressed
+      - service: notify.matt
+        data_template:
+          title: >
+            {{ "\ud83d\udd14" }} Someone's at the door!
+          message: "The doorbell has been pressed."
+      - service: media_player.play_media
+        data_template:
+          entity_id: media_player.speakers
+          media_content_id: https://home.lynwood.club/local/doorbell.mp3
+          media_content_type: 'audio/mp3'
+
+
+  - alias: "Reset Doorbell"
+    trigger:
+      platform: state
+      entity_id: input_boolean.doorbell_pressed
+      to: 'on'
+      for:
+        seconds: 3
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.doorbell_pressed

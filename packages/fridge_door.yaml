@@ -2,6 +2,10 @@ homeassistant:
   customize:
     binary_sensor.fridge_door_sensor:
       icon: mdi:fridge
+      friendly_name: Fridge Door
+    binary_sensor.freezer_door_sensor:
+      icon: mdi:fridge
+      friendly_name: Freezer Door
 
 automation:
   - alias: 'Fridge Door Notification'
@@ -21,8 +25,23 @@ automation:
         to: 'on'
         for:
           minutes: 30
+      - platform: state
+        entity_id: binary_sensor.freezer_door_sensor
+        to: 'on'
+        for:
+          minutes: 8
+      - platform: state
+        entity_id: binary_sensor.freezer_door_sensor
+        to: 'on'
+        for:
+          minutes: 15
+      - platform: state
+        entity_id: binary_sensor.freezer_door_sensor
+        to: 'on'
+        for:
+          minutes: 30
     action:
       - service: notify.all_phones
         data_template:
-          title: '{{ "\u2603\uFE0F" }} It's cold in here!'
-          message: 'The fridge door has been open for {{ trigger.for }} minutes!'
+          title: '{{ "\u2603\uFE0F" }} Its cold in here!'
+          message: 'The {{ trigger.to_state.attributes.friendly_name }} has been open for {{ trigger.for }} minutes!'
