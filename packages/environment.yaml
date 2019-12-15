@@ -1,7 +1,7 @@
 #######################################################
 #
-#  This package contains the components and sensors   
-#  used to monitor external and environmental factors 
+#  This package contains the components and sensors
+#  used to monitor external and environmental factors
 #
 #  ----------------------------------------------------
 #
@@ -13,7 +13,7 @@ homeassistant:
   customize:
     sun.sun:
       hidden: true
-      
+
     climate.hallway:
       friendly_name: Thermostat
       entity_picture: /local/nest.png
@@ -22,41 +22,20 @@ homeassistant:
       icon: mdi:water
     sensor.hallway_thermostat_temperature:
       friendly_name: Hallway Temperature
-    sensor.hallway_thermostat_target:
-      hidden: true
-    sensor.hallway_thermostat_hvac_state:
-      hidden: true
-    sensor.hallway_thermostat_operation_mode:
-      hidden: true
-    sensor.home_eta:
-      hidden: true
-    binary_sensor.hallway_thermostat_fan:
-      hidden: true
-    binary_sensor.hallway_thermostat_has_leaf:
-      hidden: true
-    binary_sensor.hallway_thermostat_is_locked:
-      hidden: true
-    binary_sensor.home_away:
-      hidden: true
-    binary_sensor.hallway_thermostat_is_using_emergency_heat:
-      hidden: true
-    binary_sensor.hallway_thermostat_online:
-      hidden: true
-      
     binary_sensor.is_workday_tomorrow:
       hidden: true
     binary_sensor.workday_sensor:
       hidden: true
-      
+
     sensor.outside_light_level:
       icon: mdi:weather-partlycloudy
     sensor.average_home_temperature:
       icon: mdi:thermometer
-      
+
 nest:
   client_id: !secret nest_client_id
   client_secret: !secret nest_client_secret
-  
+
 sun:
 
 zone:
@@ -78,15 +57,15 @@ zone:
     longitude: !secret work_sarah_longitude
     radius: 200
     icon: mdi:worker
-    
+
 binary_sensor:
   - platform: workday
-    country: UK    
+    country: UK
   - platform: workday
     name: is_workday_tomorrow
     country: UK
     days_offset: 1
-    
+
 sensor:
   # CURRENT TIME
   - platform: time_date
@@ -114,11 +93,11 @@ sensor:
           {% endif %}
       time_of_day:
         friendly_name: 'Time of Day'
-        entity_id: 
+        entity_id:
           - sensor.time
         value_template: >
           {% if now().hour >= 7 and now().hour < 12  %} Morning
           {% elif now().hour >= 12 and now().hour < 18 %} Afternoon
           {% elif now().hour >= 18 and now().hour < 23 %} Evening
           {% else %} Nighttime
-          {% endif %}          
+          {% endif %}

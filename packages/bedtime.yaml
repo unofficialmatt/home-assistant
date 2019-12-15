@@ -6,20 +6,14 @@
 #  ----------------------------------------------------
 #
 #  DEPENDS ON: Light, Scenes, Occupancy
-#  
+#
 #######################################################
 
 homeassistant:
   customize:
     input_select.bedtime_trigger:
       icon: mdi:hotel
-    automation.bedtime_comfort:
-      icon: mdi:fan
-      friendly_name: Heated Mattress on at Bedtime
-    switch.bedroom_comfort:
-      icon: mdi:fan
-      friendly_name: Bedroom Fan
-      
+
 input_select:
   bedtime_trigger:
     name: Bedtime Trigger
@@ -28,7 +22,7 @@ input_select:
       - Lights On
       - Asleep
     initial: "Off"
-  
+
 #######################################################
 #                                                     #
 #                     AUTOMATIONS                     #
@@ -62,12 +56,12 @@ automation:
           option: "Bedtime"
       - service_template: >
           {% if is_state('input_boolean.guests_staying', 'on') %}
-            input_select.select_option        
+            input_select.select_option
             data:
               entity_id: input_select.scene_guest_bedroom
               option: "Bedtime"
           {% endif %}
-          
+
   # STANDARD SHUT DOWN IF NO GUESTS STAYING, AND IF NO ONE IS LEFT DOWNSTAIRS
   - alias: 'Bedtime Shutdown - standard'
     hide_entity: true
@@ -96,13 +90,13 @@ automation:
             state: 'on'
           - condition: state
             entity_id: light.guest_bedroom
-            state: 'off'     
-    action: 
+            state: 'off'
+    action:
       - service: script.turn_on
         entity_id: script.turn_off_bedtime
       - service: script.turn_on
         entity_id: script.bedtime_message
-      
+
   # IF GUESTS ARE STAYING AND THEIR BEDROOM LIGHT IS THE LAST TO TURN OFF, TURN OFF ALL DEVICES THEREAFTER
   - alias: 'Bedtime Shutdown - guests'
     hide_entity: true
@@ -123,12 +117,12 @@ automation:
           state: 'on'
         - condition: state
           entity_id: light.master_bedroom
-          state: 'off'     
-    action: 
+          state: 'off'
+    action:
       - service: script.turn_on
         entity_id: script.turn_off_bedtime
-      
-  # IF SOMEONE IS STILL DOWNSTAIRS AT NIGHT, WAIT FOR THEM TO TURN OFF ALL LIGHTS BEFORE SHUTTING DOWN OTHER DEVICES    
+
+  # IF SOMEONE IS STILL DOWNSTAIRS AT NIGHT, WAIT FOR THEM TO TURN OFF ALL LIGHTS BEFORE SHUTTING DOWN OTHER DEVICES
   - alias: 'Bedtime Shutdown - entertaining'
     hide_entity: true
     trigger:
@@ -144,7 +138,7 @@ automation:
         entity_id: input_boolean.entertaining
       - service: script.turn_on
         entity_id: script.turn_off_bedtime
-        
+
   #Bedtime trigger reset at 04:01 as 04:00 is the latest it can be set. If this is unset after we wake up, we will get false flags if the bedroom light is turned off
   - alias: "Reset Bedtime Trigger"
     hide_entity: true
@@ -156,34 +150,3 @@ automation:
         data:
           entity_id: input_select.bedtime_trigger
           option: "Off"
- 
-  # TURN ON/OFF HEATED MATTRESS OR FAN IF THIS AUTOMATION IS ACTIVE AT BEDTIME
-  - alias: 'Bedtime Comfort'
-    initial_state: 'off'
-    trigger:
-      platform: state
-      entity_id: input_select.bedtime_trigger
-      to: 'Lights On'
-    condition:
-      - condition: state
-        entity_id: input_select.home_status
-        state: 'Home'
-    action:
-      - service: switch.turn_on
-        entity_id: switch.bedroom_comfort
-  
-  - alias: 'Heated Mattress / Fan Off'
-    hide_entity: true
-    trigger:
-      - platform: state
-        entity_id: input_select.bedtime_trigger
-        to: 'Asleep'
-        for:
-          minutes: 60
-    condition:
-      - condition: state
-        entity_id: switch.bedroom_comfort
-        state: 'on'
-    action:
-      - service: switch.turn_off
-        entity_id: switch.bedroom_comfort

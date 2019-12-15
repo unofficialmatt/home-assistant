@@ -12,6 +12,7 @@ __pycache__
 *.pyc
 
 # Other
+*.psd
 *.uuid
 *.conf
 *.db

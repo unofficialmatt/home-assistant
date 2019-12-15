@@ -1,6 +1,6 @@
 #######################################################
 #
-#  This package contains the components and sensors 
+#  This package contains the components and sensors
 #  used to monitor and interact with household lights.
 #  Automations include the dynamic setting of light based
 #  on presence / time of day.
@@ -8,14 +8,14 @@
 #  ----------------------------------------------------
 #
 #  DEPENDS ON: Occupancy, Scenes, Environment
-#  
+#
 #######################################################
 
 homeassistant:
   customize_domain:
     light:
       icon: mdi:ceiling-light
-      
+
   customize:
     light.bedroom_entertainment_area:
       hidden: true
@@ -61,7 +61,7 @@ homeassistant:
       icon: mdi:circle
     light.master_bedroom_lightstrip:
       icon: mdi:led-strip
-      
+
     sensor.guest_bedroom_switch:
       hidden: true
     sensor.master_bedroom_switch:
@@ -103,7 +103,7 @@ hue:
 #        value_template: '{{ states.sensor.landing_motion_sensor.attributes["humidity"] }}'
 #        friendly_name: 'Landing Humidity'
 #        unit_of_measurement: '%'
-      
+
 #######################################################
 #                                                     #
 #                     AUTOMATIONS                     #
@@ -128,7 +128,7 @@ automation:
   # TURN THE HALLWAY LIGHT ON BETWEEN 2100-0500 IF ANYONE ARRIVES HOME
   - alias: 'Hallway light on if late home'
     hide_entity: true
-    trigger: 
+    trigger:
       - platform: state
         entity_id: sensor.is_matt_home, sensor.is_sarah_home
         from: 'not_home'
@@ -148,9 +148,8 @@ automation:
       - delay: '00:10:00'
       - service: light.turn_off
         entity_id: light.hallway
-        
-  # Turn on the dining room and hallway light when it gets darker outside
-  - alias: 'Scene - Dining Room Early Evening'
+
+  - alias: 'Scene - Downstairs Early Evening'
     hide_entity: true
     trigger:
     - platform: numeric_state
@@ -168,6 +167,8 @@ automation:
         - condition: numeric_state
           entity_id: sensor.outside_light_level
           below: 5.0
+        - condition: time
+          before: '21:00:00'
     action:
       - service: input_select.select_option
         data:
@@ -175,21 +176,25 @@ automation:
           option: "Relax"
       - service: scene.turn_on
         entity_id: scene.hallway_dimmed
-   
-  # Turn on the Lounge lights with the TV when it's dark out
-  - alias: 'Scene - Lounge Evening'
-    hide_entity: true
-    trigger:
-    - platform: state
-      entity_id: media_player.philips_tv
-      to: 'on'
-      from: 'off'
-    condition:
-    - condition: numeric_state
-      entity_id: sensor.outside_light_level
-      below: 5.0
-    action:
     - service: input_select.select_option
       data:
         entity_id: input_select.scene_lounge
         option: "Relax"
+
+  # Turn on the Lounge lights with the TV when it's dark out
+  #- alias: 'Scene - Lounge Evening'
+  #  hide_entity: true
+  #  trigger:
+  #  - platform: state
+  #    entity_id: media_player.philips_tv
+  #    to: 'on'
+  #    from: 'off'
+  #  condition:
+  #  - condition: numeric_state
+  #    entity_id: sensor.outside_light_level
+  #    below: 5.0
+  #  action:
+  #  - service: input_select.select_option
+  #    data:
+  #      entity_id: input_select.scene_lounge
+  #      option: "Relax"

@@ -68,11 +68,11 @@ cards:
       - type: picture-glance
         title: Garden
         entities:
-          - switch.tuya_3
+          - switch.festoon_lights
         state_image:
           "on": /local/rooms/garden.jpg
           "off": /local/rooms/garden-bw.jpg
-        entity: switch.tuya_3
+        entity: switch.festoon_lights
         aspect_ratio: 16x9
         tap_action:
           action: toggle
@@ -87,7 +87,7 @@ cards:
           - light.lounge_colour
           - light.lounge_lamp
           - light.hue_go
-          - switch.tuya_2
+          - switch.star_lamp
           - media_player.philips_tv
           - media_player.lounge
         state_image:
@@ -152,7 +152,8 @@ cards:
           - light.dining_room_colour
           - light.dining_room_lamp
           - media_player.dining_room
-          - switch.tuya_1
+          - switch.fairy_lights
+          - input_boolean.entertaining
         state_image:
           "on": /local/rooms/dining-room.jpg
           "off": /local/rooms/dining-room-bw.jpg

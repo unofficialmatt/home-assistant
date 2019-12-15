@@ -1,13 +1,13 @@
 #######################################################
 #
-#  This package contains the components and sensors 
-#  used to interact with Home Assistant via smart 
+#  This package contains the components and sensors
+#  used to interact with Home Assistant via smart
 #  assistants
 #
 #  ----------------------------------------------------
 #
 #  DEPENDS ON: XXXXXX
-#  
+#
 #######################################################
 
 # HOME KIT (SIRI/APPLE)
@@ -65,12 +65,8 @@ google_assistant:
       aliases:
         - guest mode
         - guests staying
-        - guest bedroom
     script.restart_hass:
-      expose: true
-      room: Utilities
-      aliases:
-        - restart home assistant
+      expose: false
     script.roborock_come_out:
       expose: true
       room: Utilities
@@ -86,14 +82,40 @@ google_assistant:
         - Hoover Mop
         - Vaccum Mop
     #Outside
-    switch.outside_lights:
+    switch.festoon_lights:
       room: Garden
+      aliases:
+        - garden lights
+        - patio lights
+        - decking lights
+        - outdoor lights
+        - outside lights
     #Lounge
-    switch.tuya_2:
+    switch.star_lamp:
       room: Lounge
-    #Dining Room
-    switch.tuya_1:
+      aliases:
+        - lounge lamp
+        - living room lamp
+        - star lamp
+    switch.lounge_snowflakes:
       room: Dining Room
+      aliases:
+        - snowflakes
+        - lounge christmas lights
+        - lounge christmas
+        - window lights
+        - bay window lights
+    #Dining Room
+    switch.fairy_lights:
+      room: Dining Room
+      aliases:
+        - dining room sparkles
+        - fairy lights
+    switch.christmas_tree:
+      room: Dining Room
+      aliases:
+        - christmas tree
+        - christmas lights
     #Master Bedroom
     switch.bedroom_comfort:
       room: Bedroom

@@ -3,13 +3,13 @@ homeassistant:
     switch:
       icon: mdi:power-plug
   customize:
-    switch.tuya_1:
+    switch.fairy_lights:
       icon: mdi:star-four-points
       friendly_name: Fairy Lights
-    switch.tuya_2:
+    switch.star_lamp:
       icon: mdi:lamp
       friendly_name: Star Lamp
-    switch.tuya_3:
+    switch.festoon_lights:
       icon: mdi:white-balance-incandescent
       friendly_name: Festoon Lights
 

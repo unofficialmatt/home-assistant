@@ -7,9 +7,10 @@
 
 include:
   domains:
-    - climate
     - device_tracker
     - light
+    - switch
+    - automation
   entities:
     - group.occupants
     - binary_sensor.matt_bayesian
@@ -28,15 +29,12 @@ include:
     - sensor.lounge_tv
     - device_tracker.lounge_tv
     - media_player.philips_tv
-    - sensor.travel_home_to_work
-    - sensor.travel_work_to_home
-    - sensor.morning_commute_wvariance
-    - sensor.evening_commute_wvariance
+    - sensor.morning_commute
+    - sensor.evening_commute
 exclude:
   domains:
-    - switch
     - sensor
+    - climate
     - media_player
-    - automation
     - input_boolean
     - input_select

@@ -1,67 +1,10 @@
 bedtime_message:
   sequence:
-#    - service_template: >
-#        {% if is_state('sensor.who_is_home', 'Sarah and Matt') %}
-#          notify.all_phones
-#        {% elif is_state('sensor.who_is_home', 'Sarah') %}
-#          notify.sarah
-#        {% else %}
-#          notify.matt
-#        {% endif %}
-#      data_template:
-#        title: >
-#          {{ [
-#          "Sweet dreams!", 
-#          "Sleep tight!", 
-#          "Bonne nuit",
-#          "Sleep well!",
-#          "Rest your weary head!",
-#          "Good night",
-#          "Night night",
-#          "Until tomorrow...",
-#          "Seeya!",
-#          "Have a great sleep",
-#          "Dreaamm, dream, dream, dream",
-#          "Powering down...",
-#          "Rest up",
-#          "Please don't snore tonight.",
-#          "Good night, sleep tight, hope the bedbugs don't bite",
-#          "Snuggle up...",
-#          "Gimme a kiss then!",
-#          "I dreamed a dream of SUSAN BOYLLLLLLLLEEEEE",
-#          "Sweet dreams are made of this",
-#          "California dreamin' on such a winter's day",
-#          "She's an easy lover!",
-#          "Dream a little dream of me"
-#          ] | random }}
-#        message: >
-#          {{ [
-#          "I don’t know what I’d do without you – you mean everything to me.",
-#          "I’m going to have dreams about you tonight…",
-#          "Tomorrow is the start of the rest of your life",
-#          "Think of all the good moments of this day and keep a smile for tomorrow!", 
-#          "Shhhhh… Time to dream.", 
-#          "Do not let anyone ever dull your sparkle.", 
-#          "Wishing you sweet dreams and a restful night.",
-#          "It is better to sleep on things beforehand than lie awake about them afterwards.",
-#          "Thinking about you is the tipping point where my nightmares end and sweet dreams begin.",
-#          "May angels fly across your dreams!",
-#          "Tomorrow will be the day you begin to move toward your dreams.",
-#          "You can be inspired to make a better tomorrow when you decide to make a better night today.",
-#          "The only way to a successful tomorrow is to have a good night today.",
-#          "As the night gets dark, let your worries fade. Sleep peacefully knowing you’ve done all you can do for today.",
-#          "Today will soon be yesterday. Tomorrow is a new day. Begin it well and serenely.",
-#          "Do not fear the blanket of night, for I will still be by your side with the morning’s rising light.",
-#          "Every day is a new adventure when you are near me.",
-#          "I look forward to every tomorrow with you by my side.",
-#          "Millions of stars twinkling in the vast skies, but there is only one that is dear to me.",
-#          "There is no ocean I would not cross to get to you if needed."
-#          ] | random }}
     - wait_template: "{{ is_state('media_player.bedroom', 'idle') or is_state('media_player.bedroom', 'off') }}"
     - service: media_player.volume_set
       data_template:
         entity_id: media_player.bedroom
-        volume_level: 0.4
+        volume_level: 0.5
     - service: tts.google_translate_say
       entity_id: media_player.bedroom
       data_template:
@@ -69,11 +12,11 @@ bedtime_message:
           Good night {{ states.sensor.who_is_home.state }}.
           {% if is_state('input_boolean.alarm_clock', 'on') %}
           Your alarm is set for {{ states.sensor.alarm_time.state }}AM.
-          {% endif %} 
+          {% endif %}
           Tomorrow the weather will be {{ states.sensor.darksky_summary_1d.state }} with highs of {{ states. sensor.darksky_daytime_high_temperature_1d.state }} degrees celcius.
           {{ [
-          "Sweet dreams!", 
-          "Sleep tight!", 
+          "Sweet dreams!",
+          "Sleep tight!",
           "Sleep well!",
           "Rest your weary head!",
           "Good night",

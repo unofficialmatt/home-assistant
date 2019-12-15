@@ -4,55 +4,24 @@
 #  automations used to monitor and report on commute
 #  times.
 #
-#  ----------------------------------------------------
-#
-#  DEPENDS ON: Environment, Occupancy, Alarm Clock
-#  Lights, Notifications
-#  
 #######################################################
 
 homeassistant:
   customize_glob:
     "*commute*":
       icon: mdi:traffic-light
-      
+
 sensor:
-  - platform: google_travel_time
+  - platform: waze_travel_time
     name: Morning Commute
-    scan_interval: 900
-    api_key: !secret google_travel_key
     origin: zone.home
     destination: zone.matt_work
-    options:
-      avoid: tolls
-      units: imperial
-  - platform: google_travel_time
-    name: Morning Commute Alt
-    scan_interval: 900
-    api_key: !secret google_travel_key
-    origin: zone.home
-    destination: !secret am_commute_via
-    options:
-      avoid: tolls
-      units: imperial      
-  - platform: google_travel_time
+    region: 'EU'
+  - platform: waze_travel_time
     name: Evening Commute
-    scan_interval: 900
-    api_key: !secret google_travel_key
     origin: zone.matt_work
     destination: zone.home
-    options:
-      avoid: tolls
-      units: imperial
-  - platform: google_travel_time
-    name: Evening Commute Alt
-    scan_interval: 900
-    api_key: !secret google_travel_key
-    origin: zone.matt_work
-    destination: !secret pm_commute_via
-    options:
-      avoid: tolls
-      units: imperial   
+    region: 'EU'
   - platform: template
     sensors:
       morning_commute_variance:
@@ -60,8 +29,8 @@ sensor:
         value_template:  '{{ (states.sensor.morning_commute.attributes.distance.split(" ")[0] | int - 17 ) }}'
       evening_commute_variance:
         friendly_name: 'Evening Commute Variance'
-        value_template:  '{{ (states.sensor.evening_commute.attributes.distance.split(" ")[0] | int - 18 ) }}'            
-  
+        value_template:  '{{ (states.sensor.evening_commute.attributes.distance.split(" ")[0] | int - 18 ) }}'
+
 #######################################################
 #                                                     #
 #                     AUTOMATIONS                     #
@@ -70,61 +39,13 @@ sensor:
 
 automation:
 
-  # Request commute time every 2 minutes in morning
-  - alias: 'AM Commute Time Updater'
-    hide_entity: true
-    trigger:
-      platform: time_pattern
-      minutes: '/2'
-      seconds: '0'
-    condition:  
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: 'binary_sensor.workday_sensor'
-          state: 'on'
-        - condition: time
-          after: '07:45:00'
-          before: '08:20:00'        
-        - condition: state
-          entity_id: sensor.is_matt_home
-          state: 'home'
-    action:
-      - service: sensor.google_travel_sensor_update
-        data:
-          entity_id: sensor.morning_commute
-          
-  # Request commute time every 2 minutes in evening
-  - alias: 'PM Commute Time Updater'
-    hide_entity: true
-    trigger:
-      platform: time_pattern
-      minutes: '/2'
-      seconds: '0'
-    condition:  
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: 'binary_sensor.workday_sensor'
-          state: 'on'
-        - condition: time
-          after: '17:15:00'
-          before: '17:45:00'        
-        - condition: state
-          entity_id: device_tracker.matt
-          state: 'Matt Work'
-    action:
-      - service: sensor.google_travel_sensor_update
-        data:
-          entity_id: sensor.evening_commute
- 
   # Starts playing Spotify on my phone at 8:15 on workdays
   - alias: "Commute Start Spotify"
     hide_entity: true
     trigger:
       platform: time
       at: '08:15:00'
-    condition:  
+    condition:
       condition: and
       conditions:
         - condition: state
@@ -144,15 +65,15 @@ automation:
       - service: media_player.shuffle_set
         data:
          entity_id: media_player.spotify
-         shuffle: false          
-          
+         shuffle: false
+
   # Traffic Light system shows morning commute to work
   - alias: 'Commute Light'
     trigger:
       platform: time_pattern
       minutes: '/2'
       seconds: '0'
-    condition:  
+    condition:
       condition: and
       conditions:
         - condition: state
@@ -160,7 +81,7 @@ automation:
           state: 'on'
         - condition: time
           after: '07:45:00'
-          before: '08:20:00'        
+          before: '08:20:00'
         - condition: state
           entity_id: sensor.is_matt_home
           state: 'home'
@@ -173,20 +94,20 @@ automation:
     action:
       - service: light.turn_on
         entity_id: light.master_bedroom_lightstrip
-        data_template: 
+        data_template:
           color_name: >
                 {% if states.sensor.morning_commute.state <= "35" %} green
-                {% elif states.sensor.morning_commute.state > "35" and states.sensor.morning_commute.state < "45" %} orange  
+                {% elif states.sensor.morning_commute.state > "35" and states.sensor.morning_commute.state < "45" %} orange
                 {% elif states.sensor.morning_commute.state >= "45" %} red
                 {% endif %}
           brightness: 255
-          
-  # Notify commute via Google TTS 
+
+  # Notify commute via Google TTS
   - alias: "Commute Notify Speaker"
     trigger:
       - platform: time
         at: '08:00:00'
-    condition:  
+    condition:
       condition: and
       conditions:
         - condition: state
@@ -215,8 +136,8 @@ automation:
             {% elif states.sensor.morning_commute.state > "35" and states.sensor.morning_commute.state < "45" %} AVERAGE.
             {% elif states.sensor.morning_commute.state >= "45" %} BAD.
             {% endif %}
-            {% if states.sensor.morning_commute_variance.state != "0" %} 
-            There's a faster route to work today which will take {{ states.sensor.evening_commute.state }} minutes. I'll send the directions to your phone.
+            {% if states.sensor.morning_commute_variance.state != "0" %}
+            There's a faster route to work today which will take {{ states.sensor.morning_commute.state }} minutes. I'll send the directions to your phone.
             {% else %}
             It should take about {{ states.sensor.morning_commute.state }} minutes to get to work today.
             {% endif %}
@@ -225,7 +146,7 @@ automation:
     trigger:
       - platform: time
         at: '08:00:30'
-    condition:  
+    condition:
       condition: and
       conditions:
         - condition: template
@@ -243,13 +164,13 @@ automation:
           message: >
            There's a faster route to work today which should take {{ states.sensor.morning_commute.state }} minutes. Tap here for directions.
           data:
-            url: 'comgooglemaps://?saddr=Home&daddr=Work&directionsmode=driving'
-            
+            url: waze://?favorite=work
+
   - alias: "Evening Commute Notify"
     trigger:
       - platform: time
         at: '17:30'
-    condition:  
+    condition:
       condition: and
       conditions:
         - condition: state
@@ -267,11 +188,11 @@ automation:
            {% if states.sensor.evening_commute.state <= "35" %} GREAT.
            {% elif states.sensor.evening_commute.state > "35" and states.sensor.evening_commute.state < "45" %} AVERAGE.
            {% elif states.sensor.evening_commute.state >= "45" %} BAD.
-           {% endif %} 
-           {% if states.sensor.evening_commute_variance.state != "0" %} 
+           {% endif %}
+           {% if states.sensor.evening_commute_variance.state != "0" %}
            Take this faster route home today - which should take {{ states.sensor.evening_commute.state }} minutes.
            {% else %}
            It should take about {{ states.sensor.evening_commute.state }} minutes to get home today via the usual route.
            {% endif %}
           data:
-            url: 'comgooglemaps://?saddr=Work&daddr=Home&directionsmode=driving'            
+            url: waze://?favorite=home

@@ -54,7 +54,6 @@ homeassistant:
       icon: mdi:crosshairs
       friendly_name: Request Device Locations
 
-
 # TRACKERS
 device_tracker:
   # Pings devices every 3 minutes. If device not seen in 10 mins, change to away

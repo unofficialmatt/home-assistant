@@ -37,6 +37,8 @@ frontend:
 system_health:
 
 mobile_app:
+zeroconf:
+ssdp:
 
 lovelace:
   mode: yaml
@@ -60,9 +62,6 @@ updater:
 discovery:
   ignore:
     - igd
-
-ssdp:
-zeroconf:
 
 api:
 

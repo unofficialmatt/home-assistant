@@ -4,12 +4,12 @@ turn_off_all_hardware:
       entity_id: group.all_lights
       data:
         transition: 10
-    - service: media_player.turn_off
-      entity_id: media_player.philips_tv, media_player.dining_room
     - service: media_player.media_stop
       entity_id: media_player.speakers
     - service: switch.turn_off
-      entity_id: switch.tuya_1, switch.tuya_2, switch.tuya_3, switch.bedroom_comfort
+      entity_id: switch.fairy_lights, switch.star_lamp, switch.festoon_lights, switch.bedroom_comfort, switch.christmas_tree, switch.lounge_snowflakes
+    - service: media_player.turn_off
+      entity_id: media_player.philips_tv
 
 turn_off_bedtime:
   sequence:
@@ -17,15 +17,15 @@ turn_off_bedtime:
       entity_id: group.all_lights
       data:
         transition: 5
-    - service: media_player.turn_off
-      entity_id: media_player.philips_tv, media_player.dining_room
-    - service: media_player.media_stop
-      entity_id: media_player.speakers
-    - service: switch.turn_off
-      entity_id: switch.tuya_1, switch.tuya_2, switch.tuya_3
     - service: input_select.select_option
       data:
         entity_id: input_select.bedtime_trigger
         option: Asleep
     - service: automation.turn_off
       entity_id: automation.rain_alert
+    - service: media_player.media_stop
+      entity_id: media_player.speakers
+    - service: switch.turn_off
+      entity_id: switch.fairy_lights, switch.star_lamp, switch.festoon_lights, switch.christmas_tree, switch.lounge_snowflakes
+    - service: media_player.turn_off
+      entity_id: media_player.philips_tv

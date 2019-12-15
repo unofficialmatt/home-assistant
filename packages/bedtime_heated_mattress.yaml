@@ -1,0 +1,42 @@
+homeassistant:
+  customize:
+    automation.bedroom_comfort:
+      icon: mdi:bed-double
+      friendly_name: Heated Mattress on at Bedtime
+    switch.bedroom_comfort:
+      icon: mdi:radiator
+      friendly_name: Heated Blanket
+
+automation:
+  # TURN ON HEATED MATTRESS IF THIS AUTOMATION IS ACTIVE AT BEDTIME
+  - alias: 'Bedtime Comfort'
+    initial_state: 'off'
+    trigger:
+      - platform: state
+        entity_id: input_select.bedtime_trigger
+        to: 'Lights On'
+      - platform: time
+        at: '20:00:00'
+    condition:
+      - condition: state
+        entity_id: input_select.home_status
+        state: 'Home'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.bedroom_comfort
+
+  - alias: 'Heated Mattress Off'
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id: input_select.bedtime_trigger
+        to: 'Asleep'
+        for:
+          minutes: 60
+    condition:
+      - condition: state
+        entity_id: switch.bedroom_comfort
+        state: 'on'
+    action:
+      - service: switch.turn_off
+        entity_id: switch.bedroom_comfort

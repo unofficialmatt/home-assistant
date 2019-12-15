@@ -25,24 +25,34 @@ cards:
         state_image:
           "home": /local/people/matt.jpg
           "not_home": /local/people/matt-bw.jpg
-          "Matt Work": /local/people/matt-bw.jpg
+          "Matt Work": /local/people/matt-work.jpg
         elements:
           - type: state-label
             entity: device_tracker.matt
-            prefix: 'Matt - '
-            style: {color: white, font-size: 150%, bottom: 0%, background-color: "rgba(0, 0, 0, 0.4)", width: 100%, transform: initial}
+            style: {color: white, font-size: 18px, bottom: 0%, background-color: "rgba(0, 0, 0, 0.4)", width: 100%, transform: initial, font-weight: bold}
+          - type: state-icon
+            style: {color: white, bottom: 0%, right: 0%, transform: initial}
+            entity: sensor.matt_battery_level
+          - type: state-label
+            style: {color: white, bottom: 0%, right: 25px, font-size: 15px, transform: initial}
+            entity: sensor.matt_battery_level
       - type: picture-elements
         entity: device_tracker.sarah
         image: /local/people/sarah.jpg
         state_image:
           "home": /local/people/sarah.jpg
           "not_home": /local/people/sarah-bw.jpg
-          "Sarah Work": /local/people/sarah-bw.jpg
+          "Sarah Work": /local/people/sarah-work.jpg
         elements:
           - type: state-label
             entity: device_tracker.sarah
-            prefix: 'Sarah - '
-            style: {color: white, font-size: 150%, bottom: 0%, background-color: "rgba(0, 0, 0, 0.4)", width: 100%, transform: initial}
+            style: {color: white, font-size: 18px, bottom: 0%, background-color: "rgba(0, 0, 0, 0.4)", width: 100%, transform: initial, font-weight: bold}
+          - type: state-icon
+            style: {color: white, bottom: 0%, right: 0%, transform: initial}
+            entity: sensor.sarah_battery_level
+          - type: state-label
+            style: {color: white, bottom: 0%, right: 25px, font-size: 15px, transform: initial}
+            entity: sensor.sarah_battery_level
     - type: conditional
       conditions:
         - entity: input_select.home_status
@@ -221,14 +231,46 @@ cards:
         - light.office
         - light.hallway
         - light.landing
-        - switch.tuya_1
-        - switch.tuya_2
+        - switch.fairy_lights
+        - switch.star_lamp
+        - switch.lounge_snowflakes
+        - switch.christmas_tree
+        - switch.festoon_lights
+
       state_filter:
         - 'on'
       card:
         type: entities
         title: Lights On
         show_state: false
+
+    - type: glance
+      title: Christmas
+      entities:
+        - entity: switch.fairy_lights
+          name: Fairy
+          tap_action:
+            action: toggle
+        - entity: switch.christmas_tree
+          name: Tree
+          tap_action:
+            action: toggle
+        - entity: switch.lounge_snowflakes
+          name: Window
+          tap_action:
+            action: toggle
+        - entity: switch.star_lamp
+          name: Star
+          tap_action:
+            action: toggle
+        - entity: automation.xmas_lights_on_pm
+          name: On PM
+          tap_action:
+            action: toggle
+        - entity: automation.xmas_lights_on_am
+          name: On AM
+          tap_action:
+            action: toggle
 
     - type: entity-filter
       show_empty: false

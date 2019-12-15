@@ -7,7 +7,7 @@ ios:
   push:
     categories:
       - name: Turn Off Outside Lights
-        identifier: 'outside-lights-off'
+        identifier: 'outsidelights'
         actions:
           - identifier: 'DECK_LIGHTS_OFF'
             title: 'Yes'
@@ -30,7 +30,7 @@ automation:
         below: 5.0
     action:
       - service: switch.turn_on
-        entity_id: switch.tuya_3
+        entity_id: switch.festoon_lights
 
   - alias: 'Turn Off Outside Lights'
     trigger:
@@ -46,7 +46,7 @@ automation:
           minutes: 120
     condition:
       - condition: state
-        entity_id: switch.tuya_3
+        entity_id: switch.festoon_lights
         state: 'on'
     action:
       - service: notify.all_phones
@@ -56,7 +56,7 @@ automation:
           message: "The back door has been closed for {{ trigger.for }}. Would you like me to turn off the outside lights?"
           data:
             push:
-              category: "pre-heat-home"
+              category: "outsidelights"
 
   - alias: "Turn Off Outside Lights YES"
     trigger:
@@ -66,4 +66,8 @@ automation:
         actionName: DECK_LIGHTS_OFF
     action:
       - service: switch.turn_off
-        entity_id: switch.tuya_3
+        entity_id: switch.festoon_lights
+      - service: notify.ios_matt
+        data:
+          title: 'WORKED'
+          message: 'YES'

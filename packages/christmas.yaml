@@ -1,0 +1,56 @@
+homeassistant:
+  customize:
+    switch.christmas_tree:
+      icon: mdi:pine-tree
+      friendly_name: Christmas Tree
+    switch.lounge_snowflakes:
+      icon: mdi:snowflake
+      friendly_name: Bay Window Snowflakes
+  customize_glob:
+    "*xmas*":
+      icon: mdi:pine-tree
+
+automation:
+  - alias: 'Xmas Lights On PM'
+    initial_state: 'off'
+    trigger:
+      - platform: state
+        entity_id: input_select.home_status
+        to: "Home"
+      - platform: numeric_state
+        entity_id: sensor.outside_light_level
+        below: 5.0
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          before: '20:30:00'
+          after: '15:00:00'
+        - condition: state
+          entity_id: input_select.home_status
+          state: "Home"
+    action:
+      - service: switch.turn_on
+        entity_id: switch.fairy_lights
+      - service: switch.turn_on
+        entity_id: switch.christmas_tree
+      - service: switch.turn_on
+        entity_id: switch.lounge_snowflakes
+      - service: switch.turn_on
+        entity_id: switch.star_lamp
+
+  - alias: 'Xmas Lights On AM'
+    initial_state: 'off'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.landing_sensor_motion
+        to: 'on'
+    condition:
+      - condition: time
+        after: '06:00:00'
+        before: '08:30:00'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.fairy_lights
+      - service: switch.turn_on
+        entity_id: switch.christmas_tree
