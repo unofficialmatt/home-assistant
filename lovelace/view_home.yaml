@@ -1,6 +1,6 @@
 title: Home
 path: home
-icon: mdi:home
+icon: mdi:castle
 background: var(--background-image)
 
 cards:
@@ -53,6 +53,103 @@ cards:
           - type: state-label
             style: {color: white, bottom: 0%, right: 25px, font-size: 15px, transform: initial}
             entity: sensor.sarah_battery_level
+
+## HOME OVERVIEW
+    - type: picture-elements
+      entity: input_select.home_status
+      image: /local/rooms/house.jpg
+      state_image:
+        "Home": /local/rooms/house.jpg
+        "Away": /local/rooms/house-bw.jpg
+        "Holiday": /local/rooms/house-bw.jpg
+      elements:
+        - type: state-label
+          entity: sensor.average_home_temperature
+          style: {color: white, font-size: 18px, bottom: 0%, text-align: right, background-color: "rgba(0, 0, 0, 0.8)", width: 100%, transform: initial, font-weight: bold}
+          tap_action:
+            action: none
+
+        ## LIGHTS
+        - type: state-icon
+          entity: light.lounge
+          style: {color: white, left: 0%, bottom: 0%, transform: initial, width: 10px, height: auto}
+          tap_action:
+            action: toggle
+        - type: state-icon
+          entity: light.dining_room
+          style: {color: white, left: 8%, bottom: 0%, transform: initial}
+          tap_action:
+            action: toggle
+        - type: state-icon
+          entity: light.kitchen
+          style: {color: white, left: 16%, bottom: 0%, transform: initial}
+          tap_action:
+            action: toggle
+        - type: state-icon
+          entity: light.hallway
+          style: {color: white, left: 24%, bottom: 0%, transform: initial}
+          tap_action:
+            action: toggle
+        - type: state-icon
+          entity: light.master_bedroom
+          style: {color: white, left: 32%, bottom: 0%, transform: initial}
+          tap_action:
+            action: toggle
+        - type: state-icon
+          entity: light.guest_bedroom
+          style: {color: white, left: 40%, bottom: 0%, transform: initial}
+          tap_action:
+            action: toggle
+        - type: state-icon
+          entity: light.office
+          style: {color: white, left: 48%, bottom: 0%, transform: initial}
+          tap_action:
+            action: toggle
+        - type: state-icon
+          entity: light.landing
+          style: {color: white, left: 56%, bottom: 0%, transform: initial}
+          tap_action:
+            action: toggle
+        - type: state-icon
+          entity: switch.festoon_lights
+          style: {color: white, left: 64%, bottom: 0%, transform: initial}
+          tap_action:
+            action: toggle
+
+        ## ENVIRONMENT
+        - type: state-label
+          entity: sensor.darksky_temperature
+          style: {color: black, font-size: 14px, top: 0%, right: 4%, transform: initial, font-weight: bold}
+          tap_action:
+            action: more-info
+        - type: state-label
+          entity: sensor.darksky_cloud_coverage
+          style: {color: black, font-size: 14px, top: 18px, right: 4%, transform: initial, font-weight: bold}
+          tap_action:
+            action: none
+        - type: state-label
+          entity: sensor.chance_of_rain
+          style: {color: black, font-size: 14px, top: 36px, right: 4%, transform: initial, font-weight: bold}
+          tap_action:
+            action: none
+        - type: icon
+          icon: mdi:thermometer-lines
+          style: {color: black, top: 5px, right: 0%, transform: scale(0.7)}
+          tap_action:
+            action: none
+        - type: icon
+          icon: mdi:weather-partly-cloudy
+          style: {color: black, top: 23px, right: 0%, transform: scale(0.7)}
+          tap_action:
+            action: none
+        - type: icon
+          icon: mdi:weather-rainy
+          style: {color: black, top: 41px, right: 0%, transform: scale(0.7)}
+          tap_action:
+            action: none
+
+
+
     - type: conditional
       conditions:
         - entity: input_select.home_status
@@ -113,56 +210,6 @@ cards:
       card:
         type: thermostat
         entity: climate.hallway
-    - type: horizontal-stack
-      cards:
-        - type: custom:mini-graph-card
-          name: Indoor Temp
-          entities:
-            - sensor.average_home_temperature
-          more_info: false
-          show:
-            points: hover
-            fill: true
-          animate: true
-          line_width: 8
-          color: var(--accent-color-2)
-        - type: custom:mini-graph-card
-          name: Outdoor Temp
-          entities:
-            - sensor.darksky_temperature
-          more_info: false
-          show:
-            points: hover
-            fill: true
-          animate: true
-          line_width: 8
-          color: var(--accent-color-2)
-    - type: horizontal-stack
-      cards:
-        - type: custom:mini-graph-card
-          entities:
-            - sensor.chance_of_rain
-          more_info: false
-          show:
-            points: hover
-            fill: true
-          animate: true
-          line_width: 8
-          color: var(--accent-color-4)
-        - type: custom:mini-graph-card
-          name: Cloud Coverage
-          entities:
-            - sensor.darksky_cloud_coverage
-          more_info: false
-          show:
-            points: hover
-            fill: true
-          animate: true
-          line_width: 8
-          color: var(--accent-color-6)
-
-
-
 
 ## ACTIVE DEVICES
   - type: vertical-stack
