@@ -130,8 +130,7 @@ automation:
     hide_entity: true
     trigger:
       - platform: state
-        entity_id: sensor.is_matt_home, sensor.is_sarah_home
-        from: 'not_home'
+        entity_id: person.matt, person.sarah
         to: 'home'
     condition:
       condition: and
@@ -152,12 +151,12 @@ automation:
   - alias: 'Scene - Downstairs Early Evening'
     hide_entity: true
     trigger:
-    - platform: numeric_state
-      entity_id: sensor.outside_light_level
-      below: 5.0
-    - platform: state
-      entity_id: input_select.home_status
-      to: "Home"
+      - platform: numeric_state
+        entity_id: sensor.outside_light_level
+        below: 5.0
+      - platform: state
+        entity_id: input_select.home_status
+        to: "Home"
     condition:
       condition: and
       conditions:
@@ -176,10 +175,10 @@ automation:
           option: "Relax"
       - service: scene.turn_on
         entity_id: scene.hallway_dimmed
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.scene_lounge
-        option: "Relax"
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.scene_lounge
+          option: "Relax"
 
   # Turn on the Lounge lights with the TV when it's dark out
   #- alias: 'Scene - Lounge Evening'

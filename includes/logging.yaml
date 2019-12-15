@@ -13,8 +13,6 @@ include:
     - automation
   entities:
     - group.occupants
-    - binary_sensor.matt_bayesian
-    - binary_sensor.sarah_bayesian
     - input_select.home_status
     - input_select.bedtime_trigger
     - sensor.average_home_temperature

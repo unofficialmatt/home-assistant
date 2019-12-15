@@ -20,8 +20,6 @@ resources:
     type: js
   - url: /local/community/homeassistant-lovelace-google-calendar-card/calendar-card.js?v=1.0.1
     type: module
-  - url: /local/community/simple-weather-card/simple-weather-card.bundle.js?v=0.1.0
-    type: module
   - url: /community_plugin/button-card/button-card.js
     type: module
   - type: css

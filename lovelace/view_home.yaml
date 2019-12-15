@@ -14,13 +14,14 @@ cards:
     clock_format: 2
     background_image: true
 
-## OCCUPANTS
   - type: vertical-stack
     cards:
+
+    ## OCCUPANTS
     - type: horizontal-stack
       cards:
       - type: picture-elements
-        entity: device_tracker.matt
+        entity: person.matt
         image: /local/people/matt.jpg
         state_image:
           "home": /local/people/matt.jpg
@@ -28,7 +29,7 @@ cards:
           "Matt Work": /local/people/matt-work.jpg
         elements:
           - type: state-label
-            entity: device_tracker.matt
+            entity: person.matt
             style: {color: white, font-size: 18px, bottom: 0%, background-color: "rgba(0, 0, 0, 0.4)", width: 100%, transform: initial, font-weight: bold}
           - type: state-icon
             style: {color: white, bottom: 0%, right: 0%, transform: initial}
@@ -37,7 +38,7 @@ cards:
             style: {color: white, bottom: 0%, right: 25px, font-size: 15px, transform: initial}
             entity: sensor.matt_battery_level
       - type: picture-elements
-        entity: device_tracker.sarah
+        entity: person.sarah
         image: /local/people/sarah.jpg
         state_image:
           "home": /local/people/sarah.jpg
@@ -45,7 +46,7 @@ cards:
           "Sarah Work": /local/people/sarah-work.jpg
         elements:
           - type: state-label
-            entity: device_tracker.sarah
+            entity: person.sarah
             style: {color: white, font-size: 18px, bottom: 0%, background-color: "rgba(0, 0, 0, 0.4)", width: 100%, transform: initial, font-weight: bold}
           - type: state-icon
             style: {color: white, bottom: 0%, right: 0%, transform: initial}
@@ -54,7 +55,7 @@ cards:
             style: {color: white, bottom: 0%, right: 25px, font-size: 15px, transform: initial}
             entity: sensor.sarah_battery_level
 
-## HOME OVERVIEW
+    ## HOME OVERVIEW
     - type: picture-elements
       entity: input_select.home_status
       image: /local/rooms/house.jpg
@@ -68,7 +69,6 @@ cards:
           style: {color: white, font-size: 18px, bottom: 0%, text-align: right, background-color: "rgba(0, 0, 0, 0.8)", width: 100%, transform: initial, font-weight: bold}
           tap_action:
             action: none
-
         ## LIGHTS
         - type: state-icon
           entity: light.lounge
@@ -115,7 +115,6 @@ cards:
           style: {color: white, left: 64%, bottom: 0%, transform: initial}
           tap_action:
             action: toggle
-
         ## ENVIRONMENT
         - type: state-label
           entity: sensor.darksky_temperature
@@ -148,29 +147,7 @@ cards:
           tap_action:
             action: none
 
-
-
-    - type: conditional
-      conditions:
-        - entity: input_select.home_status
-          state_not: 'Home'
-      card:
-        type: map
-        aspect_ratio: 4:3
-        default_zoom: 12
-        entities:
-          - device_tracker.matt
-          - device_tracker.sarah
-    - type: "custom:calendar-card"
-      name: Upcoming Events
-      entities:
-        - calendar.matt
-        - calendar.joint
-        - calendar.sarah
-      numberOfDays: 14
-      showProgressBar: false
-
-## GUESTS
+    ## GUESTS
     - type: entity-filter
       show_empty: false
       entities:
@@ -178,6 +155,7 @@ cards:
         - device_tracker.james
         - device_tracker.katt
         - device_tracker.rashida
+        - device_tracker.rob
       state_filter:
         - 'home'
       card:
@@ -185,6 +163,22 @@ cards:
         title: 'Guests'
         show_state: false
 
+  - type: vertical-stack
+    cards:
+
+    ## THERMOSTAT
+    - type: thermostat
+      entity: climate.hallway
+      name: Home Temperature
+
+    ## ROBBIE THE ROVER
+    - type: custom:xiaomi-vacuum-card
+      entity: vacuum.xiaomi_vacuum_cleaner
+      name: Robbie the Rover
+      buttons: true
+      background: robbie.jpeg
+
+    ## GUEST OPTIONS
     - type: conditional
       conditions:
         - entity: group.guests
@@ -199,21 +193,27 @@ cards:
 
   - type: vertical-stack
     cards:
-    - type: custom:simple-weather-card
-      entity: weather.dark_sky
-      backdrop: true
-      name: "in Southampton"
-    - type: conditional
-      conditions:
-        - entity: input_select.home_status
-          state: 'Home'
-      card:
-        type: thermostat
-        entity: climate.hallway
 
-## ACTIVE DEVICES
-  - type: vertical-stack
-    cards:
+    ## WEATHER
+    - type: weather-forecast
+      entity: weather.dark_sky
+
+    ## CALENDAR
+    - type: "custom:calendar-card"
+      name: Upcoming Events
+      entities:
+        - calendar.matt
+        - calendar.joint
+        - calendar.sarah
+      numberOfDays: 14
+      showProgressBar: false
+
+
+
+
+
+
+
 
     - type: conditional
       conditions:
@@ -257,96 +257,3 @@ cards:
             line_width: 4
             points_per_hour: 2
             color: var(--accent-color)
-
-    - type: conditional
-      conditions:
-        - entity: input_boolean.alarm_clock
-          state: "on"
-      card:
-        type: markdown
-        title: Alarm
-        content: >
-          The wake-up alarm is set for {{ sensor.alarm_time }}.
-    - type: entity-filter
-      show_empty: false
-      entities:
-        - light.lounge
-        - light.dining_room
-        - light.kitchen
-        - light.master_bedroom
-        - light.guest_bedroom
-        - light.office
-        - light.hallway
-        - light.landing
-        - switch.fairy_lights
-        - switch.star_lamp
-        - switch.lounge_snowflakes
-        - switch.christmas_tree
-        - switch.festoon_lights
-
-      state_filter:
-        - 'on'
-      card:
-        type: entities
-        title: Lights On
-        show_state: false
-
-    - type: glance
-      title: Christmas
-      entities:
-        - entity: switch.fairy_lights
-          name: Fairy
-          tap_action:
-            action: toggle
-        - entity: switch.christmas_tree
-          name: Tree
-          tap_action:
-            action: toggle
-        - entity: switch.lounge_snowflakes
-          name: Window
-          tap_action:
-            action: toggle
-        - entity: switch.star_lamp
-          name: Star
-          tap_action:
-            action: toggle
-        - entity: automation.xmas_lights_on_pm
-          name: On PM
-          tap_action:
-            action: toggle
-        - entity: automation.xmas_lights_on_am
-          name: On AM
-          tap_action:
-            action: toggle
-
-    - type: entity-filter
-      show_empty: false
-      show_header_toggle: false
-      state_filter:
-        - 'playing'
-      entities:
-        - entity: media_player.philips_tv
-          type: custom:mini-media-player
-          group: true
-        - entity: media_player.playstation_4
-          type: custom:mini-media-player
-          group: true
-        - entity: media_player.bedroom
-          type: custom:mini-media-player
-          group: true
-        - entity: media_player.office
-          type: custom:mini-media-player
-          group: true
-        - entity: media_player.lounge
-          type: custom:mini-media-player
-          group: true
-        - entity: media_player.dining_room
-          type: custom:mini-media-player
-          group: true
-      card:
-        type: entities
-        show_header_toggle: false
-        title: Media Playing
-#    - type: 'custom:spotify-card'
-#      client_id: !secret spotify_client_id
-#      limit: 10

@@ -38,14 +38,6 @@ homeassistant:
     device_tracker.sarahs_ipad:
       hidden: true
 
-    binary_sensor.sarah_bayesian:
-      hidden: true
-    binary_sensor.matt_bayesian:
-      hidden: true
-    sensor.is_matt_home:
-      entity_picture: /local/people/matt.jpg
-    sensor.is_sarah_home:
-      entity_picture: /local/people/sarah.jpg
     sensor.who_is_home:
       hidden: true
 
@@ -72,82 +64,20 @@ device_tracker:
       sarah_watch: !secret ip_sarah_watch
       matt_watch: !secret ip_matt_watch
 
-# CONVERT TRACKERS TO BAYESIAN SENSORS
-binary_sensor:
-  # https://diyfuturism.com/index.php/2017/11/26/presence-detection-with-home-assistant-bayesian-probability/
-  - platform: bayesian
-    prior: 0.5
-    name: 'Matt Bayesian'
-    probability_threshold: 0.8
-    observations:
-      - entity_id: 'device_tracker.matt_ping'
-        prob_given_true: 1
-        prob_given_false: 0.2
-        platform: 'state'
-        to_state: 'home'
-      - entity_id: 'device_tracker.matt_watch'
-        prob_given_true: 1
-        prob_given_false: 0.2
-        platform: 'state'
-        to_state: 'home'
-      - entity_id: 'device_tracker.matt'
-        prob_given_true: 1
-        prob_given_false: 0.1
-        platform: 'state'
-        to_state: 'home'
-
-  - platform: bayesian
-    prior: 0.5
-    name: 'Sarah Bayesian'
-    probability_threshold: 0.8
-    observations:
-      - entity_id: 'device_tracker.sarah_ping'
-        prob_given_true: 1
-        prob_given_false: 0.2
-        platform: 'state'
-        to_state: 'home'
-      - entity_id: 'device_tracker.sarah_watch'
-        prob_given_true: 1
-        prob_given_false: 0.2
-        platform: 'state'
-        to_state: 'home'
-      - entity_id: 'device_tracker.sarah'
-        prob_given_true: 1
-        prob_given_false: 0.1
-        platform: 'state'
-        to_state: 'home'
-
-# RE-WORD BAYESIAN ON/OFF TO HOME/NOT_HOME
 sensor:
   - platform: template
     sensors:
       who_is_home:
         friendly_name: 'Who is Home'
         value_template: >
-          {% if is_state('sensor.is_sarah_home', 'home') and is_state('sensor.is_matt_home', 'home') %}
+          {% if is_state('person.sarah', 'home') and is_state('person.matt', 'home') %}
             Sarah and Matt
-          {% elif is_state('sensor.is_sarah_home', 'home') and is_state('sensor.is_matt_home', 'not_home') %}
+          {% elif is_state('person.sarah', 'home') and not is_state('person.matt', 'home') %}
             Sarah
-          {% elif is_state('sensor.is_matt_home', 'home') and is_state('sensor.is_sarah_home', 'not_home') %}
+          {% elif is_state('person.matt', 'home') and not is_state('person.sarah', 'home') %}
             Matt
           {% else %}
             No one
-          {% endif %}
-      is_matt_home:
-        friendly_name: 'Matt'
-        value_template: >
-          {% if is_state('binary_sensor.matt_bayesian', 'on') %}
-            home
-          {% else %}
-            not_home
-          {% endif %}
-      is_sarah_home:
-        friendly_name: 'Sarah'
-        value_template: >
-          {% if is_state('binary_sensor.sarah_bayesian', 'on') %}
-            home
-          {% else %}
-            not_home
           {% endif %}
 
 # MAIN OCCUPANTS GROUP
@@ -156,8 +86,8 @@ group:
     name: Occupants
     view: no
     entities:
-      - sensor.is_matt_home
-      - sensor.is_sarah_home
+      - person.matt
+      - person.sarah
   family:
     name: Family
     view: no

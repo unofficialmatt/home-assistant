@@ -52,7 +52,7 @@ automation:
           entity_id: 'binary_sensor.workday_sensor'
           state: 'on'
         - condition: state
-          entity_id: sensor.is_matt_home
+          entity_id: person.matt
           state: 'home'
         - condition: state
           entity_id: input_boolean.alarm_clock
@@ -83,7 +83,7 @@ automation:
           after: '07:45:00'
           before: '08:20:00'
         - condition: state
-          entity_id: sensor.is_matt_home
+          entity_id: person.matt
           state: 'home'
         - condition: state
           entity_id: input_boolean.alarm_clock
@@ -114,7 +114,7 @@ automation:
           entity_id: 'binary_sensor.workday_sensor'
           state: 'on'
         - condition: state
-          entity_id: sensor.is_matt_home
+          entity_id: person.matt
           state: 'home'
         - condition: state
           entity_id: input_boolean.alarm_clock

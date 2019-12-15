@@ -7,13 +7,13 @@
 #  ----------------------------------------------------
 #
 #  DEPENDS ON: Environment, Occupancy, Scenes, Lights
-#  
+#
 #######################################################
 
 homeassistant:
   customize_glob:
     "*alarm*":
-      icon: mdi:alarm 
+      icon: mdi:alarm
   customize:
     automation.auto_set_alarm_clock:
       icon: mdi:timer
@@ -22,8 +22,8 @@ homeassistant:
     sensor.time_until_alarm:
       hidden: true
       icon: mdi:timelapse
-    
-sensor:  
+
+sensor:
   - platform: template
     sensors:
       alarm_time:
@@ -50,7 +50,7 @@ sensor:
         entity_id:
            - sensor.relative_alarm_time
         value_template: '{{  (states.sensor.relative_alarm_time.state.split(" ")[0] | int *60 ) | timestamp_custom("%H:%M") }}'
-        
+
 input_number:
   alarm_hour:
     name: Hours
@@ -58,7 +58,7 @@ input_number:
     initial: 6
     min: 0
     max: 23
-    step: 1   
+    step: 1
   alarm_minutes:
     name: Minutes
     icon: mdi:timer
@@ -72,7 +72,7 @@ input_boolean:
     name: Enable Alarm Clock
     initial: on
     icon: mdi:alarm-check
-  
+
 scene:
   - name: Master Bedroom Wake Up
     entities:
@@ -80,7 +80,7 @@ scene:
         state: on
         transition: 900
         rgb_color: [165,115,42]
-        
+
 #######################################################
 #                                                     #
 #                     AUTOMATIONS                     #
@@ -100,7 +100,7 @@ automation:
           input_boolean.turn_on
         {% endif %}
       entity_id: input_boolean.alarm_clock
-      
+
   # BIRD SOUNDS AND ARTIFICIAL SUNRISE
   - alias: "Alarm Clock - Birds and Sunrise"
     hide_entity: true
@@ -116,14 +116,14 @@ automation:
           state: 'Home'
         - condition: state
           entity_id: input_boolean.alarm_clock
-          state: 'on' 
+          state: 'on'
     action:
       - service: scene.turn_on
         entity_id: scene.master_bedroom_wake_up
       - service: input_select.select_option
         data:
           entity_id: input_select.scene_master_bedroom
-          option: "-"    
+          option: "-"
       - service: media_player.volume_set
         data_template:
           entity_id: media_player.bedroom
@@ -132,7 +132,7 @@ automation:
         entity_id: media_player.bedroom
         data:
           media_content_id: 'https://www.gstatic.com/voice_delight/sounds/long/forest.mp3'
-          media_content_type: 'music'  
+          media_content_type: 'music'
 
   # TURN ON DOWNSTAIRS LIGHTS IF STILL DARK OUT
   - alias: "Alarm Clock - Downstairs Lights On"
@@ -149,7 +149,7 @@ automation:
           state: 'Home'
         - condition: state
           entity_id: input_boolean.alarm_clock
-          state: 'on' 
+          state: 'on'
         - condition: state
           entity_id: binary_sensor.workday_sensor
           state: 'on'
@@ -162,7 +162,7 @@ automation:
           option: "Dimmed"
       - service: scene.turn_on
         entity_id: scene.hallway_dimmed
-        
+
   # MORNING BRIEFING
   - alias: "Alarm Clock - Morning Briefing"
     hide_entity: true
@@ -170,7 +170,7 @@ automation:
       platform: template
       value_template: >
         {{ states.sensor.time.state == states.sensor.alarm_time.state }}
-    condition:  
+    condition:
       condition: and
       conditions:
         - condition: state
@@ -184,7 +184,7 @@ automation:
             {{ states.sensor.time.state >= states.sensor.alarm_time.state }}
     action:
       - service_template: >
-          {% if is_state('sensor.is_matt_home', 'home') %}
+          {% if is_state('person.matt', 'home') %}
             notify.ios_matt
           {% endif %}
         data_template:
@@ -193,14 +193,14 @@ automation:
           message: >
             The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}
       - service_template: >
-          {% if is_state('sensor.is_sarah_home', 'home') %}
+          {% if is_state('person.sarah', 'home') %}
             notify.ios_sarah
           {% endif %}
         data_template:
           title: >
             {{ "\uD83C\uDF1E" }} Weather Briefing
           message: >
-            The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}    
+            The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}
       - delay: '00:00:10'
       - service: media_player.volume_set
         data_template:
@@ -221,17 +221,16 @@ automation:
           device_name: 'Bedroom Dining'
           uri: >
             {{ [
-            'spotify:user:spotify:playlist:37i9dQZEVXcHsW4pFj4T0C', 
-            'spotify:user:spotify:playlist:37i9dQZEVXbtkYqvjNCAlq', 
-            'spotify:user:spotify:playlist:37i9dQZF1DX4W3aJJYCDfV', 
+            'spotify:user:spotify:playlist:37i9dQZEVXcHsW4pFj4T0C',
+            'spotify:user:spotify:playlist:37i9dQZEVXbtkYqvjNCAlq',
+            'spotify:user:spotify:playlist:37i9dQZF1DX4W3aJJYCDfV',
             'spotify:user:spotify:playlist:37i9dQZF1DX32oVqaQE8BM',
             'spotify:user:spotify:playlist:37i9dQZF1DWWLToO3EeTtX'
-            ] | random }}    
-        # Discover Weekly, Release Radar, New Music Friday UK, Chill Out Music, Morning Stroll    
+            ] | random }}
+        # Discover Weekly, Release Radar, New Music Friday UK, Chill Out Music, Morning Stroll
           transfer_playback: true
-      - delay: '00:00:30'    
+      - delay: '00:00:30'
       - service: media_player.shuffle_set
         data:
          entity_id: media_player.spotify
          shuffle: true
-      

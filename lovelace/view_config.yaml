@@ -2,7 +2,7 @@ title: Config
 path: config
 icon: mdi:settings
 background: var(--background-image)
-cards:  
+cards:
   - type: custom:compact-custom-header
     header: true
     menu: false
@@ -29,9 +29,9 @@ cards:
           color_type: icon
           #icon: attribute
           color: "#0fb9b1"
-          
+
     - type: horizontal-stack
-      cards:        
+      cards:
         - type: custom:button-card
           entity: input_boolean.guests_staying
           name: Guests Staying
@@ -44,7 +44,7 @@ cards:
           color_type: icon
           #icon: attribute
           color: "#0fb9b1"
-    
+
   - type: entities
     title: Alarm Clock
     show_header_toggle: false
@@ -53,14 +53,9 @@ cards:
       - sensor.alarm_time
       - input_number.alarm_hour
       - input_number.alarm_minutes
-  
+
   - type: vertical-stack
-    cards: 
-      - type: custom:xiaomi-vacuum-card
-        entity: vacuum.xiaomi_vacuum_cleaner
-        name: Robbie the Rover
-        buttons: true
-        background: robbie.jpeg
+    cards:
       - type: glance
         columns: 2
         entities:
@@ -69,3 +64,31 @@ cards:
           - sensor.alarm_time
           - input_number.alarm_hour
           - input_number.alarm_minutes
+
+      - type: glance
+        title: Christmas
+        entities:
+          - entity: switch.fairy_lights
+            name: Fairy
+            tap_action:
+              action: toggle
+          - entity: switch.christmas_tree
+            name: Tree
+            tap_action:
+              action: toggle
+          - entity: switch.lounge_snowflakes
+            name: Window
+            tap_action:
+              action: toggle
+          - entity: switch.star_lamp
+            name: Star
+            tap_action:
+              action: toggle
+          - entity: automation.xmas_lights_on_pm
+            name: On PM
+            tap_action:
+              action: toggle
+          - entity: automation.xmas_lights_on_am
+            name: On AM
+            tap_action:
+              action: toggle
