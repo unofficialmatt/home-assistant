@@ -3,15 +3,6 @@ path: media
 icon: mdi:play-box-outline
 background: var(--background-image)
 cards:
-  - type: custom:compact-custom-header
-    header: true
-    menu: false
-    notification: false
-    voice: false
-    options: true
-    clock: options
-    clock_format: 24
-    background_image: true
 
   - type: vertical-stack
     cards:

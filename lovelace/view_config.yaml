@@ -3,15 +3,6 @@ path: config
 icon: mdi:settings
 background: var(--background-image)
 cards:
-  - type: custom:compact-custom-header
-    header: true
-    menu: false
-    notification: false
-    voice: false
-    options: true
-    clock: options
-    clock_format: 2
-    background_image: true
 
   - type: vertical-stack
     cards:

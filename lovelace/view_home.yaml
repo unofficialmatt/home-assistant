@@ -4,16 +4,8 @@ icon: mdi:castle
 background: var(--background-image)
 
 cards:
-  - type: custom:compact-custom-header
-    header: true
-    menu: false
-    notification: false
-    voice: false
-    options: true
-    clock: options
-    clock_format: 2
-    background_image: true
 
+  ## OCCUPANCY AND HOUSE
   - type: vertical-stack
     cards:
 
@@ -163,6 +155,7 @@ cards:
         title: 'Guests'
         show_state: false
 
+  ## THERMOSTAT AND VACUUM
   - type: vertical-stack
     cards:
 
@@ -191,6 +184,7 @@ cards:
           - input_boolean.guests_staying
           - input_boolean.entertaining
 
+  ## GENERAL INFORMATION
   - type: vertical-stack
     cards:
 
@@ -198,23 +192,7 @@ cards:
     - type: weather-forecast
       entity: weather.dark_sky
 
-    ## CALENDAR
-    - type: "custom:calendar-card"
-      name: Upcoming Events
-      entities:
-        - calendar.matt
-        - calendar.joint
-        - calendar.sarah
-      numberOfDays: 14
-      showProgressBar: false
-
-
-
-
-
-
-
-
+    ## MATT'S COMMUTE
     - type: conditional
       conditions:
         - entity: binary_sensor.workday_sensor
@@ -257,3 +235,14 @@ cards:
             line_width: 4
             points_per_hour: 2
             color: var(--accent-color)
+
+    ## CALENDAR
+    - type: "custom:calendar-card"
+      name: Upcoming Events
+      entities:
+        - calendar.matt
+        - calendar.joint
+        - calendar.sarah
+      numberOfDays: 14
+      showProgressBar: true
+      showLocation: true

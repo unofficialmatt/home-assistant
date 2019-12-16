@@ -29,10 +29,23 @@ resources:
   - type: module
     url: >-
       https://cdn.jsdelivr.net/gh/custom-cards/spotify-card@1.5/dist/spotify-card.umd.js
+  - url: /local/community/auto-entities/auto-entities.js?v=1
+    type: module
+
+## CUSTOM COMPACT HEADER CONFIG
+cch:
+  header: true
+  hide_help: true
+  menu: hide
+  options: clock
+  clock_am_pm: false
+  clock_format: 24
+  swipe: true
+
 views:
   - !include lovelace/view_home.yaml
   - !include lovelace/view_rooms.yaml
-  - !include lovelace/view_media.yaml
-  - !include lovelace/view_floorplan.yaml
-  - !include lovelace/view_config.yaml
+  #- !include lovelace/view_media.yaml
+  #- !include lovelace/view_floorplan.yaml
+  #- !include lovelace/view_config.yaml
   - !include lovelace/view_debug.yaml
