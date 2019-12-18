@@ -10,6 +10,15 @@ cards:
         image: /local/floorplan.png
         elements:
 
+        ## OUTDOORS
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: switch.festoon_lights
+            style:
+              top: 76%
+              left: 5%
+
         ## DINING ROOM
           - type: state-icon
             tap_action:
@@ -77,6 +86,7 @@ cards:
               left: 53%
               font-size: 80%
 
+          ## HALLWAY
           - type: state-icon
             tap_action:
               action: toggle
@@ -84,6 +94,8 @@ cards:
             style:
               top: 85%
               left: 65%
+
+          ## LANDING
           - type: state-icon
             tap_action:
               action: toggle
@@ -105,6 +117,8 @@ cards:
             style:
               top: 15%
               left: 66%
+
+          ## KITCHEN
           - type: state-icon
             tap_action:
               action: toggle
@@ -177,6 +191,13 @@ cards:
             style:
               top: 59%
               left: 79%
+          - type: state-icon
+            tap_action:
+              action: more-info
+            entity: vacuum.xiaomi_vacuum_cleaner
+            style:
+              top: 84%
+              left: 84%
           - type: state-label
             entity: input_select.scene_lounge
             prefix: 'Scene: '
@@ -208,6 +229,13 @@ cards:
             style:
               top: 24%
               left: 69.5%
+          - type: state-icon
+            tap_action:
+              action: toggle
+            entity: switch.bedroom_comfort
+            style:
+              top: 42%
+              left: 88%
           - type: state-label
             entity: input_select.scene_master_bedroom
             prefix: 'Scene: '
@@ -216,6 +244,7 @@ cards:
               left: 80%
               font-size: 80%
 
+          ## OFFICE
           - type: state-icon
             tap_action:
               action: toggle

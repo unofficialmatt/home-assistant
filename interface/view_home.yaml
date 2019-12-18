@@ -169,7 +169,7 @@ cards:
       entity: vacuum.xiaomi_vacuum_cleaner
       name: Robbie the Rover
       buttons: true
-      background: robbie.jpeg
+      image: /local/devices/robbie.jpeg
 
     ## GUEST OPTIONS
     - type: conditional
@@ -199,6 +199,8 @@ cards:
           state: "on"
         - entity: sensor.time_of_day
           state: "Morning"
+        - entity: person.matt
+          state: "home"
       card:
         type: vertical-stack
         cards:

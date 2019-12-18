@@ -1,0 +1,62 @@
+title: Debug
+path: debug
+icon: mdi:bug
+background: var(--background-image)
+
+cards:
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Entities that might be broken
+      show_header_toggle: false
+    filter:
+      include:
+        - state: "unknown"
+        - state: "unavailable"
+      exclude:
+        - entity_id: group.*
+
+  ## SCRIPTS
+  - type: vertical-stack
+    cards:
+    - type: horizontal-stack
+      cards:
+        - type: custom:button-card
+          entity: script.restart_hass
+          name: Restart Hass
+          color_type: icon
+          color: var(--accent-color)
+          confirmation:
+            text: '[[[ return `Are you sure you want to toggle ${entity.attributes.friendly_name}?` ]]]'
+        - type: custom:button-card
+          entity: script.request_location_update
+          name: Request Locations
+          color_type: icon
+          color: var(--accent-color#)
+
+
+
+#  - type: vertical-stack
+#    cards#:
+
+#    - type: entities
+#      title: Input Selects
+#      show_header_toggle: false
+#      entities:
+#      - input_select.bedtime_trigger
+#      - input_select.home_statu#s
+
+#    - type: entities
+#      title: Automations
+#      show_header_toggle: false
+#      entities:
+#        - automation.intruder_alerts
+#        - automation.bedtime_comfort
+#        - automation.weekday_evening_music
+#        - automation.rain_alert
+#        - automation.weekend_morning_music
+#        - entity:
+#          type: divider
+#        - automation.auto_set_alarm_clock
+#        - automation.commute_light
+#        - automation.commute_notify_speaker
