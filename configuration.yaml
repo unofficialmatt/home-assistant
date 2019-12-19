@@ -1,6 +1,6 @@
 #######################################################
 #
-#  This installation of Home Assistant uses a package-   
+#  This installation of Home Assistant uses a package-
 #  based configuration format, allowing easy grouping
 #  of related components into self-contained files.
 #  For more info on packages, see the HA documentation
@@ -9,14 +9,13 @@
 
 homeassistant:
   name: Home
-  
+  temperature_unit: C
   unit_system: metric
   time_zone: !secret timezone
-  
   latitude: !secret home_latitude
   longitude: !secret home_longitude
   elevation: !secret home_elevation
-  
+
   packages: !include_dir_named packages
 
   #auth_providers:
@@ -29,7 +28,7 @@ homeassistant:
     #    - !secret ip_matt_phone
     #    - !secret ip_sarah_phone
 
-  
+
 hacs:
   token: !secret github_access_token
 

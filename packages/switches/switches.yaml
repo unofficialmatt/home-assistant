@@ -1,0 +1,24 @@
+#######################################################
+#                                                     #
+#                 PACKAGES / SWITCHES                 #
+#                                                     #
+#######################################################
+
+homeassistant:
+  customize_domain:
+    switch:
+      icon: mdi:power-plug
+
+#######################################################
+#                                                     #
+#                     INTEGRATIONS                    #
+#                                                     #
+#######################################################
+
+tuya:
+  username: !secret tuya_user
+  password: !secret tuya_pass
+  country_code: 44
+  platform: smart_life
+
+tplink:

@@ -1,8 +1,10 @@
-homeassistant:
-  customize:
-    binary_sensor.back_door_sensor:
-      icon: mdi:door
+#######################################################
+#                                                     #
+#              PACKAGES / OUTSIDE LIGHTS              #
+#                                                     #
+#######################################################
 
+### CHECK THIS ACTUALLY WORKS......
 ios:
   push:
     categories:

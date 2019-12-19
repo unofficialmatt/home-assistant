@@ -1,20 +1,14 @@
 #######################################################
-#
-#  This package contains the components, sensors
-#  and automations used to monitor home security 
-#
-#  ----------------------------------------------------
-#
-#  DEPENDS ON: Lights, Notify,
-#  Scripts/Request Device Locations
-#  
+#                                                     #
+#                 PACKAGES / SECURITY                 #
+#                                                     #
 #######################################################
 
 homeassistant:
   customize:
     automation.intruder_alerts:
       icon: mdi:shield
-    
+
 #######################################################
 #                                                     #
 #                     AUTOMATIONS                     #
@@ -22,10 +16,10 @@ homeassistant:
 #######################################################
 
 automation:
-  - alias: "Intruder Alerts"
+  - alias: Intruder Alerts
     trigger:
       - platform: state
-        entity_id: binary_sensor.landing_sensor_motion, binary_sensor.kitchen_sensor_motion
+        entity_id: binary_sensor.landing_sensor_motion, binary_sensor.kitchen_sensor_motion, binary_sensor.front_door_sensor, binary_sensor.back_door_sensor
         to: 'on'
       - platform: state
         entity_id: sensor.nest_mode
@@ -41,8 +35,8 @@ automation:
           entity_id: input_select.home_status
           state: 'Holiday'
     action:
-      - service: notify.ios_matt
-        data_template: 
+      - service: notify.matt
+        data_template:
           title: >
             {{ "\uD83D\uDC6E" }} Intruder Alert!
           message: "The {{ trigger.to_state.attributes.friendly_name }} has been triggered."

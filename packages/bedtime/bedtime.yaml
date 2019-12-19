@@ -1,18 +1,19 @@
 #######################################################
-#
-#  This package contains the components, sensors and
-#  automations used for bedtime routines.
-#
-#  ----------------------------------------------------
-#
-#  DEPENDS ON: Light, Scenes, Occupancy
-#
+#                                                     #
+#                 PACKAGES / BEDTIME                  #
+#                                                     #
 #######################################################
 
 homeassistant:
-  customize:
-    input_select.bedtime_trigger:
+  customize_glob:
+    "*bedtime*":
       icon: mdi:hotel
+
+#######################################################
+#                                                     #
+#                    INPUT SELECT                     #
+#                                                     #
+#######################################################
 
 input_select:
   bedtime_trigger:
@@ -30,7 +31,8 @@ input_select:
 #######################################################
 
 automation:
-  - alias: 'Scene On - Bedtime'
+  # TURN ON BEDROOM LIGHTS WHEN LANDING MOTION SENSOR TRIPPED BETWEEN 20:30 and 04:00
+  - alias: Bedtime Lights ON
     hide_entity: true
     trigger:
       - platform: state
@@ -63,7 +65,7 @@ automation:
           {% endif %}
 
   # STANDARD SHUT DOWN IF NO GUESTS STAYING, AND IF NO ONE IS LEFT DOWNSTAIRS
-  - alias: 'Bedtime Shutdown - standard'
+  - alias: Bedtime SHUTDOWN Standard
     hide_entity: true
     trigger:
       - platform: state
@@ -98,7 +100,7 @@ automation:
         entity_id: script.bedtime_message
 
   # IF GUESTS ARE STAYING AND THEIR BEDROOM LIGHT IS THE LAST TO TURN OFF, TURN OFF ALL DEVICES THEREAFTER
-  - alias: 'Bedtime Shutdown - guests'
+  - alias: Bedtime SHUTDOWN Guests
     hide_entity: true
     trigger:
       - platform: state
@@ -123,7 +125,7 @@ automation:
         entity_id: script.turn_off_bedtime
 
   # IF SOMEONE IS STILL DOWNSTAIRS AT NIGHT, WAIT FOR THEM TO TURN OFF ALL LIGHTS BEFORE SHUTTING DOWN OTHER DEVICES
-  - alias: 'Bedtime Shutdown - entertaining'
+  - alias: Bedtime SHUTDOWN Entertaining
     hide_entity: true
     trigger:
       - platform: state
@@ -139,8 +141,8 @@ automation:
       - service: script.turn_on
         entity_id: script.turn_off_bedtime
 
-  #Bedtime trigger reset at 04:01 as 04:00 is the latest it can be set. If this is unset after we wake up, we will get false flags if the bedroom light is turned off
-  - alias: "Reset Bedtime Trigger"
+  # Bedtime trigger reset at 04:01 as 04:00 is the latest it can be set. If this is unset after we wake up, we will get false flags if the bedroom light is turned off
+  - alias: Bedtime Trigger RESET
     hide_entity: true
     trigger:
       - platform: time
@@ -150,3 +152,50 @@ automation:
         data:
           entity_id: input_select.bedtime_trigger
           option: "Off"
+
+#######################################################
+#                                                     #
+#                       SCRIPTS                       #
+#                                                     #
+#######################################################
+
+script:
+  bedtime_message:
+    sequence:
+      - wait_template: "{{ is_state('media_player.bedroom', 'idle') or is_state('media_player.bedroom', 'off') }}"
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom
+          volume_level: 0.5
+      - service: tts.google_translate_say
+        entity_id: media_player.bedroom
+        data_template:
+          message: >
+            Good night {{ states.sensor.who_is_home.state }}.
+            {% if is_state('input_boolean.alarm_clock', 'on') %}
+            Your alarm is set for {{ states.sensor.alarm_time.state }}AM.
+            {% endif %}
+            Tomorrow the weather will be {{ states.sensor.darksky_summary_1d.state }} with highs of {{ states. sensor.darksky_daytime_high_temperature_1d.state }} degrees celcius.
+            {{ [
+            "Sweet dreams!",
+            "Sleep tight!",
+            "Sleep well!",
+            "Rest your weary head!",
+            "Good night",
+            "Night night",
+            "Until tomorrow..good night.",
+            "Seeya!",
+            "Have a great sleep",
+            "Dream of powderdust and unicorns and glitter and pink and sparkles.",
+            "Powering down...",
+            "Rest up",
+            "Please don't snore tonight.",
+            "Good night, sleep tight, hope the bedbugs don't bite",
+            "Sweet dreams are made of this",
+            "Dream a little dream of me"
+            ] | random }}
+      - wait_template: "{{ is_state('media_player.bedroom', 'idle') }}"
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom
+          volume_level: 0.2

@@ -1,3 +1,9 @@
+#######################################################
+#                                                     #
+#                PACKAGES / CHRISTMAS                 #
+#                                                     #
+#######################################################
+
 homeassistant:
   customize:
     switch.christmas_tree:
@@ -7,11 +13,17 @@ homeassistant:
       icon: mdi:snowflake
       friendly_name: Bay Window Snowflakes
   customize_glob:
-    "*xmas*":
+    "*christmas*":
       icon: mdi:pine-tree
 
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
 automation:
-  - alias: 'Xmas Lights On PM'
+  - alias: Christmas Lights ON Evening
     initial_state: 'off'
     trigger:
       - platform: state
@@ -39,7 +51,7 @@ automation:
       - service: switch.turn_on
         entity_id: switch.star_lamp
 
-  - alias: 'Xmas Lights On AM'
+  - alias: Christmas Lights ON Morning
     initial_state: 'off'
     trigger:
       - platform: state
@@ -48,7 +60,7 @@ automation:
     condition:
       - condition: time
         after: '06:00:00'
-        before: '08:30:00'
+        before: '10:00:00'
     action:
       - service: switch.turn_on
         entity_id: switch.fairy_lights

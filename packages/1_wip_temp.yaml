@@ -6,6 +6,11 @@
 #
 #######################################################
 
+homeassistant:
+  customize:
+    binary_sensor.back_door_sensor:
+      icon: mdi:door
+
 # iCal integration - doesn't seem to pull any calendar info in
 
 #calendar:
@@ -150,3 +155,44 @@ automation:
 #            {% else %}
 #              modern-dark
 #            {% endif %}
+
+
+# for huesensor component
+#sensor:
+#  - platform: template
+#    sensors:
+#      kitchen_temperature:
+#       value_template: '{{ states.sensor.kitchen_motion_sensor.attributes["temperature"] }}'
+#        friendly_name: 'Kitchen Temperature'
+#        unit_of_measurement: '°C'
+#      landing_temperature:
+#        value_template: '{{ states.sensor.landing_motion_sensor.attributes["temperature"] }}'
+#        friendly_name: 'Landing Temperature'
+#        unit_of_measurement: '°C'
+#      kitchen_humidity:
+#        value_template: '{{ states.sensor.kitchen_motion_sensor.attributes["humidity"] }}'
+#        friendly_name: 'Kitchen Humidity'
+#        unit_of_measurement: '%'
+#      landing_humidity:
+#        value_template: '{{ states.sensor.landing_motion_sensor.attributes["humidity"] }}'
+#        friendly_name: 'Landing Humidity'
+#        unit_of_measurement: '%'
+
+
+  # Turn on the Lounge lights with the TV when it's dark out
+  #- alias: 'Scene - Lounge Evening'
+  #  hide_entity: true
+  #  trigger:
+  #  - platform: state
+  #    entity_id: media_player.philips_tv
+  #    to: 'on'
+  #    from: 'off'
+  #  condition:
+  #  - condition: numeric_state
+  #    entity_id: sensor.outside_light_level
+  #    below: 5.0
+  #  action:
+  #  - service: input_select.select_option
+  #    data:
+  #      entity_id: input_select.scene_lounge
+  #      option: "Relax"
