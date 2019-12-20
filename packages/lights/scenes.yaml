@@ -1,12 +1,7 @@
 #######################################################
-#
-#  This package contains the components and automations
-#  used to define and control scenes.
-#
-#  ----------------------------------------------------
-#
-#  DEPENDS ON: Lights, Includes/Hue-Scenes
-#
+#                                                     #
+#             PACKAGES / LIGHTING / SCENES            #
+#                                                     #
 #######################################################
 
 homeassistant:
@@ -16,6 +11,26 @@ homeassistant:
   customize_glob:
     "input_select.scene_*":
       icon: mdi:brightness-6
+    "scene.*_dimmed":
+      icon: mdi:brightness-2
+    "scene.*_relax":
+      icon: mdi:brightness-3
+    "scene.*_bedtime":
+      icon: mdi:brightness-3
+    "scene.*_bright":
+      icon: mdi:brightness-5
+    "scene.*_energise":
+      icon: mdi:brightness-7
+    "scene.*_warm":
+      icon: mdi:brightness-6
+    "scene.*_entertaining":
+      icon: mdi:brightness-6
+
+#######################################################
+#                                                     #
+#                    INPUT SELECT                     #
+#                                                     #
+#######################################################
 
 input_select:
   scene_master_bedroom:
@@ -79,6 +94,12 @@ input_select:
       - "-"
     initial: "-"
 
+#######################################################
+#                                                     #
+#                        SCENE                        #
+#                                                     #
+#######################################################
+
 scene:
 
   - name: Hallway Dimmed
@@ -91,11 +112,11 @@ scene:
   - name: Master Bedroom Energise
     entities:
       light.master_bedroom:
-        !include ../includes/hue-scenes/energise.yaml
+        !include ../../includes/hue-scenes/energise.yaml
   - name: Master Bedroom Bright
     entities:
       light.master_bedroom:
-        !include ../includes/hue-scenes/bright.yaml
+        !include ../../includes/hue-scenes/bright.yaml
   - name: Master Bedroom Bedtime
     entities:
       light.master_bedroom_colour:
@@ -118,16 +139,16 @@ scene:
   - name: Master Bedroom Relax
     entities:
       light.master_bedroom:
-        !include ../includes/hue-scenes/relax.yaml
+        !include ../../includes/hue-scenes/relax.yaml
 
   - name: Guest Bedroom Energise
     entities:
       light.guest_bedroom:
-        !include ../includes/hue-scenes/energise.yaml
+        !include ../../includes/hue-scenes/energise.yaml
   - name: Guest Bedroom Bright
     entities:
       light.guest_bedroom:
-        !include ../includes/hue-scenes/bright.yaml
+        !include ../../includes/hue-scenes/bright.yaml
   - name: Guest Bedroom Bedtime
     entities:
       light.guest_bedroom_colour:
@@ -148,28 +169,28 @@ scene:
   - name: Guest Bedroom Dimmed
     entities:
       light.guest_bedroom:
-        !include ../includes/hue-scenes/dimmed.yaml
+        !include ../../includes/hue-scenes/dimmed.yaml
   - name: Guest Bedroom Relax
     entities:
       light.guest_bedroom:
-        !include ../includes/hue-scenes/relax.yaml
+        !include ../../includes/hue-scenes/relax.yaml
 
   - name: Dining Room Energise
     entities:
       light.dining_room:
-        !include ../includes/hue-scenes/energise.yaml
+        !include ../../includes/hue-scenes/energise.yaml
   - name: Dining Room Bright
     entities:
       light.dining_room:
-        !include ../includes/hue-scenes/bright.yaml
+        !include ../../includes/hue-scenes/bright.yaml
   - name: Dining Room Dimmed
     entities:
       light.dining_room:
-        !include ../includes/hue-scenes/dimmed.yaml
+        !include ../../includes/hue-scenes/dimmed.yaml
   - name: Dining Room Relax
     entities:
       light.dining_room:
-        !include ../includes/hue-scenes/relax.yaml
+        !include ../../includes/hue-scenes/relax.yaml
   - name: Dining Room Warm
     entities:
       light.dining_room_colour:
@@ -195,53 +216,53 @@ scene:
   - name: Office Energise
     entities:
       light.office:
-        !include ../includes/hue-scenes/energise.yaml
+        !include ../../includes/hue-scenes/energise.yaml
   - name: Office Bright
     entities:
       light.office:
-        !include ../includes/hue-scenes/bright.yaml
+        !include ../../includes/hue-scenes/bright.yaml
   - name: Office Dimmed
     entities:
       light.office:
-        !include ../includes/hue-scenes/dimmed.yaml
+        !include ../../includes/hue-scenes/dimmed.yaml
   - name: Office Relax
     entities:
       light.office:
-        !include ../includes/hue-scenes/relax.yaml
+        !include ../../includes/hue-scenes/relax.yaml
 
   - name: Kitchen Energise
     entities:
       light.kitchen:
-        !include ../includes/hue-scenes/energise.yaml
+        !include ../../includes/hue-scenes/energise.yaml
   - name: Kitchen Bright
     entities:
       light.kitchen:
-        !include ../includes/hue-scenes/bright.yaml
+        !include ../../includes/hue-scenes/bright.yaml
   - name: Kitchen Dimmed
     entities:
       light.kitchen:
-        !include ../includes/hue-scenes/dimmed.yaml
+        !include ../../includes/hue-scenes/dimmed.yaml
   - name: Kitchen Relax
     entities:
       light.kitchen:
-        !include ../includes/hue-scenes/relax.yaml
+        !include ../../includes/hue-scenes/relax.yaml
 
   - name: Lounge Energise
     entities:
       light.lounge:
-        !include ../includes/hue-scenes/energise.yaml
+        !include ../../includes/hue-scenes/energise.yaml
   - name: Lounge Bright
     entities:
       light.lounge:
-        !include ../includes/hue-scenes/bright.yaml
+        !include ../../includes/hue-scenes/bright.yaml
   - name: Lounge Dimmed
     entities:
       light.lounge:
-        !include ../includes/hue-scenes/dimmed.yaml
+        !include ../../includes/hue-scenes/dimmed.yaml
   - name: Lounge Relax
     entities:
       light.lounge:
-        !include ../includes/hue-scenes/relax.yaml
+        !include ../../includes/hue-scenes/relax.yaml
   - name: Lounge Warm
     entities:
       light.lounge_colour:
@@ -293,7 +314,7 @@ scene:
 #######################################################
 
 automation:
-  - alias: 'Scene Selector'
+  - alias: Scene SELECT
     hide_entity: true
     trigger:
       - platform: state
@@ -307,7 +328,7 @@ automation:
         data_template:
           entity_id: "scene.{{ trigger.entity_id|replace('input_select.scene_', '') }}_{{ trigger.to_state.state }}"
 
-  - alias: 'Scene Reset'
+  - alias: Scene RESET
     hide_entity: true
     trigger:
       - platform: state

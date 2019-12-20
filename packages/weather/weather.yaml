@@ -1,0 +1,210 @@
+#######################################################
+#                                                     #
+#                 PACKAGES / WEATHER                  #
+#                                                     #
+#######################################################
+
+homeassistant:
+  customize:
+    sensor.darksky_nearest_storm_distance:
+      icon: mdi:weather-lightning
+    sensor.darksky_temperature:
+      friendly_name: Outside Temperature
+      icon: mdi:thermometer-lines
+    sensor.darksky_hourly_summary:
+      friendly_name: Weather Forecast
+      icon: mdi:weather-partly-rainy
+  customize_glob:
+    "*low_temperature*":
+      icon: mdi:arrow-down-bold
+    "*high_temperature*":
+      icon: mdi:arrow-up-bold
+    "*darksky_summary*":
+      icon: mdi:weather-partly-rainy
+    "*precipitation*":
+      icon: mdi:weather-rainy
+    "*rain*":
+      icon: mdi:weather-rainy
+
+#######################################################
+#                                                     #
+#                       SENSOR                        #
+#                                                     #
+#######################################################
+
+sensor:
+  - platform: darksky
+    api_key: !secret dark_sky_key
+    name: darksky
+    scan_interval:
+      minutes: 10
+    forecast:
+      - 0
+      - 1
+    monitored_conditions:
+      - nearest_storm_distance
+      - summary
+      - precip_probability
+      - temperature
+      - cloud_cover
+      - hourly_summary
+      - temperature_high
+      - temperature_low
+      - apparent_temperature_high
+    units: auto
+  - platform: metoffice
+    api_key: !secret met_office_key
+    monitored_conditions:
+      - precipitation
+  - platform: min_max
+    name: Chance of Rain
+    type: mean
+    entity_ids:
+      - sensor.met_office_probability_of_precipitation
+      - sensor.darksky_precip_probability
+
+#######################################################
+#                                                     #
+#                     INTEGRATIONS                    #
+#                                                     #
+#######################################################
+
+weather:
+  - platform: darksky
+    api_key: !secret dark_sky_key
+
+#######################################################
+#                                                     #
+#                        SCENE                        #
+#                                                     #
+#######################################################
+
+scene:
+  - name: Rain Warning
+    entities:
+      light.dining_room_lamp:
+        state: on
+        transition: 5
+        brightness: 255
+        rgb_color: [0,0,255]
+      light.hue_go:
+        state: on
+        transition: 5
+        brightness: 255
+        rgb_color: [0,0,255]
+      light.lounge_lamp:
+        state: on
+        transition: 5
+        brightness: 255
+        rgb_color: [0,0,255]
+      light.master_bedroom_lightstrip:
+        state: on
+        transition: 5
+        brightness: 255
+        rgb_color: [0,0,255]
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+
+  # SEND A TTS ALERT ACROSS HOUSE IF RAIN PREDICTED, BEFORE WE LEAVE FOR WORK
+  - alias: Morning Rain Notification
+    hide_entity: true
+    trigger:
+      #sarah
+      - platform: time
+        at: '06:45'
+      #matt
+      - platform: time
+        at: '08:05'
+    condition:
+      condition: and
+      conditions:
+        - condition: or
+          conditions:
+            - condition: numeric_state
+              entity_id: sensor.darksky_nearest_storm_distance
+              below: 15
+            - condition: numeric_state
+              entity_id: sensor.chance_of_rain
+              above: 60
+        - condition: state
+          entity_id: 'binary_sensor.workday_sensor'
+          state: 'on'
+        - condition: state
+          entity_id: input_select.home_status
+          state: 'Home'
+        - condition: state
+          entity_id: input_boolean.alarm_clock
+          state: 'on'
+    action:
+      - service: script.turn_on
+        entity_id: script.rain_warning
+
+  # ALLOWS USER TO TURN ON RAIN ALERTS - EG IF WASHING IS OUT ETC
+  - alias: Rain Alerts
+    initial_state: 'off'
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.darksky_nearest_storm_distance
+        below: 15
+      - platform: numeric_state
+        entity_id: sensor.chance_of_rain
+        above: 60
+    condition:
+      - condition: state
+        entity_id: input_select.home_status
+        state: 'Home'
+    action:
+      - service: script.turn_on
+        entity_id: script.rain_warning
+
+#######################################################
+#                                                     #
+#                       SCRIPTS                       #
+#                                                     #
+#######################################################
+
+script:
+  rain_warning:
+    sequence:
+      - service: scene.turn_on
+        entity_id: scene.rain_warning
+      - service_template: >
+          {% if is_state('sensor.who_is_home', 'Sarah and Matt') %}
+            notify.all_phones
+          {% elif is_state('sensor.who_is_home', 'Sarah') %}
+            notify.sarah
+          {% else %}
+            notify.matt
+          {% endif %}
+        data_template:
+          title: >
+            {{ "\uD83C\uDF27" }} Rain Warning
+          message: >
+            There is a {{states('sensor.chance_of_rain')}}% chance it might rain soon! There is a storm {{ states. sensor.darksky_nearest_storm_distance.state }} miles away.
+          data:
+            attachment:
+              url: https://api.sat24.com/animated/GB/rainTMC/3/GMT%20Standard%20Time/4260619
+              content-type: gif
+              hide-thumbnail: false
+      - delay: '00:00:10'
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.speakers
+          volume_level: 0.5
+      - wait_template: "{{ is_state('media_player.speakers', 'idle') or is_state('media_player.speakers', 'off') }}"
+      - service: tts.google_translate_say
+        entity_id: media_player.speakers
+        data_template:
+          message: >
+            This is a weather alert from Home Assistant. There is a {{states('sensor.chance_of_rain')}} percent chance it might rain soon! There is a storm {{ states. sensor.darksky_nearest_storm_distance.state }} miles away.
+      - wait_template: "{{ is_state('media_player.speakers', 'idle') }}"
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.speakers
+          volume_level: 0.2

@@ -76,7 +76,33 @@ google:
   client_secret: 1BS_q90gr-tRn0AmfWWItXjy
 
 automation:
-
+  # Starts playing Spotify on my phone at 8:15 on workdays
+  - alias: "Commute Start Spotify"
+    hide_entity: true
+    trigger:
+      platform: time
+      at: '08:15:00'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: 'binary_sensor.workday_sensor'
+          state: 'on'
+        - condition: state
+          entity_id: person.matt
+          state: 'home'
+        - condition: state
+          entity_id: input_boolean.alarm_clock
+          state: 'on'
+    action:
+      - service: media_player.select_source
+        entity_id: media_player.spotify
+        data:
+          source: "Matt's iPhone 8+"
+      - service: media_player.shuffle_set
+        data:
+         entity_id: media_player.spotify
+         shuffle: false
   - alias: 'Notify of Sonarr / Radarr activity'
     trigger:
       - platform: template

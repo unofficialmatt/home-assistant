@@ -14,7 +14,7 @@ cards:
       cards:
       - type: picture-elements
         entity: person.matt
-        image: /local/people/matt.jpg
+        image: /local/people/matt-bw.jpg
         state_image:
           "home": /local/people/matt.jpg
           "not_home": /local/people/matt-bw.jpg
@@ -31,7 +31,7 @@ cards:
             entity: sensor.matt_battery_level
       - type: picture-elements
         entity: person.sarah
-        image: /local/people/sarah.jpg
+        image: /local/people/sarah-bw.jpg
         state_image:
           "home": /local/people/sarah.jpg
           "not_home": /local/people/sarah-bw.jpg
@@ -246,5 +246,4 @@ cards:
         - calendar.joint
         - calendar.sarah
       numberOfDays: 14
-      showProgressBar: true
       showLocation: true

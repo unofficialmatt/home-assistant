@@ -15,7 +15,14 @@ cards:
         - state: "unavailable"
       exclude:
         - entity_id: group.*
-
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: All entities
+      show_header_toggle: false
+    filter:
+      include:
+        - entity_id: .*
   ## SCRIPTS
   - type: vertical-stack
     cards:
