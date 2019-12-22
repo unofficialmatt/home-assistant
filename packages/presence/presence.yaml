@@ -1,58 +1,48 @@
 #######################################################
-#
-#  This package contains the components used to track
-#  and monitor occupancy, and provides relevant
-#  automations based on presence detection
-#
-#  ----------------------------------------------------
-#
-#  DEPENDS ON: Environment, Notifications,
-#  Script/Turn_Off
-#
+#                                                     #
+#                 PACKAGES / PRESENCE                 #
+#                                                     #
 #######################################################
 
-
 homeassistant:
+  customize_glob:
+    "*ping*":
+      hidden: true
+      icon: mdi:router-wireless
+    "device_tracker.*_watch":
+      hidden: true
+      icon: mdi:watch-variant
+    "automation.home_status_*":
+      hidden: true
+      icon: mdi:home-account
   customize:
-    sensor.matts_iphone_8_battery_level:
-      hidden: true
-    sensor.matts_iphone_8_battery_state:
-      hidden: true
-    sensor.sarah_kents_iphone_battery_level:
-      hidden: true
-    sensor.sarah_kents_iphone_battery_state:
-      hidden: true
-
-    device_tracker.matt_ping:
-      hidden: true
-      icon: mdi:router-wireless
-    device_tracker.sarah_ping:
-      hidden: true
-      icon: mdi:router-wireless
-    device_tracker.matt_watch:
-      hidden: true
-      icon: mdi:watch-variant
-    device_tracker.sarah_watch:
-      hidden: true
-      icon: mdi:watch-variant
     device_tracker.sarahs_ipad:
       hidden: true
-
     sensor.who_is_home:
       hidden: true
-
     script.request_location_update:
-      hidden: false
       icon: mdi:crosshairs
       friendly_name: Request Device Locations
+    group.family:
+      icon: mdi:account-group
+    group.friends:
+      icon: mdi:account-group
+    group.occupants:
+      icon: mdi:account-group
+    group.guests:
+      icon: mdi:account-group
 
-# TRACKERS
+
+#######################################################
+#                                                     #
+#                   DEVICE TRACKERS                   #
+#                                                     #
+#######################################################
+
 device_tracker:
-  # Pings devices every 3 minutes. If device not seen in 10 mins, change to away
-
   - platform: ping
-    interval_seconds: 180
-    consider_home: 00:10:00
+    interval_seconds: 300
+    consider_home: 00:16:00
     hosts:
       sarah_ping: !secret ip_sarah_phone
       matt_ping: !secret ip_matt_phone
@@ -64,14 +54,20 @@ device_tracker:
       sarah_watch: !secret ip_sarah_watch
       matt_watch: !secret ip_matt_watch
 
+#######################################################
+#                                                     #
+#                       SENSOR                        #
+#                                                     #
+#######################################################
+
 sensor:
   - platform: template
     sensors:
       who_is_home:
-        friendly_name: 'Who is Home'
+        friendly_name: Who is Home
         value_template: >
           {% if is_state('person.sarah', 'home') and is_state('person.matt', 'home') %}
-            Sarah and Matt
+            Matt and Sarah
           {% elif is_state('person.sarah', 'home') and not is_state('person.matt', 'home') %}
             Sarah
           {% elif is_state('person.matt', 'home') and not is_state('person.sarah', 'home') %}
@@ -80,35 +76,42 @@ sensor:
             No one
           {% endif %}
 
-# MAIN OCCUPANTS GROUP
+#######################################################
+#                                                     #
+#                        GROUP                        #
+#                                                     #
+#######################################################
+
 group:
   occupants:
     name: Occupants
-    view: no
     entities:
       - person.matt
       - person.sarah
+      - group.guests
   family:
     name: Family
-    view: no
     entities:
       - device_tracker.aimee
       - device_tracker.james
   friends:
     name: Friends
-    view: no
     entities:
       - device_tracker.katt
       - device_tracker.rashida
 #      - device_tracker.rob
   guests:
     name: Guests
-    view: no
     entities:
       - group.friends
       - group.family
 
-# HOME STATUS
+#######################################################
+#                                                     #
+#                    INPUT SELECT                     #
+#                                                     #
+#######################################################
+
 input_select:
   home_status:
     name: Home Status
@@ -119,7 +122,12 @@ input_select:
     initial: Home
     icon: mdi:home
 
-# GUEST MODES
+#######################################################
+#                                                     #
+#                    INPUT BOOLEAN                    #
+#                                                     #
+#######################################################
+
 input_boolean:
   guests_staying:
     name: Guests Staying
@@ -138,7 +146,7 @@ input_boolean:
 
 automation:
   # TRIGGER HOME / AWAY MODE
-  - alias: 'Home Status Change'
+  - alias: Home Status - Change
     hide_entity: true
     trigger:
       - platform: state
@@ -155,7 +163,7 @@ automation:
             {% endif %}
 
   # We use seperate automations here, so that if home_status is changed manually (eg. by input select), the actions still occur.
-  - alias: 'Home Status Home Actions'
+  - alias: Home Status - Home Actions
     hide_entity: true
     trigger:
       - platform: state
@@ -167,7 +175,7 @@ automation:
           entity_id: climate.hallway
           away_mode: off
 
-  - alias: 'Home Status Away Actions'
+  - alias: 'Home Status - Away Actions'
     hide_entity: true
     trigger:
       - platform: state
@@ -182,7 +190,7 @@ automation:
           away_mode: on
 
   # ACTIVATE HOLIDAY MODE
-  - alias: 'Home Status Holiday'
+  - alias: Home Status - Holiday Actions
     hide_entity: true
     trigger:
       - platform: state
@@ -197,7 +205,7 @@ automation:
           option: Holiday
 
   # SEND NOTIFICATION OF STATUS CHANGE
-  - alias: 'Home Status Notify'
+  - alias: Home Status - Notify
     hide_entity: true
     trigger:
       - platform: state
@@ -214,8 +222,8 @@ automation:
             {% else %} Home Assistant status updated
             {% endif %}
 
-  # TRIGGER GUEST MODE
-  - alias: 'Guest Modes Auto On'
+  # TRIGGER GUEST MODE IF GUESTS ARE HERE AT 2025
+  - alias: Guest Modes - Auto ON
     hide_entity: true
     trigger:
       - platform: time
@@ -236,3 +244,23 @@ automation:
             {% if is_state("group.family", "home") %} input_boolean.guests_staying
             {% else %} input_boolean.entertaining
             {% endif %}
+
+#######################################################
+#                                                     #
+#                       SCRIPTS                       #
+#                                                     #
+#######################################################
+
+script:
+  turn_off_all_hardware:
+    sequence:
+      - service: light.turn_off
+        entity_id: group.all_lights
+        data:
+          transition: 10
+      - service: media_player.media_stop
+        entity_id: media_player.speakers
+      - service: switch.turn_off
+        entity_id: group.all_switches
+      - service: media_player.turn_off
+        entity_id: media_player.philips_tv

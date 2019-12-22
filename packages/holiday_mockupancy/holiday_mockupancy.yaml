@@ -1,26 +1,25 @@
 #######################################################
-#
-#  This package simulates occupancy when we are away on
-#  holiday. It is triggered when input_select.home_status
-#  is set to 'Holiday'
-#
-#  ----------------------------------------------------
-#
-#  DEPENDS ON: Occupancy, Lights
-#  
+#                                                     #
+#           PACKAGES / HOLIDAY / MOCKUPANCY           #
+#                                                     #
 #######################################################
 
+homeassistant:
+  customize_glob:
+    "*holiday_lights*":
+      hidden: true
+      icon: mdi:island
 
-    
 #######################################################
 #                                                     #
 #                     AUTOMATIONS                     #
 #                                                     #
 #######################################################
 
+# THESE AUTOMATIONS TRIGGER ONLY IF HOME STATUS IS SET TO HOLIDAY
+
 automation:
-  - alias: "Scene - Holiday AM M-F"
-    hide_entity: true
+  - alias: Holiday Lights - AM Workdays
     trigger:
       - platform: time
         at: '06:10:00'
@@ -49,9 +48,8 @@ automation:
       - delay: '01:50:00'
       - service: light.turn_off
         entity_id: group.all_lights
-      
-  - alias: "Scene - Holiday AM S-S"
-    hide_entity: true
+
+  - alias: Holiday Lights - AM Non Workdays
     trigger:
       - platform: time
         at: '08:15:00'
@@ -79,10 +77,9 @@ automation:
         entity_id: scene.hallway_dimmed
       - delay: '01:15:00'
       - service: light.turn_off
-        entity_id: group.all_lights      
-        
-  - alias: "Scene - Holiday PM"
-    hide_entity: true
+        entity_id: group.all_lights
+
+  - alias: Holiday Lights - PM
     trigger:
       - platform: time
         at: '18:00:00'

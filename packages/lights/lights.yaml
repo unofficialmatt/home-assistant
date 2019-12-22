@@ -87,7 +87,7 @@ hue:
 
 automation:
   # TURN ALL LIGHTS OFF IN THE MORNING, IF IT IS LIGHT ENOUGH
-  - alias: Lights OFF Morning
+  - alias: Lights - OFF Morning
     hide_entity: true
     trigger:
       - platform: time
@@ -108,7 +108,7 @@ automation:
         entity_id: group.all_lights
 
   # TURN THE DOWNSTAIRS LIGHTS ON BETWEEN 2100-0500 IF ANYONE ARRIVES HOME, AND THE HOUSE LIGHTS ARE CURRENTLY OFF
-  - alias: Lights ON Late Home
+  - alias: Lights - ON Late Home
     hide_entity: true
     trigger:
       - platform: state
@@ -138,7 +138,7 @@ automation:
         entity_id: group.all_lights
 
   # STANDARD EVENING LIGHTS
-  - alias: Lights ON Early Evening
+  - alias: Lights - ON Early Evening
     hide_entity: true
     trigger:
       - platform: numeric_state

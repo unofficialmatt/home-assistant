@@ -11,9 +11,6 @@
 
 homeassistant:
   customize:
-    sun.sun:
-      hidden: true
-
     climate.hallway:
       friendly_name: Thermostat
       entity_picture: /local/nest.png

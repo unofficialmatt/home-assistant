@@ -23,6 +23,16 @@ cards:
     filter:
       include:
         - entity_id: .*
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Automations
+      show_header_toggle: false
+    filter:
+      include:
+        - domain: automation
+
+
   ## SCRIPTS
   - type: vertical-stack
     cards:

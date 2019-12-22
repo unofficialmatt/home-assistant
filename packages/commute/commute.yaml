@@ -45,7 +45,7 @@ automation:
 
   # TRAFFIC LIGHT COLOUR BEHIND BED ON WORKDAYS BETWEEN 0730-0820
   # IF ALARM CLOCK IS ON, MATT IS HOME, AND THE ALARM HAS GONE OFF
-  - alias: Commute Light
+  - alias: Commute - Light
     trigger:
       platform: time_pattern
       minutes: '/2'
@@ -81,7 +81,7 @@ automation:
 
   # NOTIFY COMMUTE TIME AT 0800 VIA GOOGLE TTS IN BEDROOM
   # IF WORKDAY, MATT IS HOME, ALARM CLOCK HAS GONE OFF
-  - alias: Commute Notify Speaker
+  - alias: Commute - Notify Speaker
     trigger:
       - platform: time
         at: '08:00:00'
@@ -124,7 +124,7 @@ automation:
           entity_id: media_player.bedroom
           volume_level: 0.3
 
-  - alias: Commute Notify Morning Phone
+  - alias: Commute - Notify Morning Phone
     trigger:
       - platform: time
         at: '08:00:15'
@@ -148,7 +148,7 @@ automation:
           data:
             url: waze://?favorite=work
 
-  - alias: Commute Notify Evening Phone
+  - alias: Commute - Notify Evening Phone
     trigger:
       - platform: time
         at: '17:25:00'

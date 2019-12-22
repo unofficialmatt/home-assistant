@@ -7,12 +7,13 @@
 homeassistant:
 
   customize:
-    automation.bedroom_comfort:
-      icon: mdi:bed-double
-      friendly_name: Heated Mattress ON Bedtime
     switch.bedroom_comfort:
       icon: mdi:radiator
       friendly_name: Heated Mattress
+  customize_glob:
+    "*heated_mattress*":
+      icon: mdi:radiator
+
 
 #######################################################
 #                                                     #
@@ -23,7 +24,7 @@ homeassistant:
 automation:
 
   # TURN ON HEATED MATTRESS IF THIS AUTOMATION IS ACTIVE AT BEDTIME
-  - alias: Heated Mattress ON Bedtime
+  - alias: Heated Mattress - ON Bedtime
     initial_state: 'off'
     trigger:
       - platform: state
@@ -40,7 +41,7 @@ automation:
         entity_id: switch.bedroom_comfort
 
   # TURN HEATED MATTRESS OFF AFTER ASLEEP FOR 90 MINS
-  - alias: Heated Mattress OFF
+  - alias: Heated Mattress - OFF
     hide_entity: true
     trigger:
       - platform: state

@@ -112,7 +112,7 @@ scene:
 automation:
 
   # SEND A TTS ALERT ACROSS HOUSE IF RAIN PREDICTED, BEFORE WE LEAVE FOR WORK
-  - alias: Morning Rain Notification
+  - alias: Rain Notification - Morning
     hide_entity: true
     trigger:
       #sarah
