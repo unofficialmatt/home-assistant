@@ -1,7 +1,23 @@
+#######################################################
+#                                                     #
+#               PACKAGES / SYSTEM STATS               #
+#                                                     #
+#######################################################
+
+homeassistant:
+  customize_glob:
+    "sensor.*_count":
+      icon: mdi:counter
+
+#######################################################
+#                                                     #
+#                       SENSOR                        #
+#                                                     #
+#######################################################
+
 sensor:
 
 ## HOME ASSISTANT STATISTICS
-
   - platform: template
     sensors:
       sensor_count:
@@ -15,7 +31,6 @@ sensor:
               {% endif %}
             {%- endfor -%}
           {%- endfor -%}
-
       automation_count:
         friendly_name: 'Number of Automations'
         value_template: >
@@ -27,7 +42,6 @@ sensor:
               {% endif %}
             {%- endfor -%}
           {%- endfor -%}
-
       script_count:
         friendly_name: 'Number of Scripts'
         value_template: >
@@ -39,7 +53,6 @@ sensor:
               {% endif %}
             {%- endfor -%}
           {%- endfor -%}
-
       switch_count:
         friendly_name: 'Number of Switches'
         value_template: >
@@ -51,7 +64,6 @@ sensor:
               {% endif %}
             {%- endfor -%}
           {%- endfor -%}
-
       binary_sensor_count:
         friendly_name: 'Number of Binary Sensors'
         value_template: >
@@ -63,7 +75,6 @@ sensor:
               {% endif %}
             {%- endfor -%}
           {%- endfor -%}
-
       lights_count:
         friendly_name: 'Number of Lights'
         value_template: >
@@ -75,7 +86,6 @@ sensor:
               {% endif %}
             {%- endfor -%}
           {%- endfor -%}
-
       tracker_count:
         friendly_name: 'Number of Devices'
         value_template: >
@@ -87,9 +97,8 @@ sensor:
               {% endif %}
             {%- endfor -%}
           {%- endfor -%}
-
       media_player_count:
-        friendly_name: 'Number of Devices'
+        friendly_name: 'Number of Media Players'
         value_template: >
           {%- set domains = ['media_player'] -%}
           {%- for domain in domains -%}

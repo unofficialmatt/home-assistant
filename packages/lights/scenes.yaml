@@ -5,9 +5,6 @@
 #######################################################
 
 homeassistant:
-  customize_domain:
-    scene:
-      hidden: true
   customize_glob:
     "input_select.scene_*":
       icon: mdi:brightness-6
@@ -25,6 +22,15 @@ homeassistant:
       icon: mdi:brightness-6
     "scene.*_entertaining":
       icon: mdi:brightness-6
+    "automation.*scene*":
+      icon: mdi:brightness-6
+  customize:
+    scene.master_bedroom_wake_up:
+      icon: mdi:brightness-3
+    scene.lounge_movie_up:
+      icon: mdi:brightness-7
+    scene.lounge_movie:
+      icon: mdi:brightness-2
 
 #######################################################
 #                                                     #

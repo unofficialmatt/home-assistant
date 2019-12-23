@@ -5,6 +5,9 @@
 #######################################################
 
 homeassistant:
+  customize_glob:
+    "automation.lights_*":
+      icon: mdi:lightbulb-group
 
   customize_domain:
     light:
@@ -58,11 +61,8 @@ homeassistant:
       icon: mdi:lamp
 
     switch.fairy_lights:
-      icon: mdi:star-four-points
+      icon: mdi:string-lights
       friendly_name: Fairy Lights
-    switch.festoon_lights:
-      icon: mdi:white-balance-incandescent
-      friendly_name: Festoon Lights
     switch.star_lamp:
       icon: mdi:lamp
       friendly_name: Star Lamp

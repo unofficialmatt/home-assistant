@@ -1,13 +1,7 @@
 #######################################################
-#
-#  This package contains the components, sensors and
-#  automations used to control morning routines
-#
-#  ----------------------------------------------------
-#
-#  DEPENDS ON: Occupancy, Alarm Clock, Environment, 
-#  Scenes, Media Players
-#  
+#                                                     #
+#             PACKAGES / MORNING ROUTINES             #
+#                                                     #
 #######################################################
 
 
@@ -18,8 +12,7 @@
 #######################################################
 
 automation:
-- alias: "Scene - Morning Getting Dressed"
-  hide_entity: true
+- alias: Morning Routine - Scene Getting Dressed
   trigger:
     # sarah
     - platform: time
@@ -35,7 +28,7 @@ automation:
         state: 'Home'
       - condition: state
         entity_id: input_boolean.alarm_clock
-        state: 'on' 
+        state: 'on'
       - condition: state
         entity_id: binary_sensor.workday_sensor
         state: 'on'
@@ -47,9 +40,8 @@ automation:
       data:
         entity_id: input_select.scene_master_bedroom
         option: "Energise"
-        
-- alias: "Scene - Morning Relax"
-  hide_entity: true
+
+- alias: Morning Routine - Scene Relax
   trigger:
     - platform: time
       at: '06:55:00'
@@ -61,7 +53,7 @@ automation:
         state: 'Home'
       - condition: state
         entity_id: input_boolean.alarm_clock
-        state: 'on' 
+        state: 'on'
       - condition: state
         entity_id: binary_sensor.workday_sensor
         state: 'on'
@@ -75,13 +67,12 @@ automation:
         option: "Dimmed"
     - service: media_player.media_stop
       entity_id: media_player.bedroom
-      
-- alias: "Morning Getting Amped Up"
-  hide_entity: true
+
+- alias: Morning Routine - Scene Energise
   trigger:
     - platform: time
       at: '07:45:00'
-  condition:  
+  condition:
     condition: and
     conditions:
       - condition: state
@@ -96,7 +87,7 @@ automation:
       - condition: template
         value_template: >
           {{ states.sensor.time.state >= states.sensor.alarm_time.state }}
-  action:   
+  action:
     - service: media_player.volume_set
       data_template:
         entity_id: media_player.bedroom

@@ -31,7 +31,14 @@ cards:
     filter:
       include:
         - domain: automation
-
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Groups
+      show_header_toggle: false
+    filter:
+      include:
+        - domain: media_player
 
   ## SCRIPTS
   - type: vertical-stack

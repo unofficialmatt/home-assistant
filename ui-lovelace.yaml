@@ -70,7 +70,7 @@ cch:
 views:
   - !include interface/view_home.yaml
   - !include interface/view_rooms.yaml
-  #- !include interface/view_media.yaml
+  - !include interface/view_media.yaml
   #- !include interface/view_floorplan.yaml
   #- !include interface/view_config.yaml
   - !include interface/view_debug.yaml

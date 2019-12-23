@@ -4,6 +4,11 @@
 #                                                     #
 #######################################################
 
+homeassistant:
+  customize_glob:
+    "script.vacuum*":
+      icon: mdi:robot-vacuum
+
 #######################################################
 #                                                     #
 #                     INTEGRATIONS                    #
@@ -15,3 +20,49 @@ vacuum:
     friendly_name: Robbie
     host: !secret ip_robbie
     token: !secret token_robbie
+
+#######################################################
+#                                                     #
+#                       SCRIPTS                       #
+#                                                     #
+#######################################################
+
+script:
+  vacuum_mop:
+    alias: Vacuum - Mop
+    sequence:
+      - service: vacuum.set_fan_speed
+        data:
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+          fan_speed: 105
+      - service: vacuum.send_command
+        data:
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+          command: app_start
+  vacuum_go_home:
+    alias: Vacuum - Go Home
+    sequence:
+      - service: vacuum.return_to_base
+        data:
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+
+  #@link https://community.home-assistant.io/t/howto-xiaomi-vacuum-zoned-cleaning/51293/22
+  # Starting point is 25500,25500
+
+  vacuum_come_out:
+    alias: Vacuum - Come Out
+    sequence:
+      - service: vacuum.send_command
+        data:
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+          command: app_goto_target
+          params: [26000,25600]
+
+  #roborock_bins:
+  #  alias: Roborock bins
+  #  sequence:
+  #    - service: vacuum.send_command
+  #      data:
+  #        entity_id: vacuum.xiaomi_vacuum_cleaner
+  #        command: app_goto_target
+  #        params: [31500, 27500]

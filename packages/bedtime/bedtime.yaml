@@ -8,6 +8,9 @@ homeassistant:
   customize_glob:
     "*bedtime*":
       icon: mdi:hotel
+  customize:
+    script.turn_off_bedtime:
+      icon: mdi:power
 
 #######################################################
 #                                                     #

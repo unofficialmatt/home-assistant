@@ -4,6 +4,16 @@
 #                                                     #
 #######################################################
 
+homeassistant:
+  customize_glob:
+    "automation.outside_lights_*":
+      hidden: true
+      icon: mdi:white-balance-incandescent
+  customize:
+    switch.festoon_lights:
+      icon: mdi:string-lights
+      friendly_name: Festoon Lights
+
 ### CHECK THIS ACTUALLY WORKS......
 ios:
   push:
@@ -20,8 +30,15 @@ ios:
             activationMode: 'background'
             authenticationRequired: false
 
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
 automation:
-  - alias: 'Turn On Outside Lights'
+  # TURNS OUTSIDE LIGHTS ON, IF LOW LIGHT OUTSIDE AND BACK DOOR OPENED
+  - alias: Outside Lights - Turn ON
     trigger:
       - platform: state
         entity_id: binary_sensor.back_door_sensor
@@ -34,7 +51,8 @@ automation:
       - service: switch.turn_on
         entity_id: switch.festoon_lights
 
-  - alias: 'Turn Off Outside Lights'
+  # IF OUTSIDE LIGHTS HAVE BEEN ON FOR 30, 120 MINS, SEND AN ACTIONABLE NOTIFICATION TO TURN OFF
+  - alias: Outside Lights - Turn OFF Actionable
     trigger:
       - platform: state
         entity_id: binary_sensor.back_door_sensor
@@ -60,7 +78,8 @@ automation:
             push:
               category: "outsidelights"
 
-  - alias: "Turn Off Outside Lights YES"
+  # RESULT OF ACTIONABLE NOTIFICATION
+  - alias: Outside Lights - Turn OFF YES
     trigger:
       platform: event
       event_type: ios.notification_action_fired

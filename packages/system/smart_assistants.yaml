@@ -1,13 +1,7 @@
 #######################################################
-#
-#  This package contains the components and sensors
-#  used to interact with Home Assistant via smart
-#  assistants
-#
-#  ----------------------------------------------------
-#
-#  DEPENDS ON: XXXXXX
-#
+#                                                     #
+#             PACKAGES / SMART ASSISTANTS             #
+#                                                     #
 #######################################################
 
 # HOME KIT (SIRI/APPLE)
@@ -38,13 +32,16 @@
 #      - media_player.upstairs
 
 # GOOGLE
-# NOTE: The following domains are set up directly through the Google Home app, to ensure that they can still be controlled by voice when Home Assistant is down: Light, Xiaomi Vaccum, Nest Climate
+# NOTE: The following domains are set up directly through the Google Home app,
+# to ensure that they can still be controlled by voice when Home Assistant is down:
+# Light, Xiaomi Vacuum, Nest Climate
 google_assistant:
   project_id: !secret gass_projectid
   api_key: !secret gass_apikey
   exposed_domains:
     - switch
     - input_boolean
+    - scene
   entity_config:
     #UTILS
     input_boolean.entertaining:
@@ -67,20 +64,20 @@ google_assistant:
         - guests staying
     script.restart_hass:
       expose: false
-    script.roborock_come_out:
+    script.vacuum_come_out:
       expose: true
       room: Utilities
       aliases:
         - Robbie Come Out
         - Hoover Come Out
-        - Vaccum Come Out
-    script.roborock_mop:
+        - Vacuum Come Out
+    script.vacuum_mop:
       expose: true
       room: Utilities
       aliases:
         - Robbie Mop
         - Hoover Mop
-        - Vaccum Mop
+        - Vacuum Mop
     #Outside
     switch.festoon_lights:
       room: Garden

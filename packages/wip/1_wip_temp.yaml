@@ -10,6 +10,8 @@ homeassistant:
   customize:
     binary_sensor.back_door_sensor:
       icon: mdi:door
+    binary_sensor.front_door_sensor:
+      icon: mdi:door
 
 # iCal integration - doesn't seem to pull any calendar info in
 
@@ -33,21 +35,6 @@ homeassistant:
 #        destination: WIN
 
 # Add support for person component
-person:
-  - name: Matt
-    id: matt
-    user_id: c1937753d36940ff9bc20222e7c8ffa3
-    device_trackers:
-      - device_tracker.matt
-      - device_tracker.matt_ping
-      - device_tracker.matt_watch
-  - name: Sarah
-    id: sarah
-    user_id: 6484a01f3d07451aa10113e684fec320
-    device_trackers:
-      - device_tracker.sarah
-      - device_tracker.sarah_ping
-      - device_tracker.sarah_watch
 
 ios:
   push:
@@ -76,6 +63,23 @@ google:
   client_secret: 1BS_q90gr-tRn0AmfWWItXjy
 
 automation:
+
+#  - alias: 'Theme Switch'
+#    hide_entity: True
+#    trigger:
+#      - platform: homeassistant
+#        event: start
+#      - platform: state
+#        entity_id: sun.sun
+#    action:
+#      - service_template: frontend.set_theme
+#        data_template:
+#          name: >
+#            {% if states.sun.sun.state == "above_horizon" %}
+#              modern
+#            {% else %}
+#              modern-dark
+#            {% endif %}
   # Starts playing Spotify on my phone at 8:15 on workdays
   - alias: "Commute Start Spotify"
     hide_entity: true

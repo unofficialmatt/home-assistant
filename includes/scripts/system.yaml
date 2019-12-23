@@ -1,3 +1,0 @@
-restart_hass:
-  sequence:
-    - service: homeassistant.restart

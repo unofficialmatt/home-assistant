@@ -1,12 +1,7 @@
 #######################################################
-#
-#  This package contains the components and sensors
-#  used to monitor external and environmental factors
-#
-#  ----------------------------------------------------
-#
-#  DEPENDS ON: Lights, Weather
-#
+#                                                     #
+#                PACKAGES / ENVIRONMENT               #
+#                                                     #
 #######################################################
 
 homeassistant:
@@ -19,19 +14,39 @@ homeassistant:
       icon: mdi:water
     sensor.hallway_thermostat_temperature:
       friendly_name: Hallway Temperature
+    sensor.hallway_thermostat_operation_mode:
+      icon: mdi:settings-box
     binary_sensor.is_workday_tomorrow:
       hidden: true
     binary_sensor.workday_sensor:
       hidden: true
 
     sensor.outside_light_level:
-      icon: mdi:weather-partlycloudy
+      icon: mdi:weather-partly-cloudy
     sensor.average_home_temperature:
       icon: mdi:thermometer
+    sensor.time_of_day:
+      icon: mdi:calendar-clock
+
+  customize_glob:
+    "binary_sensor.*workday*":
+      icon: mdi:calendar-outline
+
+#######################################################
+#                                                     #
+#                     INTEGRATIONS                    #
+#                                                     #
+#######################################################
 
 nest:
   client_id: !secret nest_client_id
   client_secret: !secret nest_client_secret
+
+#######################################################
+#                                                     #
+#                       ENABLES                       #
+#                                                     #
+#######################################################
 
 sun:
 
@@ -55,13 +70,25 @@ zone:
     radius: 200
     icon: mdi:worker
 
+#######################################################
+#                                                     #
+#                    BINARY SENSOR                    #
+#                                                     #
+#######################################################
+
 binary_sensor:
   - platform: workday
     country: UK
   - platform: workday
-    name: is_workday_tomorrow
+    name: Is Workday Tomorrow
     country: UK
     days_offset: 1
+
+#######################################################
+#                                                     #
+#                       SENSOR                        #
+#                                                     #
+#######################################################
 
 sensor:
   # CURRENT TIME
@@ -76,11 +103,12 @@ sensor:
       - sensor.hallway_thermostat_temperature
       - sensor.kitchen_temperature
       - sensor.landing_temperature
-  # COMPUTED OUTSIDE LIGHT LEVEL
+  # COMPUTED OUTSIDE LIGHT LEVEL - BIT OF AN ARBITRARY VALUE BUT IT GIVES
+  # A GOOD INDICATION OF HOW DARK IT IS BASED ON THE CLOUD COVERAGE AND SUN ELEVATION
   - platform: template
     sensors:
       outside_light_level:
-        friendly_name: 'Sunlight Level'
+        friendly_name: Sunlight Level
         unit_of_measurement: 'lux'
         value_template: >
           {%- if states.sun.sun.attributes.elevation < 0 -%}

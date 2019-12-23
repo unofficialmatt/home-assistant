@@ -1,26 +1,22 @@
 #######################################################
-#
-#  This package contains the components and sensors
-#  used to set up and monitor Home Assistant
-#
-#  ----------------------------------------------------
-#
-#  DEPENDS ON: Notifications
-#
+#                                                     #
+#              PACKAGES / HOME ASSISTANT              #
+#                                                     #
 #######################################################
 
 homeassistant:
-  customize_domain:
-    script:
-      hidden: true
   customize:
     script.restart_hass:
-      hidden: false
       icon: mdi:restart
       friendly_name: Restart Home Assistant
-  customize_glob:
-    "automation.*scene*":
-      icon: mdi:brightness-6
+    automation.hass_notify_new_release:
+      icon: mdi:alert-decagram
+    automation.hass_notify_system_start:
+      icon: mdi:power
+    automation.hass_notify_system_shutdown:
+      icon: mdi:power
+    binary_sensor.updater:
+      icon: mdi:alert-decagram
 
 #######################################################
 #                                                     #
@@ -29,7 +25,7 @@ homeassistant:
 #######################################################
 
 automation:
-  - alias: 'Notify - HASS New Update'
+  - alias: Hass Notify - New Release
     hide_entity: True
     trigger:
       - platform: state
@@ -40,7 +36,7 @@ automation:
         title: '{{ "\u2699\uFE0F"}} New Home Assistant Release'
         message: "Home Assistant  {{ states.updater.updater.state }}  is now available."
 
-  - alias: 'Notify - HASS Start'
+  - alias: Hass Notify - System Start
     hide_entity: True
     trigger:
       - platform: homeassistant
@@ -51,7 +47,7 @@ automation:
         title: '{{ "\u2699\uFE0F"}} Home Assistant started'
         message: "Powering up..."
 
-  - alias: 'Notify - HASS Shutdown'
+  - alias: Hass Notify - System Shutdown
     hide_entity: True
     trigger:
       - platform: homeassistant
@@ -60,20 +56,15 @@ automation:
       service: notify.matt
       data_template:
         title: '{{ "\u2699\uFE0F"}} Home Assistant shut down'
-        message: "Logging off..."
-#  - alias: 'Theme Switch'
-#    hide_entity: True
-#    trigger:
-#      - platform: homeassistant
-#        event: start
-#      - platform: state
-#        entity_id: sun.sun
-#    action:
-#      - service_template: frontend.set_theme
-#        data_template:
-#          name: >
-#            {% if states.sun.sun.state == "above_horizon" %}
-#              modern
-#            {% else %}
-#              modern-dark
-#            {% endif %}
+        message: "Until next time..."
+
+#######################################################
+#                                                     #
+#                       SCRIPTS                       #
+#                                                     #
+#######################################################
+
+script:
+  restart_hass:
+    sequence:
+      - service: homeassistant.restart

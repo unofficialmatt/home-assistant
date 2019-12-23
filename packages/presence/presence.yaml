@@ -9,6 +9,10 @@ homeassistant:
     "*ping*":
       hidden: true
       icon: mdi:router-wireless
+    "*iphone*":
+      icon: mdi:cellphone-iphone
+    "*ipad*":
+      icon: mdi:tablet-ipad
     "device_tracker.*_watch":
       hidden: true
       icon: mdi:watch-variant
@@ -19,7 +23,7 @@ homeassistant:
     device_tracker.sarahs_ipad:
       hidden: true
     sensor.who_is_home:
-      hidden: true
+      icon: home-heart
     script.request_location_update:
       icon: mdi:crosshairs
       friendly_name: Request Device Locations
@@ -31,7 +35,10 @@ homeassistant:
       icon: mdi:account-group
     group.guests:
       icon: mdi:account-group
-
+    script.turn_off_all_hardware:
+      icon: mdi:power
+    automation.guest_modes_auto_on:
+      icon: mdi:account-group
 
 #######################################################
 #                                                     #
@@ -53,6 +60,22 @@ device_tracker:
       #rob: !secret ip_rob_phone
       sarah_watch: !secret ip_sarah_watch
       matt_watch: !secret ip_matt_watch
+
+person:
+  - name: Matt
+    id: matt
+    user_id: c1937753d36940ff9bc20222e7c8ffa3
+    device_trackers:
+      - device_tracker.matt
+      - device_tracker.matt_ping
+      - device_tracker.matt_watch
+  - name: Sarah
+    id: sarah
+    user_id: 6484a01f3d07451aa10113e684fec320
+    device_trackers:
+      - device_tracker.sarah
+      - device_tracker.sarah_ping
+      - device_tracker.sarah_watch
 
 #######################################################
 #                                                     #
@@ -120,7 +143,7 @@ input_select:
       - Away
       - Holiday
     initial: Home
-    icon: mdi:home
+    icon: mdi:home-account
 
 #######################################################
 #                                                     #
@@ -264,3 +287,11 @@ script:
         entity_id: group.all_switches
       - service: media_player.turn_off
         entity_id: media_player.philips_tv
+  request_location_update:
+    sequence:
+      - service: notify.ios_matt
+        data:
+          message: "request_location_update"
+      - service: notify.ios_sarah
+        data:
+          message: "request_location_update"

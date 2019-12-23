@@ -1,13 +1,7 @@
 #######################################################
-#
-#  This package contains the components and sensors
-#  used to monitor and interact with the media players
-#  connected to Home Assistant
-#
-#  ----------------------------------------------------
-#
-#  DEPENDS ON: Occupancy, Environment
-#
+#                                                     #
+#              PACKAGES / MEDIA PLAYERS               #
+#                                                     #
 #######################################################
 
 homeassistant:
@@ -17,9 +11,9 @@ homeassistant:
   customize_glob:
     "media_player.plex*":
       icon: mdi:plex
+    "automation.automated_music_*":
+      icon: mdi:music
   customize:
-#    media_player.philips_tv:
-#      icon: mdi:television
     media_player.bedroom:
       friendly_name: Bedroom
     media_player.lounge:
@@ -38,16 +32,16 @@ homeassistant:
       icon: mdi:spotify
     media_player.philips_tv:
       icon: mdi:television
+    media_player.playstation_4:
+      icon: mdi:playstation
 
-    media_player.plex_plex_jo3rrkm3r8peb3u1kngczj9z:
-      friendly_name: Plex Macbook
-      icon: mdi:plex
+#######################################################
+#                                                     #
+#                     INTEGRATIONS                    #
+#                                                     #
+#######################################################
 
-    automation.weekday_evening_music:
-      icon: mdi:music
-    automation.weekend_morning_music:
-      icon: mdi:music
-
+# Google
 cast:
 
 media_player:
@@ -73,7 +67,8 @@ spotcast:
 #######################################################
 
 automation:
-  - alias: 'Weekday Evening Music'
+  # PLAYS MUSIC ON DINING ROOM, WHEN THE FIRST PERSON GETS HOME BETWEEN 1500-2030
+  - alias: Automated Music - Weekday Evening
     trigger:
       - platform: state
         entity_id: input_select.home_status
@@ -89,13 +84,18 @@ automation:
         - condition: time
           before: '20:30:00'
     action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.dining_room
+          volume_level: 0.3
       - service: media_player.play_media
         entity_id: media_player.dining_room
         data:
           media_content_id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p'
           media_content_type: 'music'
 
-  - alias: 'Weekend Morning Music'
+  # PLAYS MUSIC ON DINING ROOM, WHEN KITCHEN MOTION SENSOR TRIGGER BETWEEN 0800-1030 ON NON WORK DAYS
+  - alias: Automated Music - Weekend Morning
     initial_state: 'on'
     trigger:
       - platform: state
@@ -114,7 +114,7 @@ automation:
       - service: media_player.volume_set
         data_template:
           entity_id: media_player.dining_room
-          volume_level: 0.15
+          volume_level: 0.2
       - service: spotcast.start
         data_template:
           device_name: 'Dining Room Speaker'
@@ -129,26 +129,16 @@ automation:
             'spotify:user:spotify:playlist:37i9dQZF1DX2sUQwD7tbmL'
             ] | random }}
         # RANDOM PLAYLISTS IN ORDER:
-        # Wake up and smell the coffee
-        # Wake up happy
-        # Motown
-        # Hot Hits UK
-        # Happy Tunes
-        # Weekendhygge
-        # Feel Good Indie Rock
-      #- service: media_player.shuffle_set
-      #  data:
-      #    entity_id: media_player.spotify
-      #    shuffle: true
+        # Wake up and smell the coffee, Wake up happy, Motown, Hot Hits UK, Happy Tunes, Weekendhygge, Feel Good Indie Rock
       - delay: '00:00:30'
       - service: media_player.shuffle_set
         data:
          entity_id: media_player.spotify
          shuffle: true
+      # TURNS OFF AUTOMATION - TO PREVENT THE AUTOMATION CONTINUALLY FIRING
+      # WAITS FOR 2.5 HOURS AND THEN RE-ENABLES
       - service: automation.turn_off
-        entity_id: automation.weekend_morning_music
-      - delay: '02:05:00'
+        entity_id: automation.automated_music_weekend_morning
+      - delay: '02:35:00'
       - service: automation.turn_on
-        entity_id: automation.weekend_morning_music
-
-
+        entity_id: automation.automated_music_weekend_morning
