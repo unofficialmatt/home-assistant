@@ -1,13 +1,37 @@
+#######################################################
+#                                                     #
+#                 PACKAGES / DOOR BELL                #
+#                                                     #
+#######################################################
+
 # @link https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Xiaomi-WXKG01LM
+
+homeassistant:
+  customize_glob:
+    "*.doorbell*":
+      icon: mdi:bell-ring
+
+#######################################################
+#                                                     #
+#                    INPUT BOOLEAN                    #
+#                                                     #
+#######################################################
 
 input_boolean:
   doorbell_pressed:
     name: Doorbell Pressed
     initial: off
-    icon: mdi:bell-ring
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
 
 automation:
-  - alias: "Doorbell"
+  # PLAYS AN MP3 ON SPEAKERS IF DOORBELL HAS NOT BEEN PRESSED WITHIN LAST 3 SECONDS
+  # NOTE: THIS IS ASSISTED BY INPUT_BOOLEAN
+  - alias: Doorbell
     trigger:
       - platform: event
         event_type: deconz_event
@@ -31,9 +55,7 @@ automation:
           entity_id: media_player.speakers
           media_content_id: https://home.lynwood.club/local/doorbell.mp3
           media_content_type: 'audio/mp3'
-
-
-  - alias: "Reset Doorbell"
+  - alias: Doorbell - RESET
     trigger:
       platform: state
       entity_id: input_boolean.doorbell_pressed
