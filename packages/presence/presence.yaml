@@ -9,10 +9,6 @@ homeassistant:
     "*ping*":
       hidden: true
       icon: mdi:router-wireless
-    "*iphone*":
-      icon: mdi:cellphone-iphone
-    "*ipad*":
-      icon: mdi:tablet-ipad
     "device_tracker.*_watch":
       hidden: true
       icon: mdi:watch-variant
@@ -20,10 +16,12 @@ homeassistant:
       hidden: true
       icon: mdi:home-account
   customize:
+    group.all_devices:
+      icon: mdi:devices
     device_tracker.sarahs_ipad:
       hidden: true
     sensor.who_is_home:
-      icon: home-heart
+      icon: mdi:home-heart
     script.request_location_update:
       icon: mdi:crosshairs
       friendly_name: Request Device Locations
@@ -39,6 +37,16 @@ homeassistant:
       icon: mdi:power
     automation.guest_modes_auto_on:
       icon: mdi:account-group
+    device_tracker.sarah:
+      entity_picture: /local/people/sarah-thumb.jpg
+    device_tracker.matt:
+      entity_picture: /local/people/matt-thumb.jpg
+    person.sarah:
+      entity_picture: /local/people/sarah-thumb.jpg
+    person.matt:
+      entity_picture: /local/people/matt-thumb.jpg
+    device_tracker.sarahs_ipad:
+      icon: mdi:tablet-ipad
 
 #######################################################
 #                                                     #

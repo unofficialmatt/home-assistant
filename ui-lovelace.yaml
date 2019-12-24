@@ -29,12 +29,18 @@ resources:
   # @link https://github.com/custom-cards/button-card
   - url: /community_plugin/button-card/button-card.js
     type: module
+  # Reuse multiple times the same card configuration with variables to declutter your config.
+  # @link https://github.com/custom-cards/decluttering-card
+  - url: /community_plugin/decluttering-card/decluttering-card.js
+    type: module
+  # A minimalistic yet customizable media player card for Home Assistant Lovelace UI.
+  # @link https://github.com/kalkih/mini-media-player
+  - url: /community_plugin/mini-media-player/mini-media-player-bundle.js
+    type: module
 
 
 
   - url: /community_plugin/lovelace-slider-entity-row/slider-entity-row.js
-    type: module
-  - url: /community_plugin/mini-media-player/mini-media-player.js
     type: module
   - url: /community_plugin/mini-graph-card/mini-graph-card.js
     type: module
@@ -42,11 +48,6 @@ resources:
     type: js
   - url: /local/community/homeassistant-lovelace-google-calendar-card/calendar-card.js?v=1.0.1
     type: module
-
-  - type: module
-    url: >-
-      https://cdn.jsdelivr.net/gh/custom-cards/spotify-card@1.5/dist/spotify-card.umd.js
-
 ## CUSTOM COMPACT HEADER CONFIG
 cch:
   header: true
@@ -67,6 +68,10 @@ cch:
         media_query: "(max-width: 600px)"
       config:
         hide_tabs: 'floorplan'
+
+# ALLOWS US TO REDUCE REPETITION IN CARDS FOR A MORE DRY CODEBASE
+decluttering_templates: !include interface/decluttering_templates.yaml
+
 views:
   - !include interface/view_home.yaml
   - !include interface/view_rooms.yaml

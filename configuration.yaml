@@ -26,7 +26,7 @@ homeassistant:
 
 frontend:
   javascript_version: latest
-  themes: !include_dir_merge_named ../themes
+  themes: !include_dir_merge_named themes
 
 lovelace:
   mode: yaml
@@ -73,12 +73,3 @@ system_health:
 
 hacs:
   token: !secret github_access_token
-
-#######################################################
-#                                                     #
-#                       INCLUDES                      #
-#                                                     #
-#######################################################
-
-script: !include_dir_merge_named includes/scripts
-

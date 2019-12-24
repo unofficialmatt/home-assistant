@@ -1,0 +1,43 @@
+#######################################
+#                                     #
+#       DECLUTTERING TEMPLATES        #
+#                                     #
+#######################################
+
+# @link https://github.com/custom-cards/decluttering-card
+
+#######################################
+#                                     #
+#             VIEW: MEDIA             #
+#                                     #
+#######################################
+
+media_player_speaker:
+  card:
+    type: custom:mini-media-player
+    artwork: full-cover
+    idle_view: when_idle
+    entity: '[[entity]]'
+    info: scroll
+    source: icon
+    shortcuts:
+      columns: 2
+      align_text: left
+      label: Play A Radio Station...
+      list:
+        - name: Radio 1
+          icon: mdi:numeric-1-circle
+          type: music
+          id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p'
+        - name: Radio 2
+          icon: mdi:numeric-2-circle
+          type: music
+          id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p'
+        - name: Radio 4
+          icon: mdi:numeric-4-circle
+          type: music
+          id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio4fm_mf_p'
+        - name: CapitalFM
+          icon: mdi:alpha-c-circle
+          type: playlist
+          id: 'http://media-ice.musicradio.com/CapitalMP3'

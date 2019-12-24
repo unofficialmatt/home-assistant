@@ -11,7 +11,7 @@ homeassistant:
       icon: mdi:white-balance-incandescent
   customize:
     switch.festoon_lights:
-      icon: mdi:string-lights
+      icon: mdi:lightbulb-on-outline
       friendly_name: Festoon Lights
 
 ### CHECK THIS ACTUALLY WORKS......

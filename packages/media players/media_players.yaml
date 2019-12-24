@@ -9,7 +9,7 @@ homeassistant:
     media_player:
       icon: mdi:speaker
   customize_glob:
-    "media_player.plex*":
+    "*.plex*":
       icon: mdi:plex
     "automation.automated_music_*":
       icon: mdi:music
@@ -34,6 +34,7 @@ homeassistant:
       icon: mdi:television
     media_player.playstation_4:
       icon: mdi:playstation
+
 
 #######################################################
 #                                                     #

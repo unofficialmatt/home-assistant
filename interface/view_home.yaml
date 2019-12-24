@@ -247,3 +247,16 @@ cards:
         - calendar.sarah
       numberOfDays: 14
       showLocation: true
+
+    ## TEMPORARY - CHRISTMAS AND NYE
+    - type: glance
+      show_header_toggle: false
+      title: Christmas
+      columns: 2
+      entities:
+        - switch.christmas_tree
+        - switch.fairy_lights
+        - switch.lounge_snowflakes
+        - switch.star_lamp
+        - automation.christmas_lights_on_evening
+        - automation.christmas_lights_on_morning

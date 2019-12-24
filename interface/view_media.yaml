@@ -2,54 +2,54 @@ title: Media
 path: media
 icon: mdi:play-box-outline
 background: var(--background-image)
+
 cards:
 
+  ## AUDIO
   - type: vertical-stack
     cards:
-      - type: markdown
-        content: '## Audio'
-      - entity: media_player.dining_room
-        type: custom:mini-media-player
-        artwork: full-cover
-        idle_view: after 5
-      - entity: media_player.bedroom
-        type: custom:mini-media-player
-        name: Master Bedroom
-        artwork: full-cover
-        idle_view: when_idle
-        #shortcuts:
-        #  buttons:
-        #    - name: Radio 1
-        #      icon: mdi:radio
-        #      type: music
-        #      id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p'
-        #    - name: Radio 2
-        #      icon: mdi:radio
-        #      type: music
-        #      id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p'
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: markdown
+            content: '## Audio'
+          - type: custom:decluttering-card
+            template: media_player_speaker
+            variables:
+              - entity: media_player.speakers
+          - type: custom:decluttering-card
+            template: media_player_speaker
+            variables:
+              - entity: media_player.dining_room
+          - type: custom:decluttering-card
+            template: media_player_speaker
+            variables:
+              - entity: media_player.bedroom
+          - type: custom:decluttering-card
+            template: media_player_speaker
+            variables:
+              - entity: media_player.lounge
+          - type: custom:decluttering-card
+            template: media_player_speaker
+            variables:
+              - entity: media_player.office
 
-      - entity: media_player.office
-        type: custom:mini-media-player
-        artwork: full-cover
-        idle_view: when_idle
-      - entity: media_player.lounge
-        type: custom:mini-media-player
-        artwork: full-cover
-        idle_view: when_idle
-      - type: 'custom:spotify-card'
-        client_id: !secret spotify_client_id
-
-
-
+  ## VIDEO
   - type: vertical-stack
     cards:
-      - type: markdown
-        content: '## Video'
-      - type: media-control
-        entity: media_player.philips_tv
-        artwork: full-cover
-        idle_view: when_idle
-      - type: media-control
-        entity: media_player.playstation_4
-      - type: media-control
-        entity: media_player.plex_macbook
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: markdown
+            content: '## Video'
+          - type: media-control
+            entity: media_player.philips_tv
+            artwork: full-cover
+            idle_view: when_idle
+          - type: media-control
+            entity: media_player.playstation_4
+          - type: conditional
+            conditions:
+            - entity: media_player.plex_macbook
+              state_not: "unavailable"
+            card:
+              type: media-control
+              entity: media_player.plex_macbook

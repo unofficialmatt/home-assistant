@@ -1,20 +1,35 @@
+#######################################################
+#                                                     #
+#                PACKAGES / FRIDGE DOOR               #
+#                                                     #
+#######################################################
+
 homeassistant:
+  customize_glob:
+    "*.fridge_door*":
+      icon: mdi:fridge
   customize:
     binary_sensor.fridge_door_sensor:
-      icon: mdi:fridge
       friendly_name: Fridge Door
     binary_sensor.freezer_door_sensor:
       icon: mdi:fridge
       friendly_name: Freezer Door
 
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
 automation:
-  - alias: 'Fridge Door Notification'
+  # SENDS A NOTIFICATION IF FRIDGE / FREEZER DOOR OPEN TOO LONG
+  - alias: Fridge Door - Notification
     trigger:
       - platform: state
         entity_id: binary_sensor.fridge_door_sensor
         to: 'on'
         for:
-          minutes: 8
+          minutes: 10
       - platform: state
         entity_id: binary_sensor.fridge_door_sensor
         to: 'on'
@@ -29,7 +44,7 @@ automation:
         entity_id: binary_sensor.freezer_door_sensor
         to: 'on'
         for:
-          minutes: 8
+          minutes: 10
       - platform: state
         entity_id: binary_sensor.freezer_door_sensor
         to: 'on'
