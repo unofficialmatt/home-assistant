@@ -1,0 +1,36 @@
+title: Security
+path: security
+icon: mdi:shield-home
+background: var(--background-image)
+
+cards:
+  - type: vertical-stack
+    cards:
+    - type: entities
+      title: Home Status
+      show_header_toggle: false
+      entities:
+        - input_select.home_status
+
+    - type: custom:button-card
+      entity: automation.intruder_alerts
+      name: Intruder Alerts
+      color_type: card
+      icon: mdi:shield-home
+      size: 30%
+      lock:
+        enabled: true
+        duration: 10
+
+  - type: vertical-stack
+    cards:
+    - type: entities
+      title: Sensors
+      show_header_toggle: false
+      entities:
+        - binary_sensor.kitchen_sensor_motion
+        - binary_sensor.landing_sensor_motion
+        - binary_sensor.back_door_sensor
+        - binary_sensor.front_door_sensor
+        - binary_sensor.fridge_door_sensor
+        - binary_sensor.freezer_door_sensor

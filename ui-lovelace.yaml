@@ -39,7 +39,6 @@ resources:
     type: module
 
 
-
   - url: /community_plugin/lovelace-slider-entity-row/slider-entity-row.js
     type: module
   - url: /community_plugin/mini-graph-card/mini-graph-card.js
@@ -76,6 +75,7 @@ views:
   - !include interface/view_home.yaml
   - !include interface/view_rooms.yaml
   - !include interface/view_media.yaml
+  - !include interface/view_security.yaml
   #- !include interface/view_floorplan.yaml
   #- !include interface/view_config.yaml
   - !include interface/view_debug.yaml

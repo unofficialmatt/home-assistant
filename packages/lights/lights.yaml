@@ -61,7 +61,7 @@ homeassistant:
       icon: mdi:lamp
 
     switch.fairy_lights:
-      icon: mdi:lightbulb-on-outline
+      icon: mdi:lightbulb
       friendly_name: Fairy Lights
     switch.star_lamp:
       icon: mdi:lamp

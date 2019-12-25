@@ -12,41 +12,14 @@ cards:
     ## OCCUPANTS
     - type: horizontal-stack
       cards:
-      - type: picture-elements
-        entity: person.matt
-        image: /local/people/matt-bw.jpg
-        state_image:
-          "home": /local/people/matt.jpg
-          "not_home": /local/people/matt-bw.jpg
-          "Matt Work": /local/people/matt-work.jpg
-        elements:
-          - type: state-label
-            entity: person.matt
-            style: {color: white, font-size: 18px, bottom: 0%, background-color: "rgba(0, 0, 0, 0.4)", width: 100%, transform: initial, font-weight: bold}
-          - type: state-icon
-            style: {color: white, bottom: 0%, right: 0%, transform: initial}
-            entity: sensor.matt_battery_level
-          - type: state-label
-            style: {color: white, bottom: 0%, right: 25px, font-size: 15px, transform: initial}
-            entity: sensor.matt_battery_level
-      - type: picture-elements
-        entity: person.sarah
-        image: /local/people/sarah-bw.jpg
-        state_image:
-          "home": /local/people/sarah.jpg
-          "not_home": /local/people/sarah-bw.jpg
-          "Sarah Work": /local/people/sarah-work.jpg
-        elements:
-          - type: state-label
-            entity: person.sarah
-            style: {color: white, font-size: 18px, bottom: 0%, background-color: "rgba(0, 0, 0, 0.4)", width: 100%, transform: initial, font-weight: bold}
-          - type: state-icon
-            style: {color: white, bottom: 0%, right: 0%, transform: initial}
-            entity: sensor.sarah_battery_level
-          - type: state-label
-            style: {color: white, bottom: 0%, right: 25px, font-size: 15px, transform: initial}
-            entity: sensor.sarah_battery_level
-
+        - type: custom:decluttering-card
+          template: occupant_card
+          variables:
+            - person: matt
+        - type: custom:decluttering-card
+          template: occupant_card
+          variables:
+            - person: sarah
     ## HOME OVERVIEW
     - type: picture-elements
       entity: input_select.home_status
