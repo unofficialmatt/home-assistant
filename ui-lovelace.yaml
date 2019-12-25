@@ -75,6 +75,7 @@ views:
   - !include interface/view_home.yaml
   - !include interface/view_rooms.yaml
   - !include interface/view_media.yaml
+  - !include interface/view_lights.yaml
   - !include interface/view_security.yaml
   #- !include interface/view_floorplan.yaml
   #- !include interface/view_config.yaml

@@ -70,6 +70,3 @@ zeroconf:
 ssdp:
 
 system_health:
-
-hacs:
-  token: !secret github_access_token

@@ -1,0 +1,137 @@
+title: Lights
+path: lights
+icon: mdi:lightbulb
+background: var(--background-image)
+
+cards:
+
+  - type: vertical-stack
+    cards:
+    - type: custom:vertical-stack-in-card
+      cards:
+      - type: markdown
+        content: '## Master Bedroom'
+      - type: horizontal-stack
+        cards:
+          - type: light
+            entity: light.master_bedroom_colour
+          - type: light
+            entity: light.master_bedroom_lightstrip
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - input_select.scene_master_bedroom
+
+    - type: custom:vertical-stack-in-card
+      cards:
+      - type: markdown
+        content: '## Guest Bedroom'
+      - type: horizontal-stack
+        cards:
+          - type: light
+            entity: light.guest_bedroom_colour
+          - type: light
+            entity: light.guest_bedroom_opihr
+          - type: light
+            entity: light.guest_bedroom_sovereign
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - input_select.scene_guest_bedroom
+
+  - type: vertical-stack
+    cards:
+    - type: custom:vertical-stack-in-card
+      cards:
+      - type: markdown
+        content: '## Lounge'
+      - type: horizontal-stack
+        cards:
+          - type: light
+            entity: light.lounge_colour
+          - type: light
+            entity: light.lounge_lamp
+          - type: light
+            entity: light.hue_go
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - input_select.scene_lounge
+
+    - type: custom:vertical-stack-in-card
+      cards:
+      - type: markdown
+        content: '## Office'
+      - type: horizontal-stack
+        cards:
+          - type: light
+            entity: light.office_white
+          - type: light
+            entity: light.office_lamp
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - input_select.scene_office
+
+    - type: custom:vertical-stack-in-card
+      cards:
+        - type: markdown
+          content: '## Garden'
+        - type: horizontal-stack
+          cards:
+            - type: custom:decluttering-card
+              template: entity_button
+              variables:
+                - entity: switch.festoon_lights
+                - name: Festoon Lights
+
+  - type: vertical-stack
+    cards:
+    - type: custom:vertical-stack-in-card
+      cards:
+      - type: markdown
+        content: '## Dining Room'
+      - type: horizontal-stack
+        cards:
+          - type: light
+            entity: light.dining_room_colour
+          - type: light
+            entity: light.dining_room_lamp
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - input_select.scene_dining_room
+
+    - type: custom:vertical-stack-in-card
+      cards:
+      - type: markdown
+        content: '## Kitchen'
+      - type: horizontal-stack
+        cards:
+          - type: light
+            entity: light.kitchen_oven_1
+          - type: light
+            entity: light.kitchen_oven_2
+          - type: light
+            entity: light.kitchen_sink_1
+          - type: light
+            entity: light.kitchen_sink_2
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - input_select.scene_kitchen
+
+    - type: custom:vertical-stack-in-card
+      cards:
+      - type: markdown
+        content: '## Landing / Hall'
+      - type: horizontal-stack
+        cards:
+          - type: light
+            entity: light.hallway_white
+          - type: light
+            entity: light.landing_bedrooms
+          - type: light
+            entity: light.landing_middle
+          - type: light
+            entity: light.landing_bathroom
