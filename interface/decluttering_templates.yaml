@@ -20,6 +20,20 @@ entity_button:
     color_type: icon
     size: 30%
 
+pretty_graph:
+  card:
+    type: custom:mini-graph-card
+    name: '[[name]]'
+    animate: true
+    line_color: '[[color]]'
+    hours_to_show: 24
+    points_per_hour: 1
+    line_width: 3
+    show:
+      fill: fade
+    entities:
+      - '[[entity]]'
+
 #######################################
 #                                     #
 #             VIEW: HOME              #

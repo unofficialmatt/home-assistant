@@ -1,10 +1,70 @@
 title: Environment
 path: environment
-icon: mdi:thermometer
+icon: mdi:thermometer-lines
 background: var(--background-image)
 
 cards:
-  - type: custom:mini-graph-card
-    name: Kitchen Humidity
-    entities:
-     - sensor.hallway_thermostat_humidity
+
+  - type: vertical-stack
+    cards:
+    - type: custom:decluttering-card
+      template: pretty_graph
+      variables:
+        - entity: sensor.hallway_thermostat_temperature
+        - name: Hallway Temperature
+        - color: '#fd9644'
+    - type: custom:decluttering-card
+      template: pretty_graph
+      variables:
+        - entity: sensor.outside_light_level
+        - name: Outside Light Level
+        - color: '#fed330'
+    - type: custom:decluttering-card
+      template: pretty_graph
+      variables:
+        - entity: sensor.hallway_thermostat_humidity
+        - name: Hallway Humidity
+        - color: '#45aaf2'
+
+
+  - type: vertical-stack
+    cards:
+    - type: custom:decluttering-card
+      template: pretty_graph
+      variables:
+        - entity: sensor.kitchen_sensor_temperature
+        - name: Kitchen Temperature
+        - color: '#fd9644'
+    - type: custom:decluttering-card
+      template: pretty_graph
+      variables:
+        - entity: sensor.kitchen_sensor_light_level
+        - name: Kitchen Lux
+        - color: '#fed330'
+    - type: custom:decluttering-card
+      template: pretty_graph
+      variables:
+        - entity: sensor.chance_of_rain
+        - name: Chance of Rain
+        - color: '#45aaf2'
+
+  - type: vertical-stack
+    cards:
+    - type: custom:decluttering-card
+      template: pretty_graph
+      variables:
+        - entity: sensor.landing_sensor_temperature
+        - name: Landing Temperature
+        - color: '#fd9644'
+    - type: custom:decluttering-card
+      template: pretty_graph
+      variables:
+        - entity: sensor.landing_sensor_light_level
+        - name: Landing Lux
+        - color: '#fed330'
+    - type: custom:decluttering-card
+      template: pretty_graph
+      variables:
+        - entity: sensor.darksky_temperature
+        - name: Outside Temperature
+        - color: '#8854d0'

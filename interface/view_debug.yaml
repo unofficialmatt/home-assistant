@@ -4,6 +4,20 @@ icon: mdi:bug
 background: var(--background-image)
 
 cards:
+  ## SEND A TTS TO ALL SPEAKERS
+  - type: custom:mini-media-player
+    tts:
+      platform: google_translate
+    artwork: none
+    idle_view: when_idle
+    entity: 'media_player.speakers'
+    hide:
+      power: true
+      controls: true
+      volume: true
+      info: true
+
+  ## BROKEN ENTITIES
   - type: custom:auto-entities
     card:
       type: entities
@@ -34,6 +48,7 @@ cards:
           color_type: icon
           color: var(--accent-color#)
 
+  ## HOME ASSISTANT STATS
   - type: custom:vertical-stack-in-card
     cards:
     - type: markdown
@@ -93,10 +108,28 @@ cards:
             - title: Media Players
             - max: 15
 
-
-
-
-
+  ## INTERNET SPEEDS
+  - type: custom:vertical-stack-in-card
+    cards:
+    - type: markdown
+      content: '## Internet'
+    - type: custom:mini-graph-card
+      name: Ping
+      entities:
+        - sensor.speedtest_ping
+      height: 50
+      line_width: 2
+      font_size: 70
+      hours_to_show: 168
+      points_per_hour: 1
+      show:
+        extrema: true
+        fill: true
+      color_thresholds:
+        - value: 0
+          color: "#FFFF00"
+        - value: 13
+          color: "#3498db"
     - type: horizontal-stack
       cards:
         - type: custom:mini-graph-card

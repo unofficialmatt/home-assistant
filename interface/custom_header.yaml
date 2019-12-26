@@ -12,7 +12,7 @@ exceptions:
   - conditions:
       media_query: "(max-width: 600px)"
     config:
-      hide_tabs: 'floorplan'
+      hide_tabs: 'floorplan, environment'
       footer_mode: true
       indicator_top: true
       options_hide: true

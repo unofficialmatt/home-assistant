@@ -117,3 +117,7 @@ sensor:
 
 speedtestdotnet:
   scan_interval: '00:15'
+  monitored_conditions:
+    - ping
+    - download
+    - upload
