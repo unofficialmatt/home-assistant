@@ -1,72 +1,8 @@
 title: Home
-resources:
-  # Enqueues custom CSS for Google Fonts
-  - type: css
-    url: 'https://fonts.googleapis.com/css?family=Montserrat'
-  - url: /local/styles.css?v=0.2
-    type: css
-  # Dependency for many of the custom cards used
-  # @link https://github.com/thomasloven/lovelace-card-tools
-  - url: /local/community/card-tools/card-tools.js?v=0.3.2
-    type: js
-  # utomatically populate lovelace cards with entities matching certain criteria
-  # @link https://github.com/thomasloven/lovelace-auto-entities
-  - url: /local/community/auto-entities/auto-entities.js?v=1
-    type: module
-  # Customize the header and add enhancements to Lovelace
-  # @link https://maykar.github.io/compact-custom-header/
-  - url: /community_plugin/compact-custom-header/compact-custom-header.js
-    type: module
-  # Simple card for Xiaomi (and other) robot vaccums in Home Assistant's Lovelace UI
-  # @link https://github.com/benct/lovelace-xiaomi-vacuum-card
-  - url: /community_plugin/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
-    type: js
-  # Vertical Stack In Card allows you to group multiple cards in one card.
-  # @link https://github.com/custom-cards/vertical-stack-in-card
-  - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
-    type: js
-  # Lovelace Button card for your entities.
-  # @link https://github.com/custom-cards/button-card
-  - url: /community_plugin/button-card/button-card.js
-    type: module
-  # Reuse multiple times the same card configuration with variables to declutter your config.
-  # @link https://github.com/custom-cards/decluttering-card
-  - url: /community_plugin/decluttering-card/decluttering-card.js
-    type: module
-  # A minimalistic yet customizable media player card for Home Assistant Lovelace UI.
-  # @link https://github.com/kalkih/mini-media-player
-  - url: /community_plugin/mini-media-player/mini-media-player-bundle.js
-    type: module
+resources: !include interface/resources.yaml
 
-
-  - url: /community_plugin/lovelace-slider-entity-row/slider-entity-row.js
-    type: module
-  - url: /community_plugin/mini-graph-card/mini-graph-card.js
-    type: module
-  - url: https://unpkg.com/moment@2.22.2/moment.js
-    type: js
-  - url: /local/community/homeassistant-lovelace-google-calendar-card/calendar-card.js?v=1.0.1
-    type: module
-## CUSTOM COMPACT HEADER CONFIG
-cch:
-  header: true
-  hide_help: true
-  menu: hide
-  options: clock
-  clock_am_pm: false
-  clock_format: 24
-  swipe: true
-  exceptions:
-    # Sarah doesn't need to see the debug screen
-    - conditions:
-        user: Sarah
-      config:
-        hide_tabs: 'debug'
-    # Hide tabs on smaller devices
-    - conditions:
-        media_query: "(max-width: 600px)"
-      config:
-        hide_tabs: 'floorplan'
+## CUSTOM HEADER CONFIG
+custom_header: !include interface/custom_header.yaml
 
 # ALLOWS US TO REDUCE REPETITION IN CARDS FOR A MORE DRY CODEBASE
 decluttering_templates: !include interface/decluttering_templates.yaml
@@ -76,6 +12,7 @@ views:
   - !include interface/view_rooms.yaml
   - !include interface/view_media.yaml
   - !include interface/view_lights.yaml
+  #- !include interface/view_environment.yaml
   - !include interface/view_security.yaml
   #- !include interface/view_floorplan.yaml
   #- !include interface/view_config.yaml

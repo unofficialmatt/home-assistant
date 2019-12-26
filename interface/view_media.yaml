@@ -53,3 +53,16 @@ cards:
             card:
               type: media-control
               entity: media_player.plex_macbook
+      - type: custom:upcoming-media-card
+        entity: sensor.plex_recently_added
+        title: Recently Added to Plex
+        date: ddmm
+        clock: 24
+        image_style: fanart
+        max: 6
+        flag: false
+        box_shadows: false
+        line2_text: '$number | $runtime | Aired: $aired'
+        line3_text: '$day, $date | $time'
+        line4_text: '$studio | $rating'
+

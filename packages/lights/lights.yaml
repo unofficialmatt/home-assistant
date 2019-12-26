@@ -157,6 +157,7 @@ automation:
           entity_id: sensor.outside_light_level
           below: 5.0
         - condition: time
+          after: '15:00:00'
           before: '21:00:00'
     action:
       - service: input_select.select_option

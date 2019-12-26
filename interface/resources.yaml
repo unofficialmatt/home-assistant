@@ -1,0 +1,60 @@
+  # Enqueues custom CSS for Google Fonts
+  - type: css
+    url: 'https://fonts.googleapis.com/css?family=Montserrat'
+  - url: /local/styles.css?v=0.2
+    type: css
+  # Dependency for many of the custom cards used
+  # @link https://github.com/thomasloven/lovelace-card-tools
+  - url: /local/community/card-tools/card-tools.js?v=0.3.2
+    type: js
+  # Automatically populate lovelace cards with entities matching certain criteria
+  # @link https://github.com/thomasloven/lovelace-auto-entities
+  - url: /local/community/auto-entities/auto-entities.js?v=1
+    type: module
+  # Simple card for Xiaomi (and other) robot vaccums in Home Assistant's Lovelace UI
+  # @link https://github.com/benct/lovelace-xiaomi-vacuum-card
+  - url: /community_plugin/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
+    type: js
+  # Vertical Stack In Card allows you to group multiple cards in one card.
+  # @link https://github.com/custom-cards/vertical-stack-in-card
+  - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
+    type: js
+  # Lovelace Button card for your entities.
+  # @link https://github.com/custom-cards/button-card
+  - url: /community_plugin/button-card/button-card.js
+    type: module
+  # Reuse multiple times the same card configuration with variables to declutter your config.
+  # @link https://github.com/custom-cards/decluttering-card
+  - url: /community_plugin/decluttering-card/decluttering-card.js
+    type: module
+  # A minimalistic yet customizable media player card for Home Assistant Lovelace UI.
+  # @link https://github.com/kalkih/mini-media-player
+  - url: /community_plugin/mini-media-player/mini-media-player-bundle.js
+    type: module
+  # Custom Header adds enhancements and customization options to Home Assistant's Lovelace header. Custom Header is the replacement and successor of Compact Custom Header.
+  # @link https://github.com/maykar/custom-header
+  - url: /community_plugin/custom-header/custom-header.js
+    type: module
+  # A minimalistic and customizable graph card for Home Assistant Lovelace UI.
+  # @link https://github.com/kalkih/mini-graph-card
+  - url: /community_plugin/mini-graph-card/mini-graph-card-bundle.js
+    type: module
+  # Add a slider to rows in lovelace entities cards.
+  # @link https://github.com/thomasloven/lovelace-slider-entity-row
+  - url: /community_plugin/lovelace-slider-entity-row/slider-entity-row.js
+    type: module
+  # Show Google calendar events
+  # @link https://github.com/ljmerza/calendar-card
+  - url: /community_plugin/calendar-card/calendar-card.js
+    type: js
+  # A card to display upcoming episodes and movies from services like: Plex, Kodi, Radarr, Sonarr, and Trakt.
+  # @link https://github.com/custom-cards/upcoming-media-card
+  - url: /community_plugin/upcoming-media-card/upcoming-media-card.js
+    type: js
+  # Customizable Animated Bar card for Home Assistant Lovelace
+  # @link https://github.com/custom-cards/bar-card
+  - url: /community_plugin/bar-card/bar-card.js
+    type: js
+
+  - url: https://unpkg.com/moment@2.22.2/moment.js
+    type: js

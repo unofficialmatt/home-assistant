@@ -15,14 +15,6 @@ cards:
         - state: "unavailable"
       exclude:
         - entity_id: group.*
-  - type: custom:auto-entities
-    card:
-      type: entities
-      title: All entities
-      show_header_toggle: false
-    filter:
-      include:
-        - entity_id: .*
 
   ## SCRIPTS
   - type: vertical-stack
@@ -41,6 +33,109 @@ cards:
           name: Request Locations
           color_type: icon
           color: var(--accent-color#)
+
+  - type: custom:vertical-stack-in-card
+    cards:
+    - type: markdown
+      content: '## Home Assistant Statistics'
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: bar_card_stats
+          variables:
+            - entity: sensor.automation_count
+            - title: Automations
+            - max: 60
+        - type: custom:decluttering-card
+          template: bar_card_stats
+          variables:
+            - entity: sensor.sensor_count
+            - title: Sensors
+            - max: 70
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: bar_card_stats
+          variables:
+            - entity: sensor.script_count
+            - title: Scripts
+            - max: 12
+        - type: custom:decluttering-card
+          template: bar_card_stats
+          variables:
+            - entity: sensor.binary_sensor_count
+            - title: Binary Sensors
+            - max: 15
+        - type: custom:decluttering-card
+          template: bar_card_stats
+          variables:
+            - entity: sensor.switch_count
+            - title: Switches
+            - max: 8
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: bar_card_stats
+          variables:
+            - entity: sensor.lights_count
+            - title: Lights
+            - max: 35
+        - type: custom:decluttering-card
+          template: bar_card_stats
+          variables:
+            - entity: sensor.tracker_count
+            - title: Devices
+            - max: 30
+        - type: custom:decluttering-card
+          template: bar_card_stats
+          variables:
+            - entity: sensor.media_player_count
+            - title: Media Players
+            - max: 15
+
+
+
+
+
+    - type: horizontal-stack
+      cards:
+        - type: custom:mini-graph-card
+          name: Download
+          entities:
+            - sensor.speedtest_download
+          height: 50
+          line_width: 2
+          font_size: 70
+          hours_to_show: 168
+          points_per_hour: 1
+          show:
+            extrema: true
+            fill: true
+          color_thresholds:
+            - value: 0
+              color: "#FFFF00"
+            - value: 40
+              color: "#3498db"
+
+        - type: custom:mini-graph-card
+          name: Upload
+          entities:
+            - sensor.speedtest_upload
+          height: 50
+          line_width: 2
+          font_size: 70
+          hours_to_show: 168
+          points_per_hour: 1
+          show:
+            extrema: true
+            fill: true
+          color_thresholds:
+            - value: 0
+              color: "#FFFF00"
+            - value: 13
+              color: "#3498db"
+
+
 
 
 

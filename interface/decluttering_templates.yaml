@@ -82,3 +82,33 @@ media_player_speaker:
           icon: mdi:alpha-c-circle
           type: playlist
           id: 'http://media-ice.musicradio.com/CapitalMP3'
+
+#######################################
+#                                     #
+#             VIEW: DEBUG             #
+#                                     #
+#######################################
+
+bar_card_stats:
+  card:
+    type: custom:bar-card
+    entity: '[[entity]]'
+    title: '[[title]]'
+    title_position: inside
+    align: center
+    max: '[[max]]'
+    severity:
+    - value: '30'
+      color: '#99c140'
+    - value: '65'
+      color: '#db7b2b'
+    - value: '[[max]]'
+      color: '#cc3232'
+    padding: 4px
+    title_style:
+      font-size: 13px
+      overflow: visible
+    value_style:
+      font-size: 15px
+    rounding: 2px
+

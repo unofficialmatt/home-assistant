@@ -1,0 +1,10 @@
+title: Environment
+path: environment
+icon: mdi:thermometer
+background: var(--background-image)
+
+cards:
+  - type: custom:mini-graph-card
+    name: Kitchen Humidity
+    entities:
+     - sensor.hallway_thermostat_humidity
