@@ -12,15 +12,12 @@ cards:
       entities:
         - input_select.home_status
 
-    - type: custom:button-card
-      entity: automation.intruder_alerts
-      name: Intruder Alerts
-      color_type: card
-      icon: mdi:shield-home
-      size: 30%
-      lock:
-        enabled: true
-        duration: 10
+    - type: custom:decluttering-card
+      template: pretty_button
+      variables:
+        - entity: automation.intruder_alerts
+        - name: Intruder Alerts
+        - lock: true
 
   - type: vertical-stack
     cards:

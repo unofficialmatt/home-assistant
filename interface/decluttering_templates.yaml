@@ -12,27 +12,45 @@
 #                                     #
 #######################################
 
-entity_button:
+pretty_button:
   card:
     type: custom:button-card
     entity: '[[entity]]'
     name: '[[name]]'
-    color_type: icon
+    color_type: '[[color_type]]'
     size: 30%
+    lock:
+      enabled: '[[lock]]'
+      duration: 5
+  default:
+    - lock: false
+    - color_type: card
 
 pretty_graph:
   card:
     type: custom:mini-graph-card
     name: '[[name]]'
     animate: true
+    smoothing: true
     line_color: '[[color]]'
-    hours_to_show: 24
+    more_info: '[[more_info]]'
+    hours_to_show: '[[hours_to_show]]'
     points_per_hour: 1
+    font_size: 85
     line_width: 3
+    tap_action:
+      action: '[[tap_action]]'
     show:
       fill: fade
+      points: hover
+      extrema: '[[extrema]]'
     entities:
       - '[[entity]]'
+  default:
+    - color: '#0fb9b1'
+    - hours_to_show: 24
+    - tap_action: more-info
+    - extrema: false
 
 #######################################
 #                                     #

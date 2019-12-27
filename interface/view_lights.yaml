@@ -80,10 +80,11 @@ cards:
         - type: horizontal-stack
           cards:
             - type: custom:decluttering-card
-              template: entity_button
+              template: pretty_button
               variables:
                 - entity: switch.festoon_lights
                 - name: Festoon Lights
+                - color_type: icon
 
   - type: vertical-stack
     cards:

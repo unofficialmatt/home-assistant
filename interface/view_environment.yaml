@@ -26,7 +26,6 @@ cards:
         - name: Hallway Humidity
         - color: '#45aaf2'
 
-
   - type: vertical-stack
     cards:
     - type: custom:decluttering-card
@@ -47,6 +46,12 @@ cards:
         - entity: sensor.chance_of_rain
         - name: Chance of Rain
         - color: '#45aaf2'
+    - type: custom:decluttering-card
+      template: pretty_button
+      variables:
+        - entity: automation.rain_alerts
+        - name: Rain Alerts
+
 
   - type: vertical-stack
     cards:
@@ -68,3 +73,5 @@ cards:
         - entity: sensor.darksky_temperature
         - name: Outside Temperature
         - color: '#8854d0'
+
+

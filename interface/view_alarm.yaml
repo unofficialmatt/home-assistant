@@ -1,0 +1,34 @@
+title: Alarm
+path: alarm
+icon: mdi:alarm
+background: var(--background-image)
+
+cards:
+  - type: vertical-stack
+    cards:
+    - type: custom:decluttering-card
+      template: pretty_button
+      variables:
+        - entity: input_boolean.alarm_clock
+        - name: Alarm Clock
+    - type: horizontal-stack
+      cards:
+      - type: custom:decluttering-card
+        template: pretty_button
+        variables:
+          - entity: automation.alarm_clock_birds_and_sunrise
+          - name: Birds/Sunrise
+          - lock: true
+      - type: custom:decluttering-card
+        template: pretty_button
+        variables:
+          - entity: automation.alarm_clock_morning_briefing
+          - name: Morning Briefing
+          - lock: true
+  - type: entities
+    title: Alarm Clock
+    show_header_toggle: false
+    entities:
+      - sensor.alarm_time
+      - input_number.alarm_hour
+      - input_number.alarm_minutes

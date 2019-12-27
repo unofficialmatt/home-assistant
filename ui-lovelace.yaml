@@ -12,8 +12,8 @@ views:
   - !include interface/view_rooms.yaml
   - !include interface/view_media.yaml
   - !include interface/view_lights.yaml
+  - !include interface/view_alarm.yaml
   - !include interface/view_environment.yaml
   - !include interface/view_security.yaml
   #- !include interface/view_floorplan.yaml
-  #- !include interface/view_config.yaml
   - !include interface/view_debug.yaml

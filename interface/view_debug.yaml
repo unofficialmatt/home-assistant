@@ -113,60 +113,31 @@ cards:
     cards:
     - type: markdown
       content: '## Internet'
-    - type: custom:mini-graph-card
-      name: Ping
-      entities:
-        - sensor.speedtest_ping
-      height: 50
-      line_width: 2
-      font_size: 70
-      hours_to_show: 168
-      points_per_hour: 1
-      show:
-        extrema: true
-        fill: true
-      color_thresholds:
-        - value: 0
-          color: "#FFFF00"
-        - value: 13
-          color: "#3498db"
+    - type: custom:decluttering-card
+      template: pretty_graph
+      variables:
+        - entity: sensor.speedtest_download
+        - name: Download Speed
+        - hours_to_show: 12
+        - extrema: true
     - type: horizontal-stack
       cards:
-        - type: custom:mini-graph-card
-          name: Download
-          entities:
-            - sensor.speedtest_download
-          height: 50
-          line_width: 2
-          font_size: 70
-          hours_to_show: 168
-          points_per_hour: 1
-          show:
-            extrema: true
-            fill: true
-          color_thresholds:
-            - value: 0
-              color: "#FFFF00"
-            - value: 40
-              color: "#3498db"
-
-        - type: custom:mini-graph-card
-          name: Upload
-          entities:
-            - sensor.speedtest_upload
-          height: 50
-          line_width: 2
-          font_size: 70
-          hours_to_show: 168
-          points_per_hour: 1
-          show:
-            extrema: true
-            fill: true
-          color_thresholds:
-            - value: 0
-              color: "#FFFF00"
-            - value: 13
-              color: "#3498db"
+        - type: custom:decluttering-card
+          template: pretty_graph
+          variables:
+            - entity: sensor.speedtest_upload
+            - name: Upload
+            - hours_to_show: 12
+            - extrema: true
+            - color: '#45aaf2'
+        - type: custom:decluttering-card
+          template: pretty_graph
+          variables:
+            - entity: sensor.speedtest_ping
+            - name: Ping
+            - hours_to_show: 12
+            - extrema: true
+            - color: '#8854d0'
 
 
 

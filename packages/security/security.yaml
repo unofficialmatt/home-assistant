@@ -7,7 +7,7 @@
 homeassistant:
   customize:
     automation.intruder_alerts:
-      icon: mdi:shield
+      icon: mdi:shield-home
 
 #######################################################
 #                                                     #

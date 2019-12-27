@@ -177,18 +177,13 @@ cards:
       card:
         type: vertical-stack
         cards:
-          - type: custom:mini-graph-card
-            entities:
-              - sensor.morning_commute
-            more_info: false
-            show:
-              points: hover
-              fill: true
-            animate: true
-            hours_to_show: 6
-            line_width: 4
-            points_per_hour: 2
-            color: var(--accent-color)
+          - type: custom:decluttering-card
+            template: pretty_graph
+            variables:
+              - entity: sensor.morning_commute
+              - name: Morning Commute
+              - hours_to_show: 6
+              - tap_action: none
     - type: conditional
       conditions:
         - entity: binary_sensor.workday_sensor
@@ -198,18 +193,13 @@ cards:
       card:
         type: vertical-stack
         cards:
-          - type: custom:mini-graph-card
-            entities:
-              - sensor.evening_commute
-            more_info: false
-            show:
-              points: hover
-              fill: true
-            animate: true
-            hours_to_show: 6
-            line_width: 4
-            points_per_hour: 2
-            color: var(--accent-color)
+          - type: custom:decluttering-card
+            template: pretty_graph
+            variables:
+              - entity: sensor.evening_commute
+              - name: Morning Commute
+              - hours_to_show: 6
+              - tap_action: none
 
     ## CALENDAR
     - type: "custom:calendar-card"
