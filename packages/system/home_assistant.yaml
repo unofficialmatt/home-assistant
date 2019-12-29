@@ -5,18 +5,41 @@
 #######################################################
 
 homeassistant:
+  customize_glob:
+    "*version*":
+      icon: mdi:package-up
   customize:
     script.restart_hass:
       icon: mdi:restart
       friendly_name: Restart Home Assistant
+    script.clear_caches:
+      icon: mdi:delete
+      friendly_name: Clear DB/Log/TTS
     automation.hass_notify_new_release:
-      icon: mdi:alert-decagram
+      icon: mdi:alert-package-up
     automation.hass_notify_system_start:
       icon: mdi:power
     automation.hass_notify_system_shutdown:
       icon: mdi:power
     binary_sensor.updater:
-      icon: mdi:alert-decagram
+      icon: mdi:alert-package-up
+
+#######################################################
+#                                                     #
+#                       SENSOR                        #
+#                                                     #
+#######################################################
+
+sensor:
+  ## HA version
+  - platform: version
+    name: Installed Version
+
+  ## HA available version
+  - platform: version
+    name: Latest Available Version
+    beta: false
+    source: hassio
 
 #######################################################
 #                                                     #
@@ -68,3 +91,8 @@ script:
   restart_hass:
     sequence:
       - service: homeassistant.restart
+  clear_caches:
+    sequence:
+      - service: tts.clear_cache
+      - service: recorder.purge
+      - service: system_log.clear

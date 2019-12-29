@@ -4,10 +4,33 @@
 #                                                     #
 #######################################################
 
+# TODO: Disk space / memory used / process speed etc
+# TODO: Nas disk space etc
+# TODO: Docker status of containers
+# TODO: Lovelace view of device status green/red
+# TODO: Automation when a device disconnects
+# TODO: Warn when a battery is below XXX percent (select only - not phones!)
+
 homeassistant:
-  customize_glob:
-    "sensor.*_count":
-      icon: mdi:counter
+  customize:
+    sensor.home_assistant_v2_db:
+      icon: mdi:database
+    sensor.home_assistant_log:
+      icon: mdi:format-list-bulleted
+    sensor.cpu_temperature:
+      icon: mdi:thermometer
+    sensor.disk_use_percent_home:
+      icon: mdi:harddisk
+    sensor.memory_use_percent:
+      icon: mdi:memory
+    sensor.processor_use:
+      icon: mdi:speedometer
+    sensor.last_boot:
+      icon: mdi:calendar-text
+    sensor.uptime:
+      icon: mdi:timer
+    sensor.ha_uptime:
+      icon: mdi:timer
 
 #######################################################
 #                                                     #
@@ -20,94 +43,98 @@ sensor:
 ## HOME ASSISTANT STATISTICS
   - platform: template
     sensors:
-      sensor_count:
-        friendly_name: 'Number of Sensors'
-        value_template: >
-          {%- set domains = ['sensor'] -%}
-          {%- for domain in domains -%}
-            {%- for item in states[domain] -%}
-              {% if loop.first %}
-                {{loop.length}}
-              {% endif %}
-            {%- endfor -%}
-          {%- endfor -%}
       automation_count:
-        friendly_name: 'Number of Automations'
-        value_template: >
-          {%- set domains = ['automation'] -%}
-          {%- for domain in domains -%}
-            {%- for item in states[domain] -%}
-              {% if loop.first %}
-                {{loop.length}}
-              {% endif %}
-            {%- endfor -%}
-          {%- endfor -%}
+        entity_id: sensor.date
+        value_template: "{{ states.automation | list | length }}"
+        icon_template: mdi:sync
       script_count:
-        friendly_name: 'Number of Scripts'
-        value_template: >
-          {%- set domains = ['script'] -%}
-          {%- for domain in domains -%}
-            {%- for item in states[domain] -%}
-              {% if loop.first %}
-                {{loop.length}}
-              {% endif %}
-            {%- endfor -%}
-          {%- endfor -%}
-      switch_count:
-        friendly_name: 'Number of Switches'
-        value_template: >
-          {%- set domains = ['switch'] -%}
-          {%- for domain in domains -%}
-            {%- for item in states[domain] -%}
-              {% if loop.first %}
-                {{loop.length}}
-              {% endif %}
-            {%- endfor -%}
-          {%- endfor -%}
-      binary_sensor_count:
-        friendly_name: 'Number of Binary Sensors'
-        value_template: >
-          {%- set domains = ['binary_sensor'] -%}
-          {%- for domain in domains -%}
-            {%- for item in states[domain] -%}
-              {% if loop.first %}
-                {{loop.length}}
-              {% endif %}
-            {%- endfor -%}
-          {%- endfor -%}
-      lights_count:
-        friendly_name: 'Number of Lights'
-        value_template: >
-          {%- set domains = ['light'] -%}
-          {%- for domain in domains -%}
-            {%- for item in states[domain] -%}
-              {% if loop.first %}
-                {{loop.length}}
-              {% endif %}
-            {%- endfor -%}
-          {%- endfor -%}
+        entity_id: sensor.date
+        value_template: "{{ states.script | list | length }}"
+        icon_template: mdi:script-text-outline
       tracker_count:
-        friendly_name: 'Number of Devices'
-        value_template: >
-          {%- set domains = ['device_tracker'] -%}
-          {%- for domain in domains -%}
-            {%- for item in states[domain] -%}
-              {% if loop.first %}
-                {{loop.length}}
-              {% endif %}
-            {%- endfor -%}
-          {%- endfor -%}
+        entity_id: sensor.date
+        value_template: "{{ states.device_tracker | list | length }}"
+        icon_template: mdi:map-marker
+      sensor_count:
+        entity_id: sensor.date
+        value_template: "{{ states.sensor | list | length }}"
+        icon_template: mdi:pulse
+      binary_sensor_count:
+        entity_id: sensor.date
+        value_template: "{{ states.binary_sensor | list | length }}"
+        icon_template: mdi:check-circle
+      input_boolean_count:
+        entity_id: sensor.date
+        value_template: "{{ states.input_boolean | list | length }}"
+        icon_template: mdi:toggle-switch
+      switch_count:
+        entity_id: sensor.date
+        value_template: "{{ states.switch | list | length }}"
+        icon_template: mdi:power-plug
+      lights_count:
+        entity_id: sensor.date
+        value_template: "{{ states.light | list | length }}"
+        icon_template: mdi:lightbulb
       media_player_count:
-        friendly_name: 'Number of Media Players'
+        entity_id: sensor.date
+        value_template: "{{ states.media_player | list | length }}"
+        icon_template: mdi:play-box-outline
+
+  ## DEVICE BATTERY LEVELS
+  - platform: attributes
+    friendly_name: "Batteries"
+    attribute: battery_level
+    unit_of_measurement: "%"
+    entities:
+      - binary_sensor.kitchen_sensor_motion
+      - binary_sensor.landing_sensor_motion
+      - vacuum.xiaomi_vacuum_cleaner
+
+  ## DATABASE AND LOG SIZE
+  - platform: filesize
+    file_paths:
+      - /config/home-assistant_v2.db
+      - /config/home-assistant.log
+
+  ## INTEL NUC INFORMATION
+  - platform: command_line
+    name: CPU Temperature
+    command: "cat /sys/class/thermal/thermal_zone0/temp"
+    unit_of_measurement: "°C"
+    value_template: '{{ value | multiply(0.001) | round(1) }}'
+
+  ## SYSTEM MONITOR
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: memory_use_percent
+      - type: processor_use
+      - type: last_boot
+
+  ## HASS UPTIME
+  - platform: uptime
+  - platform: template
+    sensors:
+      ha_uptime:
+        friendly_name: HA Uptime
         value_template: >
-          {%- set domains = ['media_player'] -%}
-          {%- for domain in domains -%}
-            {%- for item in states[domain] -%}
-              {% if loop.first %}
-                {{loop.length}}
-              {% endif %}
-            {%- endfor -%}
-          {%- endfor -%}
+          {% if states('sensor.uptime') == '0.0' %}
+            Just restarted...
+          {% else %}
+            {% macro phrase(value, name) %}
+            {%- set value = value | int %}
+            {%- set end = 's' if value > 1 else '' %}
+            {{- '{} {}{}'.format(value, name, end) if value | int > 0 else '' }}
+            {%- endmacro %}
+
+            {% set weeks = (states('sensor.uptime') | int / 7) | int %}
+            {% set days = (states('sensor.uptime') | int) - (weeks * 7) %}
+            {% set hours = (states('sensor.uptime') | float - states('sensor.uptime') | int) * 24 %}
+            {% set minutes = (hours - hours | int) * 60 %}
+
+            {{ [ phrase(weeks, 'week'), phrase(days, 'day'), phrase(hours, 'hr'), phrase(minutes, 'min') ] | select('!=','') | list | join(', ') }}
+          {% endif %}
 
 #######################################################
 #                                                     #

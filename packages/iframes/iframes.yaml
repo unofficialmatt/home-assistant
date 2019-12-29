@@ -1,0 +1,27 @@
+#######################################################
+#                                                     #
+#                  PACKAGES / IFRAMES                 #
+#                                                     #
+#######################################################
+
+#######################################################
+#                                                     #
+#                     PANEL_IFRAME                     #
+#                                                     #
+#######################################################
+
+# THESE AUTOMATIONS TRIGGER ONLY IF HOME STATUS IS SET TO HOLIDAY
+
+panel_iframe:
+  ombi:
+    title: 'Ombi'
+    url: 'https://requests.lynwood.club'
+    icon: mdi:library-movie
+  portainer:
+    title: 'Portainer'
+    url: 'https://portainer.lynwood.club'
+    icon: mdi:docker
+  sabnznbd:
+    title: 'SABnzbd'
+    url: 'https://usenet.lynwood.club'
+    icon: mdi:download

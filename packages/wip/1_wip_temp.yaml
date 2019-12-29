@@ -12,9 +12,6 @@ homeassistant:
       icon: mdi:door
     binary_sensor.front_door_sensor:
       icon: mdi:door
-#  ## WHITELIST SO WE CAN USE A SENSOR FOR FILE SIZE
-#  whitelist_external_dirs:
-#    - /home/homeassistant/.homeassistant/
 
 
 # iCal integration - doesn't seem to pull any calendar info in
@@ -230,9 +227,3 @@ automation:
   #    data:
   #      entity_id: input_select.scene_lounge
   #      option: "Relax"
-
-#sensor:
-#  - platform: filesize
-#    file_paths:
-#      - /home/homeassistant/.homeassistant/home-assistant_v2.db
-#      - /home/homeassistant/.homeassistant/home-assistant.log

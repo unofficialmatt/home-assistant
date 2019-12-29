@@ -12,6 +12,13 @@
 #                                     #
 #######################################
 
+spacer:
+  card:
+    type: divider
+    style:
+      height: 10px
+      visible: invisible
+
 pretty_button:
   card:
     type: custom:button-card
@@ -51,6 +58,43 @@ pretty_graph:
     - hours_to_show: 24
     - tap_action: more-info
     - extrema: false
+
+pretty_bar:
+  card:
+    type: custom:bar-card
+    entity: '[[entity]]'
+    title: '[[title]]'
+    title_position: inside
+    icon_position: '[[icon]]'
+    align: split
+    max: '[[max]]'
+    severity:
+    - value: '[[min]]'
+      color: '[[min_color]]'
+    - value: '[[mid]]'
+      color: '[[mid_color]]'
+    - value: '[[max]]'
+      color: '[[max_color]]'
+    padding: 0px
+    title_style:
+      font-size: 13px
+      overflow: visible
+      text-align: left
+      margin-left: 5px
+    icon_style:
+      margin-left: 5px
+    value_style:
+      font-size: 15px
+      margin-right: 5px
+    rounding: 2px
+  default:
+    - min: '20'
+    - min_color: '#99c140'
+    - mid: '35'
+    - mid_color: '#db7b2b'
+    - max: '100'
+    - max_color: '#cc3232'
+    - icon: 'inside'
 
 #######################################
 #                                     #
@@ -114,33 +158,4 @@ media_player_speaker:
           icon: mdi:alpha-c-circle
           type: playlist
           id: 'http://media-ice.musicradio.com/CapitalMP3'
-
-#######################################
-#                                     #
-#             VIEW: DEBUG             #
-#                                     #
-#######################################
-
-bar_card_stats:
-  card:
-    type: custom:bar-card
-    entity: '[[entity]]'
-    title: '[[title]]'
-    title_position: inside
-    align: center
-    max: '[[max]]'
-    severity:
-    - value: '30'
-      color: '#99c140'
-    - value: '65'
-      color: '#db7b2b'
-    - value: '[[max]]'
-      color: '#cc3232'
-    padding: 4px
-    title_style:
-      font-size: 13px
-      overflow: visible
-    value_style:
-      font-size: 15px
-    rounding: 2px
 

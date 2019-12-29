@@ -18,8 +18,6 @@ homeassistant:
   customize:
     group.all_devices:
       icon: mdi:devices
-    device_tracker.sarahs_ipad:
-      hidden: true
     sensor.who_is_home:
       icon: mdi:home-heart
     script.request_location_update:
@@ -45,8 +43,6 @@ homeassistant:
       entity_picture: /local/people/sarah-thumb.jpg
     person.matt:
       entity_picture: /local/people/matt-thumb.jpg
-    device_tracker.sarahs_ipad:
-      icon: mdi:tablet-ipad
 
 #######################################################
 #                                                     #

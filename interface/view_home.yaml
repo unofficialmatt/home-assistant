@@ -211,15 +211,49 @@ cards:
       numberOfDays: 14
       showLocation: true
 
-    ## TEMPORARY - CHRISTMAS AND NYE
-    - type: glance
-      show_header_toggle: false
-      title: Christmas
-      columns: 2
-      entities:
-        - switch.christmas_tree
-        - switch.fairy_lights
-        - switch.lounge_snowflakes
-        - switch.star_lamp
-        - automation.christmas_lights_on_evening
-        - automation.christmas_lights_on_morning
+    - type: custom:vertical-stack-in-card
+      cards:
+        - type: markdown
+          content: '## Christmas'
+        - type: horizontal-stack
+          cards:
+            - type: custom:decluttering-card
+              template: pretty_button
+              variables:
+                - entity: switch.christmas_tree
+                - name: Christmas Tree
+                - color_type: icon
+            - type: custom:decluttering-card
+              template: pretty_button
+              variables:
+                - entity: switch.fairy_lights
+                - name: Fairy Lights
+                - color_type: icon
+        - type: horizontal-stack
+          cards:
+            - type: custom:decluttering-card
+              template: pretty_button
+              variables:
+                - entity: switch.lounge_snowflakes
+                - name: Bay Window
+                - color_type: icon
+            - type: custom:decluttering-card
+              template: pretty_button
+              variables:
+                - entity: switch.star_lamp
+                - name: Star Lamp
+                - color_type: icon
+        - type: horizontal-stack
+          cards:
+            - type: custom:decluttering-card
+              template: pretty_button
+              variables:
+                - entity: automation.christmas_lights_on_evening
+                - name: On Evening
+                - lock: true
+            - type: custom:decluttering-card
+              template: pretty_button
+              variables:
+                - entity: automation.christmas_lights_on_morning
+                - name: On Morning
+                - lock: true

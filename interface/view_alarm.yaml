@@ -25,10 +25,38 @@ cards:
           - entity: automation.alarm_clock_morning_briefing
           - name: Morning Briefing
           - lock: true
-  - type: entities
-    title: Alarm Clock
-    show_header_toggle: false
-    entities:
-      - sensor.alarm_time
-      - input_number.alarm_hour
-      - input_number.alarm_minutes
+    - type: entities
+      title: Alarm Clock
+      show_header_toggle: false
+      entities:
+        - sensor.alarm_time
+        - input_number.alarm_hour
+        - input_number.alarm_minutes
+  - type: vertical-stack
+    cards:
+    - type: custom:decluttering-card
+      template: pretty_button
+      variables:
+        - entity: switch.bedroom_comfort
+        - name: Heated Blanket
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: pretty_button
+          variables:
+            - entity: input_boolean.guests_staying
+            - name: Guests Staying
+            - lock: true
+        - type: custom:decluttering-card
+          template: pretty_button
+          variables:
+            - entity: input_boolean.entertaining
+            - name: Keep Lights On Bedtime
+            - lock: true
+    - type: entities
+      title: Bedtime Status
+      show_header_toggle: false
+      entities:
+        - input_select.bedtime_trigger
+
+

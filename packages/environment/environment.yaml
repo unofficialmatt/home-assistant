@@ -95,6 +95,7 @@ sensor:
   - platform: time_date
     display_options:
       - 'time'
+      - 'date'
   # AVERAGE HOME TEMP
   - platform: min_max
     name: Average Home Temperature

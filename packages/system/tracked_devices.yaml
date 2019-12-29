@@ -1,0 +1,148 @@
+#######################################################
+#                                                     #
+#              PACKAGES / TRACKED DEVICES             #
+#                                                     #
+#######################################################
+
+homeassistant:
+  customize:
+    binary_sensor.router_ping:
+      icon: mdi:router-wireless
+    binary_sensor.mycloud_ping:
+      icon: mdi:nas
+    binary_sensor.server_ping:
+      icon: mdi:server-network
+    binary_sensor.range_extender_office_ping:
+      icon: mdi:wifi
+    binary_sensor.range_extender_kitchen_ping:
+      icon: mdi:wifi
+
+    binary_sensor.hue_hub_ping:
+      icon: mdi:home-lightbulb
+    binary_sensor.nest_ping:
+      icon: mdi:thermostat
+    binary_sensor.robbie_the_rover_ping:
+      icon: mdi:robot-vacuum
+
+    binary_sensor.playstation_4_ping:
+      icon: mdi:playstation
+    binary_sensor.lounge_tv_ping:
+      icon: mdi:television
+
+    binary_sensor.macbook_ping:
+      icon: mdi:laptop-mac
+    binary_sensor.imac_ping:
+      icon: mdi:desktop-mac
+    binary_sensor.sarah_ipad_ping:
+      icon: mdi:tablet-ipad
+
+    binary_sensor.heated_blanket_ping:
+      icon: mdi:power-plug
+    binary_sensor.star_lamp_ping:
+      icon: mdi:power-plug
+    binary_sensor.fairy_lights_ping:
+      icon: mdi:power-plug
+    binary_sensor.festoon_lights_ping:
+      icon: mdi:power-plug
+    binary_sensor.christmas_tree_ping:
+      icon: mdi:power-plug
+    binary_sensor.snowflakes_ping:
+      icon: mdi:power-plug
+
+    binary_sensor.bedroom_speaker_ping:
+      icon: mdi:speaker
+    binary_sensor.lounge_speaker_ping:
+      icon: mdi:speaker
+    binary_sensor.office_speaker_ping:
+      icon: mdi:speaker
+    binary_sensor.dining_room_speaker_ping:
+      icon: mdi:speaker
+
+#######################################################
+#                                                     #
+#                   BINARY SENSORS                    #
+#                                                     #
+#######################################################
+
+binary_sensor:
+
+  ## SERVER
+  - platform: ping
+    host: !secret ip_router
+    name: Router (Ping)
+  - platform: ping
+    host: !secret ip_mycloud
+    name: MyCloud (Ping)
+  - platform: ping
+    host: !secret ip_nuc
+    name: Server (Ping)
+  - platform: ping
+    host: !secret ip_range_extender_office
+    name: Range Extender (Office) (Ping)
+  - platform: ping
+    host: !secret ip_range_extender_kitchen
+    name: Range Extender (Kitchen) (Ping)
+
+  ## INTEGRATIONS
+  - platform: ping
+    host: !secret ip_hue_hub
+    name: Hue Hub (Ping)
+  - platform: ping
+    host: !secret ip_nest
+    name: Nest (Ping)
+  - platform: ping
+    host: !secret ip_robbie
+    name: Robbie the Rover (Ping)
+
+  ## ENTERTAINMENT
+  - platform: ping
+    host: !secret ip_playstation_4
+    name: Playstation 4 (Ping)
+  - platform: ping
+    host: !secret ip_philips_tv
+    name: Lounge TV (Ping)
+
+  ## DEVICES
+  - platform: ping
+    host: !secret ip_macbook
+    name: Macbook (Ping)
+  - platform: ping
+    host: !secret ip_imac
+    name: iMac (Ping)
+  - platform: ping
+    host: !secret ip_sarah_ipad
+    name: Sarah iPad (Ping)
+
+  ## SWITCHES
+  - platform: ping
+    host: !secret ip_switch_heated_mattress
+    name: Heated Blanket (Ping)
+  - platform: ping
+    host: !secret ip_switch_fairy_lights
+    name: Fairy Lights (Ping)
+  - platform: ping
+    host: !secret ip_switch_star_lamp
+    name: Star Lamp (Ping)
+  - platform: ping
+    host: !secret ip_switch_festoon_lights
+    name: Festoon Lights (Ping)
+  - platform: ping
+    host: !secret ip_switch_snowflakes
+    name: Snowflakes (Ping)
+  - platform: ping
+    host: !secret ip_switch_christmas_tree
+    name: Christmas Tree (Ping)
+
+  ## SPEAKERS
+  - platform: ping
+    host: !secret ip_google_home_bedroom
+    name: Bedroom Speaker (Ping)
+  - platform: ping
+    host: !secret ip_google_home_lounge
+    name: Lounge Speaker (Ping)
+  - platform: ping
+    host: !secret ip_google_home_office
+    name: Office Speaker (Ping)
+  - platform: ping
+    host: !secret ip_google_home_dining
+    name: Dining Room Speaker (Ping)

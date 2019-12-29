@@ -1,7 +1,8 @@
 modern:
   # Based on https://flatuicolors.com/palette/de
-  background-image: 'url("/local/concrete_seamless.png")'  
-  
+  background-image: 'url("/local/concrete_seamless.png")'
+  ha-card-box-shadow: '0 0px 0px 0 rgba(0, 0, 0, 0.0)'
+
   # Colors
   text-color: '#4b6584'                                                           # Grey text
   text-medium-color: '#778ca3'                                                    # Medium grey text
@@ -21,14 +22,14 @@ modern:
   # Header
   primary-color: 'var(--text-color)'                                              # Background
   text-primary-color: '#FFF'                                                      # Text
-  
+
   # Left Menu
   paper-listbox-background-color: 'var(--background-color)'                       # Background
 
   # UI
   paper-card-header-color: 'var(--text-color)'                                    # Title in settings
   primary-background-color: 'var(--background-color)'                             # Background (also title background in left menu)
-  
+
   # Card
   paper-card-background-color: 'var(--background-card-color)'                     # Background
   dark-primary-color: 'var(--text-color)'
@@ -44,13 +45,13 @@ modern:
   # Icons
   paper-item-icon-color: 'var(--text-light-color)'                                # Off
   paper-item-icon-active-color: 'var(--accent-color)'                             # On
-  
+
   # Switches
   paper-toggle-button-checked-button-color: '#FFF'                                # Knob On
   paper-toggle-button-checked-bar-color: 'var(--accent-color)'                    # Background On
   paper-toggle-button-unchecked-button-color: '#FFF'                              # Knob Off
   paper-toggle-button-unchecked-bar-color: 'var(--disabled-text-color)'           # Background Off
-  
+
   # Shadows
   shadow-elevation-2dp_-_box-shadow: 'inset 0px 0px 0px 1px var(--border-color)'
   shadow-elevation-4dp_-_box-shadow: 'var(--shadow-elevation-2dp_-_box-shadow)'
@@ -60,7 +61,7 @@ modern:
   shadow-elevation-12dp_-_box-shadow: 'var(--shadow-elevation-2dp_-_box-shadow)'
   shadow-elevation-14dp_-_box-shadow: 'var(--shadow-elevation-2dp_-_box-shadow)'
   shadow-elevation-16dp_-_box-shadow: '0px 0px 0px 3px var(--light-color)'
-  
+
   # Typography
   primary-font-family: 'Montserrat,sans-serif'
   paper-font-common-base_-_font-family: "var(--primary-font-family)"
