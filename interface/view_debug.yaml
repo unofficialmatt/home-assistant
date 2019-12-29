@@ -1,11 +1,8 @@
 title: Debug
 path: debug
 icon: mdi:bug
-background: var(--background-image)
 
 cards:
-  - type: custom:theme-maker
-
   ## HOME ASSISTANT
   - type: vertical-stack
     cards:
@@ -103,8 +100,7 @@ cards:
         - entity: sensor.lights_count
           name: Lights
           tap_action:
-            action: navigate # goes to Lights View when tapped
-            navigation_path: /lovelace/lights/
+            action: none
         - entity: sensor.media_player_count
           name: Media Players
           tap_action:

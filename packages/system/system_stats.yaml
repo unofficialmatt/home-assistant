@@ -4,12 +4,6 @@
 #                                                     #
 #######################################################
 
-# TODO: Disk space / memory used / process speed etc
-# TODO: Nas disk space etc
-# TODO: Lovelace view of device status green/red
-# TODO: Automation when a device disconnects
-# TODO: Warn when a battery is below XXX percent (select only - not phones!)
-
 homeassistant:
   customize:
     sensor.home_assistant_v2_db:

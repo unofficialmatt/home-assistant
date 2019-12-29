@@ -1,7 +1,6 @@
 title: Server
 path: server
 icon: mdi:server
-background: var(--background-image)
 
 cards:
 

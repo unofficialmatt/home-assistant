@@ -1,7 +1,6 @@
 title: Security
 path: security
 icon: mdi:shield-home
-background: var(--background-image)
 
 cards:
   - type: vertical-stack

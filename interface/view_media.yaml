@@ -1,7 +1,6 @@
 title: Media
 path: media
 icon: mdi:play-box-outline
-background: var(--background-image)
 
 cards:
 

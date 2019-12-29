@@ -1,5 +1,6 @@
 compact_mode: true
 hide_config: true
+shadow: false
 button_text:
   options: '{{ time }}'
 exceptions:

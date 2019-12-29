@@ -35,7 +35,6 @@ homeassistant:
 #        origin: SOU
 #        destination: WIN
 
-# Add support for person component
 
 ios:
   push:

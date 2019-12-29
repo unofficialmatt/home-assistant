@@ -1,7 +1,6 @@
 title: Home
 path: home
 icon: mdi:castle
-background: var(--background-image)
 
 cards:
 

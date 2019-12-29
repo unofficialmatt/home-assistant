@@ -1,7 +1,6 @@
 title: Alarm
 path: alarm
 icon: mdi:alarm
-background: var(--background-image)
 
 cards:
   - type: vertical-stack
@@ -66,5 +65,3 @@ cards:
       show_header_toggle: false
       entities:
         - input_select.bedtime_trigger
-
-
