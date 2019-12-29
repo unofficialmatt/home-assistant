@@ -1,0 +1,174 @@
+title: Server
+path: server
+icon: mdi:server
+background: var(--background-image)
+
+cards:
+
+  ## SERVER INFORMATION
+  - type: vertical-stack
+    cards:
+    - type: entities
+      title: Server
+      show_header_toggle: false
+      entities:
+        - entity: sensor.last_boot
+          tap_action:
+            action: navigate
+            navigation_path: /hassio/system
+        - type: custom:decluttering-card
+          template: pretty_bar
+          variables:
+            - entity: sensor.disk_use_percent_home
+            - title: Disk Use
+            - min: 40
+            - mid: 80
+        - type: custom:decluttering-card
+          template: pretty_bar
+          variables:
+            - entity: sensor.memory_use_percent
+            - title: RAM Use
+            - min: 70
+            - mid: 100
+        - type: custom:decluttering-card
+          template: pretty_bar
+          variables:
+            - entity: sensor.processor_use
+            - title: CPU Use
+            - min: 40
+            - mid: 80
+        - type: custom:decluttering-card
+          template: pretty_bar
+          variables:
+            - entity: sensor.cpu_temperature
+            - title: CPU Temp
+            - min: 50
+            - mid: 70
+
+    ## DEVICE STATUS
+    - type: glance
+      title: Network
+      show_state: false
+      columns: 3
+      entities:
+        - binary_sensor.router
+        - binary_sensor.mycloud
+        - binary_sensor.server
+        - binary_sensor.range_extender_office
+        - binary_sensor.range_extender_kitchen
+        - binary_sensor.hue_hub
+        - binary_sensor.nest
+        - binary_sensor.robbie_the_rover
+        - binary_sensor.playstation_4
+        - binary_sensor.lounge_tv
+        - binary_sensor.macbook
+        - binary_sensor.imac
+        - binary_sensor.sarah_ipad
+        - binary_sensor.heated_blanket
+        - binary_sensor.star_lamp
+        - binary_sensor.fairy_lights
+        - binary_sensor.festoon_lights
+        - binary_sensor.christmas_tree
+        - binary_sensor.snowflakes
+        - binary_sensor.bedroom_speaker
+        - binary_sensor.lounge_speaker
+        - binary_sensor.office_speaker
+        - binary_sensor.dining_room_speaker
+
+    ## INTERNET SPEEDS
+    - type: custom:vertical-stack-in-card
+      cards:
+      - type: markdown
+        content: '## Internet'
+      - type: custom:decluttering-card
+        template: pretty_graph
+        variables:
+          - entity: sensor.speedtest_download
+          - name: Download Speed
+          - hours_to_show: 12
+          - extrema: true
+      - type: horizontal-stack
+        cards:
+          - type: custom:decluttering-card
+            template: pretty_graph
+            variables:
+              - entity: sensor.speedtest_upload
+              - name: Upload
+              - hours_to_show: 12
+              - extrema: true
+              - color: '#45aaf2'
+          - type: custom:decluttering-card
+            template: pretty_graph
+            variables:
+              - entity: sensor.speedtest_ping
+              - name: Ping
+              - hours_to_show: 12
+              - extrema: true
+              - color: '#8854d0'
+
+  - type: vertical-stack
+    cards:
+
+    ## DOCKER CONTAINER INFORMATION
+    - type: entities
+      title: Docker Containers
+      show_header_toggle: false
+      entities:
+        - type: section
+          label: Core
+        - type: custom:decluttering-card
+          template: toggle_lock
+          variables:
+            - entity: switch.ha_dockermon
+        - type: custom:decluttering-card
+          template: toggle_lock
+          variables:
+            - entity: switch.portainer
+        - type: custom:decluttering-card
+          template: toggle_lock
+          variables:
+            - entity: switch.traefik
+        - type: section
+          label: Download
+        - type: custom:decluttering-card
+          template: toggle_lock
+          variables:
+            - entity: switch.transmission_vpn
+        - type: custom:decluttering-card
+          template: toggle_lock
+          variables:
+            - entity: switch.sabnzbd
+        - type: section
+          label: Indexes / Libraries
+        - type: custom:decluttering-card
+          template: toggle_lock
+          variables:
+            - entity: switch.jackett
+        - type: custom:decluttering-card
+          template: toggle_lock
+          variables:
+            - entity: switch.lazy_librarian
+        - type: custom:decluttering-card
+          template: toggle_lock
+          variables:
+            - entity: switch.ombi
+        - type: custom:decluttering-card
+          template: toggle_lock
+          variables:
+            - entity: switch.radarr
+        - type: custom:decluttering-card
+          template: toggle_lock
+          variables:
+            - entity: switch.sonarr
+        - type: custom:decluttering-card
+          template: toggle_lock
+          variables:
+            - entity: switch.plex
+        - type: section
+          label: Settings
+        - type: custom:toggle-lock-entity-row
+          entity: automation.docker_container_down_notify
+          name: Notify if Container Down
+        - type: weblink
+          url: /portainer
+          name: Portainer

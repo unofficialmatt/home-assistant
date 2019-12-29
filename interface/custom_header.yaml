@@ -3,11 +3,11 @@ hide_config: true
 button_text:
   options: '{{ time }}'
 exceptions:
-  # Sarah doesn't need to see the debug screen
+  # Sarah doesn't need to see the debug or server screens
   - conditions:
       user: Sarah
     config:
-      hide_tabs: 'debug'
+      hide_tabs: 'debug, server'
   # Hide tabs on smaller devices
   - conditions:
       media_query: "(max-width: 600px)"

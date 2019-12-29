@@ -4,6 +4,7 @@ icon: mdi:bug
 background: var(--background-image)
 
 cards:
+  - type: custom:theme-maker
 
   ## HOME ASSISTANT
   - type: vertical-stack
@@ -110,176 +111,74 @@ cards:
             action: navigate # goes to Media View when tapped
             navigation_path: /lovelace/media/
 
-  ## SERVER
-  - type: vertical-stack
-    cards:
-    - type: entities
-      title: Server
-      show_header_toggle: false
-      entities:
-        - entity: sensor.last_boot
-          tap_action:
-            action: navigate
-            navigation_path: /hassio/system
-        - type: custom:decluttering-card
-          template: spacer
-        - type: custom:decluttering-card
-          template: pretty_bar
-          variables:
-            - entity: sensor.disk_use_percent_home
-            - title: Disk Use
-            - min: 40
-            - mid: 80
-        - type: custom:decluttering-card
-          template: pretty_bar
-          variables:
-            - entity: sensor.memory_use_percent
-            - title: RAM Use
-            - min: 70
-            - mid: 100
-        - type: custom:decluttering-card
-          template: pretty_bar
-          variables:
-            - entity: sensor.processor_use
-            - title: CPU Use
-            - min: 40
-            - mid: 80
-        - type: custom:decluttering-card
-          template: pretty_bar
-          variables:
-            - entity: sensor.cpu_temperature
-            - title: CPU Temp
-            - min: 50
-            - mid: 70
-
-    ## INTERNET SPEEDS
-    - type: custom:vertical-stack-in-card
-      cards:
-      - type: markdown
-        content: '## Internet'
-      - type: custom:decluttering-card
-        template: pretty_graph
-        variables:
-          - entity: sensor.speedtest_download
-          - name: Download Speed
-          - hours_to_show: 12
-          - extrema: true
-      - type: horizontal-stack
-        cards:
-          - type: custom:decluttering-card
-            template: pretty_graph
-            variables:
-              - entity: sensor.speedtest_upload
-              - name: Upload
-              - hours_to_show: 12
-              - extrema: true
-              - color: '#45aaf2'
-          - type: custom:decluttering-card
-            template: pretty_graph
-            variables:
-              - entity: sensor.speedtest_ping
-              - name: Ping
-              - hours_to_show: 12
-              - extrema: true
-              - color: '#8854d0'
 
   - type: vertical-stack
     cards:
 
     - type: entities
-      title: Battery Levels
+      title: Low Batteries
       show_header_toggle: false
       entities:
-        - type: section
-          label: Sensors
         - type: custom:decluttering-card
-          template: pretty_bar
+          template: pretty_battery
           variables:
             - entity: sensor.freezer_door_sensor_battery_level
             - title: Freezer Door
-            - min_color: '#cc3232'
-            - max_color: '#99c140'
         - type: custom:decluttering-card
-          template: pretty_bar
+          template: pretty_battery
           variables:
             - entity: sensor.fridge_door_sensor_battery_level
             - title: Fridge Door
-            - min_color: '#cc3232'
-            - max_color: '#99c140'
         - type: custom:decluttering-card
-          template: pretty_bar
+          template: pretty_battery
           variables:
             - entity: sensor.front_door_sensor_battery_level
             - title: Front Door
-            - min_color: '#cc3232'
-            - max_color: '#99c140'
         - type: custom:decluttering-card
-          template: pretty_bar
+          template: pretty_battery
           variables:
             - entity: sensor.back_door_sensor_battery_level
             - title: Back Door
-            - min_color: '#cc3232'
-            - max_color: '#99c140'
         - type: custom:decluttering-card
-          template: pretty_bar
+          template: pretty_battery
           variables:
             - entity: sensor.landing_sensor_motion_battery_level
             - title: Landing Motion Sensor
-            - min_color: '#cc3232'
-            - max_color: '#99c140'
         - type: custom:decluttering-card
-          template: pretty_bar
+          template: pretty_battery
           variables:
             - entity: sensor.kitchen_sensor_motion_battery_level
             - title: Kitchen Motion Sensor
-            - min_color: '#cc3232'
-            - max_color: '#99c140'
-        - type: section
-          label: Switches
         - type: custom:decluttering-card
-          template: pretty_bar
+          template: pretty_battery
           variables:
             - entity: sensor.doorbell_battery_level
             - title: Doorbell
-            - min_color: '#cc3232'
-            - max_color: '#99c140'
         - type: custom:decluttering-card
-          template: pretty_bar
+          template: pretty_battery
           variables:
             - entity: sensor.magic_cube_battery_level
             - title: Magic Cube
-            - min_color: '#cc3232'
-            - max_color: '#99c140'
-        - type: section
-          label: Devices
         - type: custom:decluttering-card
-          template: pretty_bar
+          template: pretty_battery
           variables:
             - entity: sensor.matt_battery_level
             - title: Matt's Phone
-            - min_color: '#cc3232'
-            - max_color: '#99c140'
         - type: custom:decluttering-card
-          template: pretty_bar
+          template: pretty_battery
           variables:
             - entity: sensor.sarah_battery_level
             - title: Sarah's Phone
-            - min_color: '#cc3232'
-            - max_color: '#99c140'
         - type: custom:decluttering-card
-          template: pretty_bar
+          template: pretty_battery
           variables:
             - entity: sensor.sarahipad_battery_level
             - title: Sarah's iPad
-            - min_color: '#cc3232'
-            - max_color: '#99c140'
         - type: custom:decluttering-card
-          template: pretty_bar
+          template: pretty_battery
           variables:
             - entity: sensor.xiaomi_vacuum_cleaner_battery_level
             - title: Robbie the Rover
-            - min_color: '#cc3232'
-            - max_color: '#99c140'
 
     ## SEND A TTS TO ALL SPEAKERS
     - type: custom:mini-media-player
@@ -307,43 +206,11 @@ cards:
         exclude:
           - entity_id: group.*
 
-#  - type: custom:auto-entities
-#    card:
-#      type: entities
-#      title: automation
-#      show_header_toggle: false
-#    filter:
-#      include:
-#        - domain: automation
-
-  - type: glance
-    title: Network
-    show_state: false
-    columns: 3
-    entities:
-      - binary_sensor.router_ping
-      - binary_sensor.mycloud_ping
-      - binary_sensor.server_ping
-      - binary_sensor.range_extender_office_ping
-      - binary_sensor.range_extender_kitchen_ping
-      - binary_sensor.hue_hub_ping
-      - binary_sensor.nest_ping
-      - binary_sensor.robbie_the_rover_ping
-      - binary_sensor.playstation_4_ping
-      - binary_sensor.lounge_tv_ping
-      - binary_sensor.macbook_ping
-      - binary_sensor.imac_ping
-      - binary_sensor.sarah_ipad_ping
-      - binary_sensor.heated_blanket_ping
-      - binary_sensor.star_lamp_ping
-      - binary_sensor.fairy_lights_ping
-      - binary_sensor.festoon_lights_ping
-      - binary_sensor.christmas_tree_ping
-      - binary_sensor.snowflakes_ping
-      - binary_sensor.bedroom_speaker_ping
-      - binary_sensor.lounge_speaker_ping
-      - binary_sensor.office_speaker_ping
-      - binary_sensor.dining_room_speaker_ping
+  #- type: custom:auto-entities
+  #  card:
+  #    type: entities
+  #    title: All Components
+  #    show_header_toggle: false
 
 
 
@@ -355,92 +222,4 @@ cards:
 
 
 
-#  - type: custom:vertical-stack-in-card
-#    cards:
-#    - type: markdown
-#      content: '## Home Assistant Statistics'
-#    - type: horizontal-stack
-#      cards:
-#        - type: custom:decluttering-card
-#          template: bar_card_stats
-#          variables:
-#            - entity: sensor.automation_count
-#            - title: Automations
-#            - max: 60
-#        - type: custom:decluttering-card
-#          template: bar_card_stats
-#          variables:
-#            - entity: sensor.sensor_count
-#            - title: Sensors
-#            - max: 70
-#    - type: horizontal-stack
-#      cards:
-#        - type: custom:decluttering-card
-#          template: bar_card_stats
-#          variables:
-#            - entity: sensor.script_count
-#            - title: Scripts
-#            - max: 12
-#        - type: custom:decluttering-card
-#          template: bar_card_stats
-#          variables:
-#            - entity: sensor.binary_sensor_count
-#            - title: Binary Sensors
-#            - max: 15
-#        - type: custom:decluttering-card
-#          template: bar_card_stats
-#          variables:
-#            - entity: sensor.switch_count
-#            - title: Switches
-#            - max: 8
-#    - type: horizontal-stack
-#      cards:
-#        - type: custom:decluttering-card
-#          template: bar_card_stats
-#          variables:
-#            - entity: sensor.lights_count
-#            - title: Lights
-#            - max: 35
-#        - type: custom:decluttering-card
-#          template: bar_card_stats
-#          variables:
-#            - entity: sensor.tracker_count
-#            - title: Devices
-#            - max: 30
-#        - type: custom:decluttering-card
-#          template: bar_card_stats
-#          variables:
-#            - entity: sensor.media_player_count
-#            - title: Media Players
-#            - max: 15
 
-
-
-
-
-
-
-#  - type: vertical-stack
-#    cards#:
-
-#    - type: entities
-#      title: Input Selects
-#      show_header_toggle: false
-#      entities:
-#      - input_select.bedtime_trigger
-#      - input_select.home_statu#s
-
-#    - type: entities
-#      title: Automations
-#      show_header_toggle: false
-#      entities:
-#        - automation.intruder_alerts
-#        - automation.bedtime_comfort
-#        - automation.weekday_evening_music
-#        - automation.rain_alert
-#        - automation.weekend_morning_music
-#        - entity:
-#          type: divider
-#        - automation.auto_set_alarm_clock
-#        - automation.commute_light
-#        - automation.commute_notify_speaker

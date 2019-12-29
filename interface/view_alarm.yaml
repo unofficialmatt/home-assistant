@@ -34,11 +34,19 @@ cards:
         - input_number.alarm_minutes
   - type: vertical-stack
     cards:
-    - type: custom:decluttering-card
-      template: pretty_button
-      variables:
-        - entity: switch.bedroom_comfort
-        - name: Heated Blanket
+    - type: horizontal-stack
+      cards:
+      - type: custom:decluttering-card
+        template: pretty_button
+        variables:
+          - entity: switch.bedroom_comfort
+          - name: Heated Blanket
+      - type: custom:decluttering-card
+        template: pretty_button
+        variables:
+          - entity: automation.heated_mattress_on_bedtime
+          - name: On At Bedtime?
+          - lock: true
     - type: horizontal-stack
       cards:
         - type: custom:decluttering-card

@@ -17,3 +17,4 @@ views:
   - !include interface/view_security.yaml
   #- !include interface/view_floorplan.yaml
   - !include interface/view_debug.yaml
+  - !include interface/view_server.yaml

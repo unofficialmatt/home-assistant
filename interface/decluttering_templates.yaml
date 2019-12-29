@@ -159,3 +159,45 @@ media_player_speaker:
           type: playlist
           id: 'http://media-ice.musicradio.com/CapitalMP3'
 
+#######################################
+#                                     #
+#             VIEW: DEBUG             #
+#                                     #
+#######################################
+
+pretty_battery:
+  card:
+    type: custom:bar-card
+    entity: '[[entity]]'
+    title: '[[title]]'
+    title_position: inside
+    icon_position: 'inside'
+    align: split
+    max: 100
+    visibility: <=30
+    severity:
+    - value: '15'
+      color: '#cc3232'
+    - value: '30'
+      color: '#db7b2b'
+    - value: '100'
+      color: '#99c140'
+    padding: 0px
+    title_style:
+      font-size: 13px
+      overflow: visible
+      text-align: left
+      margin-left: 5px
+    icon_style:
+      margin-left: 5px
+    value_style:
+      font-size: 15px
+      margin-right: 5px
+    rounding: 2px
+
+toggle_lock:
+  card:
+    type: custom:toggle-lock-entity-row
+    entity: '[[entity]]'
+    users:
+      - Matt

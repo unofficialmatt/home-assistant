@@ -5,13 +5,11 @@
     type: css
   # Dependency for many of the custom cards used
   # @link https://github.com/thomasloven/lovelace-card-tools
-  - url: /local/community/card-tools/card-tools.js?v=0.3.2
-    type: js
-  # Automatically populate lovelace cards with entities matching certain criteria
+  - url: /community_plugin/lovelace-card-tools/card-tools.js
+    type: module  # Automatically populate lovelace cards with entities matching certain criteria
   # @link https://github.com/thomasloven/lovelace-auto-entities
-  - url: /local/community/auto-entities/auto-entities.js?v=1
-    type: module
-  # Simple card for Xiaomi (and other) robot vaccums in Home Assistant's Lovelace UI
+  - url: /community_plugin/lovelace-auto-entities/auto-entities.js
+    type: module  # Simple card for Xiaomi (and other) robot vaccums in Home Assistant's Lovelace UI
   # @link https://github.com/benct/lovelace-xiaomi-vacuum-card
   - url: /community_plugin/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
     type: js
@@ -55,6 +53,15 @@
   # @link https://github.com/custom-cards/bar-card
   - url: /community_plugin/bar-card/bar-card.js
     type: js
+  # A card for designing a theme
+  # @link https://github.com/thomasloven/lovelace-theme-maker
+  - url: /local/community/lovelace-theme-maker-master/theme-maker.js
+    type: js
+  # This will display a normal toggle with a lock symbol in front of it. Clicking the lock will make it go away and enable the toggle to be manouvered for five seconds.
+  # @link https://github.com/thomasloven/lovelace-toggle-lock-entity-row
+  - url: /local/community/lovelace-toggle-lock-entity-row-master/toggle-lock-entity-row.js
+    type: js
+
 
   - url: https://unpkg.com/moment@2.22.2/moment.js
     type: js
