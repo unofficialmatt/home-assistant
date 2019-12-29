@@ -5,3 +5,8 @@ body {
 paper-icon-item span {
   font-family: Montserrat !important;
 }
+h2 {
+  font-family: Montserrat !important;
+  font-weight: normal;
+  font-size: 24px;
+}
