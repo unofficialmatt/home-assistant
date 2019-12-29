@@ -61,7 +61,10 @@
   # @link https://github.com/thomasloven/lovelace-toggle-lock-entity-row
   - url: /local/community/lovelace-toggle-lock-entity-row-master/toggle-lock-entity-row.js
     type: js
-
+  # A foldable row for entities card, containing other rows
+  # @link https://github.com/thomasloven/lovelace-fold-entity-row
+  - url: /community_plugin/lovelace-fold-entity-row/fold-entity-row.js
+    type: module
 
   - url: https://unpkg.com/moment@2.22.2/moment.js
     type: js

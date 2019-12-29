@@ -1,7 +1,6 @@
 title: Rooms
 path: rooms
 icon: mdi:home-map-marker
-background: var(--background-image)
 
 cards:
 
@@ -27,10 +26,17 @@ cards:
       - type: entities
         show_header_toggle: false
         entities:
-          - type: custom:slider-entity-row
-            entity: light.master_bedroom
-            name: Lights
-          - input_select.scene_master_bedroom
+          - type: custom:fold-entity-row
+            head: light.master_bedroom
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.master_bedroom
+                full_row: true
+              - light.master_bedroom_colour
+              - light.master_bedroom_lightstrip
+              - input_select.scene_master_bedroom
+              - switch.bedroom_comfort
+              - input_boolean.alarm_clock
     - type: custom:vertical-stack-in-card
       cards:
       - type: picture-glance
@@ -50,10 +56,17 @@ cards:
       - type: entities
         show_header_toggle: false
         entities:
-          - type: custom:slider-entity-row
-            entity: light.guest_bedroom
-            name: Lights
-          - input_select.scene_guest_bedroom
+          - type: custom:fold-entity-row
+            head: light.guest_bedroom
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.guest_bedroom
+                full_row: true
+              - light.guest_bedroom_colour
+              - light.guest_bedroom_opihr
+              - light.guest_bedroom_sovereign
+              - input_select.scene_guest_bedroom
+              - input_boolean.guests_staying
     - type: custom:vertical-stack-in-card
       cards:
       - type: picture-glance
@@ -91,10 +104,18 @@ cards:
       - type: entities
         show_header_toggle: false
         entities:
-          - type: custom:slider-entity-row
-            entity: light.lounge
-            name: Lights
-          - input_select.scene_lounge
+          - type: custom:fold-entity-row
+            head: light.lounge
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.lounge
+                full_row: true
+              - light.lounge_colour
+              - light.lounge_lamp
+              - light.hue_go
+              - switch.star_lamp
+              - input_select.scene_lounge
+              - input_boolean.entertaining
     - type: custom:vertical-stack-in-card
       cards:
       - type: vertical-stack
@@ -115,10 +136,15 @@ cards:
       - type: entities
         show_header_toggle: false
         entities:
-          - type: custom:slider-entity-row
-            entity: light.office
-            name: Lights
-          - input_select.scene_office
+          - type: custom:fold-entity-row
+            head: light.office
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.office
+                full_row: true
+              - light.office_white
+              - light.office_lamp
+              - input_select.scene_office
     - type: custom:vertical-stack-in-card
       cards:
       - type: picture-glance
@@ -155,10 +181,17 @@ cards:
       - type: entities
         show_header_toggle: false
         entities:
-          - type: custom:slider-entity-row
-            entity: light.dining_room
-            name: Lights
-          - input_select.scene_dining_room
+          - type: custom:fold-entity-row
+            head: light.dining_room
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.dining_room
+                full_row: true
+              - light.dining_room_colour
+              - light.dining_room_lamp
+              - switch.fairy_lights
+              - input_select.scene_dining_room
+              - input_boolean.entertaining
     - type: custom:vertical-stack-in-card
       cards:
       - type: picture-glance
@@ -178,10 +211,17 @@ cards:
       - type: entities
         show_header_toggle: false
         entities:
-          - type: custom:slider-entity-row
-            entity: light.kitchen
-            name: Lights
-          - input_select.scene_kitchen
+          - type: custom:fold-entity-row
+            head: light.kitchen
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.kitchen
+                full_row: true
+              - light.kitchen_oven_1
+              - light.kitchen_oven_2
+              - light.kitchen_sink_1
+              - light.kitchen_sink_2
+              - input_select.scene_kitchen
     - type: custom:vertical-stack-in-card
       cards:
       - type: picture-glance
