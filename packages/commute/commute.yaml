@@ -139,6 +139,9 @@ automation:
         - condition: state
           entity_id: person.matt
           state: 'home'
+        - condition: state
+          entity_id: input_boolean.alarm_clock
+          state: 'on'
     action:
       - service: notify.ios_matt
         data_template:

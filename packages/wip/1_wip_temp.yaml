@@ -51,12 +51,6 @@ ios:
             activationMode: 'background'
             authenticationRequired: false
 
-notify:
-  - platform: html5
-    name: HTML
-    gcm_api_key: !secret google_notify_api_key
-    gcm_sender_id: !secret google_notify_sender_id
-
 # GOOGLE CALENDARS
 google:
   client_id: 859387401107-51hpivpp2dnan3alrlvbe98n9ar3a87f.apps.googleusercontent.com
