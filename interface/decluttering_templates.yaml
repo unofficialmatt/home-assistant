@@ -19,31 +19,6 @@ spacer:
       height: 10px
       visible: invisible
 
-pretty_button:
-  card:
-    type: custom:button-card
-    entity: '[[entity]]'
-    name: '[[name]]'
-    color_type: '[[color_type]]'
-    color: auto-no-temperature
-    size: 30%
-    state:
-      - value: 'on'
-        styles:
-          card:
-            - background-color: 'var(--accent-color)'
-            - color: 'var(--background-color)'
-          icon:
-            - color: 'var(--background-color)'
-          name:
-            - color: 'var(--background-color)'
-    lock:
-      enabled: '[[lock]]'
-      duration: 5
-  default:
-    - lock: false
-    - color_type: icon
-
 pretty_graph:
   card:
     type: custom:mini-graph-card

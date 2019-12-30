@@ -5,25 +5,25 @@ icon: mdi:alarm
 cards:
   - type: vertical-stack
     cards:
-    - type: custom:decluttering-card
+    - type: custom:button-card
       template: pretty_button
-      variables:
-        - entity: input_boolean.alarm_clock
-        - name: Alarm Clock
+      entity: input_boolean.alarm_clock
     - type: horizontal-stack
       cards:
-      - type: custom:decluttering-card
+      - type: custom:button-card
         template: pretty_button
-        variables:
-          - entity: automation.alarm_clock_birds_and_sunrise
-          - name: Birds/Sunrise
-          - lock: true
-      - type: custom:decluttering-card
+        entity: automation.alarm_clock_birds_and_sunrise
+        name: Birds/Sunrise
+        lock:
+          enabled: true
+          duration: 5
+      - type: custom:button-card
         template: pretty_button
-        variables:
-          - entity: automation.alarm_clock_morning_briefing
-          - name: Morning Briefing
-          - lock: true
+        entity: automation.alarm_clock_morning_briefing
+        name: Morning Briefing
+        lock:
+          enabled: true
+          duration: 5
     - type: entities
       title: Alarm Clock
       show_header_toggle: false
@@ -35,31 +35,31 @@ cards:
     cards:
     - type: horizontal-stack
       cards:
-      - type: custom:decluttering-card
+      - type: custom:button-card
         template: pretty_button
-        variables:
-          - entity: switch.bedroom_comfort
-          - name: Heated Blanket
-      - type: custom:decluttering-card
+        entity: switch.bedroom_comfort
+      - type: custom:button-card
         template: pretty_button
-        variables:
-          - entity: automation.heated_mattress_on_bedtime
-          - name: On At Bedtime?
-          - lock: true
+        entity: automation.heated_mattress_on_bedtime
+        name: On At Bedtime?
+        lock:
+          enabled: true
+          duration: 5
     - type: horizontal-stack
       cards:
-        - type: custom:decluttering-card
+        - type: custom:button-card
           template: pretty_button
-          variables:
-            - entity: input_boolean.guests_staying
-            - name: Guests Staying
-            - lock: true
-        - type: custom:decluttering-card
+          entity: input_boolean.guests_staying
+          lock:
+            enabled: true
+            duration: 5
+        - type: custom:button-card
           template: pretty_button
-          variables:
-            - entity: input_boolean.entertaining
-            - name: Keep Lights On Bedtime
-            - lock: true
+          entity: input_boolean.entertaining
+          name: Keep Lights On Bedtime
+          lock:
+            enabled: true
+            duration: 5
     - type: entities
       title: Bedtime Status
       show_header_toggle: false

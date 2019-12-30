@@ -20,5 +20,4 @@ views:
   - !include interface/view_server.yaml
 
 # TODO: Nas disk space used? How
-# TODO: Lovelace view of device status green/red
 # TODO: Warn when a battery is below XXX percent (select only - not phones!)

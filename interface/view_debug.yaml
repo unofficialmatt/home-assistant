@@ -45,18 +45,20 @@ cards:
             - max: 4
     - type: horizontal-stack
       cards:
-      - type: custom:decluttering-card
+      - type: custom:button-card
         template: pretty_button
-        variables:
-          - entity: script.clear_caches
-          - name: Purge DB/Caches
-          - lock: true
-      - type: custom:decluttering-card
+        entity: script.clear_caches
+        name: Purge DB / Caches
+        lock:
+          enabled: true
+          duration: 5
+      - type: custom:button-card
         template: pretty_button
-        variables:
-          - entity: script.restart_hass
-          - name: Restart
-          - lock: true
+        entity: script.restart_hass
+        name: Restart
+        lock:
+          enabled: true
+          duration: 5
 
     ## HOME ASSISTANT STATS
     - type: glance

@@ -210,49 +210,41 @@ cards:
       numberOfDays: 14
       showLocation: true
 
-    - type: custom:vertical-stack-in-card
+    ## CHRISTMAS
+    - type: custom:vertical-style-card
+      title: Christmas
+      style:
+        border: false
       cards:
-        - type: markdown
-          content: '## Christmas'
-        - type: horizontal-stack
-          cards:
-            - type: custom:decluttering-card
-              template: pretty_button
-              variables:
-                - entity: switch.christmas_tree
-                - name: Christmas Tree
-                - color_type: icon
-            - type: custom:decluttering-card
-              template: pretty_button
-              variables:
-                - entity: switch.fairy_lights
-                - name: Fairy Lights
-                - color_type: icon
-        - type: horizontal-stack
-          cards:
-            - type: custom:decluttering-card
-              template: pretty_button
-              variables:
-                - entity: switch.lounge_snowflakes
-                - name: Bay Window
-                - color_type: icon
-            - type: custom:decluttering-card
-              template: pretty_button
-              variables:
-                - entity: switch.star_lamp
-                - name: Star Lamp
-                - color_type: icon
-        - type: horizontal-stack
-          cards:
-            - type: custom:decluttering-card
-              template: pretty_button
-              variables:
-                - entity: automation.christmas_lights_on_evening
-                - name: On Evening
-                - lock: true
-            - type: custom:decluttering-card
-              template: pretty_button
-              variables:
-                - entity: automation.christmas_lights_on_morning
-                - name: On Morning
-                - lock: true
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_button
+          entity: switch.christmas_tree
+        - type: custom:button-card
+          template: pretty_button
+          entity: switch.fairy_lights
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_button
+          entity: switch.lounge_snowflakes
+        - type: custom:button-card
+          template: pretty_button
+          entity: switch.star_lamp
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_button
+          entity: automation.christmas_lights_on_evening
+          name: On Evening
+          lock:
+            enabled: true
+            duration: 5
+        - type: custom:button-card
+          template: pretty_button
+          entity: automation.christmas_lights_on_morning
+          name: On Morning
+          lock:
+            enabled: true
+            duration: 5

@@ -5,8 +5,6 @@
 #######################################
 
 # @link https://github.com/custom-cards/button-card
-# Using Button Card Template instead of decluttering template, because decluttering did not work when nested in vertical-style-card - it created some weird padding.
-# And this is probably the right way to style buttons anyway!
 
 pretty_device:
   show_icon: false
@@ -31,3 +29,19 @@ pretty_device:
         card:
           - background-color: 'var(--ui-green)'
           - color: white
+
+pretty_button:
+  color_type: icon
+  color: auto-no-temperature
+  size: 30%
+  aspect_ratio: 2/1
+  state:
+    - value: 'on'
+      styles:
+        card:
+          - background-color: 'var(--accent-color)'
+          - color: 'var(--background-color)'
+        icon:
+          - color: 'var(--background-color)'
+        name:
+          - color: 'var(--background-color)'

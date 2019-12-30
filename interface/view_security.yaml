@@ -11,12 +11,12 @@ cards:
       entities:
         - input_select.home_status
 
-    - type: custom:decluttering-card
+    - type: custom:button-card
       template: pretty_button
-      variables:
-        - entity: automation.intruder_alerts
-        - name: Intruder Alerts
-        - lock: true
+      entity: automation.intruder_alerts
+      lock:
+        enabled: true
+        duration: 5
 
   - type: vertical-stack
     cards:
