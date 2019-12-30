@@ -25,13 +25,24 @@ pretty_button:
     entity: '[[entity]]'
     name: '[[name]]'
     color_type: '[[color_type]]'
+    color: auto-no-temperature
     size: 30%
+    state:
+      - value: 'on'
+        styles:
+          card:
+            - background-color: 'var(--accent-color)'
+            - color: 'var(--background-color)'
+          icon:
+            - color: 'var(--background-color)'
+          name:
+            - color: 'var(--background-color)'
     lock:
       enabled: '[[lock]]'
       duration: 5
   default:
     - lock: false
-    - color_type: card
+    - color_type: icon
 
 pretty_graph:
   card:
@@ -54,7 +65,7 @@ pretty_graph:
     entities:
       - '[[entity]]'
   default:
-    - color: '#0fb9b1'
+    - color: 'var(--ui-accent-2)'
     - hours_to_show: 24
     - tap_action: more-info
     - extrema: false
@@ -89,11 +100,11 @@ pretty_bar:
     rounding: 2px
   default:
     - min: '20'
-    - min_color: '#99c140'
+    - min_color: 'var(--ui-green)'
     - mid: '35'
-    - mid_color: '#db7b2b'
+    - mid_color: 'var(--ui-orange)'
     - max: '100'
-    - max_color: '#cc3232'
+    - max_color: 'var(--ui-red)'
     - icon: 'inside'
 
 #######################################
@@ -177,11 +188,11 @@ pretty_battery:
     visibility: <=30
     severity:
     - value: '15'
-      color: '#cc3232'
+      color: 'var(--ui-red)'
     - value: '30'
-      color: '#db7b2b'
+      color: 'var(--ui-orange)'
     - value: '100'
-      color: '#99c140'
+      color: 'var(--ui-green)'
     padding: 0px
     title_style:
       font-size: 13px

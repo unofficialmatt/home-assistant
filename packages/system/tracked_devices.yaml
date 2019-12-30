@@ -5,57 +5,45 @@
 #######################################################
 
 homeassistant:
-  customize:
-    binary_sensor.router:
+
+  customize_glob:
+    "*sensor*router*":
       icon: mdi:router-wireless
-    binary_sensor.mycloud:
+    "*sensor*mycloud*":
       icon: mdi:nas
-    binary_sensor.server:
+    "*sensor*server*":
       icon: mdi:server-network
-    binary_sensor.range_extender_office:
+    "*sensor*range_extender*":
       icon: mdi:wifi
-    binary_sensor.range_extender_kitchen:
-      icon: mdi:wifi
-
-    binary_sensor.hue_hub:
+    "*sensor*hue_hub*":
       icon: mdi:home-lightbulb
-    binary_sensor.nest:
+    "*sensor*nest*":
       icon: mdi:thermostat
-    binary_sensor.robbie_the_rover:
+    "*sensor*robbie_the_rover*":
       icon: mdi:robot-vacuum
-
-    binary_sensor.playstation_4:
+    "*sensor*playstation_4*":
       icon: mdi:playstation
-    binary_sensor.lounge_tv:
+    "*sensor*lounge_tv*":
       icon: mdi:television
-
-    binary_sensor.macbook:
+    "*sensor*macbook*":
       icon: mdi:laptop-mac
-    binary_sensor.imac:
+    "*sensor*imac*":
       icon: mdi:desktop-mac
-    binary_sensor.sarah_ipad:
+    "*sensor*sarah_ipad*":
       icon: mdi:tablet-ipad
-
-    binary_sensor.heated_blanket:
+    "*sensor*heated_blanket*":
       icon: mdi:power-plug
-    binary_sensor.star_lamp:
+    "*sensor*star_lamp*":
       icon: mdi:power-plug
-    binary_sensor.fairy_lights:
+    "*sensor*fairy_lights*":
       icon: mdi:power-plug
-    binary_sensor.festoon_lights:
+    "*sensor*festoon_lights*":
       icon: mdi:power-plug
-    binary_sensor.christmas_tree:
+    "*sensor*christmas_tree*":
       icon: mdi:power-plug
-    binary_sensor.snowflakes:
+    "*sensor*snowflakes*":
       icon: mdi:power-plug
-
-    binary_sensor.bedroom_speaker:
-      icon: mdi:speaker
-    binary_sensor.lounge_speaker:
-      icon: mdi:speaker
-    binary_sensor.office_speaker:
-      icon: mdi:speaker
-    binary_sensor.dining_room_speaker:
+    "*sensor*speaker*":
       icon: mdi:speaker
 
     automation.disconnected_device_notify:

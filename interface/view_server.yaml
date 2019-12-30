@@ -45,34 +45,87 @@ cards:
             - mid: 70
 
     ## DEVICE STATUS
-    - type: glance
-      title: Network
-      show_state: false
-      columns: 3
-      entities:
-        - binary_sensor.router
-        - binary_sensor.mycloud
-        - binary_sensor.server
-        - binary_sensor.range_extender_office
-        - binary_sensor.range_extender_kitchen
-        - binary_sensor.hue_hub
-        - binary_sensor.nest
-        - binary_sensor.robbie_the_rover
-        - binary_sensor.playstation_4
-        - binary_sensor.lounge_tv
-        - binary_sensor.macbook
-        - binary_sensor.imac
-        - binary_sensor.sarah_ipad
-        - binary_sensor.heated_blanket
-        - binary_sensor.star_lamp
-        - binary_sensor.fairy_lights
-        - binary_sensor.festoon_lights
-        - binary_sensor.christmas_tree
-        - binary_sensor.snowflakes
-        - binary_sensor.bedroom_speaker
-        - binary_sensor.lounge_speaker
-        - binary_sensor.office_speaker
-        - binary_sensor.dining_room_speaker
+    - type: custom:vertical-style-card
+      title: Networked Device Status
+      style:
+        border: false
+      cards:
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.router
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.server
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.mycloud
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.range_extender_office
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.range_extender_kitchen
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.hue_hub
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.nest
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.robbie_the_rover
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.heated_blanket
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.star_lamp
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.fairy_lights
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.festoon_lights
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.christmas_tree
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.snowflakes
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.bedroom_speaker
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.lounge_speaker
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.office_speaker
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.dining_room_speaker
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.playstation_4
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.lounge_tv
 
     ## INTERNET SPEEDS
     - type: custom:vertical-stack-in-card
@@ -95,7 +148,7 @@ cards:
               - name: Upload
               - hours_to_show: 12
               - extrema: true
-              - color: '#45aaf2'
+              - color: 'var(--ui-accent-3)'
           - type: custom:decluttering-card
             template: pretty_graph
             variables:
@@ -103,7 +156,7 @@ cards:
               - name: Ping
               - hours_to_show: 12
               - extrema: true
-              - color: '#8854d0'
+              - color: 'var(--ui-accent-2)'
 
   - type: vertical-stack
     cards:

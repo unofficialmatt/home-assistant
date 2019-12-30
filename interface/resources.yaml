@@ -65,6 +65,11 @@
   # @link https://github.com/thomasloven/lovelace-fold-entity-row
   - url: /community_plugin/lovelace-fold-entity-row/fold-entity-row.js
     type: module
+  # Vertical Style is a custom Lovelace card for Home Assistant who let you group diferent cards in one card, with diferent style options, like title, card color, to have a border or not.
+  # @link https://github.com/matisaul/vertical-style-card
+  - url: /local/community/vertical-style-card-master/vertical-style-card.js?v=0.1
+    type: js
+
 
   - url: https://unpkg.com/moment@2.22.2/moment.js
     type: js

@@ -1,0 +1,33 @@
+#######################################
+#                                     #
+#     CUSTOM:BUTTON-CARD TEMPLATES    #
+#                                     #
+#######################################
+
+# @link https://github.com/custom-cards/button-card
+# Using Button Card Template instead of decluttering template, because decluttering did not work when nested in vertical-style-card - it created some weird padding.
+# And this is probably the right way to style buttons anyway!
+
+pretty_device:
+  show_icon: false
+  tap_action:
+    action: more-info
+  styles:
+    card:
+      - height: 40px
+      - border: 0px
+      - border-radius: 2px
+      - font-size: 13px
+      - font-weight: bold
+      - text-shadow: '1px 1px #0007'
+  state:
+    - value: "off"
+      styles:
+        card:
+          - background-color: 'var(--ui-red)'
+          - color: white
+    - value: "on"
+      styles:
+        card:
+          - background-color: 'var(--ui-green)'
+          - color: white
