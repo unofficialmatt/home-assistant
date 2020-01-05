@@ -8,6 +8,26 @@ homeassistant:
   customize_domain:
     switch:
       icon: mdi:power-plug
+  customize:
+    group.hardware_switches:
+      icon: mdi:power-plug
+
+#######################################################
+#                                                     #
+#                        GROUPS                       #
+#                                                     #
+#######################################################
+
+group:
+  hardware_switches:
+    name: Switches
+    entities:
+      #- switch.christmas_tree
+      - switch.fairy_lights
+      - switch.bedroom_comfort
+      #- switch.lounge_snowflakes
+      - switch.festoon_lights
+      - switch.star_lamp
 
 #######################################################
 #                                                     #

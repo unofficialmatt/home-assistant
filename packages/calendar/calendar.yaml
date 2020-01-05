@@ -1,0 +1,24 @@
+#######################################################
+#                                                     #
+#                PACKAGES / CALENDAR                  #
+#                                                     #
+#######################################################
+
+
+#######################################################
+#                                                     #
+#                     INTEGRATION                     #
+#                                                     #
+#######################################################
+
+# PULLS IN FROM ICLOUD
+calendar:
+  - platform: caldav
+    url: !secret icloud_cal_url
+    username: !secret icloud_email
+    password: !secret icloud_specific_password
+    calendars:
+      - 'Joint'
+      - 'Sarah'
+      - 'Home'
+      - 'Holidays'

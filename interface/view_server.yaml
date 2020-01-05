@@ -91,19 +91,17 @@ cards:
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.fairy_lights
+#        - type: custom:button-card
+#          template: pretty_device
+#          entity: binary_sensor.christmas_tree
+#        - type: custom:button-card
+#          template: pretty_device
+#          entity: binary_sensor.snowflakes
       - type: horizontal-stack
         cards:
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.festoon_lights
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.christmas_tree
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.snowflakes
-      - type: horizontal-stack
-        cards:
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.bedroom_speaker
@@ -123,6 +121,9 @@ cards:
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.playstation_4
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.nintendo_switch
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.lounge_tv

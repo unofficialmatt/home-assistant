@@ -23,6 +23,8 @@ homeassistant:
       icon: mdi:robot-vacuum
     "*sensor*playstation_4*":
       icon: mdi:playstation
+    "*sensor*nintendo_switch*":
+      icon: mdi:nintendo-switch
     "*sensor*lounge_tv*":
       icon: mdi:television
     "*sensor*macbook*":
@@ -39,10 +41,10 @@ homeassistant:
       icon: mdi:power-plug
     "*sensor*festoon_lights*":
       icon: mdi:power-plug
-    "*sensor*christmas_tree*":
-      icon: mdi:power-plug
-    "*sensor*snowflakes*":
-      icon: mdi:power-plug
+    #"*sensor*christmas_tree*":
+    #  icon: mdi:power-plug
+    #"*sensor*snowflakes*":
+    #  icon: mdi:power-plug
     "*sensor*speaker*":
       icon: mdi:speaker
 
@@ -92,6 +94,9 @@ binary_sensor:
   - platform: ping
     host: !secret ip_philips_tv
     name: Lounge TV
+  - platform: ping
+    host: !secret ip_nintendo_switch
+    name: Nintendo Switch
 
   ## DEVICES
   - platform: ping
@@ -117,12 +122,12 @@ binary_sensor:
   - platform: ping
     host: !secret ip_switch_festoon_lights
     name: Festoon Lights
-  - platform: ping
-    host: !secret ip_switch_snowflakes
-    name: Snowflakes
-  - platform: ping
-    host: !secret ip_switch_christmas_tree
-    name: Christmas Tree
+  #- platform: ping
+  #  host: !secret ip_switch_snowflakes
+  #  name: Snowflakes
+  #- platform: ping
+  #  host: !secret ip_switch_christmas_tree
+  #  name: Christmas Tree
 
   ## SPEAKERS
   - platform: ping
@@ -148,7 +153,7 @@ automation:
   - alias: Disconnected Device Notify
     trigger:
       - platform: state
-        entity_id: binary_sensor.router, binary_sensor.mycloud, binary_sensor.server, binary_sensor.range_extender_office, binary_sensor.range_extender_kitchen, binary_sensor.hue_hub, binary_sensor.robbie_the_rover, binary_sensor.heated_blanket, binary_sensor.star_lamp, binary_sensor.fairy_lights, binary_sensor.festoon_lights, binary_sensor.christmas_tree, binary_sensor.snowflakes, binary_sensor.bedroom_speaker, binary_sensor.lounge_speaker, binary_sensor.office_speaker, binary_sensor.dining_room_speaker
+        entity_id: binary_sensor.router, binary_sensor.mycloud, binary_sensor.server, binary_sensor.range_extender_office, binary_sensor.range_extender_kitchen, binary_sensor.hue_hub, binary_sensor.robbie_the_rover, binary_sensor.heated_blanket, binary_sensor.star_lamp, binary_sensor.fairy_lights, binary_sensor.festoon_lights, binary_sensor.bedroom_speaker, binary_sensor.lounge_speaker, binary_sensor.office_speaker, binary_sensor.dining_room_speaker
         to: 'off'
     action:
       - service: notify.matt

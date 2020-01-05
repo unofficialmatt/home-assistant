@@ -5,31 +5,40 @@
 #######################################################
 
 # HOME KIT (SIRI/APPLE)
-## COMMENTED OUT FOR DEBUGGING AND GETTING BACK ONLINE
-#homekit:
-#  filter:
-#    include_domains:
-#      - light
-#      - switch
-#      - input_boolean
-#      - climate
-#      - media_player
-#      - device_tracker
-#    include_entities:
-#      - automation.rain_alert
-#    exclude_entities:
-#      - light.lounge
-#      - light.dining_room
-#      - light.kitchen
-#      - light.master_bedroom
-#      - light.bedroom_entertainment_area
-#      - light.guest_bedroom
-#      - light.office
-#      - light.landing
-#      - light.hallway
-#      - media_player.speakers
-#      - media_player.spotify
-#      - media_player.upstairs
+homekit:
+  filter:
+    include_domains:
+      - climate
+      - media_player
+      - light
+    include_entities:
+      - automation.rain_alert
+      - input_boolean.alarm_clock
+      - input_boolean.entertaining
+      - input_boolean.guests_staying
+      - sensor.evening_commute
+      - sensor.morning_commute
+      #- switch.christmas_tree
+      - switch.fairy_lights
+      - switch.bedroom_comfort
+      - switch.festoon_lights
+      #- switch.lounge_snowflakes
+      - switch.star_lamp
+    exclude_entities:
+      - media_player.speakers
+      - media_player.spotify
+      - media_player.upstairs
+      - media_player.bedroom_dining
+      - light.bedroom_entertainment_area
+      - light.custom_group_for_lights
+      - light.dining_room
+      - light.guest_bedroom
+      - light.hallway
+      - light.kitchen
+      - light.landing
+      - light.lounge
+      - light.master_bedroom
+      - light.office
 
 # GOOGLE
 # NOTE: The following domains are set up directly through the Google Home app,
@@ -47,7 +56,7 @@ google_assistant:
     input_boolean.entertaining:
       room: Utilities
       aliases:
-        - entertaining mode
+        - Entertaining Mode
         - entertaining
         - guests over
         - guests downstairs
@@ -55,12 +64,12 @@ google_assistant:
     input_boolean.alarm_clock:
       room: Utilities
       aliases:
-        - alarm clock
+        - Alarm Clock
         - radio alarm
     input_boolean.guests_staying:
       room: Utilities
       aliases:
-        - guest mode
+        - Guest Mode
         - guests staying
     script.restart_hass:
       expose: false
@@ -82,7 +91,7 @@ google_assistant:
     switch.festoon_lights:
       room: Garden
       aliases:
-        - garden lights
+        - Garden Lights
         - patio lights
         - decking lights
         - outdoor lights
@@ -91,33 +100,33 @@ google_assistant:
     switch.star_lamp:
       room: Lounge
       aliases:
-        - lounge lamp
+        - Star Lamp
+        - Lounge Lamp
         - living room lamp
-        - star lamp
-    switch.lounge_snowflakes:
-      room: Dining Room
-      aliases:
-        - snowflakes
-        - lounge christmas lights
-        - lounge christmas
-        - window lights
-        - bay window lights
+    #switch.lounge_snowflakes:
+    #  room: Lounge
+    #  aliases:
+    #    - Snowflakes
+    #    - lounge christmas lights
+    #    - lounge christmas
+    #    - window lights
+    #    - bay window lights
     #Dining Room
     switch.fairy_lights:
       room: Dining Room
       aliases:
+        - Fairy Lights
         - dining room sparkles
-        - fairy lights
-    switch.christmas_tree:
-      room: Dining Room
-      aliases:
-        - christmas tree
-        - christmas lights
+    #switch.christmas_tree:
+    #  room: Dining Room
+    #  aliases:
+    #    - christmas Tree
+    #    - christmas lights
     #Master Bedroom
     switch.bedroom_comfort:
       room: Bedroom
       aliases:
-        - heated blanket
+        - Heated Blanket
         - fan
         - bedroom fan
         - heated mattress
