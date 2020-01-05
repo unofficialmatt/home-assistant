@@ -32,6 +32,7 @@ life360.sh
 .ring_cache.pickle
 .spotify-token-cache
 .storage
+.VERSION
 abodepy_cache.pickle
 camera_recording.py
 home-assistant.env
@@ -44,9 +45,10 @@ google_calendars.yaml
 components
 deps
 tts
-www/icons/
-www/community/
-www/floorplans/
+www/icons
+www/floorplans
+www/people
+www/rooms
 downloads
 icloud
 dlib_faces
@@ -124,4 +126,7 @@ $RECYCLE.BIN/
 .nfs*
 
 # Plex Upcoming Cache
-www/custom-lovelace/upcoming-media-card/images/
+www/custom-lovelace/upcoming-media-card/images
+
+# Google Verification
+google*.html
