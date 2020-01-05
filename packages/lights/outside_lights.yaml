@@ -41,7 +41,7 @@ automation:
   - alias: Outside Lights - Turn ON
     trigger:
       - platform: state
-        entity_id: binary_sensor.back_door_sensor
+        entity_id: binary_sensor.back_door
         to: 'on'
     condition:
       - condition: numeric_state
@@ -55,12 +55,12 @@ automation:
   - alias: Outside Lights - Turn OFF Actionable
     trigger:
       - platform: state
-        entity_id: binary_sensor.back_door_sensor
+        entity_id: binary_sensor.back_door
         to: 'off'
         for:
           minutes: 30
       - platform: state
-        entity_id: binary_sensor.back_door_sensor
+        entity_id: binary_sensor.back_door
         to: 'off'
         for:
           minutes: 120

@@ -55,19 +55,19 @@ zone:
     latitude: !secret home_latitude
     longitude: !secret home_longitude
     elevation: !secret home_elevation
-    radius: 200
+    radius: 150
     icon: mdi:home
   - name: Matt Work
     friendly_name: Work
     latitude: !secret work_latitude
     longitude: !secret work_longitude
-    radius: 200
+    radius: 150
     icon: mdi:worker
   - name: Sarah Work
     friendly_name: Work
     latitude: !secret work_sarah_latitude
     longitude: !secret work_sarah_longitude
-    radius: 200
+    radius: 150
     icon: mdi:worker
 
 #######################################################

@@ -8,23 +8,10 @@
 
 homeassistant:
   customize:
-    binary_sensor.back_door_sensor:
+    binary_sensor.back_door:
       icon: mdi:door
-    binary_sensor.front_door_sensor:
+    binary_sensor.front_door:
       icon: mdi:door
-
-
-# iCal integration - doesn't seem to pull any calendar info in
-
-#calendar:
-#  - platform: caldav
-#    url: !secret icloud_cal_url
-#    username: !secret icloud_email
-#    password: !secret icloud_specific_password
-#    calendars:
-#      - 'Joint'
-#      - 'Sarah'
-#      - 'Home'
 
 #sensor:
 #  - platform: uk_transport
@@ -51,29 +38,81 @@ ios:
             activationMode: 'background'
             authenticationRequired: false
 
-# GOOGLE CALENDARS
-google:
-  client_id: 859387401107-51hpivpp2dnan3alrlvbe98n9ar3a87f.apps.googleusercontent.com
-  client_secret: 1BS_q90gr-tRn0AmfWWItXjy
-
 automation:
 
-#  - alias: 'Theme Switch'
-#    hide_entity: True
-#    trigger:
-#      - platform: homeassistant
-#        event: start
-#      - platform: state
-#        entity_id: sun.sun
-#    action:
-#      - service_template: frontend.set_theme
-#        data_template:
-#          name: >
-#            {% if states.sun.sun.state == "above_horizon" %}
-#              modern
-#            {% else %}
-#              modern-dark
-#            {% endif %}
+  - alias: Commute - Notify Sarah of ETA
+    trigger:
+      - platform: zone
+        entity_id: person.matt
+        zone: zone.matt_work
+        event: leave
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: 'binary_sensor.workday_sensor'
+          state: 'on'
+        - condition: time
+          after: '16:30:00'
+        - condition: state
+          entity_id: person.sarah
+          state: home
+    action:
+      - service: notify.ios_sarah
+        data_template:
+          title: >
+            {{ "\uD83D\uDE97" }} Matt has left Work
+          message: >
+            Matt has just left work.
+            Traffic Conditions are
+            {% if states.sensor.evening_commute.state <= "35" %} GREAT.
+            {% elif states.sensor.evening_commute.state > "35" and states.sensor.evening_commute.state < "45" %} AVERAGE.
+            {% elif states.sensor.evening_commute.state >= "45" %} BAD.
+            {% endif %}
+            His ETA is approx. {{ states.sensor.evening_commute.state }} minutes.
+
+  - alias: Katt Entrance Music
+    trigger:
+      - platform: state
+        entity_id: device_tracker.katt
+        to: 'home'
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: input_select.bedtime_trigger
+        state: 'Off'
+      - condition: time
+        after: '09:00:00'
+        before: '22:00:00'
+    action:
+      - service: spotcast.start
+        data:
+          device_name: 'Downstairs'
+          uri: 'spotify:track:60AtF9l5YTgVPgJFzA7AGo'
+
+  - alias: Rob Entrance Music
+    trigger:
+      - platform: state
+        entity_id: device_tracker.rob
+        to: 'home'
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: input_select.bedtime_trigger
+        state: 'Off'
+      - condition: time
+        after: '09:00:00'
+        before: '22:00:00'
+    action:
+      - service: spotcast.start
+        data:
+          device_name: 'Downstairs'
+          uri: 'spotify:track:6nVijDYMA3KaBGdWabaLvm'
+
+
+
   # Starts playing Spotify on my phone at 8:15 on workdays
   - alias: "Commute Start Spotify"
     hide_entity: true
@@ -119,7 +158,7 @@ automation:
   - alias: "Pre-heat home"
     trigger:
       - platform: zone
-        entity_id: device_tracker.sarah
+        entity_id: person.sarah
         zone: zone.sarah_work
         event: leave
     condition:
@@ -134,7 +173,7 @@ automation:
           entity_id: sensor.average_home_temperature
           below: 16
     action:
-      - service: notify.ios_sarah
+      - service: notify.ios_matt
         data_template:
           title: >
             {{ "\uD83C\uDF21" }} It's a little chilly at home
@@ -151,7 +190,7 @@ automation:
       event_data:
         actionName: PREHEAT_YES
     action:
-      - service: notify.ios_sarah
+      - service: notify.ios_matt
         data_template:
           message: >
             {{ "\uD83C\uDF21" }} OK, I've turned the thermostat on. See you soon.
@@ -163,22 +202,6 @@ automation:
         data:
           entity_id: climate.hallway
           temperature: 20
-
-#  - alias: Automatic Theme Change
-#    trigger:
-#      - platform: homeassistant
-#        event: start
-#      - platform: state
-#        entity_id: sun.sun
-#    action:
-#      - service_template: frontend.set_theme
-#        data_template:
-#          name: >
-#            {% if states.sun.sun.state == "above_horizon" %}
-#              modern
-#            {% else %}
-#              modern-dark
-#            {% endif %}
 
 
 # for huesensor component

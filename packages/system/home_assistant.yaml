@@ -23,6 +23,8 @@ homeassistant:
       icon: mdi:power
     binary_sensor.updater:
       icon: mdi:alert-package-up
+    automation.theme_switch:
+      icon: mdi:view-quilt
 
 #######################################################
 #                                                     #
@@ -80,6 +82,26 @@ automation:
       data_template:
         title: '{{ "\u2699\uFE0F"}} Home Assistant shut down'
         message: "Until next time..."
+
+  ## SWITCHES BETWEEN LIGHT/DARK THEMES AT SUNSET/SUNRISE
+  - alias: 'Theme Switch'
+    hide_entity: True
+    trigger:
+      - platform: homeassistant
+        event: start
+      - platform: sun
+        event: sunset
+      - platform: sun
+        event: sunrise
+    action:
+      - service_template: frontend.set_theme
+        data_template:
+          name: >
+            {% if states.sun.sun.state == "above_horizon" %}
+              lynwood-clear
+            {% else %}
+              lynwood-synthwave
+            {% endif %}
 
 #######################################################
 #                                                     #

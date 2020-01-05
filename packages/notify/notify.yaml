@@ -27,8 +27,3 @@ notify:
     platform: group
     services:
       - service: ios_sarah
-  - platform: html5
-    name: matt_mbp
-    vapid_pub_key: !secret vapid_pub_key
-    vapid_prv_key: !secret vapid_prv_key
-    vapid_email: !secret tuya_user

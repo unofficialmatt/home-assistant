@@ -52,8 +52,8 @@ homeassistant:
 
 device_tracker:
   - platform: ping
-    interval_seconds: 300
-    consider_home: 00:16:00
+    interval_seconds: 180
+    consider_home: 00:10:00
     hosts:
       sarah_ping: !secret ip_sarah_phone
       matt_ping: !secret ip_matt_phone
@@ -101,6 +101,26 @@ sensor:
             Matt
           {% else %}
             No one
+          {% endif %}
+      matt_friendly_location:
+        friendly_name: Matt Friendly Location
+        value_template: >
+          {% if states.person.matt.state == 'home' %}
+          Home
+          {% elif states.person.matt.state == 'Matt Work' %}
+          Work
+          {% else %}
+          nr. {{states.sensor.matt_geocoded_location.attributes.Thoroughfare}}
+          {% endif %}
+      sarah_friendly_location:
+        friendly_name: Sarah Friendly Location
+        value_template: >
+          {% if states.person.sarah.state == 'home' %}
+          Home
+          {% elif states.person.sarah.state == 'Sarah Work' %}
+          Work
+          {% else %}
+          nr. {{states.sensor.sarah_geocoded_location.attributes.Thoroughfare}}
           {% endif %}
 
 #######################################################
@@ -288,7 +308,7 @@ script:
       - service: media_player.media_stop
         entity_id: media_player.speakers
       - service: switch.turn_off
-        entity_id: group.all_switches
+        entity_id: group.hardware_switches
       - service: media_player.turn_off
         entity_id: media_player.philips_tv
   request_location_update:

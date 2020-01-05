@@ -9,9 +9,9 @@ homeassistant:
     "*.fridge_door*":
       icon: mdi:fridge
   customize:
-    binary_sensor.fridge_door_sensor:
+    binary_sensor.fridge_door:
       friendly_name: Fridge Door
-    binary_sensor.freezer_door_sensor:
+    binary_sensor.freezer_door:
       icon: mdi:fridge
       friendly_name: Freezer Door
 
@@ -26,32 +26,32 @@ automation:
   - alias: Fridge Door - Notification
     trigger:
       - platform: state
-        entity_id: binary_sensor.fridge_door_sensor
+        entity_id: binary_sensor.fridge_door
         to: 'on'
         for:
           minutes: 10
       - platform: state
-        entity_id: binary_sensor.fridge_door_sensor
+        entity_id: binary_sensor.fridge_door
         to: 'on'
         for:
           minutes: 15
       - platform: state
-        entity_id: binary_sensor.fridge_door_sensor
+        entity_id: binary_sensor.fridge_door
         to: 'on'
         for:
           minutes: 30
       - platform: state
-        entity_id: binary_sensor.freezer_door_sensor
+        entity_id: binary_sensor.freezer_door
         to: 'on'
         for:
           minutes: 10
       - platform: state
-        entity_id: binary_sensor.freezer_door_sensor
+        entity_id: binary_sensor.freezer_door
         to: 'on'
         for:
           minutes: 15
       - platform: state
-        entity_id: binary_sensor.freezer_door_sensor
+        entity_id: binary_sensor.freezer_door
         to: 'on'
         for:
           minutes: 30

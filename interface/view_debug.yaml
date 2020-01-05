@@ -120,22 +120,22 @@ cards:
         - type: custom:decluttering-card
           template: pretty_battery
           variables:
-            - entity: sensor.freezer_door_sensor_battery_level
+            - entity: sensor.freezer_door_battery_level
             - title: Freezer Door
         - type: custom:decluttering-card
           template: pretty_battery
           variables:
-            - entity: sensor.fridge_door_sensor_battery_level
+            - entity: sensor.fridge_door_battery_level
             - title: Fridge Door
+        #- type: custom:decluttering-card
+        #  template: pretty_battery
+        #  variables:
+        #    - entity: sensor.front_door_battery_level
+        #    - title: Front Door
         - type: custom:decluttering-card
           template: pretty_battery
           variables:
-            - entity: sensor.front_door_sensor_battery_level
-            - title: Front Door
-        - type: custom:decluttering-card
-          template: pretty_battery
-          variables:
-            - entity: sensor.back_door_sensor_battery_level
+            - entity: sensor.back_door_battery_level
             - title: Back Door
         - type: custom:decluttering-card
           template: pretty_battery

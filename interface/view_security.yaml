@@ -26,7 +26,7 @@ cards:
       entities:
         - binary_sensor.kitchen_sensor_motion
         - binary_sensor.landing_sensor_motion
-        - binary_sensor.back_door_sensor
-        - binary_sensor.front_door_sensor
-        - binary_sensor.fridge_door_sensor
-        - binary_sensor.freezer_door_sensor
+        - binary_sensor.back_door
+        - binary_sensor.front_door
+        - binary_sensor.fridge_door
+        - binary_sensor.freezer_door

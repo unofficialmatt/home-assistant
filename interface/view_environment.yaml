@@ -24,11 +24,10 @@ cards:
         - entity: sensor.hallway_thermostat_humidity
         - name: Hallway Humidity
         - color: 'var(--ui-accent-2)'
-    - type: custom:decluttering-card
+    - type: custom:button-card
       template: pretty_button
-      variables:
-        - entity: automation.rain_alerts
-        - name: Rain Alerts
+      entity: automation.rain_alerts
+      name: Rain Alerts
 
   - type: vertical-stack
     cards:
