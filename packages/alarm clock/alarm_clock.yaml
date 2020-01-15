@@ -204,23 +204,11 @@ automation:
           value_template: >
             {{ states.sensor.time.state >= states.sensor.alarm_time.state }}
     action:
-      - service_template: >
-          {% if is_state('person.matt', 'home') %}
-            notify.ios_matt
-          {% endif %}
-        data_template:
-          title: >
+      - service: script.notify_engine
+        data:
+          notify_title: >
             {{ "\uD83C\uDF1E" }} Weather Briefing
-          message: >
-            The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}
-      - service_template: >
-          {% if is_state('person.sarah', 'home') %}
-            notify.ios_sarah
-          {% endif %}
-        data_template:
-          title: >
-            {{ "\uD83C\uDF1E" }} Weather Briefing
-          message: >
+          notify_message: >
             The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}
       - delay: '00:00:10'
       - service: media_player.volume_set

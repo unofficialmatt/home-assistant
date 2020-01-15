@@ -1,0 +1,51 @@
+#######################################################
+#                                                     #
+#              PACKAGES / NOTIFY ENGINE               #
+#                                                     #
+#######################################################
+
+#######################################################
+#                                                     #
+#                        SCRIPT                       #
+#                                                     #
+#######################################################
+
+script:
+  ## The Notify Engine script will check to see who is home, and send a title and message to their phones only.
+  notify_engine:
+    alias: Notify Engine
+    fields:
+      title:
+        description: 'The title that should be transmitted to people who are home.'
+      message:
+        description: 'The message that should be transmitted to people who are home.'
+    sequence:
+      - service_template: >
+          {% if is_state('person.sarah', 'home') and is_state('person.matt', 'home') %}
+            notify.all_phones
+          {% elif is_state('person.sarah', 'home') and not is_state('person.matt', 'home') %}
+            notify.ios_sarah
+          {% elif is_state('person.matt', 'home') and not is_state('person.sarah', 'home') %}
+            notify.ios_matt
+          {% endif %}
+        data_template:
+          title: "{{ notify_title }}"
+          message: "{{ notify_message }}"
+
+
+
+## EXAMPLE USE
+#automation:
+#  - alias: A Test Notify
+#    trigger:
+#      platform: template
+#      value_template: >
+#        {{ states.sensor.time.state == states.sensor.alarm_time.state }}
+#    action:
+#      - service: script.notify_engine
+#        data:
+#          notify_title: >
+#            {{ "\uD83C\uDF1E" }} Weather Briefing
+#          notify_message: >
+#            The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}
+#

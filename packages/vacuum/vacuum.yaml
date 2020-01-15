@@ -11,6 +11,18 @@ homeassistant:
 
 #######################################################
 #                                                     #
+#                       COUNTER                       #
+#                                                     #
+#######################################################
+
+counter:
+  vacuum_counter:
+    initial: 0
+    step: 1
+    icon: mdi:counter
+
+#######################################################
+#                                                     #
 #                     INTEGRATIONS                    #
 #                                                     #
 #######################################################
@@ -20,6 +32,54 @@ vacuum:
     friendly_name: Robbie
     host: !secret ip_robbie
     token: !secret token_robbie
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+
+  ## Whenever Robbie becomes docked, increment counter
+  - alias: Vacuum Counter Increment
+    trigger:
+      - platform: state
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        to: 'docked'
+    action:
+      - service: counter.increment
+        entity_id: counter.vacuum_counter
+
+  ## If robbie has cleaned three times, send a notification prompting to clean his bins, and reset the counter
+  - alias: Vacuum Notify Clean Bin
+    trigger:
+      - platform: state
+        entity_id: input_select.home_status
+        to: 'Home'
+    condition:
+      - condition: state
+        entity_id: counter.vacuum_counter
+        state: '3'
+    action:
+      - delay: '00:05:00'
+      - service: script.notify_engine
+        data:
+          notify_title: "{{ '\uD83E\uDDF9'}} Empty Robbie's Bin"
+          notify_message: >
+            {{ [
+            "Robbie has hoovered three times - it's probably time his bin was emptied!",
+            "It's about time I was mucked out. Please empty my bin.",
+            "What does a bin have to do around here to get emptied!",
+            "I am full of Hercules' fluff and Ripley's droppings. Please empty me.",
+            "HEY! YOU! CLEAN ME!",
+            "Hello! Is anybody out there?! I could do with my bin being emptied please.",
+            "I'm full up. Please empty me.",
+            "My eyes are bigger than my belly. I'm full! Please empty me.",
+            "Bleep, bloop I'm full of poop."
+            ] | random }}
+      - service: counter.reset
+        entity_id: counter.vacuum_counter
 
 #######################################################
 #                                                     #

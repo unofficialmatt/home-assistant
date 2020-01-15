@@ -174,24 +174,10 @@ script:
     sequence:
       - service: scene.turn_on
         entity_id: scene.rain_warning
-      - service_template: >
-          {% if is_state('sensor.who_is_home', 'Sarah and Matt') %}
-            notify.all_phones
-          {% elif is_state('sensor.who_is_home', 'Sarah') %}
-            notify.sarah
-          {% else %}
-            notify.matt
-          {% endif %}
-        data_template:
-          title: >
-            {{ "\uD83C\uDF27" }} Rain Warning
-          message: >
-            There is a {{states('sensor.chance_of_rain')}}% chance it might rain soon! There is a storm {{ states. sensor.darksky_nearest_storm_distance.state }} miles away.
-          data:
-            attachment:
-              url: https://api.sat24.com/animated/GB/rainTMC/3/GMT%20Standard%20Time/4260619
-              content-type: gif
-              hide-thumbnail: false
+      - service: script.notify_engine
+        data:
+          notify_title: "{{ "\uD83C\uDF27" }} Rain Warning"
+          notify_message: "There is a {{states('sensor.chance_of_rain')}}% chance it might rain soon! There is a storm {{ states. sensor.darksky_nearest_storm_distance.state }} miles away."
       - delay: '00:00:10'
       - service: media_player.volume_set
         data_template:
