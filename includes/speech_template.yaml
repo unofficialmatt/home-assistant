@@ -58,7 +58,60 @@
   {% endif %}
 
   {% if call_outside_weather == 1 %}
-  The current temperature outside is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}.
+  {% set apparent_temperature = states.sensor.darksky_daytime_high_apparent_temperature_0d.state %}
+  The current temperature outside is {{states('sensor.darksky_temperature')}}°C.
+  {% if apparent_temperature >= '0' and apparent_temperature < '10' %}
+  {{ [
+    "It's going to be a cold day today with highs of " ~ apparent_temperature + "°C",
+    "Brrrrr. It will be cold today with highs of " ~ apparent_temperature + "°C",
+    "Pack a wooly jumper! It will be cold today with highs of " ~ apparent_temperature + "°C",
+    "Wear your long johns! It will be cold today with highs of " ~ apparent_temperature + "°C",
+    "Pack a bobble hat! It will be cold today with highs of " ~ apparent_temperature + "°C",
+    "Put on your thermals! It will be cold today with highs of " ~ apparent_temperature + "°C",
+    "Wear warm clothing today! It will be cold with highs of " ~ apparent_temperature + "°C",
+    "Put on your thick socks! It will be cold today with highs of " ~ apparent_temperature + "°C",
+    "I wish I could tell you it will be hot today, but it won't! Expect highs of " ~ apparent_temperature + "°C",
+    "Shiver me timbers! It will be cold today with highs of " ~ apparent_temperature + "°C"
+    ] | random }}
+  {% elif apparent_temperature >= '10' and apparent_temperature < '20' %}
+  {{ [
+    "It's going to be a cool day today with highs of " ~ apparent_temperature + "°C",
+    "The weather is lukewarm today with highs of " ~ apparent_temperature + "°C",
+    "It's a classic British day today. It's neither hot nor cold. Expect highs of " ~ apparent_temperature + "°C",
+    "It's a mild day today with highs of " ~ apparent_temperature + "°C",
+    "Today is a mild day. You can expect highs of " ~ apparent_temperature + "°C",
+    "It's neither hot nor cold today. Expect highs of " ~ apparent_temperature + "°C"
+    ] | random }}
+  {% elif apparent_temperature >= '20' and apparent_temperature < '30' %}
+  {{ [
+    "The sun is shining today. It's going to be warm with highs of " ~ apparent_temperature + "°C",
+    "It's a beautiful day with highs of " ~ apparent_temperature + "°C",
+    "The sun is out! It will be warm today with highs of " ~ apparent_temperature + "°C",
+    "Sun, sun, sun - here we come! It will be warm today with highs of " ~ apparent_temperature + "°C",
+    "It's getting hot in here! It will be warm today with highs of " ~ apparent_temperature + "°C",
+    "Hot stuff baby! It will be warm today with highs of " ~ apparent_temperature + "°C",
+    "Get those shorts on! It will be warm today with highs of " ~ apparent_temperature + "°C",
+    "Sun's out, guns out! It will be warm today with highs of " ~ apparent_temperature + "°C",
+    "Here comes the sun doo-dun doo doo! It will be warm today with highs of " ~ apparent_temperature + "°C"
+    ] | random }}
+  {% elif apparent_temperature > '30' %}
+  {{ [
+    "Today will be a scorcher! The sun is out and you can expect highs of " ~ apparent_temperature + "°C",
+    "It's getting hot in here! It will be hot today with highs of " ~ apparent_temperature + "°C",
+    "Who needs Thailand?! It will be hot today with highs of " ~ apparent_temperature + "°C",
+    "So hot right now! It will be hot today with highs of " ~ apparent_temperature + "°C",
+    "It's a gorgeous day today with highs of " ~ apparent_temperature + "°C",
+    "Get your shades on! It will be hot today with highs of " ~ apparent_temperature + "°C",
+    "Dust off those sunglasses! It will be hot today with highs of " ~ apparent_temperature + "°C",
+    "Get down to the beach! It will be hot today with highs of " ~ apparent_temperature + "°C", 
+    ] | random }}
+  {% else %}
+  Today is going to be very cold. The highest temperature will be {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C.
+  {% endif %}  
+  {% if states.sensor.darksky_cloud_coverage_0d.state >= '70' %}
+  There's high cloud coverage today - with {{states('sensor.darksky_cloud_coverage_0d')}} percent cloud coverage.
+  {% endif %}
+  The forecast is {{states('sensor.darksky_hourly_summary')}}
   {% endif %}
 
   {% if call_full_moon == 1 %}

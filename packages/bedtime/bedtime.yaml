@@ -66,6 +66,13 @@ automation:
               entity_id: input_select.scene_guest_bedroom
               option: "Bedtime"
           {% endif %}
+      - service: script.tts_engine
+        data_template:
+          media_player: media_player.bedroom
+          call_no_greeting: 1
+          call_no_signoff: 1
+          tts_message: >
+            Turning on the bedroom lights ready for bedtime.      
 
   # STANDARD SHUT DOWN IF NO GUESTS STAYING, AND IF NO ONE IS LEFT DOWNSTAIRS
   - alias: Bedtime - SHUTDOWN Standard

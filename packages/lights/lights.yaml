@@ -105,6 +105,18 @@ automation:
     action:
       - service: light.turn_off
         entity_id: group.all_lights
+      - service: script.tts_engine
+        data_template:
+          tts_message: >
+            {{ [
+              "There's plenty of light coming into the house so I'm turning the lights off.",
+              "I'm turning the lights off - I hope that's OK.",
+              "Save the planet! I'm turning the lights off.",
+              "It's daytime now so I'll turn the lights off.",
+              "My sensors are telling me that it's light enough without the lights on. I'll turn them off.",
+              "I'm going to turn the lights off now. Hash tag save the planet.",
+              ] | random }}
+        
 
   # TURN THE DOWNSTAIRS LIGHTS ON BETWEEN 2100-0500 IF ANYONE ARRIVES HOME, AND THE HOUSE LIGHTS ARE CURRENTLY OFF
   - alias: Lights - ON Late Home

@@ -207,3 +207,9 @@ automation:
             {% elif states.sensor.evening_commute.state >= "45" %} BAD.
             {% endif %}
             His ETA is approx. {{ states.sensor.evening_commute.state }} minutes.
+      - service: script.tts_engine
+        data_template:
+          media_player: media_player.speakers
+          tts_message: >
+            Matt has just left work.
+            He'll be home in around {{ states.sensor.evening_commute.state }} minutes.

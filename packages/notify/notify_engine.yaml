@@ -22,6 +22,8 @@ input_boolean:
 #                                                     #
 #######################################################
 
+# @link https://github.com/CCOSTAN/Home-AssistantConfig
+
 script:
   ## The Notify Engine script will check to see who is home, and send a title and message to their phones only.
   notify_engine:
