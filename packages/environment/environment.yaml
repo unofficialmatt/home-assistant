@@ -21,8 +21,6 @@ homeassistant:
     binary_sensor.workday_sensor:
       hidden: true
 
-    sensor.outside_light_level:
-      icon: mdi:weather-partly-cloudy
     sensor.average_home_temperature:
       icon: mdi:thermometer
     sensor.time_of_day:
@@ -104,26 +102,5 @@ sensor:
       - sensor.hallway_thermostat_temperature
       - sensor.kitchen_temperature
       - sensor.landing_temperature
-  # COMPUTED OUTSIDE LIGHT LEVEL - BIT OF AN ARBITRARY VALUE BUT IT GIVES
-  # A GOOD INDICATION OF HOW DARK IT IS BASED ON THE CLOUD COVERAGE AND SUN ELEVATION
-  - platform: template
-    sensors:
-      outside_light_level:
-        friendly_name: Sunlight Level
-        unit_of_measurement: 'lux'
-        value_template: >
-          {%- if states.sun.sun.attributes.elevation < 0 -%}
-            {{ states.sun.sun.attributes.elevation }}
-          {%- else -%}
-             {{ (states.sun.sun.attributes.elevation | int ) * ((states.sun.sun.attributes.elevation | int / 10) - (states.sensor.darksky_cloud_coverage.state | int / 100 ))}}
-          {% endif %}
-      time_of_day:
-        friendly_name: 'Time of Day'
-        entity_id:
-          - sensor.time
-        value_template: >
-          {% if now().hour >= 6 and now().hour < 12  %} Morning
-          {% elif now().hour >= 12 and now().hour < 18 %} Afternoon
-          {% elif now().hour >= 18 and now().hour < 23 %} Evening
-          {% else %} Nighttime
-          {% endif %}
+  # SO THAT SARAH CAN HOWL AT THE MOON
+  - platform: moon

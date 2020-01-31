@@ -56,7 +56,30 @@ automation:
         for:
           minutes: 30
     action:
-      - service: notify.all_phones
+      - service: script.notify_engine
+        data:
+          notify_title: >
+            {{ "\u2603\uFE0F" }}
+            {{ [
+              "Its cold in here!",
+              "Brrrrrrrrr!",
+              "You're as cold as ice!",
+              "Ice, ice, baby!",
+              "Ice to see you, to see you ice..."
+              ] | random }}
+          notify_message: "The {{ trigger.to_state.attributes.friendly_name }} has been open for {{ trigger.for }} minutes!"
+      - service: script.tts_engine
         data_template:
-          title: '{{ "\u2603\uFE0F" }} Its cold in here!'
-          message: 'The {{ trigger.to_state.attributes.friendly_name }} has been open for {{ trigger.for }} minutes!'
+          tts_message: >
+            {{ [
+              "Its cold in here!",
+              "Brrrrrrrrr!",
+              "Ice, ice, baby!",
+              "Ice to see you, to see you ice...",
+              "Some like it cold",
+              "My parts are freezing",
+              "Is it just me or is it cold in here?!",
+              "My parts are shrivelling."
+              ] | random }}
+            Please close the {{ trigger.to_state.attributes.friendly_name }}, it has been open for {{ trigger.for }} minutes!
+

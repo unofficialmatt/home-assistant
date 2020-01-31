@@ -18,8 +18,6 @@ homeassistant:
   customize:
     group.all_devices:
       icon: mdi:devices
-    sensor.who_is_home:
-      icon: mdi:home-heart
     script.request_location_update:
       icon: mdi:crosshairs
       friendly_name: Request Device Locations
@@ -43,6 +41,8 @@ homeassistant:
       entity_picture: /local/people/sarah-thumb.jpg
     person.matt:
       entity_picture: /local/people/matt-thumb.jpg
+    automation.person_greeting:
+      icon: mdi:text-to-speech
 
 #######################################################
 #                                                     #
@@ -90,18 +90,6 @@ person:
 sensor:
   - platform: template
     sensors:
-      who_is_home:
-        friendly_name: Who is Home
-        value_template: >
-          {% if is_state('person.sarah', 'home') and is_state('person.matt', 'home') %}
-            Matt and Sarah
-          {% elif is_state('person.sarah', 'home') and not is_state('person.matt', 'home') %}
-            Sarah
-          {% elif is_state('person.matt', 'home') and not is_state('person.sarah', 'home') %}
-            Matt
-          {% else %}
-            No one
-          {% endif %}
       matt_friendly_location:
         friendly_name: Matt Friendly Location
         value_template: >
@@ -291,6 +279,46 @@ automation:
             {% if is_state("group.family", "home") %} input_boolean.guests_staying
             {% else %} input_boolean.entertaining
             {% endif %}
+
+  # SAYS HELLO WHEN SOMEONE ARRIVES HOME
+  - alias: Person Greeting
+    trigger:
+      - platform: state
+        entity_id:
+          - person.matt
+          - person.sarah
+        to: 'home'
+        for: 00:03:00
+    action:
+      - service: script.tts_engine
+        data_template:
+          call_no_greeting: 1
+          call_no_signoff: 1
+          call_full_moon: 1
+          call_empty_robbie: 1
+          tts_message: >
+            {% set person = trigger.entity_id.split('.')[1]|replace('_', ' ')%}
+            {{ [
+              "Welcome home " ~ person +". I've missed you.",
+              "Welcome back home, " ~ person,
+              person + " is now in the house. Welcome back!",
+              "Welcome Home " ~ person + ". We have missed you. Or at least the rabbits did.",
+              "Welcome home, " ~ person +". Put your feet back and rest!",
+              "Knock Knock. Who is There? "   ~ person +" is!",
+              "Hey there, " ~ person + ". Welcome Home!",
+              person + " - you can not hide from Home Assistant. Welcome home.",
+              "Hey "  ~ person +". Your arrival has been recorded by the Smartest house in the neighbourhood.",
+              "And the house becomes a home. Welcome back " ~ person,
+              person + " is now here.  Hash tag Smart Home.",
+              "Pardon the interruption but " ~ person +" is home!",
+              "My systems are picking up the presence of additional humans. " ~ person +" has been identified as home.",
+              "What is that smell?! It must be " ~ person +" arriving home.",
+              "My moments of silence are gone. " ~ person +" is now home.",
+              "Welcome home " ~ person +". It's great to feel your presence.",
+              "Welcome home " ~ person +". The house is just not the same without you.",
+              "Is that " ~ person +" I can hear? Welcome home - it's great to have you back.",
+              "Home is where " ~ person +"'s heart is'.",
+              ] | random }}
 
 #######################################################
 #                                                     #

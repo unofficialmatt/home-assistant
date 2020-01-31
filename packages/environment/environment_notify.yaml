@@ -1,0 +1,36 @@
+#######################################################
+#                                                     #
+#            PACKAGES / ENVIRONMENT NOTIFY            #
+#                                                     #
+#######################################################
+
+homeassistant:
+  customize:
+    automation.full_moon_notify:
+      icon: mdi:moon-full
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+  - alias: Full Moon Notify
+    trigger:
+      - platform: sun
+        event: sunset
+        offset: "-01:00:00"
+    condition:
+      - condition: state
+        entity_id: sensor.moon
+        state: "Full moon"
+    action:
+      - service: script.tts_engine
+        data_template:
+          call_full_moon: 1
+          call_no_signoff: 1
+      - service: notify.all_phones
+        data_template:
+          title: "{{ '\uD83C\uDF1D'}} It's a full moon tonight!"
+          message: "The sun sets at approximately {{ as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom ('%H:%M') }}."

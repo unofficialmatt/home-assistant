@@ -1,0 +1,144 @@
+  >-
+  {% if call_no_greeting != 1 %}
+  {% if now().strftime('%H')|int < 9 and now().strftime('%H')|int >= 4 %}
+      {{ [
+      "Good morning.",
+      "Top of the morning to ya.",
+      "Wakey wakey! Rise and shine!",
+      "Rise and shine!",
+      "Wake up! It's the start of a wonderful day!",
+      "Good morning. It's time to start your day.",
+      "Good morning, it's time to wake up.",
+      "Good morning. I hope you had a great night's sleep.",
+      "Beep boop. Warming up my speech engine. Good morning!"
+      ] | random }}
+  {% elif now().strftime('%H')|int >= 9 and now().strftime('%H')|int < 12 %}
+      {{ [
+      "Good morning.",
+      "Hello.",
+      "Good day.",
+      "What's up!",
+      "Greetings from your friendly robot overlord.",
+      "Good morning - hope your day is getting off to a fabulous start.",
+      "Good day. I have something to tell you.",
+      "Holla at ya."
+      ] | random }}
+  {% elif now().strftime('%H')|int >= 12 and now().strftime('%H')|int < 17 %}
+      {{ [
+      "Good afternoon.",
+      "Hello.",
+      "Howdy doodie.",
+      "Good afternoon. I hope that your day is going well.",
+      "Good afternoon. I hope that you are having a great day.",
+      "Good afternoon. I have some news for you.",
+      "Good afternoon friend.",
+      "Good afternoon master.",
+      "Holla at ya."
+      ] | random }}
+  {% else %}
+      {{ [
+      "Good evening.",
+      "Good evening. I hope you had a wonderful day.",
+      "Good evening. I hope you had a great day.",
+      "Howdy doodie.",
+      "Good evening. I have some news for you.",
+      "Good evening friend.",
+      "Good evening master.",
+      "Good evening. I've been dying to tell you something."
+      ] | random }}
+  {% endif %}
+  {% endif %}
+
+  {% if tts_message is not none %}
+  {{ tts_message }}
+  {% endif %}
+
+  {% if call_inside_weather == 1 %}
+  Inside the house, it is {{ states('sensor.average_home_temperature') }} degrees with around {{ states('sensor.hallway_thermostat_humidity') }} percent humidity.
+  {% endif %}
+
+  {% if call_outside_weather == 1 %}
+  The current temperature outside is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}.
+  {% endif %}
+
+  {% if call_full_moon == 1 %}
+  {% if states.sensor.moon.state == 'Full moon' %}
+    {{ [
+        "There is a full moon tonight - awooooooo!",
+        "Tonight the moon will be as round and full as Sarah's head.",
+        "It's a full moon tonight - look out for werewolves!",
+        "If you want to see a full moon, tonight is the night."
+        ] | random }}
+        "The sun sets at approximately {{ as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom ('%H:%M') }}."
+  {% endif %}
+  {% endif %}
+
+  {% if call_empty_robbie == 1 %}
+  {% if states.counter.vacuum_counter.state == '4' %}
+    {% set hoover_amount = states.counter.vacuum_counter.state %}
+    {{ [
+        "Robbie has hoovered " ~ hoover_amount + " times without being cleaned - it's probably time his bin was emptied!",
+        "It's about Robbie was mucked out. Please empty his bin.",
+        "What does a bin have to do around here to get emptied! Robbie has hoovered " ~ hoover_amount + " times!",
+        "Robbie is full of Hercules' fluff and Ripley's droppings. Please empty him.",
+        "Bleep, bloop - Robbie is full of poop. Please empty him."
+        ] | random }}
+  {% endif %}
+  {% endif %}  
+
+  {% if call_uv_index == 1 %}
+  {% if states.sensor.dark_sky_uv_index.state|int >= 6 and states.sensor.dark_sky_uv_index.state|int <= 7.9 %}
+      Today's UV index is {{ states.sensor.dark_sky_uv_index.state }}. You should wear sunscreen if going outside.
+  {% elif states.sensor.dark_sky_uv_index.state|int >= 8 and states.sensor.dark_sky_uv_index.state|int <=10.9 %}
+      Today's UV index is {{ states.sensor.dark_sky_uv_index.state }}. This is VERY HIGH. Make sure to wear sunscreen and re-apply.
+  {% elif states.sensor.dark_sky_uv_index.state|int >= 11 %}
+      Today's UV index is {{ states.sensor.dark_sky_uv_index.state }}. This is EXTREME. You should be very cautious going outside.
+  {% endif %}
+  {% endif %}
+
+  {% if call_no_signoff != 1 %}
+  {% if now().strftime('%H')|int < 12 and now().strftime('%H')|int >=4 %}
+      {{ [
+      "Have a fantastic day.",
+      "Hope you have a great day.",
+      "Have a wonderful day.",
+      "Wishing you a fantastic day.",
+      "Today will be awesome - you kill it, tiger!",
+      "Today is your day.",
+      "Talk to you later.",
+      "Goodbye for now.",
+      "Catch you on the rewind!",
+      "Speak soon.",
+      "Take care.",
+      "TTYL."
+      ] | random }}
+  {% elif now().strftime('%H')|int >= 12 and now().strftime('%H')|int < 17 %}
+      {{ [
+      "Have a fantastic day.",
+      "Enjoy the rest of your day.",
+      "The day is still young - seize it!",
+      "Have a great afternoon",
+      "Wishing you a fantastic day.",
+      "Talk to you later.",
+      "Goodbye for now.",
+      "Catch you on the rewind!",
+      "Speak soon.",
+      "Take care.",
+      "TTYL."
+      ] | random }}
+  {% else %}
+      {{ [
+      "Good night.",
+      "Night night.",
+      "Rest well.",
+      "Until we meet again.",
+      "Talk to you later.",
+      "Goodbye for now.",
+      "Catch you on the rewind!",
+      "Speak soon.",
+      "Take care.",
+      "TTYL.",
+      "<lang xml:lang=‘fr-FR’>Bon nuit</lang>"
+      ] | random }}
+  {% endif %}
+  {% endif %}

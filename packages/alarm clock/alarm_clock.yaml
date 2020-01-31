@@ -210,16 +210,14 @@ automation:
             {{ "\uD83C\uDF1E" }} Weather Briefing
           notify_message: >
             The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}
-      - delay: '00:00:10'
-      - service: media_player.volume_set
+      - service: script.tts_engine
         data_template:
-          entity_id: media_player.bedroom
-          volume_level: 0.3
-      - service: tts.google_translate_say
-        entity_id: media_player.bedroom
-        data_template:
-          message: >
-            Good morning! The time is {{states.sensor.time.state}}. The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}} degrees celcius. The forecast is {{states('sensor.darksky_hourly_summary')}}. Have a great day.
+          media_player: media_player.bedroom
+          call_inside_weather: 1
+          call_outside_weather: 1
+          call_full_moon: 1
+          call_uv_index: 1
+      - delay: '00:01:00'
       - wait_template: "{{ is_state('media_player.bedroom', 'idle') or is_state('media_player.bedroom', 'off') }}"
       - service: media_player.volume_set
         data_template:

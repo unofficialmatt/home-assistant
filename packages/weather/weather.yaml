@@ -51,6 +51,7 @@ sensor:
       - temperature_high
       - temperature_low
       - apparent_temperature_high
+      - uv_index
     units: auto
   - platform: metoffice
     api_key: !secret met_office_key
@@ -176,21 +177,9 @@ script:
         entity_id: scene.rain_warning
       - service: script.notify_engine
         data:
-          notify_title: "{{ "\uD83C\uDF27" }} Rain Warning"
+          notify_title: '{{ "\uD83C\uDF27" }} Rain Warning'
           notify_message: "There is a {{states('sensor.chance_of_rain')}}% chance it might rain soon! There is a storm {{ states. sensor.darksky_nearest_storm_distance.state }} miles away."
-      - delay: '00:00:10'
-      - service: media_player.volume_set
+      - service: script.tts_engine
         data_template:
-          entity_id: media_player.speakers
-          volume_level: 0.5
-      - wait_template: "{{ is_state('media_player.speakers', 'idle') or is_state('media_player.speakers', 'off') }}"
-      - service: tts.google_translate_say
-        entity_id: media_player.speakers
-        data_template:
-          message: >
+          tts_message: >
             This is a weather alert from Home Assistant. There is a {{states('sensor.chance_of_rain')}} percent chance it might rain soon! There is a storm {{ states. sensor.darksky_nearest_storm_distance.state }} miles away.
-      - wait_template: "{{ is_state('media_player.speakers', 'idle') }}"
-      - service: media_player.volume_set
-        data_template:
-          entity_id: media_player.speakers
-          volume_level: 0.2

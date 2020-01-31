@@ -97,10 +97,16 @@ automation:
             entity_id: light.guest_bedroom
             state: 'off'
     action:
+      - service: script.tts_engine
+        data_template:
+          media_player: media_player.bedroom
+          tts_message: >
+            {% if is_state('input_boolean.alarm_clock', 'on') %}
+            Your alarm is set for {{ states.sensor.alarm_time.state }}AM.
+            {% endif %}
+            Tomorrow the weather will be {{ states.sensor.darksky_summary_1d.state }} with highs of {{ states. sensor.darksky_daytime_high_temperature_1d.state }} degrees celcius.
       - service: script.turn_on
         entity_id: script.turn_off_bedtime
-      - service: script.turn_on
-        entity_id: script.bedtime_message
 
   # IF GUESTS ARE STAYING AND THEIR BEDROOM LIGHT IS THE LAST TO TURN OFF, TURN OFF ALL DEVICES THEREAFTER
   - alias: Bedtime - SHUTDOWN Guests
@@ -163,45 +169,6 @@ automation:
 #######################################################
 
 script:
-  bedtime_message:
-    sequence:
-      - wait_template: "{{ is_state('media_player.bedroom', 'idle') or is_state('media_player.bedroom', 'off') }}"
-      - service: media_player.volume_set
-        data_template:
-          entity_id: media_player.bedroom
-          volume_level: 0.5
-      - service: tts.google_translate_say
-        entity_id: media_player.bedroom
-        data_template:
-          message: >
-            Good night {{ states.sensor.who_is_home.state }}.
-            {% if is_state('input_boolean.alarm_clock', 'on') %}
-            Your alarm is set for {{ states.sensor.alarm_time.state }}AM.
-            {% endif %}
-            Tomorrow the weather will be {{ states.sensor.darksky_summary_1d.state }} with highs of {{ states. sensor.darksky_daytime_high_temperature_1d.state }} degrees celcius.
-            {{ [
-            "Sweet dreams!",
-            "Sleep tight!",
-            "Sleep well!",
-            "Rest your weary head!",
-            "Good night",
-            "Night night",
-            "Until tomorrow..good night.",
-            "Seeya!",
-            "Have a great sleep",
-            "Dream of powderdust and unicorns and glitter and pink and sparkles.",
-            "Powering down...",
-            "Rest up",
-            "Please don't snore tonight.",
-            "Good night, sleep tight, hope the bedbugs don't bite",
-            "Sweet dreams are made of this",
-            "Dream a little dream of me"
-            ] | random }}
-      - wait_template: "{{ is_state('media_player.bedroom', 'idle') }}"
-      - service: media_player.volume_set
-        data_template:
-          entity_id: media_player.bedroom
-          volume_level: 0.2
   turn_off_bedtime:
     sequence:
       - service: light.turn_off
@@ -217,6 +184,6 @@ script:
       - service: media_player.media_stop
         entity_id: media_player.speakers
       - service: switch.turn_off
-        entity_id: switch.fairy_lights, switch.star_lamp, switch.festoon_lights
+        entity_id: switch.fairy_lights, switch.star_lamp, switch.festoon_lights, switch.porch_light
       - service: media_player.turn_off
         entity_id: media_player.philips_tv
