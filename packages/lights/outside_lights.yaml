@@ -9,6 +9,8 @@ homeassistant:
     "automation.outside_lights_*":
       hidden: true
       icon: mdi:white-balance-incandescent
+    "*porch_light*":
+      icon: mdi:outdoor-lamp
   customize:
     switch.festoon_lights:
       icon: mdi:lightbulb-on-outline
@@ -37,6 +39,7 @@ ios:
 #######################################################
 
 automation:
+
   # TURNS OUTSIDE LIGHTS ON, IF LOW LIGHT OUTSIDE AND BACK DOOR OPENED
   - alias: Outside Lights - Turn ON
     trigger:
@@ -44,9 +47,13 @@ automation:
         entity_id: binary_sensor.back_door
         to: 'on'
     condition:
-      - condition: numeric_state
-        entity_id: sensor.outside_light_level
-        below: 5.0
+      condition: and
+      conditions:
+        - condition: time
+          after: '17:00:00'
+        - condition: sun
+          after: sunset
+          after_offset: "-00:45:00"
     action:
       - service: switch.turn_on
         entity_id: switch.festoon_lights

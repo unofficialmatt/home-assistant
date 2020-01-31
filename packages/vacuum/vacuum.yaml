@@ -51,26 +51,37 @@ automation:
       - service: counter.increment
         entity_id: counter.vacuum_counter
 
+  ## Reset countr at 5
+  - alias: Vacuum Counter Reset
+    trigger:
+      - platform: state
+        entity_id: counter.vacuum_counter
+        to: '5'
+    action:
+      - service: counter.reset
+        entity_id: counter.vacuum_counter        
+
   ## If robbie has cleaned three times, send a notification prompting to clean his bins, and reset the counter
   - alias: Vacuum Notify Clean Bin
     trigger:
       - platform: state
         entity_id: input_select.home_status
         to: 'Home'
+        for: 00:03:00
     condition:
       - condition: state
         entity_id: counter.vacuum_counter
-        state: '3'
+        state: '4'
     action:
-      - delay: '00:05:00'
       - service: script.notify_engine
-        data:
+        data_template:
           notify_title: "{{ '\uD83E\uDDF9'}} Empty Robbie's Bin"
           notify_message: >
+            {% set hoover_amount = states.counter.vacuum_counter.state %}
             {{ [
-            "Robbie has hoovered three times - it's probably time his bin was emptied!",
-            "It's about time I was mucked out. Please empty my bin.",
-            "What does a bin have to do around here to get emptied!",
+            "Robbie has hoovered " ~ hoover_amount + " times without being cleaned - it's probably time his bin was emptied!",
+            "It's about Robbie was mucked out. Please empty his bin.",
+            "What does a bin have to do around here to get emptied! Robbie has hoovered " ~ hoover_amount + " times!",
             "I am full of Hercules' fluff and Ripley's droppings. Please empty me.",
             "HEY! YOU! CLEAN ME!",
             "Hello! Is anybody out there?! I could do with my bin being emptied please.",
@@ -78,8 +89,6 @@ automation:
             "My eyes are bigger than my belly. I'm full! Please empty me.",
             "Bleep, bloop I'm full of poop."
             ] | random }}
-      - service: counter.reset
-        entity_id: counter.vacuum_counter
 
 #######################################################
 #                                                     #

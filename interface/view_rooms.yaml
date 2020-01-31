@@ -70,9 +70,10 @@ cards:
     - type: custom:vertical-stack-in-card
       cards:
       - type: picture-glance
-        title: Garden
+        title: Outside
         entities:
           - switch.festoon_lights
+          - switch.porch_light
         state_image:
           "on": /local/rooms/garden.jpg
           "off": /local/rooms/garden-bw.jpg

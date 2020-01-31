@@ -15,8 +15,8 @@ cards:
     - type: custom:decluttering-card
       template: pretty_graph
       variables:
-        - entity: sensor.outside_light_level
-        - name: Outside Light Level
+        - entity: sun.sun
+        - name: Sun Elevation
         - color: 'var(--ui-orange)'
     - type: custom:decluttering-card
       template: pretty_graph

@@ -6,6 +6,18 @@
 
 #######################################################
 #                                                     #
+#                    INPUT BOOLEAN                    #
+#                                                     #
+#######################################################
+
+input_boolean:
+  tts_notifications:
+    name: TTS Notifications
+    initial: on
+    icon: mdi:text-to-speech
+
+#######################################################
+#                                                     #
 #                        SCRIPT                       #
 #                                                     #
 #######################################################
@@ -14,11 +26,6 @@ script:
   ## The Notify Engine script will check to see who is home, and send a title and message to their phones only.
   notify_engine:
     alias: Notify Engine
-    fields:
-      title:
-        description: 'The title that should be transmitted to people who are home.'
-      message:
-        description: 'The message that should be transmitted to people who are home.'
     sequence:
       - service_template: >
           {% if is_state('person.sarah', 'home') and is_state('person.matt', 'home') %}
@@ -32,20 +39,83 @@ script:
           title: "{{ notify_title }}"
           message: "{{ notify_message }}"
 
+  tts_engine:
+  ## The TTS Engine takes the following optional variables and passes them to tts_process which does the heavy lifting
+  ## TTS Engine checks that all necessary conditions have been fulfilled, and whether a media player has been defined
+  ## - media_player: the media player to pass TTS through
+  ## - call_no_greeting: whether or not to say hello
+  ## - tts_message : the message to speak
+  ## - call_inside_weather: announce the inside temperature and humidity
+  ## - call_outside_weather: announce the outside weather
+  ## - call_full_moon: if it's a full moon tonight, announce
+  ## - call_empty_robbie: if roobie needs emptying, announce
+  ## - call_uv_index: if it's a sunny day, announce
+  ## - call_no_signoff: whether or not to say goodbye
 
+    alias: TTS Engine
+    sequence:
+      ## ONLY RUN THE ENGINE IF BETWEEN 0530-2400, SOMEONE IS HOME,
+      ## TTS NOTIFICATIONS ARE ON AND WE ARE NOT ASLEEP
+      - condition: and
+        conditions:
+          - condition: time
+            after: '05:30'
+            before: '23:59'
+          - condition: state
+            entity_id: input_select.home_status
+            state: 'Home'
+          - condition: state
+            entity_id: input_boolean.tts_notifications
+            state: 'on'
+          - condition: or
+            conditions:
+              - condition: state
+                entity_id: input_select.bedtime_trigger
+                state: Lights On
+              - condition: state
+                entity_id: input_select.bedtime_trigger
+                state: "Off"
+      ## EVENTUALLY DO THIS SO THAT GOOGLE SPEAKERS CONTINUE PLAYING...
+      - service: script.tts_process
+        data_template:
+          ## IF NO DATA IS PASSED, DEFAULT TO ALL
+          ## IF SEQUENCE, SPLIT AND CONCAT WITH ,
+          ## ELSE TAKE VALUE PASSED
+          media_player: >-
+            {% if media_player | length == 0 %}
+              {% set media_player = 'media_player.speakers' %}
+            {% endif %}
+            {% if media_player is not string and media_player is sequence %}
+              {% set media_player = media_player|join(', ') %}
+            {% endif %}
+            {{ media_player }}
+          speech_message: !include ../../includes/speech_template.yaml
 
-## EXAMPLE USE
-#automation:
-#  - alias: A Test Notify
-#    trigger:
-#      platform: template
-#      value_template: >
-#        {{ states.sensor.time.state == states.sensor.alarm_time.state }}
-#    action:
-#      - service: script.notify_engine
-#        data:
-#          notify_title: >
-#            {{ "\uD83C\uDF1E" }} Weather Briefing
-#          notify_message: >
-#            The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}
-#
+  tts_process:
+    alias: TTS Process
+    sequence:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: >
+            {{ media_player }}
+          volume_level: >-
+            {% if now().strftime('%H')|int < 10 and now().strftime('%H')|int > 6 %}
+              0.35
+            {% elif now().strftime('%H')|int > 10 and now().strftime('%H')|int < 20 %}
+              0.5
+            {% else %}
+              0.3
+            {% endif %}
+      # Makes the Home Assistant sound like the Casefiles Podcast guy
+      - service: tts.amazon_polly_say
+        data_template:
+          entity_id: >
+            {{ media_player }}
+          message: >-
+            <speak>
+              <amazon:auto-breaths volume="loud" frequency="x-high">
+              <prosody pitch="-20%" rate="75%" volume="x-loud">
+              {{ speech_message }}
+              </prosody>
+              </amazon:auto-breaths>
+            </speak>

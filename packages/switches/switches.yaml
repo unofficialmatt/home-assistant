@@ -23,6 +23,7 @@ group:
     name: Switches
     entities:
       #- switch.christmas_tree
+      - switch.porch_light
       - switch.fairy_lights
       - switch.bedroom_comfort
       #- switch.lounge_snowflakes
