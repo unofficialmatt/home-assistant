@@ -1,4 +1,4 @@
 state: on
 brightness: 255
-transition: 3
+transition: 5
 rgb_color: [246,255,254]
