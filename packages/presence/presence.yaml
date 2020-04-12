@@ -53,17 +53,25 @@ homeassistant:
 device_tracker:
   - platform: ping
     interval_seconds: 180
-    consider_home: 00:10:00
+    consider_home: 00:06:00
     hosts:
       sarah_ping: !secret ip_sarah_phone
       matt_ping: !secret ip_matt_phone
+      sarah_watch: !secret ip_sarah_watch
+      matt_watch: !secret ip_matt_watch
+  - platform: ping
+    interval_seconds: 90
+    consider_home: 00:20:00
+    hosts:
       aimee: !secret ip_aimee_phone
       james: !secret ip_james_phone
       katt: !secret ip_katt_phone
       rashida: !secret ip_rashida_phone
       #rob: !secret ip_rob_phone
-      sarah_watch: !secret ip_sarah_watch
-      matt_watch: !secret ip_matt_watch
+      beez: !secret ip_beez_phone
+  - platform: tile
+    username: !secret tile_email
+    password: !secret tile_password
 
 person:
   - name: Matt
@@ -129,6 +137,7 @@ group:
     entities:
       - device_tracker.aimee
       - device_tracker.james
+      - device_tracker.beez
   friends:
     name: Friends
     entities:
@@ -182,7 +191,6 @@ input_boolean:
 automation:
   # TRIGGER HOME / AWAY MODE
   - alias: Home Status - Change
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: group.occupants
@@ -199,7 +207,6 @@ automation:
 
   # We use seperate automations here, so that if home_status is changed manually (eg. by input select), the actions still occur.
   - alias: Home Status - Home Actions
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: input_select.home_status
@@ -211,7 +218,6 @@ automation:
           away_mode: off
 
   - alias: 'Home Status - Away Actions'
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: input_select.home_status
@@ -226,7 +232,6 @@ automation:
 
   # ACTIVATE HOLIDAY MODE
   - alias: Home Status - Holiday Actions
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: input_select.home_status
@@ -241,7 +246,6 @@ automation:
 
   # SEND NOTIFICATION OF STATUS CHANGE
   - alias: Home Status - Notify
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: input_select.home_status
@@ -257,12 +261,11 @@ automation:
             {% else %} Home Assistant status updated
             {% endif %}
 
-  # TRIGGER GUEST MODE IF GUESTS ARE HERE AT 2025
+  # TRIGGER GUEST MODE IF GUESTS ARE HERE AT 2100
   - alias: Guest Modes - Auto ON
-    hide_entity: true
     trigger:
       - platform: time
-        at: '20:25'
+        at: '21:00'
     condition:
       condition: or
       conditions:
@@ -279,6 +282,16 @@ automation:
             {% if is_state("group.family", "home") %} input_boolean.guests_staying
             {% else %} input_boolean.entertaining
             {% endif %}
+      - service: script.tts_engine
+        data_template:
+          media_player: media_player.downstairs
+          tts_message: >
+            {{ [
+              "It look's like there's some guests in the house so I'll keep the lights on tonight.",
+              "My sensors tell me there are some guests over. I'll keep all the lights on unless told otherwise.",
+              "Welcome to my esteemed guests. I'll make sure to keep the lights on for you tonight unless I'm told otherwise."
+              ] | random }}
+
 
   # SAYS HELLO WHEN SOMEONE ARRIVES HOME
   - alias: Person Greeting
@@ -300,7 +313,7 @@ automation:
             {% set person = trigger.entity_id.split('.')[1]|replace('_', ' ')%}
             {{ [
               "Welcome home " ~ person +". I've missed you.",
-              "Welcome back home, " ~ person,
+              "Welcome back home, " ~ person +". It's great to see you.",
               person + " is now in the house. Welcome back!",
               "Welcome Home " ~ person + ". We have missed you. Or at least the rabbits did.",
               "Welcome home, " ~ person +". Put your feet back and rest!",
@@ -316,8 +329,7 @@ automation:
               "My moments of silence are gone. " ~ person +" is now home.",
               "Welcome home " ~ person +". It's great to feel your presence.",
               "Welcome home " ~ person +". The house is just not the same without you.",
-              "Is that " ~ person +" I can hear? Welcome home - it's great to have you back.",
-              "Home is where " ~ person +"'s heart is'.",
+              "Is that " ~ person +" I can hear? Welcome home - it's great to have you back."
               ] | random }}
 
 #######################################################
@@ -334,7 +346,7 @@ script:
         data:
           transition: 10
       - service: media_player.media_stop
-        entity_id: media_player.speakers
+        entity_id: media_player.bedroom, media_player.dining_room, media_player.lounge, media_player.office
       - service: switch.turn_off
         entity_id: group.hardware_switches
       - service: media_player.turn_off

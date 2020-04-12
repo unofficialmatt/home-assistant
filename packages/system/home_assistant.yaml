@@ -51,7 +51,6 @@ sensor:
 
 automation:
   - alias: Hass Notify - New Release
-    hide_entity: True
     trigger:
       - platform: state
         entity_id: updater.updater
@@ -62,7 +61,6 @@ automation:
         message: "Home Assistant  {{ states.updater.updater.state }}  is now available."
 
   - alias: Hass Notify - System Start
-    hide_entity: True
     trigger:
       - platform: homeassistant
         event: start
@@ -73,7 +71,6 @@ automation:
         message: "Powering up..."
 
   - alias: Hass Notify - System Shutdown
-    hide_entity: True
     trigger:
       - platform: homeassistant
         event: shutdown
@@ -85,7 +82,6 @@ automation:
 
   ## SWITCHES BETWEEN LIGHT/DARK THEMES AT SUNSET/SUNRISE
   - alias: 'Theme Switch'
-    hide_entity: True
     trigger:
       - platform: homeassistant
         event: start

@@ -9,7 +9,7 @@ homeassistant:
     "automation.outside_lights_*":
       hidden: true
       icon: mdi:white-balance-incandescent
-    "*porch_light*":
+    "*porch*":
       icon: mdi:outdoor-lamp
   customize:
     switch.festoon_lights:

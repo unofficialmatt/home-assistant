@@ -15,8 +15,8 @@ cards:
     - type: custom:decluttering-card
       template: pretty_graph
       variables:
-        - entity: sun.sun
-        - name: Sun Elevation
+        - entity: sensor.sunlight_pct
+        - name: Sunlight Percent
         - color: 'var(--ui-orange)'
     - type: custom:decluttering-card
       template: pretty_graph

@@ -27,7 +27,7 @@ homeassistant:
       icon: mdi:nintendo-switch
     "*sensor*lounge_tv*":
       icon: mdi:television
-    "*sensor*macbook*":
+    "*sensor*mbp*":
       icon: mdi:laptop-mac
     "*sensor*imac*":
       icon: mdi:desktop-mac
@@ -100,11 +100,14 @@ binary_sensor:
 
   ## DEVICES
   - platform: ping
-    host: !secret ip_macbook
-    name: Macbook
+    host: !secret ip_matt_mbp
+    name: Macbook Pro
   - platform: ping
-    host: !secret ip_imac
-    name: iMac
+    host: !secret ip_sarah_imac
+    name: Sarah iMac
+  - platform: ping
+    host: !secret ip_matt_imac
+    name: Matt iMac
   - platform: ping
     host: !secret ip_sarah_ipad
     name: Sarah iPad
@@ -153,7 +156,7 @@ automation:
   - alias: Disconnected Device Notify
     trigger:
       - platform: state
-        entity_id: binary_sensor.router, binary_sensor.mycloud, binary_sensor.server, binary_sensor.range_extender_office, binary_sensor.range_extender_kitchen, binary_sensor.hue_hub, binary_sensor.robbie_the_rover, binary_sensor.heated_blanket, binary_sensor.star_lamp, binary_sensor.fairy_lights, binary_sensor.festoon_lights, binary_sensor.bedroom_speaker, binary_sensor.lounge_speaker, binary_sensor.office_speaker, binary_sensor.dining_room_speaker
+        entity_id: binary_sensor.router, binary_sensor.mycloud, binary_sensor.server, binary_sensor.range_extender_office, binary_sensor.range_extender_kitchen, binary_sensor.hue_hub
         to: 'off'
     action:
       - service: notify.matt

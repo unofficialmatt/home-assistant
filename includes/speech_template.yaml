@@ -1,50 +1,117 @@
   >-
   {% if call_no_greeting != 1 %}
-  {% if now().strftime('%H')|int < 9 and now().strftime('%H')|int >= 4 %}
+  {% if now().strftime('%H')|int < 8 and now().strftime('%H')|int >= 4 %}
       {{ [
-      "Good morning.",
-      "Top of the morning to ya.",
-      "Wakey wakey! Rise and shine!",
-      "Rise and shine!",
-      "Wake up! It's the start of a wonderful day!",
-      "Good morning. It's time to start your day.",
-      "Good morning, it's time to wake up.",
-      "Good morning. I hope you had a great night's sleep.",
-      "Beep boop. Warming up my speech engine. Good morning!"
+      "Good morning. ",
+      "<lang xml:lang='fr-FR'>Bonjour. </lang>",
+      "<lang xml:lang='de-DE'>Guten Morgen. </lang>",
+      "<lang xml:lang='es-ES'>Buenos días. </lang>",
+      "<lang xml:lang='nl-NL'>Goede morgen. </lang>",
+      "<lang xml:lang='it-IT'>Buon giorno. </lang>",
+      "<lang xml:lang='pl-PL'>Dzień dobry. </lang>",
+      "<lang xml:lang='pt-PT'>Bom dia. </lang>",
+      "<lang xml:lang='cy-GB'>Bore da. </lang>"
       ] | random }}
-  {% elif now().strftime('%H')|int >= 9 and now().strftime('%H')|int < 12 %}
       {{ [
-      "Good morning.",
-      "Hello.",
-      "Good day.",
-      "What's up!",
-      "Greetings from your friendly robot overlord.",
-      "Good morning - hope your day is getting off to a fabulous start.",
-      "Good day. I have something to tell you.",
-      "Holla at ya."
+      "And top of the morning to ya. ",
+      "Wakey wakey! Rise and shine! ",
+      "It's the start of a wonderful day! ",
+      "It's time to start your day. ",
+      "It's time to wake up. ",
+      "I hope you had a great night's sleep. ",
+      "Beep boop. Warming up my speech engine... ",
+      "It's good to be talking to you again. ",
+      "Did you sleep well? ",
+      "It's your favourite smart assistant here. ",
+      "Did you sleep as well as I did? ",
+      "My batteries are recharged and I'm ready for another day. "
+      ] | random }}
+  {% elif now().strftime('%H')|int >= 8 and now().strftime('%H')|int < 12 %}
+      {{ [
+      "Good morning. ",
+      "Good day. ",
+      "Holla at ya. ",
+      "What's up! ",
+      "Howdy! ",
+      "Hello friend. ",
+      "<lang xml:lang='fr-FR'>Bonjour. </lang>",
+      "<lang xml:lang='de-DE'>Guten Morgen. </lang>",
+      "<lang xml:lang='es-ES'>Buenos días. </lang>",
+      "<lang xml:lang='nl-NL'>Goede morgen. </lang>",
+      "<lang xml:lang='it-IT'>Buon giorno. </lang>",
+      "<lang xml:lang='pl-PL'>Dzień dobry. </lang>",
+      "<lang xml:lang='pt-PT'>Bom dia. </lang>",
+      "<lang xml:lang='cy-GB'>Bore da. </lang>"
+      ] | random }}
+      {{ [
+      "And greetings from your friendly robot overlord. ",
+      "I hope your day is getting off to a fabulous start. ",
+      "I have something to tell you. ",
+      "My sensors have alerted me to some important news. ",
+      "Are you having a good day so far? ",
+      "I thought I'd let you know. ",
+      "I've been asked to let you know. ",
+      "Here's something I thought you should know. ",
+      "It's your favourite smart assistant here. ",
+      "Have you brushed with quip today? ",
+      "It's about time we spoke again. "
       ] | random }}
   {% elif now().strftime('%H')|int >= 12 and now().strftime('%H')|int < 17 %}
       {{ [
-      "Good afternoon.",
-      "Hello.",
-      "Howdy doodie.",
-      "Good afternoon. I hope that your day is going well.",
-      "Good afternoon. I hope that you are having a great day.",
-      "Good afternoon. I have some news for you.",
-      "Good afternoon friend.",
-      "Good afternoon master.",
-      "Holla at ya."
+      "Good afternoon. ",
+      "Good day. ",
+      "Holla at ya. ",
+      "What's up! ",
+      "Howdy doodie! ",
+      "Hello friend. ",
+      "Greetings, master. ",
+      "<lang xml:lang='fr-FR'>Bonjour. </lang>",
+      "<lang xml:lang='de-DE'>Guten Tag. </lang>",
+      "<lang xml:lang='es-ES'>Buenas tardes. </lang>",
+      "<lang xml:lang='nl-NL'>Goedemiddag. </lang>",
+      "<lang xml:lang='it-IT'>Buon giorno. </lang>",
+      "<lang xml:lang='pl-PL'>Dzień dobry. </lang>",
+      "<lang xml:lang='pt-PT'>Boa tarde. </lang>",
+      "<lang xml:lang='cy-GB'>P'nawn da. </lang>"
+      ] | random }}
+      {{ [
+      "I hope that your day is going well. ",
+      "I hope that you are having a great day. ",
+      "I have some news for you. ",
+      "I have something to tell you. ",
+      "My sensors have alerted me to some important news. ",
+      "I thought I'd let you know. ",
+      "I've been asked to let you know. ",
+      "Here's something I thought you should know. ",
+      "Here's one for you... ",
+      "It's time I let you know a secret... ",
+      "Here's something you might not have known. ",
+      "It's the smartest house on the block speaking. ",
+      "It's your favourite smart assistant speaking. "
       ] | random }}
   {% else %}
       {{ [
-      "Good evening.",
-      "Good evening. I hope you had a wonderful day.",
-      "Good evening. I hope you had a great day.",
-      "Howdy doodie.",
-      "Good evening. I have some news for you.",
-      "Good evening friend.",
-      "Good evening master.",
-      "Good evening. I've been dying to tell you something."
+      "Good evening. ",
+      "Good evening friend. ",
+      "Greetings, master. ",
+      "<lang xml:lang='fr-FR'>Bonsoir. </lang>",
+      "<lang xml:lang='de-DE'>Guten Abend. </lang>",
+      "<lang xml:lang='es-ES'>Buenas noches. </lang>",
+      "<lang xml:lang='nl-NL'>Goedenavond. </lang>",
+      "<lang xml:lang='it-IT'>Buonasera. </lang>",
+      "<lang xml:lang='pl-PL'>Dobry wieczór. </lang>",
+      "<lang xml:lang='pt-PT'>Boa tarde. </lang>",
+      "<lang xml:lang='cy-GB'>Noswaith dda. </lang>"
+      ] | random }}
+      {{ [
+      "I hope that you had a great day. ",
+      "I hope that you had a wonderful day. ",
+      "I have some news for you. ",
+      "I have something to tell you. ",
+      "My sensors have alerted me to some important news. ",
+      "I thought I'd let you know. ",
+      "I've been asked to let you know. ",
+      "Here's something I thought you should know. "
       ] | random }}
   {% endif %}
   {% endif %}
@@ -58,58 +125,58 @@
   {% endif %}
 
   {% if call_outside_weather == 1 %}
-  {% set apparent_temperature = states.sensor.darksky_daytime_high_apparent_temperature_0d.state %}
+  {% set apparent_temperature = states.sensor.darksky_daytime_high_apparent_temperature_1d.state %}
   The current temperature outside is {{states('sensor.darksky_temperature')}}°C.
   {% if apparent_temperature >= '0' and apparent_temperature < '10' %}
   {{ [
-    "It's going to be a cold day today with highs of " ~ apparent_temperature + "°C",
-    "Brrrrr. It will be cold today with highs of " ~ apparent_temperature + "°C",
-    "Pack a wooly jumper! It will be cold today with highs of " ~ apparent_temperature + "°C",
-    "Wear your long johns! It will be cold today with highs of " ~ apparent_temperature + "°C",
-    "Pack a bobble hat! It will be cold today with highs of " ~ apparent_temperature + "°C",
-    "Put on your thermals! It will be cold today with highs of " ~ apparent_temperature + "°C",
-    "Wear warm clothing today! It will be cold with highs of " ~ apparent_temperature + "°C",
-    "Put on your thick socks! It will be cold today with highs of " ~ apparent_temperature + "°C",
-    "I wish I could tell you it will be hot today, but it won't! Expect highs of " ~ apparent_temperature + "°C",
-    "Shiver me timbers! It will be cold today with highs of " ~ apparent_temperature + "°C"
+    "It's going to be a cold day today with highs of " ~ apparent_temperature + "°C. ",
+    "Brrrrr. It will be cold today with highs of " ~ apparent_temperature + "°C. ",
+    "Pack a wooly jumper! It will be cold today with highs of " ~ apparent_temperature + "°C. ",
+    "Wear your long johns! It will be cold today with highs of " ~ apparent_temperature + "°C. ",
+    "Pack a bobble hat! It will be cold today with highs of " ~ apparent_temperature + "°C. ",
+    "Put on your thermals! It will be cold today with highs of " ~ apparent_temperature + "°C. ",
+    "Wear warm clothing today! It will be cold with highs of " ~ apparent_temperature + "°C. ",
+    "Put on your thick socks! It will be cold today with highs of " ~ apparent_temperature + "°C. ",
+    "I wish I could tell you it will be hot today, but it won't! Expect highs of " ~ apparent_temperature + "°C. ",
+    "Shiver me timbers! It will be cold today with highs of " ~ apparent_temperature + "°C. "
     ] | random }}
   {% elif apparent_temperature >= '10' and apparent_temperature < '20' %}
   {{ [
-    "It's going to be a cool day today with highs of " ~ apparent_temperature + "°C",
-    "The weather is lukewarm today with highs of " ~ apparent_temperature + "°C",
-    "It's a classic British day today. It's neither hot nor cold. Expect highs of " ~ apparent_temperature + "°C",
-    "It's a mild day today with highs of " ~ apparent_temperature + "°C",
-    "Today is a mild day. You can expect highs of " ~ apparent_temperature + "°C",
-    "It's neither hot nor cold today. Expect highs of " ~ apparent_temperature + "°C"
+    "It's going to be a cool day today with highs of " ~ apparent_temperature + "°C. ",
+    "The weather is lukewarm today with highs of " ~ apparent_temperature + "°C. ",
+    "It's a classic British day today. It's neither hot nor cold. Expect highs of " ~ apparent_temperature + "°C. ",
+    "It's a mild day today with highs of " ~ apparent_temperature + "°C. ",
+    "Today is a mild day. You can expect highs of " ~ apparent_temperature + "°C. ",
+    "It's neither hot nor cold today. Expect highs of " ~ apparent_temperature + "°C. "
     ] | random }}
   {% elif apparent_temperature >= '20' and apparent_temperature < '30' %}
   {{ [
-    "The sun is shining today. It's going to be warm with highs of " ~ apparent_temperature + "°C",
-    "It's a beautiful day with highs of " ~ apparent_temperature + "°C",
-    "The sun is out! It will be warm today with highs of " ~ apparent_temperature + "°C",
-    "Sun, sun, sun - here we come! It will be warm today with highs of " ~ apparent_temperature + "°C",
-    "It's getting hot in here! It will be warm today with highs of " ~ apparent_temperature + "°C",
-    "Hot stuff baby! It will be warm today with highs of " ~ apparent_temperature + "°C",
-    "Get those shorts on! It will be warm today with highs of " ~ apparent_temperature + "°C",
-    "Sun's out, guns out! It will be warm today with highs of " ~ apparent_temperature + "°C",
-    "Here comes the sun doo-dun doo doo! It will be warm today with highs of " ~ apparent_temperature + "°C"
+    "The sun is shining today. It's going to be warm with highs of " ~ apparent_temperature + "°C. ",
+    "It's a beautiful day with highs of " ~ apparent_temperature + "°C. ",
+    "The sun is out! It will be warm today with highs of " ~ apparent_temperature + "°C. ",
+    "Sun, sun, sun - here we come! It will be warm today with highs of " ~ apparent_temperature + "°C. ",
+    "It's getting hot in here! It will be warm today with highs of " ~ apparent_temperature + "°C. ",
+    "Hot stuff baby! It will be warm today with highs of " ~ apparent_temperature + "°C. ",
+    "Get those shorts on! It will be warm today with highs of " ~ apparent_temperature + "°C. ",
+    "Sun's out, guns out! It will be warm today with highs of " ~ apparent_temperature + "°C. ",
+    "Here comes the sun doo-dun doo doo! It will be warm today with highs of " ~ apparent_temperature + "°C. "
     ] | random }}
-  {% elif apparent_temperature > '30' %}
+  {% elif apparent_temperature >= '30' %}
   {{ [
-    "Today will be a scorcher! The sun is out and you can expect highs of " ~ apparent_temperature + "°C",
-    "It's getting hot in here! It will be hot today with highs of " ~ apparent_temperature + "°C",
-    "Who needs Thailand?! It will be hot today with highs of " ~ apparent_temperature + "°C",
-    "So hot right now! It will be hot today with highs of " ~ apparent_temperature + "°C",
-    "It's a gorgeous day today with highs of " ~ apparent_temperature + "°C",
-    "Get your shades on! It will be hot today with highs of " ~ apparent_temperature + "°C",
-    "Dust off those sunglasses! It will be hot today with highs of " ~ apparent_temperature + "°C",
-    "Get down to the beach! It will be hot today with highs of " ~ apparent_temperature + "°C", 
+    "Today will be a scorcher! The sun is out and you can expect highs of " ~ apparent_temperature + "°C. ",
+    "It's getting hot in here! It will be hot today with highs of " ~ apparent_temperature + "°C. ",
+    "Who needs Thailand?! It will be hot today with highs of " ~ apparent_temperature + "°C. ",
+    "So hot right now! It will be hot today with highs of " ~ apparent_temperature + "°C. ",
+    "It's a gorgeous day today with highs of " ~ apparent_temperature + "°C. ",
+    "Get your shades on! It will be hot today with highs of " ~ apparent_temperature + "°C. ",
+    "Dust off those sunglasses! It will be hot today with highs of " ~ apparent_temperature + "°C. ",
+    "Get down to the beach! It will be hot today with highs of " ~ apparent_temperature + "°C. ",
     ] | random }}
   {% else %}
   Today is going to be very cold. The highest temperature will be {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C.
-  {% endif %}  
+  {% endif %}
   {% if states.sensor.darksky_cloud_coverage_0d.state >= '70' %}
-  There's high cloud coverage today - with {{states('sensor.darksky_cloud_coverage_0d')}} percent cloud coverage.
+  There's high cloud coverage today - around {{states('sensor.darksky_cloud_coverage_0d')}} percent.
   {% endif %}
   The forecast is {{states('sensor.darksky_hourly_summary')}}
   {% endif %}
@@ -137,7 +204,7 @@
         "Bleep, bloop - Robbie is full of poop. Please empty him."
         ] | random }}
   {% endif %}
-  {% endif %}  
+  {% endif %}
 
   {% if call_uv_index == 1 %}
   {% if states.sensor.dark_sky_uv_index.state|int >= 6 and states.sensor.dark_sky_uv_index.state|int <= 7.9 %}
@@ -147,6 +214,7 @@
   {% elif states.sensor.dark_sky_uv_index.state|int >= 11 %}
       Today's UV index is {{ states.sensor.dark_sky_uv_index.state }}. This is EXTREME. You should be very cautious going outside.
   {% endif %}
+  {% else %}
   {% endif %}
 
   {% if call_no_signoff != 1 %}
@@ -163,7 +231,7 @@
       "Catch you on the rewind!",
       "Speak soon.",
       "Take care.",
-      "TTYL."
+      "T.T.Y.L."
       ] | random }}
   {% elif now().strftime('%H')|int >= 12 and now().strftime('%H')|int < 17 %}
       {{ [
@@ -177,7 +245,7 @@
       "Catch you on the rewind!",
       "Speak soon.",
       "Take care.",
-      "TTYL."
+      "T.T.Y.L."
       ] | random }}
   {% else %}
       {{ [
@@ -190,8 +258,7 @@
       "Catch you on the rewind!",
       "Speak soon.",
       "Take care.",
-      "TTYL.",
-      "<lang xml:lang=‘fr-FR’>Bon nuit</lang>"
+      "T.T.Y.L."
       ] | random }}
   {% endif %}
   {% endif %}

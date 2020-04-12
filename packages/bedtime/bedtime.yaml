@@ -36,7 +36,6 @@ input_select:
 automation:
   # TURN ON BEDROOM LIGHTS WHEN LANDING MOTION SENSOR TRIPPED BETWEEN 20:30 and 04:00
   - alias: Bedtime Lights ON
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: binary_sensor.landing_sensor_motion
@@ -72,11 +71,10 @@ automation:
           call_no_greeting: 1
           call_no_signoff: 1
           tts_message: >
-            Turning on the bedroom lights ready for bedtime.      
+            Turning on the bedroom lights ready for bedtime.
 
   # STANDARD SHUT DOWN IF NO GUESTS STAYING, AND IF NO ONE IS LEFT DOWNSTAIRS
   - alias: Bedtime - SHUTDOWN Standard
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: light.master_bedroom
@@ -117,7 +115,6 @@ automation:
 
   # IF GUESTS ARE STAYING AND THEIR BEDROOM LIGHT IS THE LAST TO TURN OFF, TURN OFF ALL DEVICES THEREAFTER
   - alias: Bedtime - SHUTDOWN Guests
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: light.guest_bedroom
@@ -142,7 +139,6 @@ automation:
 
   # IF SOMEONE IS STILL DOWNSTAIRS AT NIGHT, WAIT FOR THEM TO TURN OFF ALL LIGHTS BEFORE SHUTTING DOWN OTHER DEVICES
   - alias: Bedtime - SHUTDOWN Entertaining
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: group.all_lights
@@ -159,7 +155,6 @@ automation:
 
   # Bedtime trigger reset at 04:01 as 04:00 is the latest it can be set. If this is unset after we wake up, we will get false flags if the bedroom light is turned off
   - alias: Bedtime - Trigger RESET
-    hide_entity: true
     trigger:
       - platform: time
         at: '04:01:00'
@@ -181,7 +176,7 @@ script:
       - service: light.turn_off
         entity_id: group.all_lights
         data:
-          transition: 5
+          transition: 15
       - service: input_select.select_option
         data:
           entity_id: input_select.bedtime_trigger
@@ -189,8 +184,8 @@ script:
       - service: automation.turn_off
         entity_id: automation.rain_alert
       - service: media_player.media_stop
-        entity_id: media_player.speakers
+        entity_id: media_player.bedroom, media_player.dining_room, media_player.lounge, media_player.office
       - service: switch.turn_off
-        entity_id: switch.fairy_lights, switch.star_lamp, switch.festoon_lights, switch.porch_light
+        entity_id: switch.fairy_lights, switch.star_lamp, switch.festoon_lights
       - service: media_player.turn_off
         entity_id: media_player.philips_tv

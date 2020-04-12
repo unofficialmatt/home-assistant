@@ -92,8 +92,6 @@ automation:
         data:
           entity_id: input_select.scene_dining_room
           option: "Neutral"
-      - service: switch.turn_on
-        entity_id: switch.porch_light
       - service: scene.turn_on
         entity_id: scene.hallway_dimmed
       - delay: '02:30:00'
@@ -104,5 +102,3 @@ automation:
       - delay: '01:00:00'
       - service: light.turn_off
         entity_id: group.all_lights
-      - service: switch.turn_off
-        entity_id: switch.porch_light

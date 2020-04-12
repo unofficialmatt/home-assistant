@@ -73,7 +73,7 @@ cards:
         title: Outside
         entities:
           - switch.festoon_lights
-          - switch.porch_light
+          - light.porch
         state_image:
           "on": /local/rooms/garden.jpg
           "off": /local/rooms/garden-bw.jpg

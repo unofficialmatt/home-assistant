@@ -124,7 +124,6 @@ automation:
 
   # BIRD SOUNDS AND ARTIFICIAL SUNRISE
   - alias: Alarm Clock - Birds and Sunrise
-    hide_entity: true
     trigger:
       platform: template
       value_template: >
@@ -147,7 +146,7 @@ automation:
           option: "-"
       - service: media_player.volume_set
         data_template:
-          entity_id: media_player.bedroom
+          entity_id: media_player.bedroom_dining
           volume_level: 0.2
       - service: media_player.play_media
         entity_id: media_player.bedroom
@@ -157,7 +156,6 @@ automation:
 
   # TURN ON DOWNSTAIRS LIGHTS IF STILL DARK OUT
   - alias: Alarm Clock - Downstairs Lights On
-    hide_entity: true
     trigger:
       platform: template
       value_template: >
@@ -186,7 +184,6 @@ automation:
 
   # MORNING BRIEFING IS A TTS AND IOS MESSAGE ALERT THROUGH BEDROOM SPEAKER, OF THE WEATHER AHEAD
   - alias: Alarm Clock - Morning Briefing
-    hide_entity: true
     trigger:
       platform: template
       value_template: >
@@ -216,8 +213,9 @@ automation:
           call_inside_weather: 1
           call_outside_weather: 1
           call_full_moon: 1
-          call_uv_index: 1
-      - delay: '00:01:00'
+          #call_uv_index: 1
+      # Delay allows TTS to put together the notification otherwise the wait template would activate immediately
+      - delay: '00:00:15'
       - wait_template: "{{ is_state('media_player.bedroom', 'idle') or is_state('media_player.bedroom', 'off') }}"
       - service: media_player.volume_set
         data_template:

@@ -39,6 +39,23 @@ lovelace:
 #                                                     #
 #######################################################
 
+zone:
+  - name: Home
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    radius: 150
+    icon: mdi:home
+  - name: Matt Work
+    latitude: !secret work_latitude
+    longitude: !secret work_longitude
+    radius: 150
+    icon: mdi:worker
+  - name: Sarah Work
+    latitude: !secret work_sarah_latitude
+    longitude: !secret work_sarah_longitude
+    radius: 150
+    icon: mdi:worker
+
 config:
 
 api:

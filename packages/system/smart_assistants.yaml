@@ -18,7 +18,6 @@ homekit:
       - input_boolean.guests_staying
       - sensor.evening_commute
       - sensor.morning_commute
-      #- switch.christmas_tree
       - switch.fairy_lights
       - switch.bedroom_comfort
       - switch.festoon_lights
@@ -46,7 +45,7 @@ homekit:
 # Light, Xiaomi Vacuum, Nest Climate
 google_assistant:
   project_id: !secret gass_projectid
-  api_key: !secret gass_apikey
+  #api_key: !secret gass_apikey
   exposed_domains:
     - switch
     - input_boolean

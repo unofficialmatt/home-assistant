@@ -48,26 +48,6 @@ nest:
 
 sun:
 
-zone:
-  - name: Home
-    latitude: !secret home_latitude
-    longitude: !secret home_longitude
-    elevation: !secret home_elevation
-    radius: 150
-    icon: mdi:home
-  - name: Matt Work
-    friendly_name: Work
-    latitude: !secret work_latitude
-    longitude: !secret work_longitude
-    radius: 150
-    icon: mdi:worker
-  - name: Sarah Work
-    friendly_name: Work
-    latitude: !secret work_sarah_latitude
-    longitude: !secret work_sarah_longitude
-    radius: 150
-    icon: mdi:worker
-
 #######################################################
 #                                                     #
 #                    BINARY SENSOR                    #
@@ -104,3 +84,28 @@ sensor:
       - sensor.landing_temperature
   # SO THAT SARAH CAN HOWL AT THE MOON
   - platform: moon
+
+  ## COMPUTED LIGHT LEVEL
+  # @link https://community.home-assistant.io/t/virtual-light-sensor/31975/16
+  - platform: template
+    sensors:
+      sunlight_pct:
+        entity_id:
+          - sun.sun
+          - sensor.darksky_cloud_coverage
+        value_template: >-
+          {%- set elevation = state_attr('sun.sun','elevation') | float %}
+          {%- set cloud_coverage = states('sensor.darksky_cloud_coverage') | float %}
+          {%- set cloud_factor = (1 - (0.75 * ( cloud_coverage / 100) ** 3 )) %}
+          {%- set min_elevation = -6 %}
+          {%- set max_elevation = 64 %}
+          {%- set adjusted_elevation = elevation - min_elevation %}
+          {%- set adjusted_elevation = [adjusted_elevation,0] | max %}
+          {%- set adjusted_elevation = [adjusted_elevation,max_elevation - min_elevation] | min %}
+          {%- set adjusted_elevation = adjusted_elevation / (max_elevation - min_elevation) %}
+          {%- set adjusted_elevation = adjusted_elevation %}
+          {%- set adjusted_elevation = adjusted_elevation * 100 %}
+          {%- set brightness = adjusted_elevation * cloud_factor %}
+          {{ brightness | round }}
+        unit_of_measurement: '%'
+        device_class: 'illuminance'

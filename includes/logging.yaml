@@ -8,31 +8,16 @@
 include:
   domains:
     - device_tracker
-    - light
-    - switch
-    - automation
+    - person
   entities:
-    - group.occupants
-    - input_select.home_status
-    - input_select.bedtime_trigger
-    - sensor.average_home_temperature
-    - sensor.chance_of_rain
-    - sensor.darksky_nearest_storm_distance
-    - sensor.darksky_temperature
-    - sensor.hallway_thermostat_humidity
-    - sensor.evening_commute
-    - sensor.morning_commute
-    - binary_sensor.kitchen_sensor_motion
-    - binary_sensor.landing_sensor_motion
-    - sensor.lounge_tv
-    - device_tracker.lounge_tv
-    - media_player.philips_tv
-    - sensor.morning_commute
-    - sensor.evening_commute
+    - sensor.landing_sensor_temperature
 exclude:
   domains:
     - sensor
-    - climate
     - media_player
     - input_boolean
     - input_select
+    - light
+    - climate
+    - automation
+    - switch

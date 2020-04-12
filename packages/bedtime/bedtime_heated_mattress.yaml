@@ -42,7 +42,6 @@ automation:
 
   # TURN HEATED MATTRESS OFF AFTER ASLEEP FOR 90 MINS
   - alias: Heated Mattress - OFF
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: input_select.bedtime_trigger

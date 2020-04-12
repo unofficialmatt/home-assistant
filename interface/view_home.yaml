@@ -79,6 +79,11 @@ cards:
           style: {color: white, left: 64%, bottom: 0%, transform: initial}
           tap_action:
             action: toggle
+        - type: state-icon
+          entity: light.porch
+          style: {color: white, left: 72%, bottom: 0%, transform: initial}
+          tap_action:
+            action: toggle
         ## ENVIRONMENT
         - type: state-label
           entity: sensor.darksky_temperature
@@ -130,6 +135,53 @@ cards:
   ## THERMOSTAT AND VACUUM
   - type: vertical-stack
     cards:
+
+    - type: 'custom:config-template-card'
+      variables:
+        - 'states[''sensor.worldwide_coronavirus_confirmed''].state'
+        - 'states[''sensor.united_kingdom_coronavirus_confirmed''].state'
+      entities:
+        - sensor.worldwide_coronavirus_confirmed
+        - sensor.united_kingdom_coronavirus_confirmed
+      card:
+        show_header_toggle: false
+        title: Corona Virus
+        type: entities
+        entities:
+          - cards:
+              - card:
+                  max: '${vars[0]}'
+                  min: 0
+                  padding: 2px
+                  title_position: inside
+                  type: 'custom:bar-card'
+                filter:
+                  include:
+                    - entity_id: '*worldwide_coronavirus*'
+                sort: entity_id
+                type: 'custom:auto-entities'
+              - card:
+                  max: '${vars[1]}'
+                  min: 0
+                  padding: 2px
+                  title_position: inside
+                  type: 'custom:bar-card'
+                  width: 100%
+                filter:
+                  include:
+                    - entity_id: '*united_kingdom_coronavirus*'
+                sort: entity_id
+                type: 'custom:auto-entities'
+              - card:
+                type: custom:mini-graph-card
+                name: UK Current
+                entities:
+                  - sensor.united_kingdom_coronavirus_current
+                hours_to_show: 336
+                points_per_hour: 0.08
+
+            type: 'custom:hui-vertical-stack-card'
+
 
     ## THERMOSTAT
     - type: thermostat

@@ -27,6 +27,11 @@ input_boolean:
 script:
   ## The Notify Engine script will check to see who is home, and send a title and message to their phones only.
   notify_engine:
+
+  ## CHANGE THIS SO:
+  ## is_home: 0/1
+  ## person: matt, sarah
+  ## then can make it so it only notifys matt if home, both if away etc. Can then replace all notifies with it
     alias: Notify Engine
     sequence:
       - service_template: >
@@ -96,6 +101,12 @@ script:
   tts_process:
     alias: TTS Process
     sequence:
+      - service: notify.ios_matt
+        data_template:
+          title: >
+            {{ media_player }}
+          message: >
+            {{ speech_message }}
       - service: media_player.volume_set
         data_template:
           entity_id: >
@@ -104,7 +115,7 @@ script:
             {% if now().strftime('%H')|int < 10 and now().strftime('%H')|int > 6 %}
               0.35
             {% elif now().strftime('%H')|int > 10 and now().strftime('%H')|int < 20 %}
-              0.5
+              0.6
             {% else %}
               0.3
             {% endif %}

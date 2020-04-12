@@ -112,8 +112,23 @@ scene:
     entities:
       light.hallway:
         state: on
-        transition: 3
+        transition: 5
         brightness: 5
+
+  - name: Porch Dimmed
+    entities:
+      light.porch:
+        state: on
+        transition: 5
+        brightness: 5
+
+  - name: Porch Bright
+    entities:
+      light.porch:
+        state: on
+        transition: 5
+        brightness: 90
+
 
   - name: Master Bedroom Energise
     entities:
@@ -128,19 +143,19 @@ scene:
       light.master_bedroom_colour:
         state: on
         brightness: 125
-        transition: 3
+        transition: 5
         rgb_color: [255,44,57]
       light.master_bedroom_lightstrip:
         state: on
         brightness: 57
-        transition: 3
+        transition: 5
         rgb_color: [215,80,255]
   - name: Master Bedroom Dimmed
     entities:
       light.master_bedroom:
         state: on
         brightness: 77
-        transition: 3
+        transition: 5
         rgb_color: [255,207,120]
   - name: Master Bedroom Relax
     entities:
@@ -201,7 +216,7 @@ scene:
     entities:
       light.dining_room_colour:
         state: on
-        transition: 3
+        transition: 5
         brightness: 174
         color_temp: 448
       light.dining_room_lamp:
@@ -210,12 +225,12 @@ scene:
     entities:
       light.dining_room_colour:
         state: on
-        transition: 3
+        transition: 5
         brightness: 75
         rgb_color: [255,119,75]
       light.dining_room_lamp:
         state: on
-        transition: 3
+        transition: 5
         brightness: 222
         rgb_color: [255,42,201]
 
@@ -273,12 +288,12 @@ scene:
     entities:
       light.lounge_colour:
         state: on
-        transition: 3
+        transition: 5
         brightness: 257
         rgb_color: [255,163,74]
       light.lounge_lamp:
         state: on
-        transition: 3
+        transition: 5
         brightness: 75
         rgb_color: [255,119,75]
       light.hue_go:
@@ -321,7 +336,6 @@ scene:
 
 automation:
   - alias: Scene SELECT
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: input_select.scene_master_bedroom, input_select.scene_guest_bedroom, input_select.scene_lounge, input_select.scene_dining_room, input_select.scene_office
@@ -335,7 +349,6 @@ automation:
           entity_id: "scene.{{ trigger.entity_id|replace('input_select.scene_', '') }}_{{ trigger.to_state.state }}"
 
   - alias: Scene RESET
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: light.master_bedroom, light.guest_bedroom, light.lounge, light.dining_room, light.office

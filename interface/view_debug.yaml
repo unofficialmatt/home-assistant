@@ -204,11 +204,14 @@ cards:
         exclude:
           - entity_id: group.*
 
-  #- type: custom:auto-entities
-  #  card:
-  #    type: entities
-  #    title: All Components
-  #    show_header_toggle: false
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: All Components
+      show_header_toggle: false
+    filter:
+      include: [{}]
+
 
 
 

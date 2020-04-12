@@ -70,6 +70,10 @@
   - url: /local/community/vertical-style-card-master/vertical-style-card.js?v=0.1
     type: js
 
+  - url: /local/community/config-template-card/config-template-card.js
+    type: module
+
+
 
   - url: https://unpkg.com/moment@2.22.2/moment.js
     type: js
