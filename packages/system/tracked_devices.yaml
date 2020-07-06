@@ -33,7 +33,7 @@ homeassistant:
       icon: mdi:desktop-mac
     "*sensor*sarah_ipad*":
       icon: mdi:tablet-ipad
-    "*sensor*heated_blanket*":
+    "*sensor*bedtime_comfort*":
       icon: mdi:power-plug
     "*sensor*star_lamp*":
       icon: mdi:power-plug
@@ -114,8 +114,8 @@ binary_sensor:
 
   ## SWITCHES
   - platform: ping
-    host: !secret ip_switch_heated_mattress
-    name: Heated Blanket
+    host: !secret ip_switch_bedtime_comfort
+    name: Bedtime Comfort
   - platform: ping
     host: !secret ip_switch_fairy_lights
     name: Fairy Lights

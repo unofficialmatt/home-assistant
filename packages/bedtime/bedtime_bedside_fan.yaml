@@ -1,0 +1,57 @@
+#######################################################
+#                                                     #
+#               PACKAGES / BEDSIDE FAN                #
+#                                                     #
+#######################################################
+
+homeassistant:
+
+  customize:
+    switch.bedroom_comfort:
+      icon: mdi:fan
+      friendly_name: Bedroom Fan
+  customize_glob:
+    "*fan*":
+      icon: mdi:fan
+
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+
+  # TURN ON BEDROOM FAN IF THIS AUTOMATION IS ACTIVE AT BEDTIME
+  - alias: Bedroom Fan - ON Bedtime
+    initial_state: 'off'
+    trigger:
+      - platform: state
+        entity_id: input_select.bedtime_trigger
+        to: 'Lights On'
+      - platform: time
+        at: '21:00:00'
+    condition:
+      - condition: state
+        entity_id: input_select.home_status
+        state: 'Home'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.bedroom_comfort
+
+  # TURN BEDROOM FAN OFF AFTER ASLEEP FOR 90 MINS
+  - alias: Bedroom Fan - OFF
+    trigger:
+      - platform: state
+        entity_id: input_select.bedtime_trigger
+        to: 'Asleep'
+        for:
+          minutes: 90
+    condition:
+      - condition: state
+        entity_id: switch.bedroom_comfort
+        state: 'on'
+    action:
+      - service: switch.turn_off
+        entity_id: switch.bedroom_comfort

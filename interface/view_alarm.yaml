@@ -40,7 +40,7 @@ cards:
         entity: switch.bedroom_comfort
       - type: custom:button-card
         template: pretty_button
-        entity: automation.heated_mattress_on_bedtime
+        entity: automation.bedroom_fan_on_bedtime
         name: On At Bedtime?
         lock:
           enabled: true

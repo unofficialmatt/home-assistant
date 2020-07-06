@@ -186,6 +186,6 @@ script:
       - service: media_player.media_stop
         entity_id: media_player.bedroom, media_player.dining_room, media_player.lounge, media_player.office
       - service: switch.turn_off
-        entity_id: switch.fairy_lights, switch.star_lamp, switch.festoon_lights
+        entity_id: switch.fairy_lights, switch.star_lamp, switch.festoon_lights, switch.pergola_stars
       - service: media_player.turn_off
         entity_id: media_player.philips_tv
