@@ -41,6 +41,33 @@ ios:
 automation:
 
   - alias: Commute - Notify Sarah of ETA
+  - alias: Automatic Theme Change
+    initial_state: 'true'
+    trigger:
+      - platform: homeassistant
+        event: start
+      - platform: state
+        entity_id: sun.sun
+        to: above_horizon
+      - platform: sun
+        event: sunset
+        offset: "+00:30:00"
+    action:
+      - service_template: frontend.set_theme
+        data_template:
+         name: >
+           {% if states.sun.sun.state == "above_horizon" %}
+             Google Light Theme
+           {% else %}
+             Google Dark Theme
+           {% endif %}
+          # name: >
+          #   {% if states.sun.sun.state == "above_horizon" %}
+          #     clear
+          #   {% else %}
+          #     clear-dark
+          #   {% endif %}
+
     trigger:
       - platform: zone
         entity_id: person.matt

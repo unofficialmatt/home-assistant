@@ -6,7 +6,8 @@ cards:
 
   - type: vertical-stack
     cards:
-    - type: custom:vertical-stack-in-card
+    - type: custom:stack-in-card
+      mode: vertical
       cards:
       - type: picture-glance
         title: Master Bedroom
@@ -37,7 +38,8 @@ cards:
               - input_select.scene_master_bedroom
               - switch.bedroom_comfort
               - input_boolean.alarm_clock
-    - type: custom:vertical-stack-in-card
+    - type: custom:stack-in-card
+      mode: vertical
       cards:
       - type: picture-glance
         title: Guest Bedroom
@@ -67,12 +69,14 @@ cards:
               - light.guest_bedroom_sovereign
               - input_select.scene_guest_bedroom
               - input_boolean.guests_staying
-    - type: custom:vertical-stack-in-card
+    - type: custom:stack-in-card
+      mode: vertical
       cards:
       - type: picture-glance
         title: Outside
         entities:
           - switch.festoon_lights
+          - switch.pergola_stars
           - light.porch
         state_image:
           "on": /local/rooms/garden.jpg
@@ -84,7 +88,8 @@ cards:
 
   - type: vertical-stack
     cards:
-    - type: custom:vertical-stack-in-card
+    - type: custom:stack-in-card
+      mode: vertical
       cards:
       - type: picture-glance
         title: Lounge
@@ -117,7 +122,8 @@ cards:
               - switch.star_lamp
               - input_select.scene_lounge
               - input_boolean.entertaining
-    - type: custom:vertical-stack-in-card
+    - type: custom:stack-in-card
+      mode: vertical
       cards:
       - type: vertical-stack
         cards:
@@ -146,7 +152,8 @@ cards:
               - light.office_white
               - light.office_lamp
               - input_select.scene_office
-    - type: custom:vertical-stack-in-card
+    - type: custom:stack-in-card
+      mode: vertical
       cards:
       - type: picture-glance
         title: Hall
@@ -162,7 +169,8 @@ cards:
 
   - type: vertical-stack
     cards:
-    - type: custom:vertical-stack-in-card
+    - type: custom:stack-in-card
+      mode: vertical
       cards:
       - type: picture-glance
         title: Dining Room
@@ -193,7 +201,8 @@ cards:
               - switch.fairy_lights
               - input_select.scene_dining_room
               - input_boolean.entertaining
-    - type: custom:vertical-stack-in-card
+    - type: custom:stack-in-card
+      mode: vertical
       cards:
       - type: picture-glance
         title: Kitchen
@@ -223,7 +232,8 @@ cards:
               - light.kitchen_sink_1
               - light.kitchen_sink_2
               - input_select.scene_kitchen
-    - type: custom:vertical-stack-in-card
+    - type: custom:stack-in-card
+      mode: vertical
       cards:
       - type: picture-glance
         title: Landing

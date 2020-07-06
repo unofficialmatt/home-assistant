@@ -7,7 +7,8 @@ cards:
   ## AUDIO
   - type: vertical-stack
     cards:
-      - type: custom:vertical-stack-in-card
+      - type: custom:stack-in-card
+        mode: vertical
         cards:
           - type: markdown
             content: '## Audio'
@@ -33,7 +34,8 @@ cards:
               - entity: media_player.office
 
   ## VIDEO
-  - type: custom:vertical-stack-in-card
+  - type: custom:stack-in-card
+    mode: vertical
     cards:
       - type: markdown
         content: '## Video'

@@ -44,6 +44,60 @@ cards:
             - min: 50
             - mid: 70
 
+    ## INTERNET SPEEDS
+    - type: custom:stack-in-card
+      mode: vertical
+      cards:
+      - type: markdown
+        content: '## Internet'
+      - type: custom:decluttering-card
+        template: pretty_graph
+        variables:
+          - entity: sensor.speedtest_download
+          - name: Download Speed
+          - hours_to_show: 12
+          - extrema: true
+      - type: horizontal-stack
+        cards:
+          - type: custom:decluttering-card
+            template: pretty_graph
+            variables:
+              - entity: sensor.speedtest_upload
+              - name: Upload
+              - hours_to_show: 12
+              - extrema: true
+              - color: '#706fd3'
+          - type: custom:decluttering-card
+            template: pretty_graph
+            variables:
+              - entity: sensor.speedtest_ping
+              - name: Ping
+              - hours_to_show: 12
+              - extrema: true
+              - color: '#34ace0'
+      - type: horizontal-stack
+        cards:
+          - type: custom:decluttering-card
+            template: pretty_graph
+            variables:
+              - entity: sensor.arris_tg2492lg_85_router_kib_s_received
+              - name: KiB Received
+              - hours_to_show: 24
+              - extrema: true
+              - color: '#706fd3'
+          - type: custom:decluttering-card
+            template: pretty_graph
+            variables:
+              - entity: sensor.arris_tg2492lg_85_router_kib_s_sent
+              - name: KiB Sent
+              - hours_to_show: 24
+              - extrema: true
+              - color: '#34ace0'
+
+  ## DOCKER STACK
+  - type: vertical-stack
+    cards:
+
     ## DEVICE STATUS
     - type: custom:vertical-style-card
       title: Networked Device Status
@@ -84,7 +138,7 @@ cards:
         cards:
         - type: custom:button-card
           template: pretty_device
-          entity: binary_sensor.heated_blanket
+          entity: binary_sensor.bedtime_comfort
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.star_lamp
@@ -102,6 +156,11 @@ cards:
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.festoon_lights
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.pergola_stars
+      - type: horizontal-stack
+        cards:
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.bedroom_speaker
@@ -127,48 +186,31 @@ cards:
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.lounge_tv
-
-    ## INTERNET SPEEDS
-    - type: custom:vertical-stack-in-card
-      cards:
-      - type: markdown
-        content: '## Internet'
-      - type: custom:decluttering-card
-        template: pretty_graph
-        variables:
-          - entity: sensor.speedtest_download
-          - name: Download Speed
-          - hours_to_show: 12
-          - extrema: true
       - type: horizontal-stack
         cards:
-          - type: custom:decluttering-card
-            template: pretty_graph
-            variables:
-              - entity: sensor.speedtest_upload
-              - name: Upload
-              - hours_to_show: 12
-              - extrema: true
-              - color: 'var(--ui-accent-3)'
-          - type: custom:decluttering-card
-            template: pretty_graph
-            variables:
-              - entity: sensor.speedtest_ping
-              - name: Ping
-              - hours_to_show: 12
-              - extrema: true
-              - color: 'var(--ui-accent-2)'
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.macbook_pro
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.matt_imac
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.sarah_imac
 
-  - type: vertical-stack
-    cards:
-
-    ## DOCKER CONTAINER INFORMATION
     - type: entities
       title: Docker Containers
       show_header_toggle: false
       entities:
-        - type: section
-          label: Core
+        - type: custom:decluttering-card
+          template: toggle_lock
+          variables:
+            - entity: automation.docker_container_down_notify
+        - type: weblink
+          url: /portainer
+          name: Portainer
+    - type: horizontal-stack
+      cards:
         - type: custom:decluttering-card
           template: toggle_lock
           variables:
@@ -181,8 +223,8 @@ cards:
           template: toggle_lock
           variables:
             - entity: switch.traefik
-        - type: section
-          label: Download
+    - type: horizontal-stack
+      cards:
         - type: custom:decluttering-card
           template: toggle_lock
           variables:
@@ -191,8 +233,8 @@ cards:
           template: toggle_lock
           variables:
             - entity: switch.sabnzbd
-        - type: section
-          label: Indexes / Libraries
+    - type: horizontal-stack
+      cards:
         - type: custom:decluttering-card
           template: toggle_lock
           variables:
@@ -205,6 +247,8 @@ cards:
           template: toggle_lock
           variables:
             - entity: switch.ombi
+    - type: horizontal-stack
+      cards:
         - type: custom:decluttering-card
           template: toggle_lock
           variables:
@@ -217,11 +261,3 @@ cards:
           template: toggle_lock
           variables:
             - entity: switch.plex
-        - type: section
-          label: Settings
-        - type: custom:toggle-lock-entity-row
-          entity: automation.docker_container_down_notify
-          name: Notify if Container Down
-        - type: weblink
-          url: /portainer
-          name: Portainer

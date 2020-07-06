@@ -40,7 +40,7 @@ pretty_graph:
     entities:
       - '[[entity]]'
   default:
-    - color: 'var(--ui-accent-2)'
+    - color: '#34ace0'
     - hours_to_show: 24
     - tap_action: more-info
     - extrema: false
@@ -75,11 +75,11 @@ pretty_bar:
     rounding: 2px
   default:
     - min: '20'
-    - min_color: 'var(--ui-green)'
+    - min_color: '#218c74'
     - mid: '35'
-    - mid_color: 'var(--ui-orange)'
+    - mid_color: '#cd6133'
     - max: '100'
-    - max_color: 'var(--ui-red)'
+    - max_color: '#b33939'
     - icon: 'inside'
 
 #######################################
@@ -173,11 +173,11 @@ pretty_battery:
     visibility: <=30
     severity:
     - value: '15'
-      color: 'var(--ui-red)'
+      color: '#b33939'
     - value: '30'
-      color: 'var(--ui-orange)'
+      color: '#cd6133'
     - value: '100'
-      color: 'var(--ui-green)'
+      color: '#218c74'
     padding: 0px
     title_style:
       font-size: 13px
@@ -193,7 +193,9 @@ pretty_battery:
 
 toggle_lock:
   card:
-    type: custom:toggle-lock-entity-row
-    entity: '[[entity]]'
-    users:
-      - Matt
+    type: custom:restriction-card
+    card: 
+      type: custom:button-card
+      template: pretty_button
+      entity: '[[entity]]'
+    duration: 3

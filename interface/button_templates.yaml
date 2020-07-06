@@ -22,12 +22,12 @@ pretty_device:
     - value: "off"
       styles:
         card:
-          - background-color: 'var(--ui-red)'
+          - background-color: '#b33939'
           - color: white
     - value: "on"
       styles:
         card:
-          - background-color: 'var(--ui-green)'
+          - background-color: '#218c74'
           - color: white
 
 pretty_button:
@@ -39,9 +39,9 @@ pretty_button:
     - value: 'on'
       styles:
         card:
-          - background-color: 'var(--accent-color)'
-          - color: 'var(--background-color)'
+          - background-color: 'var(--state-icon-active-color)'
+          - color: 'var(--sidebar-background-color)'
         icon:
-          - color: 'var(--background-color)'
+          - color: 'var(--sidebar-background-color)'
         name:
-          - color: 'var(--background-color)'
+          - color: 'var(--sidebar-background-color)'
