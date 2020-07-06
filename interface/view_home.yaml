@@ -136,57 +136,15 @@ cards:
   - type: vertical-stack
     cards:
 
-    - type: 'custom:config-template-card'
-      variables:
-        - 'states[''sensor.worldwide_coronavirus_confirmed''].state'
-        - 'states[''sensor.united_kingdom_coronavirus_confirmed''].state'
-      entities:
-        - sensor.worldwide_coronavirus_confirmed
-        - sensor.united_kingdom_coronavirus_confirmed
-      card:
-        show_header_toggle: false
-        title: Corona Virus
-        type: entities
-        entities:
-          - cards:
-              - card:
-                  max: '${vars[0]}'
-                  min: 0
-                  padding: 2px
-                  title_position: inside
-                  type: 'custom:bar-card'
-                filter:
-                  include:
-                    - entity_id: '*worldwide_coronavirus*'
-                sort: entity_id
-                type: 'custom:auto-entities'
-              - card:
-                  max: '${vars[1]}'
-                  min: 0
-                  padding: 2px
-                  title_position: inside
-                  type: 'custom:bar-card'
-                  width: 100%
-                filter:
-                  include:
-                    - entity_id: '*united_kingdom_coronavirus*'
-                sort: entity_id
-                type: 'custom:auto-entities'
-              - card:
-                type: custom:mini-graph-card
-                name: UK Current
-                entities:
-                  - sensor.united_kingdom_coronavirus_current
-                hours_to_show: 336
-                points_per_hour: 0.08
-
-            type: 'custom:hui-vertical-stack-card'
-
-
     ## THERMOSTAT
-    - type: thermostat
-      entity: climate.hallway
-      name: Home Temperature
+    - type: conditional
+      conditions:
+        - entity: sensor.is_cold
+          state: "true"
+      card:
+        - type: thermostat
+          entity: climate.hallway
+          name: Home Temperature
 
     ## ROBBIE THE ROVER
     - type: custom:xiaomi-vacuum-card

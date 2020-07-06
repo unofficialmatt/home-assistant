@@ -63,6 +63,17 @@ sensor:
     entity_ids:
       - sensor.met_office_probability_of_precipitation
       - sensor.darksky_precip_probability
+  - platform: template
+    sensors:
+      is_cold:
+        friendly_name: "Cold Outside"
+        entity_id: sensor.darksky_temperature
+        value_template: >
+          {% if states.sensor.darksky_temperature.state|float <= 15 %}
+            true
+          {% else %}
+            false
+          {% endif %}
 
 #######################################################
 #                                                     #
