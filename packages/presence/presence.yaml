@@ -78,16 +78,20 @@ person:
     id: matt
     user_id: c1937753d36940ff9bc20222e7c8ffa3
     device_trackers:
-      - device_tracker.matt
-      - device_tracker.matt_ping
-      - device_tracker.matt_watch
+      - device_tracker.matt # HASS App
+      - device_tracker.matt_ping # Router Ping
+      - device_tracker.matt_watch # Router Ping
+      - device_tracker.matts_iphone # iCloud
+      - device_tracker.matts_apple_watch # iCloud
   - name: Sarah
     id: sarah
     user_id: 6484a01f3d07451aa10113e684fec320
     device_trackers:
-      - device_tracker.sarah
-      - device_tracker.sarah_ping
-      - device_tracker.sarah_watch
+      - device_tracker.sarah # HASS App
+      - device_tracker.sarah_ping # Router Ping
+      - device_tracker.sarah_watch # Router Ping
+      - device_tracker.sarah_kents_iphone # iCloud
+      - device_tracker.sarahs_apple_watch # iCloud
 
 #######################################################
 #                                                     #
