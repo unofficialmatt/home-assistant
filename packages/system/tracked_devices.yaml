@@ -124,7 +124,10 @@ binary_sensor:
     name: Star Lamp
   - platform: ping
     host: !secret ip_switch_festoon_lights
-    name: Festoon Lights
+    name: Pergola Bulbs
+  - platform: ping
+    host: !secret ip_switch_pergola_stars
+    name: Pergola Stars
   #- platform: ping
   #  host: !secret ip_switch_snowflakes
   #  name: Snowflakes

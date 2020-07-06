@@ -126,6 +126,7 @@ $RECYCLE.BIN/
 .nfs*
 
 # Plex Upcoming Cache
+www/upcoming-media-card-images
 www/custom-lovelace/upcoming-media-card/images
 
 # Google Verification

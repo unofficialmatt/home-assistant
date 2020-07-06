@@ -56,7 +56,7 @@ automation:
           after_offset: "-00:45:00"
     action:
       - service: switch.turn_on
-        entity_id: switch.festoon_lights
+        entity_id: switch.festoon_lights, switch.pergola_stars
 
   # IF OUTSIDE LIGHTS HAVE BEEN ON FOR 30, 120 MINS, SEND AN ACTIONABLE NOTIFICATION TO TURN OFF
   - alias: Outside Lights - Turn OFF Actionable
@@ -94,7 +94,7 @@ automation:
         actionName: DECK_LIGHTS_OFF
     action:
       - service: switch.turn_off
-        entity_id: switch.festoon_lights
+        entity_id: switch.festoon_lights, switch.pergola_stars
       - service: notify.ios_matt
         data:
           title: 'WORKED'

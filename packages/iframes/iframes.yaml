@@ -17,11 +17,3 @@ panel_iframe:
     title: 'Ombi'
     url: https://requests.lynwood.club
     icon: mdi:library-movie
-  portainer:
-    title: 'Portainer'
-    url: https://portainer.lynwood.club
-    icon: mdi:docker
-  sabnznbd:
-    title: 'SABnzbd'
-    url: https://usenet.lynwood.club
-    icon: mdi:download

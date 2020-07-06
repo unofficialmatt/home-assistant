@@ -25,7 +25,7 @@ group:
       #- switch.christmas_tree
       - switch.fairy_lights
       - switch.bedroom_comfort
-      #- switch.lounge_snowflakes
+      - switch.pergola_stars
       - switch.festoon_lights
       - switch.star_lamp
 
@@ -34,11 +34,5 @@ group:
 #                     INTEGRATIONS                    #
 #                                                     #
 #######################################################
-
-tuya:
-  username: !secret tuya_user
-  password: !secret tuya_pass
-  country_code: 44
-  platform: smart_life
 
 tplink:

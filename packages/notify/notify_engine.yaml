@@ -101,12 +101,12 @@ script:
   tts_process:
     alias: TTS Process
     sequence:
-      - service: notify.ios_matt
-        data_template:
-          title: >
-            {{ media_player }}
-          message: >
-            {{ speech_message }}
+#      - service: notify.ios_matt
+#        data_template:
+#          title: >
+#            {{ media_player }}
+#          message: >
+#            {{ speech_message }}
       - service: media_player.volume_set
         data_template:
           entity_id: >
