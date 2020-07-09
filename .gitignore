@@ -131,3 +131,7 @@ www/custom-lovelace/upcoming-media-card/images
 
 # Google Verification
 google*.html
+
+# Community files
+www/community/*
+!www/community/README.md
