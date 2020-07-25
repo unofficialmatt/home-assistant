@@ -62,7 +62,7 @@ automation:
           {% if is_state('input_boolean.guests_staying', 'on') %}
             input_select.select_option
             data:
-              entity_id: input_select.scene_guest_bedroom
+              entity_id: input_select.scene_man_cave
               option: "Bedtime"
           {% endif %}
       - service: script.tts_engine
@@ -99,7 +99,7 @@ automation:
             entity_id: input_boolean.guests_staying
             state: 'on'
           - condition: state
-            entity_id: light.guest_bedroom
+            entity_id: light.man_cave_lights
             state: 'off'
     action:
       - service: script.tts_engine
@@ -117,7 +117,7 @@ automation:
   - alias: Bedtime - SHUTDOWN Guests
     trigger:
       - platform: state
-        entity_id: light.guest_bedroom
+        entity_id: light.man_cave_lights
         to: 'off'
     condition:
       condition: and

@@ -49,7 +49,7 @@ input_select:
       - Relax
       - "-"
     initial: "-"
-  scene_guest_bedroom:
+  scene_man_cave:
     name: Scene
     options:
       - Energise
@@ -162,38 +162,40 @@ scene:
       light.master_bedroom:
         !include ../../includes/hue-scenes/relax.yaml
 
-  - name: Guest Bedroom Energise
+  - name: Man Cave Energise
     entities:
-      light.guest_bedroom:
+      light.man_cave_lights:
         !include ../../includes/hue-scenes/energise.yaml
-  - name: Guest Bedroom Bright
+  - name: Man Cave Bright
     entities:
-      light.guest_bedroom:
+      light.man_cave_lights:
         !include ../../includes/hue-scenes/bright.yaml
-  - name: Guest Bedroom Bedtime
+  - name: Man Cave Bedtime
     entities:
-      light.guest_bedroom_colour:
+      light.man_cave_colour:
         state: on
         brightness: 36
         transition: 5
         rgb_color: [255,163,74]
-      light.guest_bedroom_opihr:
+      light.man_cave_opihr:
         state: on
         brightness: 61
         transition: 5
         rgb_color: [114,148,255]
-      light.guest_bedroom_sovereign:
+      light.man_cave_sovereign:
         state: on
         brightness: 70
         transition: 5
         rgb_color: [255,56,119]
-  - name: Guest Bedroom Dimmed
+      light.matt_desk:
+        state: off
+  - name: Man Cave Dimmed
     entities:
-      light.guest_bedroom:
+      light.man_cave_lights:
         !include ../../includes/hue-scenes/dimmed.yaml
-  - name: Guest Bedroom Relax
+  - name: Man Cave Relax
     entities:
-      light.guest_bedroom:
+      light.man_cave_lights:
         !include ../../includes/hue-scenes/relax.yaml
 
   - name: Dining Room Energise
@@ -338,7 +340,7 @@ automation:
   - alias: Scene SELECT
     trigger:
       - platform: state
-        entity_id: input_select.scene_master_bedroom, input_select.scene_guest_bedroom, input_select.scene_lounge, input_select.scene_dining_room, input_select.scene_office
+        entity_id: input_select.scene_master_bedroom, input_select.scene_man_cave, input_select.scene_lounge, input_select.scene_dining_room, input_select.scene_office
     condition:
       - condition: template
         value_template: >
@@ -351,7 +353,7 @@ automation:
   - alias: Scene RESET
     trigger:
       - platform: state
-        entity_id: light.master_bedroom, light.guest_bedroom, light.lounge, light.dining_room, light.office
+        entity_id: light.master_bedroom, light.man_cave, light.lounge, light.dining_room, light.office
         to: 'off'
     action:
       - service: input_select.select_option

@@ -60,7 +60,7 @@ cards:
           tap_action:
             action: toggle
         - type: state-icon
-          entity: light.guest_bedroom
+          entity: light.man_cave_lights
           style: {color: white, left: 40%, bottom: 0%, transform: initial}
           tap_action:
             action: toggle
@@ -140,11 +140,11 @@ cards:
     - type: conditional
       conditions:
         - entity: sensor.is_cold
-          state: "true"
+          state: true
       card:
-        - type: thermostat
-          entity: climate.hallway
-          name: Home Temperature
+        type: thermostat
+        entity: climate.hallway
+        name: Home Temperature
 
     ## ROBBIE THE ROVER
     - type: custom:xiaomi-vacuum-card

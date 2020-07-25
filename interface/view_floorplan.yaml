@@ -56,30 +56,30 @@ cards:
               left: 53%
               font-size: 80%
 
-          ## GUEST BEDROOM
+          ## MAN CAVE
           - type: state-icon
             tap_action:
               action: toggle
-            entity: light.guest_bedroom_colour
+            entity: light.man_cave_colour
             style:
               top: 32%
               left: 57%
           - type: state-icon
             tap_action:
               action: toggle
-            entity: light.guest_bedroom_opihr
+            entity: light.man_cave_opihr
             style:
               top: 22.3%
               left: 44.7%
           - type: state-icon
             tap_action:
               action: toggle
-            entity: light.guest_bedroom_sovereign
+            entity: light.man_cave_sovereign
             style:
               top: 41.5%
               left: 44.7%
           - type: state-label
-            entity: input_select.scene_guest_bedroom
+            entity: input_select.scene_man_cave
             prefix: 'Scene: '
             style:
               top: 47%

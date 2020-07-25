@@ -70,6 +70,9 @@ binary_sensor:
     host: !secret ip_nuc
     name: Server
   - platform: ping
+    host: !secret ip_range_extender_mancave
+    name: Range Extender (Man Cave)
+  - platform: ping
     host: !secret ip_range_extender_office
     name: Range Extender (Office)
   - platform: ping
@@ -86,6 +89,9 @@ binary_sensor:
   - platform: ping
     host: !secret ip_robbie
     name: Robbie the Rover
+  - platform: ping
+    host: !secret ip_matt_desk_strip
+    name: Man Cave LEDs
 
   ## ENTERTAINMENT
   - platform: ping
@@ -159,7 +165,7 @@ automation:
   - alias: Disconnected Device Notify
     trigger:
       - platform: state
-        entity_id: binary_sensor.router, binary_sensor.mycloud, binary_sensor.server, binary_sensor.range_extender_office, binary_sensor.range_extender_kitchen, binary_sensor.hue_hub
+        entity_id: binary_sensor.router, binary_sensor.mycloud, binary_sensor.server, binary_sensor.hue_hub
         to: 'off'
     action:
       - service: notify.matt

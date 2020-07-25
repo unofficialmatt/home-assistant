@@ -122,6 +122,9 @@ cards:
           entity: binary_sensor.range_extender_office
         - type: custom:button-card
           template: pretty_device
+          entity: binary_sensor.range_extender_man_cave
+        - type: custom:button-card
+          template: pretty_device
           entity: binary_sensor.range_extender_kitchen
       - type: horizontal-stack
         cards:
@@ -155,10 +158,13 @@ cards:
         cards:
         - type: custom:button-card
           template: pretty_device
-          entity: binary_sensor.festoon_lights
+          entity: binary_sensor.pergola_bulbs
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.pergola_stars
+        - type: custom:button-card
+          template: pretty_device
+          entity: binary_sensor.man_cave_leds
       - type: horizontal-stack
         cards:
         - type: custom:button-card

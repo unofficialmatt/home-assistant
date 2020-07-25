@@ -26,13 +26,18 @@ homeassistant:
       icon: mdi:silverware-variant
     light.dining_room_lamp:
       icon: mdi:floor-lamp
-    light.guest_bedroom:
+    light.man_cave:
       homebridge_hidden: true
-      icon: mdi:hotel
-    light.guest_bedroom_opihr:
-      icon: mdi:lamp
-    light.guest_bedroom_sovereign:
-      icon: mdi:lamp
+      icon: mdi:guitar-electric
+    light.man_cave_lights:
+      homebridge_hidden: true
+      icon: mdi:guitar-electric
+    light.man_cave_opihr:
+      icon: mdi:bottle-tonic-outline
+    light.man_cave_sovereign:
+      icon: mdi:bottle-tonic-outline
+    light.matt_desk:
+      supported_features: 191
     light.hallway:
       homebridge_hidden: true
       icon: mdi:stairs
@@ -53,6 +58,8 @@ homeassistant:
       homebridge_hidden: true
       icon: mdi:hotel
     light.master_bedroom_lightstrip:
+      icon: mdi:led-strip
+    light.matt_desk:
       icon: mdi:led-strip
     light.office:
       homebridge_hidden: true
@@ -85,12 +92,18 @@ hue:
 #                                                     #
 #######################################################
 
+light:
+  - platform: group
+    name: Man Cave Lights
+    entities:
+      - light.man_cave
+      - light.matt_desk
 group:
   all_lights:
     name: All Lights
     entities:
       - light.dining_room
-      - light.guest_bedroom
+      - light.man_cave_lights
       - light.hallway
       - light.kitchen
       - light.landing
@@ -226,20 +239,20 @@ automation:
       # TURN OFFICE ON IF MATT IS IN THERE
       - service: input_select.select_option
         data_template:
-          entity_id: input_select.scene_office
+          entity_id: input_select.scene_man_cave
           option: >
-            {% if ( is_state('binary_sensor.matt_imac', 'on') or is_state('binary_sensor.matt_mbp', 'on')) and is_state('light.office', 'off') %}
-              Relax
+            {% if ( is_state('binary_sensor.matt_imac', 'on') or is_state('binary_sensor.matt_mbp', 'on')) and is_state('light.man_cave', 'off') %}
+              Dimmed
             {% else %}
               -
             {% endif %}
       # TURN OFFICE ON IF SARAH IS IN THERE
       - service: input_select.select_option
         data_template:
-          entity_id: input_select.scene_guest_bedroom
+          entity_id: input_select.scene_office
           option: >
-            {% if ( is_state('binary_sensor.sarah_imac', 'on') and is_state('light.guest_bedroom', 'off') ) %}
-              Relax
+            {% if ( is_state('binary_sensor.sarah_imac', 'on') and is_state('light.office', 'off') ) %}
+              Dimmed
             {% else %}
               -
             {% endif %}

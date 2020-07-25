@@ -31,7 +31,7 @@ homekit:
       - light.bedroom_entertainment_area
       - light.custom_group_for_lights
       - light.dining_room
-      - light.guest_bedroom
+      - light.man_cave
       - light.hallway
       - light.kitchen
       - light.landing

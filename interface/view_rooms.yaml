@@ -42,16 +42,17 @@ cards:
       mode: vertical
       cards:
       - type: picture-glance
-        title: Guest Bedroom
+        title: Man Cave
         entities:
-          - light.guest_bedroom_colour
-          - light.guest_bedroom_opihr
-          - light.guest_bedroom_sovereign
+          - light.man_cave_colour
+          - light.man_cave_opihr
+          - light.man_cave_sovereign
+          - light.matt_desk
           - input_boolean.guests_staying
         state_image:
           "on": /local/rooms/guest-bedroom.jpg
           "off": /local/rooms/guest-bedroom-bw.jpg
-        entity: light.guest_bedroom
+        entity: light.man_cave_lights
         aspect_ratio: 16x9
         tap_action:
           action: toggle
@@ -59,15 +60,16 @@ cards:
         show_header_toggle: false
         entities:
           - type: custom:fold-entity-row
-            head: light.guest_bedroom
+            head: light.man_cave_lights
             entities:
               - type: custom:slider-entity-row
-                entity: light.guest_bedroom
+                entity: light.man_cave_lights
                 full_row: true
-              - light.guest_bedroom_colour
-              - light.guest_bedroom_opihr
-              - light.guest_bedroom_sovereign
-              - input_select.scene_guest_bedroom
+              - light.man_cave_colour
+              - light.man_cave_opihr
+              - light.man_cave_sovereign
+              - light.matt_desk
+              - input_select.scene_man_cave
               - input_boolean.guests_staying
     - type: custom:stack-in-card
       mode: vertical
@@ -131,7 +133,7 @@ cards:
           title: Office
           entities:
             - media_player.office
-            - light.office_white
+            - light.office_filament
             - light.office_lamp
           state_image:
             "on": /local/rooms/office.jpg
@@ -149,7 +151,7 @@ cards:
               - type: custom:slider-entity-row
                 entity: light.office
                 full_row: true
-              - light.office_white
+              - light.office_filament
               - light.office_lamp
               - input_select.scene_office
     - type: custom:stack-in-card
@@ -211,6 +213,7 @@ cards:
           - light.kitchen_oven_2
           - light.kitchen_sink_1
           - light.kitchen_sink_2
+          - light.kitchen_extension
         state_image:
           "on": /local/rooms/kitchen.jpg
           "off": /local/rooms/kitchen-bw.jpg
@@ -231,6 +234,7 @@ cards:
               - light.kitchen_oven_2
               - light.kitchen_sink_1
               - light.kitchen_sink_2
+              - light.kitchen_extension
               - input_select.scene_kitchen
     - type: custom:stack-in-card
       mode: vertical
