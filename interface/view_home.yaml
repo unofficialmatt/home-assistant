@@ -139,8 +139,8 @@ cards:
     ## THERMOSTAT
     - type: conditional
       conditions:
-        - entity: sensor.is_cold
-          state: true
+        - entity: binary_sensor.is_cold
+          state: 'on'
       card:
         type: thermostat
         entity: climate.hallway
@@ -211,15 +211,14 @@ cards:
               - tap_action: none
 
     ## CALENDAR
-    - type: "custom:calendar-card"
-      name: Upcoming Events
+    - type: calendar
+      title: Upcoming Events
+      initial_view: listWeek
       entities:
         - calendar.home
         - calendar.holidays
         - calendar.joint
         - calendar.sarah
-      numberOfDays: 14
-      showLocation: true
 
 #    ## CHRISTMAS
 #    - type: custom:vertical-style-card

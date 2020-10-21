@@ -25,10 +25,6 @@
   # @link https://github.com/kalkih/mini-media-player
   - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
     type: module
-  # Custom Header adds enhancements and customization options to Home Assistant's Lovelace header. Custom Header is the replacement and successor of Compact Custom Header.
-  # @link https://github.com/maykar/custom-header
-  - url: /hacsfiles/custom-header/custom-header.js
-    type: module
   # A minimalistic and customizable graph card for Home Assistant Lovelace UI.
   # @link https://github.com/kalkih/mini-graph-card
   - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
@@ -59,18 +55,8 @@
   - url: /hacsfiles/stack-in-card/stack-in-card.js
     type: module
 
-  - url: /hacsfiles/calendar-card/calendar-card.js
-    type: module
 
   # Apply restrictions to Lovelace cards
   # @link https://github.com/iantrich/restriction-card
   - url: /hacsfiles/restriction-card/restriction-card.js
     type: module
-
-  - url: /hacsfiles/config-template-card/config-template-card.js
-    type: module
-
-
-
-  - url: https://unpkg.com/moment@2.22.2/moment.js
-    type: js

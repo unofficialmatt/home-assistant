@@ -1,9 +1,6 @@
 title: Home
 resources: !include interface/resources.yaml
 
-## CUSTOM HEADER CONFIG
-custom_header: !include interface/custom_header.yaml
-
 # ALLOWS US TO REDUCE REPETITION IN CARDS FOR A MORE DRY CODEBASE
 decluttering_templates: !include interface/decluttering_templates.yaml
 button_card_templates: !include interface/button_templates.yaml
