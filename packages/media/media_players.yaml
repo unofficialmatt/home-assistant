@@ -56,8 +56,12 @@ media_player:
     api_version: 6
 
 spotcast:
-  username: !secret spotify_username
-  password: !secret spotify_password
+  sp_dc: !secret spotify_sp_dc
+  sp_key: !secret spotify_sp_key
+
+spotify:
+  client_id: !secret spotify_client_id
+  client_secret: !secret spotify_client_secret
 
 
 #######################################################
