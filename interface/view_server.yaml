@@ -142,9 +142,9 @@ cards:
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.bedtime_comfort
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.star_lamp
+#        - type: custom:button-card
+#          template: pretty_device
+#          entity: binary_sensor.star_lamp
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.fairy_lights
@@ -192,17 +192,6 @@ cards:
         - type: custom:button-card
           template: pretty_device
           entity: binary_sensor.lounge_tv
-      - type: horizontal-stack
-        cards:
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.macbook_pro
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.matt_imac
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.sarah_imac
 
     - type: entities
       title: Docker Containers

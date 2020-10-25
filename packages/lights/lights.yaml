@@ -40,8 +40,6 @@ homeassistant:
       icon: mdi:bottle-tonic-outline
     light.man_cave_sovereign:
       icon: mdi:bottle-tonic-outline
-    light.matt_desk:
-      supported_features: 191
     light.hallway:
       homebridge_hidden: true
       icon: mdi:stairs
@@ -211,36 +209,41 @@ automation:
         - condition: numeric_state
           entity_id: sensor.sunlight_pct
           below: 20
-        - condition: time
-          after: '13:00:00'
+        - condition: state
+          entity_id: input_select.bedtime_trigger
+          state: 'Off'
+        #- condition: state
+        #  entity_id: input_select.lights_status
+        #  state: 'Off'
     action:
-      - service: script.tts_engine
-        data_template:
-          tts_message: >
-            {{ [
-              "It's getting dark out so I am turning on the lights.",
-              "The darkness is coming. I'll turn the lights on.",
-              "It will be dark soon. I'll turn the lights on.",
-              "Darkness is descending. Time for me to turn the lights on.",
-              "I'm struggling to see you! I'll turn the lights on.",
-              "Darkness is nearly upon us. Let me turn the lights on.",
-              "My sensors tell me that it's dark out. I'll turn the lights on.",
-              "And then there was light!",
-              "Darkness descends. I'll turn on some lights.",
-              "There goes the sun. Better turn on the lights.",
-              "Light levels are low so I'll turn some lights on in the house.",
-              ] | random }}
+      #- service: script.tts_engine
+      #  data_template:
+      #    tts_message: >
+      #      {{ [
+      #        "It's getting dark out so I am turning on the lights.",
+      #        "The darkness is coming. I'll turn the lights on.",
+      #        "It will be dark soon. I'll turn the lights on.",
+      #        "Darkness is descending. Time for me to turn the lights on.",
+      #        "I'm struggling to see you! I'll turn the lights on.",
+      #        "Darkness is nearly upon us. Let me turn the lights on.",
+      #        "My sensors tell me that it's dark out. I'll turn the lights on.",
+      #        "And then there was light!",
+      #        "Darkness descends. I'll turn on some lights.",
+      #        "There goes the sun. Better turn on the lights.",
+      #        "Light levels are low so I'll turn some lights on in the house.",
+      #        ] | random }}
       - service: scene.turn_on
         entity_id: scene.hallway_dimmed
       - service: input_select.select_option
         data_template:
           entity_id: input_select.scene_lounge
-          option: >
-            {% if is_state('light.lounge', 'off') %}
-              Relax
-            {% else %}
-              -
-            {% endif %}
+          option: "Relax"
+          #option: >
+          #  {% if is_state('light.lounge', 'off') %}
+          #    Relax
+          #  {% else %}
+          #    -
+          #  {% endif %}
       - service: input_select.select_option
         data_template:
           entity_id: input_select.scene_dining_room
@@ -254,22 +257,22 @@ automation:
       - service: input_select.select_option
         data_template:
           entity_id: input_select.scene_man_cave
-          option: >
-            {% if ( is_state('binary_sensor.matt_imac', 'on') or is_state('binary_sensor.matt_mbp', 'on')) and is_state('light.man_cave', 'off') %}
-              Dimmed
-            {% else %}
-              -
-            {% endif %}
+          option: "Dimmed"
       # TURN OFFICE ON IF SARAH IS IN THERE
       - service: input_select.select_option
         data_template:
           entity_id: input_select.scene_office
-          option: >
-            {% if ( is_state('binary_sensor.sarah_imac', 'on') and is_state('light.office', 'off') ) %}
-              Dimmed
-            {% else %}
-              -
-            {% endif %}
+          option: "Dimmed"
+          #option: >
+          #  {% if ( is_state('binary_sensor.sarah_imac', 'on') and is_state('light.office', 'off') ) %}
+          #    Dimmed
+          #  {% else %}
+          #    -
+          #  {% endif %}
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.lights_status
+          option: "Lights On"
 
   - alias: Porch Light On Sunset and Sunrise
     trigger:
@@ -289,26 +292,3 @@ automation:
     action:
       - service: scene.turn_on
         entity_id: scene.porch_dimmed
-
-  # TURN UP PORCH LIGHT IF SOMEONE ARRIVES HOME
-  - alias: Porch Light Bright Arrive Home
-    trigger:
-      - platform: state
-        entity_id: person.matt, person.sarah
-        to: 'home'
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: light.porch
-          state: 'on'
-        - condition: numeric_state
-          entity_id: sensor.sunlight_pct
-          below: 20
-    action:
-      - service: scene.turn_on
-        entity_id: scene.porch_bright
-      - delay: '00:05:00'
-      - service: scene.turn_on
-        entity_id: scene.porch_dimmed
-

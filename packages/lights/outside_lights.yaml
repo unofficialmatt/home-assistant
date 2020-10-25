@@ -18,7 +18,7 @@ homeassistant:
     switch.pergola_stars:
       icon: mdi:star
 
-### CHECK THIS ACTUALLY WORKS......
+### FIXME: CHECK THIS ACTUALLY WORKS......
 ios:
   push:
     categories:
@@ -66,13 +66,7 @@ automation:
       - platform: state
         entity_id: binary_sensor.back_door
         to: 'off'
-        for:
-          minutes: 30
-      - platform: state
-        entity_id: binary_sensor.back_door
-        to: 'off'
-        for:
-          minutes: 120
+        for: '00:30:00'
     condition:
       - condition: state
         entity_id: switch.festoon_lights
