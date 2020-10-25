@@ -108,12 +108,15 @@ binary_sensor:
   - platform: ping
     host: !secret ip_matt_mbp
     name: Macbook Pro
+    scan_interval: 1800
   - platform: ping
     host: !secret ip_sarah_imac
     name: Sarah iMac
+    scan_interval: 1800
   - platform: ping
     host: !secret ip_matt_imac
     name: Matt iMac
+    scan_interval: 1800
   - platform: ping
     host: !secret ip_sarah_ipad
     name: Sarah iPad
@@ -125,9 +128,9 @@ binary_sensor:
   - platform: ping
     host: !secret ip_switch_fairy_lights
     name: Fairy Lights
-  - platform: ping
-    host: !secret ip_switch_star_lamp
-    name: Star Lamp
+#  - platform: ping
+#    host: !secret ip_switch_star_lamp
+#    name: Star Lamp
   - platform: ping
     host: !secret ip_switch_festoon_lights
     name: Pergola Bulbs

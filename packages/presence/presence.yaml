@@ -53,7 +53,7 @@ homeassistant:
 device_tracker:
   - platform: ping
     interval_seconds: 180
-    consider_home: 00:06:00
+    consider_home: 00:13:00
     hosts:
       sarah_ping: !secret ip_sarah_phone
       matt_ping: !secret ip_matt_phone
@@ -350,7 +350,7 @@ script:
         data:
           transition: 10
       - service: media_player.media_stop
-        entity_id: media_player.bedroom, media_player.dining_room, media_player.lounge, media_player.office
+        entity_id: media_player.bedroom, media_player.dining_room, media_player.lounge, media_player.office, media_player.man_cave
       - service: switch.turn_off
         entity_id: group.hardware_switches
       - service: media_player.turn_off

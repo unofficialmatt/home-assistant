@@ -7,7 +7,7 @@
 homeassistant:
   customize_glob:
     "*bedtime*":
-      icon: mdi:hotel
+      icon: mdi:bed
   customize:
     script.turn_off_bedtime:
       icon: mdi:power
@@ -58,6 +58,10 @@ automation:
         data:
           entity_id: input_select.scene_master_bedroom
           option: "Bedtime"
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.lights_status
+          option: "Off"
       - service_template: >
           {% if is_state('input_boolean.guests_staying', 'on') %}
             input_select.select_option
@@ -184,7 +188,7 @@ script:
       - service: automation.turn_off
         entity_id: automation.rain_alert
       - service: media_player.media_stop
-        entity_id: media_player.bedroom, media_player.dining_room, media_player.lounge, media_player.office
+        entity_id: media_player.bedroom, media_player.dining_room, media_player.lounge, media_player.office, media_player.man_cave
       - service: switch.turn_off
         entity_id: switch.fairy_lights, switch.star_lamp, switch.festoon_lights, switch.pergola_stars
       - service: media_player.turn_off

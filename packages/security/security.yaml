@@ -8,6 +8,10 @@ homeassistant:
   customize:
     automation.intruder_alerts:
       icon: mdi:shield-home
+    binary_sensor.back_door:
+      icon: mdi:door
+    binary_sensor.front_door:
+      icon: mdi:door
 
 #######################################################
 #                                                     #

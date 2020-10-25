@@ -25,7 +25,7 @@ automation:
 
   # TURN ON BEDROOM FAN IF THIS AUTOMATION IS ACTIVE AT BEDTIME
   - alias: Bedroom Fan - ON Bedtime
-    initial_state: 'off'
+    initial_state: 'on'
     trigger:
       - platform: state
         entity_id: input_select.bedtime_trigger
@@ -47,7 +47,7 @@ automation:
         entity_id: input_select.bedtime_trigger
         to: 'Asleep'
         for:
-          minutes: 90
+          minutes: 120
     condition:
       - condition: state
         entity_id: switch.bedroom_comfort

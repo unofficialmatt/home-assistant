@@ -60,7 +60,7 @@ homeassistant:
       icon: mdi:lamp
     light.master_bedroom:
       homebridge_hidden: true
-      icon: mdi:hotel
+      icon: mdi:bed
     light.master_bedroom_lightstrip:
       icon: mdi:led-strip
     light.matt_desk:
@@ -128,7 +128,9 @@ automation:
     trigger:
       - platform: numeric_state
         entity_id: sensor.sunlight_pct
-        above: 35
+        above: 30
+      - platform: time
+        at: '09:00:00'
     condition:
       condition: and
       conditions:
@@ -137,21 +139,24 @@ automation:
           state: 'on'
         - condition: time
           after: '09:00:00'
+        - condition: numeric_state
+          entity_id: sensor.sunlight_pct
+          above: 30
     action:
       - service: light.turn_off
         entity_id: group.all_lights
-      - service: script.tts_engine
-        data_template:
-          call_no_signoff: 1
-          tts_message: >
-            {{ [
-              "There's plenty of light coming into the house so I'm turning the lights off.",
-              "I'm turning the lights off - I hope that's OK.",
-              "Save the planet! I'm turning the lights off.",
-              "It's daytime now so I'll turn the lights off.",
-              "My sensors are telling me that it's light enough without the lights on. I'll turn them off.",
-              "I'm going to turn the lights off now. Hash tag save the planet.",
-              ] | random }}
+      #- service: script.tts_engine
+      #  data_template:
+      #    call_no_signoff: 1
+      #    tts_message: >
+      #      {{ [
+      #        "There's plenty of light coming into the house so I'm turning the lights off.",
+      #        "I'm turning the lights off - I hope that's OK.",
+      #        "Save the planet! I'm turning the lights off.",
+      #        "It's daytime now so I'll turn the lights off.",
+      #        "My sensors are telling me that it's light enough without the lights on. I'll turn them off.",
+      #        "I'm going to turn the lights off now. Hash tag save the planet.",
+      #        ] | random }}
 
 
   # TURN THE DOWNSTAIRS LIGHTS ON BETWEEN 2100-0500 IF ANYONE ARRIVES HOME, AND THE HOUSE LIGHTS ARE CURRENTLY OFF
@@ -189,9 +194,14 @@ automation:
       - platform: numeric_state
         entity_id: sensor.sunlight_pct
         below: 20
+        for:
+          minutes: 10
       - platform: state
         entity_id: input_select.home_status
         to: "Home"
+      - platform: sun
+        event: sunset
+        offset: "-00:45:00"
     condition:
       condition: and
       conditions:

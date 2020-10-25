@@ -63,6 +63,8 @@ sensor:
     entity_ids:
       - sensor.met_office_probability_of_precipitation
       - sensor.darksky_precip_probability
+
+binary_sensor:
   - platform: template
     sensors:
       is_cold:

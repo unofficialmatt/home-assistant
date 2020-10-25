@@ -117,7 +117,7 @@ automation:
           volume_level: 0.2
       - service: spotcast.start
         data_template:
-          device_name: 'Dining Room Speaker'
+          device_name: 'media_player.dining_room'
           uri: >
             {{ [
             'spotify:user:spotify:playlist:37i9dQZF1DXcxacyAXkQDu',
@@ -130,11 +130,9 @@ automation:
             ] | random }}
         # RANDOM PLAYLISTS IN ORDER:
         # Wake up and smell the coffee, Wake up happy, Motown, Hot Hits UK, Happy Tunes, Weekendhygge, Feel Good Indie Rock
-      - delay: '00:00:30'
-      - service: media_player.shuffle_set
-        data:
-         entity_id: media_player.spotify
-         shuffle: true
+          random_song: true
+          shuffle: true
+          repeat: true
       # TURNS OFF AUTOMATION - TO PREVENT THE AUTOMATION CONTINUALLY FIRING
       # WAITS FOR 2.5 HOURS AND THEN RE-ENABLES
       - service: automation.turn_off
