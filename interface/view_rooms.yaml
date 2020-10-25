@@ -161,7 +161,7 @@ cards:
       - type: picture-glance
         title: Hall
         entities:
-          - light.hallway_white
+          - light.hallway_filament
         state_image:
           "on": /local/rooms/hallway.jpg
           "off": /local/rooms/hallway-bw.jpg
@@ -180,6 +180,8 @@ cards:
         entities:
           - light.dining_room_colour
           - light.dining_room_lamp
+          - light.dining_room_lamp_left
+          - light.dining_room_lamp_right
           - media_player.dining_room
           - switch.fairy_lights
           - input_boolean.entertaining
@@ -201,6 +203,8 @@ cards:
                 full_row: true
               - light.dining_room_colour
               - light.dining_room_lamp
+              - light.dining_room_lamp_left
+              - light.dining_room_lamp_right
               - switch.fairy_lights
               - input_select.scene_dining_room
               - input_boolean.entertaining
@@ -243,9 +247,9 @@ cards:
       - type: picture-glance
         title: Landing
         entities:
-          - light.landing_bathroom
-          - light.landing_middle
-          - light.landing_bedrooms
+          - light.landing_filament_bathroom
+          - light.landing_filament_middle
+          - light.landing_filament_stairs
         state_image:
           "on": /local/rooms/landing.jpg
           "off": /local/rooms/landing-bw.jpg

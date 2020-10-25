@@ -90,7 +90,7 @@ cards:
           - type: state-icon
             tap_action:
               action: toggle
-            entity: light.hallway_white
+            entity: light.hallway_filament
             style:
               top: 85%
               left: 65%
@@ -99,21 +99,21 @@ cards:
           - type: state-icon
             tap_action:
               action: toggle
-            entity: light.landing_bathroom
+            entity: light.landing_filament_bathroom
             style:
               top: 15%
               left: 34%
           - type: state-icon
             tap_action:
               action: toggle
-            entity: light.landing_middle
+            entity: light.landing_filament_middle
             style:
               top: 15%
               left: 50%
           - type: state-icon
             tap_action:
               action: toggle
-            entity: light.landing_bedrooms
+            entity: light.landing_filament_stairs
             style:
               top: 15%
               left: 66%
@@ -248,7 +248,7 @@ cards:
           - type: state-icon
             tap_action:
               action: toggle
-            entity: light.office_white
+            entity: light.office_filament
             style:
               top: 22%
               left: 30%

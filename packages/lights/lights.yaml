@@ -26,6 +26,10 @@ homeassistant:
       icon: mdi:silverware-variant
     light.dining_room_lamp:
       icon: mdi:floor-lamp
+    light.dining_room_lamp_left:
+      icon: mdi:lamp
+    light.dining_room_lamp_right:
+      icon: mdi:lamp
     light.man_cave:
       homebridge_hidden: true
       icon: mdi:guitar-electric
