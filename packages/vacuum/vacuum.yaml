@@ -51,17 +51,61 @@ automation:
       - service: counter.increment
         entity_id: counter.vacuum_counter
 
-  ## Reset countr at 5
+  ## Reset Robbie Counter
   - alias: Vacuum Counter Reset
     trigger:
       - platform: state
         entity_id: counter.vacuum_counter
         to: '5'
+    condition:
+      - condition: state
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        state: 'docked'
     action:
       - service: counter.reset
-        entity_id: counter.vacuum_counter        
+        entity_id: counter.vacuum_counter
 
-  ## If robbie has cleaned three times, send a notification prompting to clean his bins, and reset the counter
+  ## If robbie has cleaned four times, send him to the bin for cleaning
+  - alias: Vacuum Goto Bin
+    trigger:
+      - platform: state
+        entity_id: counter.vacuum_counter
+        to: '4'
+    condition:
+      - condition: state
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        state: 'docked'
+    action:
+      - service: script.tts_engine
+        data_template:
+          media_player: media_player.downstairs
+          call_no_greeting: 1
+          call_no_signoff: 1
+          call_empty_robbie: 1
+          tts_message: ""
+      - service: script.notify_engine
+        data_template:
+          notify_title: "{{ '\uD83E\uDDF9'}} Empty Robbie's Bin"
+          notify_message: >
+            {% set hoover_amount = states.counter.vacuum_counter.state %}
+            {{ [
+            "Robbie has hoovered " ~ hoover_amount + " times without being cleaned - it's probably time his bin was emptied!",
+            "It's about Robbie was mucked out. Please empty his bin.",
+            "What does a bin have to do around here to get emptied! Robbie has hoovered " ~ hoover_amount + " times!",
+            "I am full of Hercules' fluff and Ripley's droppings. Please empty me.",
+            "HEY! YOU! CLEAN ME!",
+            "Hello! Is anybody out there?! I could do with my bin being emptied please.",
+            "I'm full up. Please empty me.",
+            "My eyes are bigger than my belly. I'm full! Please empty me.",
+            "Bleep, bloop I'm full of poop."
+            ] | random }}
+      - service: vacuum.send_command
+        data:
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+          command: app_goto_target
+          params: [19800,26000]
+
+  ## If robbie has cleaned four times, send a notification prompting to clean his bins, and reset the counter
   - alias: Vacuum Notify Clean Bin
     trigger:
       - platform: state
@@ -96,6 +140,7 @@ automation:
 #                                                     #
 #######################################################
 
+# TODO: Check these are still working OK
 script:
   vacuum_mop:
     alias: Vacuum - Mop
