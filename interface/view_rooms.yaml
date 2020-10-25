@@ -48,11 +48,12 @@ cards:
           - light.man_cave_opihr
           - light.man_cave_sovereign
           - light.matt_desk
+          - media_player.man_cave
           - input_boolean.guests_staying
         state_image:
           "on": /local/rooms/guest-bedroom.jpg
           "off": /local/rooms/guest-bedroom-bw.jpg
-        entity: light.man_cave_lights
+        entity: light.man_cave_all
         aspect_ratio: 16x9
         tap_action:
           action: toggle
@@ -60,10 +61,10 @@ cards:
         show_header_toggle: false
         entities:
           - type: custom:fold-entity-row
-            head: light.man_cave_lights
+            head: light.man_cave_all
             entities:
               - type: custom:slider-entity-row
-                entity: light.man_cave_lights
+                entity: light.man_cave_all
                 full_row: true
               - light.man_cave_colour
               - light.man_cave_opihr

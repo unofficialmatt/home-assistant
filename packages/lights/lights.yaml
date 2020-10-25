@@ -29,7 +29,7 @@ homeassistant:
     light.man_cave:
       homebridge_hidden: true
       icon: mdi:guitar-electric
-    light.man_cave_lights:
+    light.man_cave_all:
       homebridge_hidden: true
       icon: mdi:guitar-electric
     light.man_cave_opihr:
@@ -94,7 +94,7 @@ hue:
 
 light:
   - platform: group
-    name: Man Cave Lights
+    name: Man Cave All
     entities:
       - light.man_cave
       - light.matt_desk
@@ -103,7 +103,7 @@ group:
     name: All Lights
     entities:
       - light.dining_room
-      - light.man_cave_lights
+      - light.man_cave_all
       - light.hallway
       - light.kitchen
       - light.landing

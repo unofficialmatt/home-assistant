@@ -22,6 +22,8 @@ homeassistant:
       friendly_name: Office
     media_player.dining_room:
       friendly_name: Dining Room
+    media_player.man_cave:
+      friendly_name: Man Cave
     media_player.speakers:
       hidden: true
     media_player.upstairs:

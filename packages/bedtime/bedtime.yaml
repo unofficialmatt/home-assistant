@@ -99,7 +99,7 @@ automation:
             entity_id: input_boolean.guests_staying
             state: 'on'
           - condition: state
-            entity_id: light.man_cave_lights
+            entity_id: light.man_cave
             state: 'off'
     action:
       - service: script.tts_engine
@@ -117,7 +117,7 @@ automation:
   - alias: Bedtime - SHUTDOWN Guests
     trigger:
       - platform: state
-        entity_id: light.man_cave_lights
+        entity_id: light.man_cave
         to: 'off'
     condition:
       condition: and

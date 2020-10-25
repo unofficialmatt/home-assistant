@@ -32,6 +32,10 @@ cards:
             template: media_player_speaker
             variables:
               - entity: media_player.office
+          - type: custom:decluttering-card
+            template: media_player_speaker
+            variables:
+              - entity: media_player.man_cave
 
   ## VIDEO
   - type: custom:stack-in-card

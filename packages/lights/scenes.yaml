@@ -164,11 +164,11 @@ scene:
 
   - name: Man Cave Energise
     entities:
-      light.man_cave_lights:
+      light.man_cave_all:
         !include ../../includes/hue-scenes/energise.yaml
   - name: Man Cave Bright
     entities:
-      light.man_cave_lights:
+      light.man_cave_all:
         !include ../../includes/hue-scenes/bright.yaml
   - name: Man Cave Bedtime
     entities:
@@ -191,11 +191,11 @@ scene:
         state: off
   - name: Man Cave Dimmed
     entities:
-      light.man_cave_lights:
+      light.man_cave_all:
         !include ../../includes/hue-scenes/dimmed.yaml
   - name: Man Cave Relax
     entities:
-      light.man_cave_lights:
+      light.man_cave_all:
         !include ../../includes/hue-scenes/relax.yaml
 
   - name: Dining Room Energise

@@ -60,7 +60,7 @@ cards:
           tap_action:
             action: toggle
         - type: state-icon
-          entity: light.man_cave_lights
+          entity: light.man_cave_all
           style: {color: white, left: 40%, bottom: 0%, transform: initial}
           tap_action:
             action: toggle
