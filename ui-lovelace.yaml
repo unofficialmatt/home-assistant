@@ -18,3 +18,6 @@ views:
 
 # TODO: Nas disk space used? How
 # TODO: Warn when a battery is below XXX percent (select only - not phones!)
+# TODO: A couple of different dashboards - https://www.home-assistant.io/lovelace/dashboards-and-views/
+# TODO: Need to set up https://github.com/iantrich/restriction-card as replacement for lock endtity row
+# TODO: Set up this on BTT: https://www.reddit.com/r/homeassistant/comments/gyd5wd/finally_a_good_use_for_the_touch_bar_on_my/

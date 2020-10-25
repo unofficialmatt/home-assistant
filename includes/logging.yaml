@@ -7,17 +7,21 @@
 
 include:
   domains:
-    - device_tracker
-    - person
+    #- device_tracker
+    #- person
+    - automation
+    - light
   entities:
-    - sensor.landing_sensor_temperature
+    - sensor.sunlight_pct
+    - binary_sensor.porch_motion
+    - binary_sensor.washing_machine_vibration
+    - sensor.washing_machine_vibrations
 exclude:
   domains:
-    - sensor
     - media_player
     - input_boolean
     - input_select
-    - light
     - climate
-    - automation
     - switch
+#    - sensor
+

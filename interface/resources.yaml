@@ -60,3 +60,7 @@
   # @link https://github.com/iantrich/restriction-card
   - url: /hacsfiles/restriction-card/restriction-card.js
     type: module
+
+
+  - url: /hacsfiles/lovelace-card-mod/card-mod.js
+    type: module

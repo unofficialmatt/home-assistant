@@ -1,0 +1,132 @@
+# Enable Circdian Lighting
+circadian_lighting:
+
+tuya_custom:
+  devices_config:
+    - device_name: light.matt_desk
+      support_color: true
+
+# Testing Circadian Lighting
+switch:
+  - platform: circadian_lighting
+    lights_ct:
+      - light.office
+      #- light.dining_room
+      #- light.lounge
+
+
+
+#######################################################
+#                                                     #
+#                    INPUT SELECT                     #
+#                                                     #
+#######################################################
+
+input_select:
+  lights_status:
+    name: Lights Status
+    options:
+      - "Off"
+      - "Lights On"
+    initial: "Off"
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+  - alias: Porch Light Turn On Motion
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.porch_motion
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+      - condition: sun
+        after: sunset
+#      - condition: state
+#        entity_id: light.porch
+#        state: 'on'
+    action:
+      - service: scene.turn_on
+        entity_id: scene.porch_bright
+      - delay: '00:02:00'
+      - service: scene.turn_on
+        entity_id: scene.porch_dimmed
+
+  - alias: Matt Office Lights On
+    trigger:
+      - platform: time
+        at: '08:45:00'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_select.home_status
+          state: 'Home'
+        - condition: state
+          entity_id: input_boolean.alarm_clock
+          state: 'on'
+        - condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: 'on'
+    action:
+      - service: scene.turn_on
+        data:
+          entity_id: scene.matt_workday
+
+  - alias: Outside Lights - Turn OFF Auto
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.back_door
+        to: 'off'
+        for:
+          minutes: 120
+    condition:
+      condition: or
+      conditions:
+        - condition: state
+          entity_id: switch.festoon_lights
+          state: 'on'
+        - condition: state
+          entity_id: switch.pergola_stars
+          state: 'on'
+    action:
+      - service: switch.turn_off
+        entity_id: switch.festoon_lights, switch.pergola_stars
+
+  # Turn on the Lounge lights with the TV when it's dark out
+  #- alias: 'Scene - Lounge Evening'
+  #
+  #  trigger:
+  #  - platform: state
+  #    entity_id: media_player.philips_tv
+  #    to: 'on'
+  #    from: 'off'
+  #  condition:
+  #  - condition: numeric_state
+  #    entity_id: sensor.outside_light_level
+  #    below: 5.0
+  #  action:
+  #  - service: input_select.select_option
+  #    data:
+  #      entity_id: input_select.scene_lounge
+  #      option: "Relax"
+
+
+#######################################################
+#                                                     #
+#                        SCENE                        #
+#                                                     #
+#######################################################
+
+scene:
+  - name: Matt Workday
+    entities:
+      light.matt_desk:
+        state: on
+        transition: 5
+        brightness: 70

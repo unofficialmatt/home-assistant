@@ -1,0 +1,117 @@
+#######################################################
+#                                                     #
+#                       SENSOR                        #
+#                                                     #
+#######################################################
+
+
+# for huesensor component
+#sensor:
+#  - platform: template
+#    sensors:
+#      kitchen_temperature:
+#       value_template: '{{ states.sensor.kitchen_motion_sensor.attributes["temperature"] }}'
+#        friendly_name: 'Kitchen Temperature'
+#        unit_of_measurement: '°C'
+#      landing_temperature:
+#        value_template: '{{ states.sensor.landing_motion_sensor.attributes["temperature"] }}'
+#        friendly_name: 'Landing Temperature'
+#        unit_of_measurement: '°C'
+#      kitchen_humidity:
+#        value_template: '{{ states.sensor.kitchen_motion_sensor.attributes["humidity"] }}'
+#        friendly_name: 'Kitchen Humidity'
+#        unit_of_measurement: '%'
+#      landing_humidity:
+#        value_template: '{{ states.sensor.landing_motion_sensor.attributes["humidity"] }}'
+#        friendly_name: 'Landing Humidity'
+#        unit_of_measurement: '%'
+
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+
+  - alias: Automatic Theme Change
+    initial_state: 'true'
+    trigger:
+      - platform: homeassistant
+        event: start
+      - platform: state
+        entity_id: sun.sun
+        to: above_horizon
+      - platform: sun
+        event: sunset
+        offset: "+00:30:00"
+    action:
+      - service_template: frontend.set_theme
+        data_template:
+         name: >
+           {% if states.sun.sun.state == "above_horizon" %}
+             Google Light Theme
+           {% else %}
+             Google Dark Theme
+           {% endif %}
+          # name: >
+          #   {% if states.sun.sun.state == "above_horizon" %}
+          #     clear
+          #   {% else %}
+          #     clear-dark
+          #   {% endif %}
+
+  - alias: 'Notify of Sonarr / Radarr activity'
+    trigger:
+      - platform: template
+        value_template: '{{ states.persistent_notification.notification.attributes.title == "Sonarr" }}'
+      - platform: template
+        value_template: '{{ states.persistent_notification.notification.attributes.title == "Radarr" }}'
+    action:
+      - service: notify.all_phones
+        data_template:
+          title: 'Incoming Media'
+          message: '{{ "\uD83C\uDFAC" }} {{ states.persistent_notification.notification.attributes.message }}'
+          data:
+            push:
+              thread-id: "media-notifications"
+      - service: persistent_notification.dismiss
+        data_template:
+          notification_id: "{{ trigger.to_state.attributes.object_id }}"
+
+#  ## NOTIFY IF ANY DOCKER CONTAINERS GO DOWN FOR FIVE MINUTES
+#  - alias: Docker Container Down - Notify
+#    initial_state: 'on'
+#    trigger:
+#      - platform: state
+#        entity_id: switch.transmission_vpn, switch.plex, switch.ha_dockermon, switch.sonarr, switch.jackett, switch.lazy_librarian, switch.ombi, switch.radarr, switch.sabnzbd, switch.traefik, switch.portainer
+#        to: 'off'
+#        for:
+#          minutes: 5
+#    #condition:
+#    #  condition: and
+#    #  conditions:
+#    #    # Only send this once per hour
+#    #    - condition: template
+#    #      value_template: >
+#    #        {% if automation.docker_container_down_notify.last_triggered is not none %}
+#    #          {% if as_timestamp(now()) | int   -  as_timestamp(states.automation.docker_container_down_notify.attributes.last_triggered) | int > 3600 %} true {% else %} false
+#    #          {% endif %}
+#    #        {% else %}
+#    #        false
+#    #        {% endif %}
+#    action:
+#      - service: notify.matt_all
+#        data_template:
+#          message: 'Docker Container {{ trigger.to_state.name }} is not running. Please check the status of this container as some features may stop functioning.'
+#          title: >
+#            {{ "\u26A0\uFE0F" }} Container Alert
+#      - service: persistent_notification.create
+#        data_template:
+#          notification_id: offline_container
+#          title: >
+#            {{ "\u26A0\uFE0F" }} Container Offline
+#          message: >
+#            Docker Container {{ trigger.to_state.name }} is not running. Please check the status of this container as some features may stop functioning.
+#

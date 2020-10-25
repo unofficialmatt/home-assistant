@@ -1,0 +1,41 @@
+#######################################################
+#                                                     #
+#               PACKAGES / MEDIA CENTER              #
+#                                                     #
+#######################################################
+
+
+#######################################################
+#                                                     #
+#                       SENSOR                        #
+#                                                     #
+#######################################################
+
+sensor:
+
+## HOME ASSISTANT STATISTICS
+  - platform: radarr
+    host: !secret ip_nuc
+    port: !secret radarr_port
+    api_key: !secret radarr_api
+    days: 14
+    monitored_conditions:
+      - movies
+      - upcoming
+      - commands
+      - status
+
+
+#######################################################
+#                                                     #
+#                    INTEGRATIONS                     #
+#                                                     #
+#######################################################
+
+
+sabnzbd:
+  api_key: !secret sabnzbd_api_key
+  host: !secret ip_nuc
+  port: !secret sabnzbd_port
+  ssl: true
+  name: SABnzbd

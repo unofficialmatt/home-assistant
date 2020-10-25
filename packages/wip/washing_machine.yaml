@@ -1,0 +1,64 @@
+#######################################################
+#                                                     #
+#            PACKAGES / WASHING MACHINE               #
+#                                                     #
+#######################################################
+
+homeassistant:
+  customize_glob:
+    "*washing_machine*":
+      icon: mdi:washing-machine
+
+#######################################################
+#                                                     #
+#                       SENSOR                        #
+#                                                     #
+#######################################################
+
+sensor:
+  - platform: history_stats
+    name: Washing Machine Vibrations
+    entity_id: binary_sensor.washing_machine_vibration
+    state: 'vibration'
+    type: 'count'
+    end: '{{ now() }}'
+    duration:
+      minutes: 10
+
+#######################################################
+#                                                     #
+#                    INPUT BOOLEAN                    #
+#                                                     #
+#######################################################
+
+input_boolean:
+  washing_machine_running:
+    name: Washing Machine Running
+    initial: off
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+automation:
+  - alias: Alert Washing Machine Finished
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.washing_machine_vibrations
+        above: '4'
+    condition:
+      - condition: state
+        entity_id: input_boolean.washing_machine_running
+        state: 'off'
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.washing_machine_running
+      - delay: 00:15:00
+      - service: notify.matt_all
+        data_template:
+          title: '{{ "\u2699\uFE0F"}} Washing Complete!'
+          message: "The washing machine has finished it's cycle."
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.washing_machine_running
