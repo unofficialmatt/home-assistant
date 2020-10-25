@@ -22,13 +22,13 @@ notify:
   - name: all_phones
     platform: group
     services:
-      - service: ios_matt
-      - service: ios_sarah
-  - name: matt
+      - service: mobile_app_matts_phone
+      - service: mobile_app_sarahs_phone
+  - name: matt_all
     platform: group
     services:
-      - service: ios_matt
-  - name: sarah
+      - service: mobile_app_matts_phone
+  - name: sarah_all
     platform: group
     services:
-      - service: ios_sarah
+      - service: mobile_app_sarahs_phone

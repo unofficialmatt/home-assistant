@@ -34,3 +34,6 @@ automation:
         data_template:
           title: "{{ '\uD83C\uDF1D'}} It's a full moon tonight!"
           message: "The sun sets at approximately {{ as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom ('%H:%M') }}."
+          data:
+            push:
+              thread-id: "weather"

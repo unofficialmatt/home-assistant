@@ -38,14 +38,16 @@ script:
           {% if is_state('person.sarah', 'home') and is_state('person.matt', 'home') %}
             notify.all_phones
           {% elif is_state('person.sarah', 'home') and not is_state('person.matt', 'home') %}
-            notify.ios_sarah
+            notify.mobile_app_sarahs_phone
           {% elif is_state('person.matt', 'home') and not is_state('person.sarah', 'home') %}
-            notify.ios_matt
+            notify.mobile_app_matts_phone
           {% endif %}
         data_template:
           title: "{{ notify_title }}"
           message: "{{ notify_message }}"
-
+          data:
+            push:
+              thread-id: "hass-general"
   tts_engine:
   ## The TTS Engine takes the following optional variables and passes them to tts_process which does the heavy lifting
   ## TTS Engine checks that all necessary conditions have been fulfilled, and whether a media player has been defined
@@ -101,7 +103,7 @@ script:
   tts_process:
     alias: TTS Process
     sequence:
-#      - service: notify.ios_matt
+#      - service: notify.mobile_app_matts_phone
 #        data_template:
 #          title: >
 #            {{ media_player }}
@@ -113,9 +115,9 @@ script:
             {{ media_player }}
           volume_level: >-
             {% if now().strftime('%H')|int < 10 and now().strftime('%H')|int > 6 %}
-              0.35
+              0.25
             {% elif now().strftime('%H')|int > 10 and now().strftime('%H')|int < 20 %}
-              0.6
+              0.4
             {% else %}
               0.3
             {% endif %}

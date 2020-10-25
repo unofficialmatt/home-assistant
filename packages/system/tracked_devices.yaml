@@ -171,8 +171,11 @@ automation:
         entity_id: binary_sensor.router, binary_sensor.mycloud, binary_sensor.server, binary_sensor.hue_hub
         to: 'off'
     action:
-      - service: notify.matt
+      - service: notify.matt_all
         data_template:
           title: >
             {{ "\uD83D\uDED1" }} Device Disconnected
           message: "The {{ trigger.to_state.attributes.friendly_name }} has disconnected from the router."
+        data:
+          push:
+            thread-id: "server-notifications"

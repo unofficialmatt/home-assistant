@@ -240,10 +240,7 @@ automation:
             'spotify:user:spotify:playlist:37i9dQZF1E34SkVHjRrcrO',
             'spotify:user:spotify:playlist:37i9dQZF1E37vMthaZwm3G'
             ] | random }}
-        # Discover Weekly, Release Radar, New Music Friday UK, Daily Mixes 1-6
-          transfer_playback: true
-      - delay: '00:00:30'
-      - service: media_player.shuffle_set
-        data:
-         entity_id: media_player.spotify
-         shuffle: true
+          # Discover Weekly, Release Radar, New Music Friday UK, Daily Mixes 1-6
+          random_song: true
+          shuffle: true
+          repeat: true

@@ -254,7 +254,7 @@ automation:
       - platform: state
         entity_id: input_select.home_status
     action:
-      - service: notify.ios_matt
+      - service: notify.mobile_app_matts_phone
         data_template:
           title: >
             {% if is_state("input_select.home_status", "Holiday") %} {{ "\uD83C\uDFD6" }} Home set to {{ trigger.to_state.state }} mode
@@ -264,6 +264,12 @@ automation:
             {% if is_state("input_select.home_status", "Holiday") %} Enjoy your trip!
             {% else %} Home Assistant status updated
             {% endif %}
+          data:
+            push:
+              thread-id: "home-monitoring"
+            apns_headers:
+              apns-collapse-id: 'home-status'
+
 
   # TRIGGER GUEST MODE IF GUESTS ARE HERE AT 2100
   - alias: Guest Modes - Auto ON
@@ -357,9 +363,9 @@ script:
         entity_id: media_player.philips_tv
   request_location_update:
     sequence:
-      - service: notify.ios_matt
+      - service: notify.mobile_app_matts_phone
         data:
           message: "request_location_update"
-      - service: notify.ios_sarah
+      - service: notify.mobile_app_sarahs_phone
         data:
           message: "request_location_update"

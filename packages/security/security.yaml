@@ -40,11 +40,16 @@ automation:
           entity_id: input_select.home_status
           state: 'Holiday'
     action:
-      - service: notify.matt
+      - service: notify.matt_all
         data_template:
           title: >
             {{ "\uD83D\uDC6E" }} Intruder Alert!
           message: "The {{ trigger.to_state.attributes.friendly_name }} has been triggered."
+          data:
+            push:
+              thread-id: "home-monitoring"
+            apns_headers:
+              apns-collapse-id: 'motion-detected'
       - service: script.turn_on
         entity_id: script.request_location_update
       - delay: '00:01:00'

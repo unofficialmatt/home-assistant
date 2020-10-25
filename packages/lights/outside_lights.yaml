@@ -90,14 +90,14 @@ automation:
   # RESULT OF ACTIONABLE NOTIFICATION
   - alias: Outside Lights - Turn OFF YES
     trigger:
-      platform: event
-      event_type: ios.notification_action_fired
-      event_data:
-        actionName: DECK_LIGHTS_OFF
+      - platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          actionName: DECK_LIGHTS_OFF
     action:
       - service: switch.turn_off
         entity_id: switch.festoon_lights, switch.pergola_stars
-      - service: notify.ios_matt
+      - service: notify.mobile_app_matts_phone
         data:
           title: 'WORKED'
           message: 'YES'

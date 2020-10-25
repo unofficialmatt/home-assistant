@@ -45,11 +45,16 @@ automation:
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.doorbell_pressed
-      - service: notify.matt
+      - service: notify.matt_all
         data_template:
           title: >
             {{ "\ud83d\udd14" }} Someone's at the door!
           message: "The doorbell has been pressed."
+          data:
+            push:
+              thread-id: "home-monitoring"
+            apns_headers:
+              apns-collapse-id: 'doorbell'
       - service: media_player.play_media
         data_template:
           entity_id: media_player.speakers

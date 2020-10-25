@@ -137,13 +137,15 @@ automation:
           entity_id: input_boolean.alarm_clock
           state: 'on'
     action:
-      - service: notify.ios_matt
+      - service: notify.mobile_app_matts_phone
         data_template:
           title: '{{ "\ud83d\udea6"}} Faster Commute'
           message: >
            There's a faster route to work today which should take {{ states.sensor.morning_commute.state }} minutes. Tap here for directions.
           data:
             url: waze://?favorite=work
+            push:
+              thread-id: "matt-commute"
 
   - alias: Commute - Notify Evening Phone
     trigger:
@@ -159,7 +161,7 @@ automation:
           entity_id: person.matt
           state: 'Matt Work'
     action:
-      - service: notify.ios_matt
+      - service: notify.mobile_app_matts_phone
         data_template:
           title: '{{ "\ud83d\udea6"}} Commute Update'
           message: >
@@ -175,6 +177,8 @@ automation:
            {% endif %}
           data:
             url: waze://?favorite=home
+            push:
+              thread-id: "matt-commute"
 
   ## NOTIFIES SARAH OF MATT'S ETA AFTER LEAVING WORK
   - alias: Commute - Notify Sarah of ETA
@@ -195,7 +199,7 @@ automation:
           entity_id: person.sarah
           state: home
     action:
-      - service: notify.ios_sarah
+      - service: notify.mobile_app_sarahs_phone
         data_template:
           title: >
             {{ "\uD83D\uDE97" }} Matt has left Work
@@ -207,6 +211,9 @@ automation:
             {% elif states.sensor.evening_commute.state >= "45" %} BAD.
             {% endif %}
             His ETA is approx. {{ states.sensor.evening_commute.state }} minutes.
+          data:
+            push:
+              thread-id: "matt-commute"
       - service: script.tts_engine
         data_template:
           media_player: media_player.speakers

@@ -55,30 +55,39 @@ automation:
       - platform: state
         entity_id: updater.updater
     action:
-      service: notify.matt
+      service: notify.matt_all
       data_template:
         title: '{{ "\u2699\uFE0F"}} New Home Assistant Release'
         message: "Home Assistant  {{ states.updater.updater.state }}  is now available."
+        data:
+          push:
+            thread-id: "hass-notifications"
 
   - alias: Hass Notify - System Start
     trigger:
       - platform: homeassistant
         event: start
     action:
-      service: notify.matt
+      service: notify.matt_all
       data_template:
         title: '{{ "\u2699\uFE0F"}} Home Assistant started'
         message: "Powering up..."
+        data:
+          push:
+            thread-id: "hass-notifications"
 
   - alias: Hass Notify - System Shutdown
     trigger:
       - platform: homeassistant
         event: shutdown
     action:
-      service: notify.matt
+      service: notify.matt_all
       data_template:
         title: '{{ "\u2699\uFE0F"}} Home Assistant shut down'
         message: "Until next time..."
+        data:
+          push:
+            thread-id: "hass-notifications"
 
   ## SWITCHES BETWEEN LIGHT/DARK THEMES AT SUNSET/SUNRISE
   - alias: 'Theme Switch'

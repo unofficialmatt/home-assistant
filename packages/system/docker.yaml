@@ -147,11 +147,14 @@ automation:
         for:
           minutes: 5
     action:
-      - service: notify.matt
+      - service: notify.matt_all
         data_template:
           message: 'Docker Container {{ trigger.to_state.name }} is not running. Please check the status of this container as some features may stop functioning.'
           title: >
             {{ "\u26A0\uFE0F" }} Container Alert
+          data:
+            push:
+              thread-id: "server-notifications"
       - service: persistent_notification.create
         data_template:
           notification_id: offline_container
