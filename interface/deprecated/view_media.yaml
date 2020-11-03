@@ -1,0 +1,72 @@
+title: Media
+path: media
+icon: mdi:play-box-outline
+
+cards:
+
+  ## AUDIO
+  - type: vertical-stack
+    cards:
+      - type: custom:stack-in-card
+        mode: vertical
+        cards:
+          - type: markdown
+            content: '## Audio'
+          - type: custom:decluttering-card
+            template: media_player_speaker
+            variables:
+              - entity: media_player.speakers
+          - type: custom:decluttering-card
+            template: media_player_speaker
+            variables:
+              - entity: media_player.dining_room
+          - type: custom:decluttering-card
+            template: media_player_speaker
+            variables:
+              - entity: media_player.bedroom
+          - type: custom:decluttering-card
+            template: media_player_speaker
+            variables:
+              - entity: media_player.lounge
+          - type: custom:decluttering-card
+            template: media_player_speaker
+            variables:
+              - entity: media_player.office
+          - type: custom:decluttering-card
+            template: media_player_speaker
+            variables:
+              - entity: media_player.man_cave
+
+  ## VIDEO
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: markdown
+        content: '## Video'
+      - type: media-control
+        entity: media_player.philips_tv
+        artwork: full-cover
+        idle_view: when_idle
+      - type: media-control
+        entity: media_player.playstation_4
+      - type: conditional
+        conditions:
+        - entity: media_player.plex_macbook
+          state_not: "unavailable"
+        card:
+          type: media-control
+          entity: media_player.plex_macbook
+
+  - type: custom:upcoming-media-card
+    entity: sensor.plex_recently_added
+    title: Recently Added to Plex
+    date: ddmm
+    clock: 24
+    image_style: fanart
+    max: 6
+    flag: false
+    box_shadows: false
+    line2_text: '$number | $runtime | Aired: $aired'
+    line3_text: '$day, $date | $time'
+    line4_text: '$studio | $rating'
+

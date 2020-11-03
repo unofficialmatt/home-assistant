@@ -7,6 +7,7 @@ button_card_templates: !include interface/button_templates.yaml
 
 views:
   - !include interface/view_home.yaml
+#  - !include interface/view_home_new.yaml
   - !include interface/view_rooms.yaml
   - !include interface/view_media.yaml
   - !include interface/view_alarm.yaml
@@ -16,8 +17,11 @@ views:
   - !include interface/view_debug.yaml
   - !include interface/view_server.yaml
 
+
 # TODO: Nas disk space used? How
 # TODO: Warn when a battery is below XXX percent (select only - not phones!)
 # TODO: A couple of different dashboards - https://www.home-assistant.io/lovelace/dashboards-and-views/
 # TODO: Need to set up https://github.com/iantrich/restriction-card as replacement for lock endtity row
 # TODO: Set up this on BTT: https://www.reddit.com/r/homeassistant/comments/gyd5wd/finally_a_good_use_for_the_touch_bar_on_my/
+
+

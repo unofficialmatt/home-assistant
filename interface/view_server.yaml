@@ -1,6 +1,8 @@
 title: Server
 path: server
 icon: mdi:server
+visible:
+  - user: c1937753d36940ff9bc20222e7c8ffa3
 
 cards:
 

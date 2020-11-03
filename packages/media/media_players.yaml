@@ -16,20 +16,34 @@ homeassistant:
   customize:
     media_player.bedroom:
       friendly_name: Bedroom
+      icon: mdi:google-home
     media_player.lounge:
       friendly_name: Lounge
+      icon: mdi:google-home
     media_player.office:
       friendly_name: Office
+      icon: mdi:google-home
     media_player.dining_room:
       friendly_name: Dining Room
+      icon: mdi:google-home
     media_player.man_cave:
       friendly_name: Man Cave
+      icon: mdi:google-home
     media_player.speakers:
       hidden: true
+      icon: mdi:google-home
     media_player.upstairs:
       hidden: true
+      icon: mdi:google-home
     media_player.downstairs:
       hidden: true
+      icon: mdi:google-home
+    media_player.bedroom_dining:
+      hidden: true
+      icon: mdi:google-home
+    media_player.offices:
+      hidden: true
+      icon: mdi:google-home
     media_player.spotify:
       icon: mdi:spotify
     media_player.philips_tv:

@@ -19,6 +19,91 @@ spacer:
       height: 10px
       visible: invisible
 
+pretty_header:
+  card:
+    type: markdown
+    content: >
+      # <img width="30" height="30" src='/local/[[image_name]]' style='vertical-align:middle' /> [[title]]
+    style:
+      .: |
+        ha-card {
+          background-color: transparent !important;
+          box-shadow: none !important;
+          text-align: center;
+          margin: 0 10px 5px 10px;
+        }
+      ha-markdown:
+        $: |
+          h1 {
+            font-size: 28px;
+            font-weight: 200;
+            font-family: 'Barlow', sans-serif;
+            display: flex;
+            line-height: 1.1;
+            align-items: center;
+            justify-content: center;
+          }
+          h1::before {
+            display: block;
+            position: relative;
+            content: '';
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            width: 15%;
+            left: -.5em;
+          }
+          h1::after {
+            display: block;
+            position: relative;
+            content: '';
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            width: 15%;
+            right: -.5em;
+          }
+          img {
+            margin-right: .5em;
+          }
+pretty_subheader:
+  card:
+    type: markdown
+    content: >
+      ## [[title]]
+    style:
+      .: |
+        ha-card {
+          background-color: transparent !important;
+          box-shadow: none !important;
+          text-align: center;
+        }
+      ha-markdown:
+        $: |
+          h2 {
+            font-size: 24px;
+            font-weight: 400 !important;
+            font-family: 'Barlow', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          h2::before {
+            display: block;
+            position: relative;
+            content: '';
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            width: 15%;
+            left: -.5em;
+          }
+          h2::after {
+            display: block;
+            position: relative;
+            content: '';
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            width: 15%;
+            right: -.5em;
+          }
+          img {
+            margin-right: .5em;
+          }
+
 pretty_graph:
   card:
     type: custom:mini-graph-card
@@ -155,6 +240,25 @@ media_player_speaker:
           type: playlist
           id: 'http://media-ice.musicradio.com/CapitalMP3'
 
+pretty_speaker:
+  card:
+    type: custom:mini-media-player
+    entity: '[[entity]]'
+    artwork: material
+    idle_view: when_idle
+#    hide:
+#      power_state: true
+#      source: true
+#      volume: false
+#    icon: 'mdi:google-home'
+    info: scroll
+    source: icon
+    style:
+      .: |
+        ha-card {
+          margin: 0 10px 5px 10px;
+        }
+
 #######################################
 #                                     #
 #             VIEW: DEBUG             #
@@ -194,8 +298,17 @@ pretty_battery:
 toggle_lock:
   card:
     type: custom:restriction-card
-    card: 
+    card:
       type: custom:button-card
       template: pretty_button
       entity: '[[entity]]'
     duration: 3
+
+spacer:
+  card:
+    type: 'custom:button-card'
+    color_type: blank-card
+    name: false
+    styles:
+      card:
+        - width: 5px

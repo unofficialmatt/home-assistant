@@ -132,9 +132,6 @@ cards:
         title: 'Guests'
         show_state: false
 
-    - type: media-control
-      entity: media_player.spotify
-
   ## THERMOSTAT AND VACUUM
   - type: vertical-stack
     cards:

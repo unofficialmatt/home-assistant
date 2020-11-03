@@ -1,0 +1,74 @@
+#######################################################
+#                                                     #
+#                   PACKAGES / RADIO                  #
+#                                                     #
+#######################################################
+
+input_select:
+  radio_station:
+    name: 'Select Radio Station:'
+    options:
+      - BBC Radio 1
+      - BBC Radio 1xtra
+      - BBC Radio 2
+      - BBC Radio 4
+      - Capital Xtra
+  googlehome_radio:
+    name: 'Select Speakers:'
+    options:
+      - Dining Room
+      - Lounge
+      - Downstairs
+      - Bedroom
+      - Office
+      - Man Cave
+      - Offices
+      - All Speakers
+    initial: All Speakers
+    icon: mdi:google-home
+
+# TODO: Can I make this more DRY?
+script:
+  play_radio_station:
+    alias: Play Radio on Google Home Audio
+    sequence:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: >-
+            {% if is_state("input_select.googlehome_radio", "All Speakers") %} media_player.speakers
+            {% elif is_state("input_select.googlehome_radio", "Dining Room") %} media_player.dining_room
+            {% elif is_state("input_select.googlehome_radio", "Lounge") %} media_player.lounge
+            {% elif is_state("input_select.googlehome_radio", "Downstairs") %} media_player.downstairs
+            {% elif is_state("input_select.googlehome_radio", "Bedroom") %} media_player.bedroom
+            {% elif is_state("input_select.googlehome_radio", "Office") %} media_player.office
+            {% elif is_state("input_select.googlehome_radio", "Man Cave") %} media_player.man_cave
+            {% elif is_state("input_select.googlehome_radio", "Offices") %} media_player.offices
+            {% endif %}
+          volume_level: >-
+            {% if now().strftime('%H')|int < 10 and now().strftime('%H')|int > 6 %}
+              0.25
+            {% elif now().strftime('%H')|int > 10 and now().strftime('%H')|int < 20 %}
+              0.4
+            {% else %}
+              0.3
+            {% endif %}
+      -  service: media_player.play_media
+         data_template:
+           entity_id: >-
+            {% if is_state("input_select.googlehome_radio", "All Speakers") %} media_player.speakers
+            {% elif is_state("input_select.googlehome_radio", "Dining Room") %} media_player.dining_room
+            {% elif is_state("input_select.googlehome_radio", "Lounge") %} media_player.lounge
+            {% elif is_state("input_select.googlehome_radio", "Downstairs") %} media_player.downstairs
+            {% elif is_state("input_select.googlehome_radio", "Bedroom") %} media_player.bedroom
+            {% elif is_state("input_select.googlehome_radio", "Office") %} media_player.office
+            {% elif is_state("input_select.googlehome_radio", "Man Cave") %} media_player.man_cave
+            {% elif is_state("input_select.googlehome_radio", "Offices") %} media_player.offices
+            {% endif %}
+           media_content_id: >-
+            {% if is_state("input_select.radio_station", "BBC Radio 1") %} http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p
+            {% elif is_state("input_select.radio_station", "BBC Radio 1xtra") %} http://www.bbc.co.uk/radio/listen/live/r1x_aaclca.pls
+            {% elif is_state("input_select.radio_station", "BBC Radio 2") %} http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p
+            {% elif is_state("input_select.radio_station", "BBC Radio 4") %} http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio4fm_mf_p
+            {% elif is_state("input_select.radio_station", "Capital Xtra") %} http://icecast.thisisdax.com/CapitalXTRANationalMP3.m3u
+            {% endif %}
+           media_content_type: 'audio/mp4'

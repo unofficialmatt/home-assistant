@@ -1,72 +1,237 @@
 title: Media
+icon: fas:play-circle
 path: media
-icon: mdi:play-box-outline
-
+#visible:
+#  - user: c1937753d36940ff9bc20222e7c8ffa3
+badges: []
 cards:
 
-  ## AUDIO
+  ## SPEAKERS
   - type: vertical-stack
     cards:
-      - type: custom:stack-in-card
-        mode: vertical
-        cards:
-          - type: markdown
-            content: '## Audio'
-          - type: custom:decluttering-card
-            template: media_player_speaker
-            variables:
-              - entity: media_player.speakers
-          - type: custom:decluttering-card
-            template: media_player_speaker
-            variables:
-              - entity: media_player.dining_room
-          - type: custom:decluttering-card
-            template: media_player_speaker
-            variables:
-              - entity: media_player.bedroom
-          - type: custom:decluttering-card
-            template: media_player_speaker
-            variables:
-              - entity: media_player.lounge
-          - type: custom:decluttering-card
-            template: media_player_speaker
-            variables:
-              - entity: media_player.office
-          - type: custom:decluttering-card
-            template: media_player_speaker
-            variables:
-              - entity: media_player.man_cave
+    - type: custom:decluttering-card
+      template: pretty_header
+      variables:
+        - title: Speakers
+        - image_name: interface/nest-mini.png
+    - type: custom:decluttering-card
+      template: pretty_speaker
+      variables:
+        - entity: media_player.dining_room
+    - type: custom:decluttering-card
+      template: pretty_speaker
+      variables:
+        - entity: media_player.lounge
+    - type: custom:decluttering-card
+      template: pretty_speaker
+      variables:
+        - entity: media_player.bedroom
+    - type: custom:decluttering-card
+      template: pretty_speaker
+      variables:
+        - entity: media_player.office
+    - type: custom:decluttering-card
+      template: pretty_speaker
+      variables:
+        - entity: media_player.man_cave
+    - type: custom:decluttering-card
+      template: pretty_subheader
+      variables:
+        - title: Groups
+        - image_name: interface/nest-mini.png
+    - type: custom:decluttering-card
+      template: pretty_speaker
+      variables:
+        - entity: media_player.speakers
+    - type: custom:decluttering-card
+      template: pretty_speaker
+      variables:
+        - entity: media_player.bedroom_dining
+    - type: custom:decluttering-card
+      template: pretty_speaker
+      variables:
+        - entity: media_player.downstairs
+    - type: custom:decluttering-card
+      template: pretty_speaker
+      variables:
+        - entity: media_player.offices
 
-  ## VIDEO
-  - type: custom:stack-in-card
-    mode: vertical
+  ## RADIO
+  - type: vertical-stack
     cards:
-      - type: markdown
-        content: '## Video'
-      - type: media-control
-        entity: media_player.philips_tv
-        artwork: full-cover
-        idle_view: when_idle
-      - type: media-control
-        entity: media_player.playstation_4
-      - type: conditional
-        conditions:
-        - entity: media_player.plex_macbook
-          state_not: "unavailable"
-        card:
-          type: media-control
-          entity: media_player.plex_macbook
+    - type: custom:decluttering-card
+      template: pretty_header
+      variables:
+        - title: Radio
+        - image_name: interface/radio.png
+    - type: entities
+      entities:
+        - entity: input_select.radio_station
+          icon: 'mdi:radio'
+        - entity: input_select.googlehome_radio
+        - action_name: Play
+          entity: script.play_radio_station
+          icon: 'fas:play-circle'
+          name: Start Listening
+      style:
+        .: |
+          ha-card {
+            margin: 0 10px 5px 10px;
+          }
+  ## SPOTIFY
+  - type: vertical-stack
+    cards:
+    - type: custom:decluttering-card
+      template: pretty_header
+      variables:
+        - title: Spotify
+        - image_name: interface/spotify.png
+    - type: media-control
+      entity: media_player.spotify
+      style:
+        .: |
+          ha-card {
+            margin: 0 10px 5px 10px;
+          }
+    - type: 'custom:spotify-card'
+      device: media_player.downstairs
+      display_style: grid
+      grid_covers_per_row: 5
+      grid_center_covers: true
+      hide_warning: true
+      #playlist_type : featured
+      limit: 10
+      style:
+        .: |
+          ha-card {
+            margin: 0 10px 5px 10px;
+          }
 
-  - type: custom:upcoming-media-card
-    entity: sensor.plex_recently_added
-    title: Recently Added to Plex
-    date: ddmm
-    clock: 24
-    image_style: fanart
-    max: 6
-    flag: false
-    box_shadows: false
-    line2_text: '$number | $runtime | Aired: $aired'
-    line3_text: '$day, $date | $time'
-    line4_text: '$studio | $rating'
+  ## PLAYSTATION AND TV
+  - type: vertical-stack
+    cards:
+    - type: custom:decluttering-card
+      template: pretty_header
+      variables:
+        - title: Playstation 4
+        - image_name: interface/dualshock.png
+    - type: custom:mini-media-player
+      entity: media_player.playstation_4
+      style:
+        .: |
+          ha-card {
+            margin: 0 10px 5px 10px;
+          }
+    - type: custom:decluttering-card
+      template: pretty_header
+      variables:
+        - title: Television
+        - image_name: interface/tv.png
+      style:
+        .: |
+          ha-card {
+            margin: 0 10px 5px 10px;
+          }
+    - type: custom:mini-media-player
+      entity: media_player.philips_tv
+      style:
+        .: |
+          ha-card {
+            margin: 0 10px 5px 10px;
+          }
 
+  ## UPCOMING AND RECENTLY ADDED
+  - type: vertical-stack
+    cards:
+    - type: custom:decluttering-card
+      template: pretty_header
+      variables:
+        - title: Recently Added
+        - image_name: interface/plex.png
+    - type: custom:upcoming-media-card
+      entity: sensor.recently_added_movies
+      date: ddmm
+      clock: 24
+      max: 3
+      flag: false
+      image_style: fanart
+      box_shadows: false
+      hide_empty: true
+      line1_text: $empty
+      line2_text: 'Runtime: $runtime'
+      line3_text: '$genres | $rating'
+      line4_text: '$studio'
+      line2_size: small
+      title_color: var(--accent-color)
+      style:
+        .: |
+          ha-card {
+            margin: 0 10px 5px 10px;
+          }
+    - type: custom:upcoming-media-card
+      entity: sensor.recently_added_tv
+      date: ddmm
+      clock: 24
+      max: 3
+      flag: false
+      image_style: fanart
+      box_shadows: false
+      hide_empty: true
+      title_text: $episode
+      line1_text: $title
+      line1_size: medium
+      line2_text: $empty
+      line3_text: 'Runtime: $runtime hrs'
+      line4_text: 'Episode: $number'
+      title_color: var(--accent-color)
+      style:
+        .: |
+          ha-card {
+            margin: 0 10px 5px 10px;
+          }
+    - type: custom:decluttering-card
+      template: pretty_header
+      variables:
+        - title: Upcoming
+        - image_name: interface/plex.png
+    - type: custom:upcoming-media-card
+      entity: sensor.sonarr_upcoming_media
+      date: ddmm
+      clock: 24
+      max: 2
+      flag: false
+      image_style: fanart
+      box_shadows: false
+      hide_empty: true
+      title_text: $episode
+      line1_text: $title
+      line1_size: medium
+      line2_text: $empty
+      line3_text: 'Runtime: $runtime hrs'
+      line4_text: 'Episode: $number'
+      title_color: var(--accent-color)
+      style:
+        .: |
+          ha-card {
+            margin: 0 10px 5px 10px;
+          }
+    - type: custom:upcoming-media-card
+      entity: sensor.radarr_upcoming_media
+      date: ddmm
+      clock: 24
+      max: 1
+      flag: false
+      image_style: fanart
+      box_shadows: false
+      hide_empty: true
+      line1_text: $empty
+      line2_text: 'Runtime: $runtime'
+      line3_text: '$genres | $rating'
+      line4_text: '$studio'
+      line2_size: small
+      title_color: var(--accent-color)
+      style:
+        .: |
+          ha-card {
+            margin: 0 10px 5px 10px;
+          }

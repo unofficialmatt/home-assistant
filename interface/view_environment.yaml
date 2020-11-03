@@ -1,6 +1,8 @@
 title: Environment
 path: environment
 icon: mdi:thermometer-lines
+visible:
+  - user: c1937753d36940ff9bc20222e7c8ffa3
 
 cards:
 

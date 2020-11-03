@@ -1,6 +1,6 @@
   # Enqueues custom CSS for Google Fonts
   - type: css
-    url: 'https://fonts.googleapis.com/css?family=Montserrat'
+    url: 'https://fonts.googleapis.com/css2?family=Barlow:wght@200;400&family=Montserrat:wght@500&display=swap'
   - url: /local/styles.css?v=0.2
     type: css
   # Dependency for many of the custom cards used
@@ -63,4 +63,7 @@
 
 
   - url: /hacsfiles/lovelace-card-mod/card-mod.js
+    type: module
+
+  - url: /hacsfiles/spotify-card/spotify-card.js
     type: module
