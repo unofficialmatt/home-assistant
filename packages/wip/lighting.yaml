@@ -37,25 +37,6 @@ input_select:
 #######################################################
 
 automation:
-  - alias: Porch Light Turn On Motion
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.porch_motion
-        to: 'on'
-    condition:
-      condition: and
-      conditions:
-      - condition: sun
-        after: sunset
-#      - condition: state
-#        entity_id: light.porch
-#        state: 'on'
-    action:
-      - service: scene.turn_on
-        entity_id: scene.porch_bright
-      - delay: '00:02:00'
-      - service: scene.turn_on
-        entity_id: scene.porch_dimmed
 
   - alias: Matt Office Lights On
     trigger:

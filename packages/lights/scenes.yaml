@@ -120,14 +120,14 @@ scene:
       light.porch:
         state: on
         transition: 5
-        brightness: 5
+        brightness: 45
 
   - name: Porch Bright
     entities:
       light.porch:
         state: on
-        transition: 5
-        brightness: 90
+        transition: 0
+        brightness: 250
 
 
   - name: Master Bedroom Energise

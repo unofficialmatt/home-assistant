@@ -42,6 +42,21 @@ ios:
 
 automation:
 
+  - alias: Porch Light - Turn On Motion
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.porch_motion
+        to: 'on'
+    condition:
+      - condition: sun
+        after: sunset
+    action:
+      - service: scene.turn_on
+        entity_id: scene.porch_bright
+      - delay: '00:02:00'
+      - service: scene.turn_on
+        entity_id: scene.porch_dimmed
+
   # TURNS OUTSIDE LIGHTS ON, IF LOW LIGHT OUTSIDE AND BACK DOOR OPENED
   - alias: Outside Lights - Turn ON
     trigger:
