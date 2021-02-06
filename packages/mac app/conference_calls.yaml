@@ -1,0 +1,162 @@
+homeassistant:
+  customize:
+    automation.conference_call_lights_down:
+      icon: mdi:lightbulb-off
+    automation.conference_call_lights_up:
+      icon: mdi:lightbulb-on
+    automation.conference_call_spotify_pause:
+      icon: mdi:volume-mute
+    automation.conference_call_spotify_resume:
+      icon: mdi:volume-medium
+    automation.conference_call_home_spotify_pause:
+      icon: mdi:volume-mute
+    automation.conference_call_home_spotify_resume:
+      icon: mdi:volume-medium
+
+automation:
+
+  ########################
+  #     WORK MACBOOK     #
+  ########################
+  - alias: Conference Call Lights Up
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.macbook_work_camera_in_use
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.matt
+          state: 'home'
+        - condition: state
+          entity_id: sensor.macbook_work_displays
+          state: '2'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.man_cave_sovereign, light.matt_desk
+          brightness: 255
+          color_temp: 370
+          transition: 5
+      - service: switch.turn_off
+        entity_id: switch.adaptive_lighting_adapt_brightness_man_cave
+  - alias: Conference Call Lights Down
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.macbook_work_camera_in_use
+        to: 'off'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.matt
+          state: 'home'
+        - condition: state
+          entity_id: sensor.macbook_work_displays
+          state: '2'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.man_cave_sovereign, light.matt_desk
+          brightness: 100
+          transition: 5
+      - service: switch.turn_on
+        entity_id: switch.adaptive_lighting_adapt_brightness_man_cave
+
+  - alias: Conference Call Spotify Pause
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.macbook_work_camera_in_use
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.matt
+          state: 'home'
+        - condition: state
+          entity_id: media_player.spotify
+          state: 'playing'
+        - condition: or
+          conditions:
+            - condition: template
+              value_template: "{{ state_attr('media_player.spotify', 'source') == 'Man cave speaker' }}"
+            #- condition: template
+            #  value_template: "{{ state_attr('media_player.spotify', 'source') == 'Offices' }}"
+            #- condition: template
+            #  value_template: "{{ state_attr('media_player.spotify', 'source') == 'Upstairs' }}"
+            - condition: template
+              value_template: "{{ state_attr('media_player.spotify', 'source') == 'MacBook Pro' }}"
+    action:
+      - service: media_player.media_pause
+        entity_id: media_player.spotify
+  - alias: Conference Call Spotify Resume
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.macbook_work_camera_in_use
+        to: 'off'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.matt
+          state: 'home'
+        - condition: state
+          entity_id: media_player.spotify
+          state: 'paused'
+        - condition: or
+          conditions:
+            - condition: template
+              value_template: "{{ state_attr('media_player.spotify', 'source') == 'Man cave speaker' }}"
+            #- condition: template
+            #  value_template: "{{ state_attr('media_player.spotify', 'source') == 'Offices' }}"
+            #- condition: template
+            #  value_template: "{{ state_attr('media_player.spotify', 'source') == 'Upstairs' }}"
+            - condition: template
+              value_template: "{{ state_attr('media_player.spotify', 'source') == 'MacBook Pro' }}"
+    action:
+      - service: media_player.media_play
+        entity_id: media_player.spotify
+
+  ########################
+  #     HOME MACBOOK     #
+  ########################
+  - alias: Conference Call Home Spotify Pause
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.macbook_home_camera_in_use
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.matt
+          state: 'home'
+        - condition: state
+          entity_id: media_player.spotify
+          state: 'playing'
+        - condition: template
+          value_template: "{{ state_attr('media_player.spotify', 'source') == 'MacBook Pro (2)' }}"
+    action:
+      - service: media_player.media_pause
+        entity_id: media_player.spotify
+  - alias: Conference Call Home Spotify Resume
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.macbook_home_camera_in_use
+        to: 'off'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.matt
+          state: 'home'
+        - condition: state
+          entity_id: media_player.spotify
+          state: 'paused'
+        - condition: template
+          value_template: "{{ state_attr('media_player.spotify', 'source') == 'MacBook Pro (2)' }}"
+    action:
+      - service: media_player.media_play
+        entity_id: media_player.spotify

@@ -1,0 +1,126 @@
+homeassistant:
+  customize_glob:
+    "automation.app_lights*":
+      icon: mdi:lightbulb-on
+
+automation:
+  - alias: App Lights VS Code
+    trigger:
+      - platform: state
+        entity_id: sensor.macbook_work_frontmost_app
+        to: 'Code'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.matt
+          state: 'home'
+        - condition: state
+          entity_id: sensor.macbook_work_displays
+          state: '2'
+        - condition: state
+          entity_id: binary_sensor.macbook_work_camera_in_use
+          state: 'off'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.matt_desk
+          rgb_color: [73,73,255]
+          brightness: 100
+          transition: 3
+  - alias: App Lights Spotify
+    trigger:
+      - platform: state
+        entity_id: sensor.macbook_work_frontmost_app
+        to: 'Spotify'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.matt
+          state: 'home'
+        - condition: state
+          entity_id: sensor.macbook_work_displays
+          state: '2'
+        - condition: state
+          entity_id: binary_sensor.macbook_work_camera_in_use
+          state: 'off'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.matt_desk
+          rgb_color: [0,255,65]
+          brightness: 100
+          transition: 3
+  - alias: App Lights Adobe XD
+    trigger:
+      - platform: state
+        entity_id: sensor.macbook_work_frontmost_app
+        to: 'XD'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.matt
+          state: 'home'
+        - condition: state
+          entity_id: sensor.macbook_work_displays
+          state: '2'
+        - condition: state
+          entity_id: binary_sensor.macbook_work_camera_in_use
+          state: 'off'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.matt_desk
+          rgb_color: [201,40,255]
+          brightness: 100
+          transition: 3
+  - alias: App Lights Brave
+    trigger:
+      - platform: state
+        entity_id: sensor.macbook_work_frontmost_app
+        to: 'Brave Browser'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.matt
+          state: 'home'
+        - condition: state
+          entity_id: sensor.macbook_work_displays
+          state: '2'
+        - condition: state
+          entity_id: binary_sensor.macbook_work_camera_in_use
+          state: 'off'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.matt_desk
+          rgb_color: [255,94,38]
+          brightness: 100
+          transition: 3
+  - alias: App Lights Adobe Indesign
+    trigger:
+      - platform: state
+        entity_id: sensor.macbook_work_frontmost_app
+        to: 'InDesign'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.matt
+          state: 'home'
+        - condition: state
+          entity_id: sensor.macbook_work_displays
+          state: '2'
+        - condition: state
+          entity_id: binary_sensor.macbook_work_camera_in_use
+          state: 'off'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.matt_desk
+          rgb_color: [255,43,94]
+          brightness: 100
+          transition: 3
