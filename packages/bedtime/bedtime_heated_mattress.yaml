@@ -5,7 +5,6 @@
 #######################################################
 
 homeassistant:
-
   customize:
     switch.bedroom_comfort:
       icon: mdi:radiator
@@ -25,7 +24,7 @@ automation:
 
   # TURN ON HEATED MATTRESS IF THIS AUTOMATION IS ACTIVE AT BEDTIME
   - alias: Heated Mattress - ON Bedtime
-    initial_state: 'off'
+    initial_state: 'on'
     trigger:
       - platform: state
         entity_id: input_select.bedtime_trigger
