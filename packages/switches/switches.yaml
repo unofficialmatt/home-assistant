@@ -11,6 +11,8 @@ homeassistant:
   customize:
     group.hardware_switches:
       icon: mdi:power-plug
+    switch.effects_pedals:
+      icon: mdi:guitar-electric
 
 #######################################################
 #                                                     #
@@ -22,12 +24,15 @@ group:
   hardware_switches:
     name: Switches
     entities:
-      #- switch.christmas_tree
       - switch.fairy_lights
       - switch.bedroom_comfort
       - switch.pergola_stars
       - switch.festoon_lights
       - switch.star_lamp
+      - switch.christmas_tree
+      - switch.christmas_wreath
+      - switch.christmas_window
+      - switch.effects_pedals
 
 #######################################################
 #                                                     #
