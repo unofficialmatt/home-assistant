@@ -48,9 +48,6 @@ homeassistant:
       icon: mdi:spotify
     media_player.philips_tv:
       icon: mdi:television
-    media_player.playstation_4:
-      icon: mdi:playstation
-
 
 #######################################################
 #                                                     #

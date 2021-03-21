@@ -21,8 +21,6 @@ homeassistant:
       icon: mdi:thermostat
     "*sensor*robbie_the_rover*":
       icon: mdi:robot-vacuum
-    "*sensor*playstation_4*":
-      icon: mdi:playstation
     "*sensor*nintendo_switch*":
       icon: mdi:nintendo-switch
     "*sensor*lounge_tv*":
@@ -94,9 +92,6 @@ binary_sensor:
     name: Man Cave LEDs
 
   ## ENTERTAINMENT
-  - platform: ping
-    host: !secret ip_playstation_4
-    name: Playstation 4
   - platform: ping
     host: !secret ip_philips_tv
     name: Lounge TV

@@ -187,9 +187,6 @@ cards:
         cards:
         - type: custom:button-card
           template: pretty_device
-          entity: binary_sensor.playstation_4
-        - type: custom:button-card
-          template: pretty_device
           entity: binary_sensor.nintendo_switch
         - type: custom:button-card
           template: pretty_device

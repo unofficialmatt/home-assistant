@@ -47,8 +47,6 @@ cards:
         entity: media_player.philips_tv
         artwork: full-cover
         idle_view: when_idle
-      - type: media-control
-        entity: media_player.playstation_4
       - type: conditional
         conditions:
         - entity: media_player.plex_macbook

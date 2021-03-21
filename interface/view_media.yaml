@@ -107,21 +107,9 @@ cards:
             margin: 0 10px 5px 10px;
           }
 
-  ## PLAYSTATION AND TV
+  ## TV
   - type: vertical-stack
     cards:
-    - type: custom:decluttering-card
-      template: pretty_header
-      variables:
-        - title: Playstation 4
-        - image_name: interface/dualshock.png
-    - type: custom:mini-media-player
-      entity: media_player.playstation_4
-      style:
-        .: |
-          ha-card {
-            margin: 0 10px 5px 10px;
-          }
     - type: custom:decluttering-card
       template: pretty_header
       variables:
