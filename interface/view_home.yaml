@@ -220,7 +220,7 @@ cards:
         - calendar.joint
         - calendar.sarah
 
-#    ## CHRISTMAS
+    ## CHRISTMAS
 #    - type: custom:vertical-style-card
 #      title: Christmas
 #      style:
@@ -230,7 +230,7 @@ cards:
 #        cards:
 #        - type: custom:button-card
 #          template: pretty_button
-#          entity: switch.christmas_tree
+#          entity: switch.star_lamp
 #        - type: custom:button-card
 #          template: pretty_button
 #          entity: switch.fairy_lights
@@ -238,10 +238,13 @@ cards:
 #        cards:
 #        - type: custom:button-card
 #          template: pretty_button
-#          entity: switch.lounge_snowflakes
+#          entity: switch.christmas_window
 #        - type: custom:button-card
 #          template: pretty_button
-#          entity: switch.star_lamp
+#          entity: switch.christmas_tree
+#        - type: custom:button-card
+#          template: pretty_button
+#          entity: switch.christmas_wreath
 #      - type: horizontal-stack
 #        cards:
 #        - type: custom:button-card
