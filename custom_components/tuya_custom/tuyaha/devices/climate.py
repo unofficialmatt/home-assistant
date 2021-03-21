@@ -3,6 +3,16 @@ from .base import TuyaDevice
 UNIT_CELSIUS = "CELSIUS"
 UNIT_FAHRENHEIT = "FAHRENHEIT"
 
+STEP_WHOLE = 1
+STEP_HALVES = 0.5
+STEP_TENTHS = 0.1
+
+TEMP_STEPS = {
+    STEP_WHOLE: "Whole",
+    STEP_HALVES: "Halves",
+    STEP_TENTHS: "Tenths",
+}
+
 
 class TuyaClimate(TuyaDevice):
 
@@ -54,10 +64,11 @@ class TuyaClimate(TuyaDevice):
         """Set a divider used to calculate returned temperature. Default=0"""
         if divider < 0:
             raise ValueError("Temperature divider must be a positive value")
-        # this check is to avoid that divider is changed from calculated value
-        if (self._divider_set and divider == 0) or divider > 0:
-            self._divider = divider
-        self._divider_set = divider > 0
+        # this check is to avoid that divider is reset from
+        # calculated value when is set to 0
+        if (self._divider_set and divider < 1) or divider >= 1:
+            self._divider = int(divider)
+        self._divider_set = divider >= 1
 
     @property
     def curr_temp_divider(self):
@@ -69,32 +80,16 @@ class TuyaClimate(TuyaDevice):
            If not defined standard temperature divider is used"""
         if divider < 0:
             raise ValueError("Current temperature divider must be a positive value")
-        self._ct_divider = divider
+        self._ct_divider = int(divider)
 
     def has_decimal(self):
         """Return if temperature values support decimal"""
         return self._divider >= 10
 
-    # temperature unit returned by API in many case is incorrect
-    # before taking the value returned by API, we apply some logic
-    # to try to identify the correct value. The determined value
-    # can always be overwritten using method set_unit()
     def temperature_unit(self):
         """Return the temperature unit for the device"""
         if not self._unit:
-            if self._divider == 0:
-                self.max_temp()  # this calculate divider first time
-            curr_temp = self.current_temperature()
-            if curr_temp is None:
-                self._unit = UNIT_CELSIUS  # default to celsius
-                return self._unit
-            # if current temperature is over 50 and does not use decimal
-            # we assume that the unit is fahrenheit. This can always be
-            # overwritten by method set_unit()
-            if curr_temp > 50 and not self.has_decimal():
-                self._unit = UNIT_FAHRENHEIT
-            else:
-                self._unit = self.data.get("temp_unit", UNIT_CELSIUS)
+            self._unit = self.data.get("temp_unit", UNIT_CELSIUS)
         return self._unit
 
     def current_humidity(self):
@@ -125,8 +120,11 @@ class TuyaClimate(TuyaDevice):
 
     def target_temperature_step(self):
         if self.has_decimal():
-            return 0.5
-        return 1.0
+            return STEP_HALVES
+        return STEP_WHOLE
+
+    def supported_temperature_steps(self):
+        return TEMP_STEPS
 
     def current_fan_mode(self):
         """Return the fan setting."""
@@ -165,17 +163,22 @@ class TuyaClimate(TuyaDevice):
     def max_humidity(self):
         pass
 
-    def set_temperature(self, temperature):
+    def set_temperature(self, temperature, use_divider=True):
         """Set new target temperature."""
 
         # the value used to set temperature is scaled based on the configured divider
         divider = self._divider or 1
+        input_val = float(temperature)
+        scaled_val = input_val * divider
+        digits1 = None if input_val.is_integer() else 1
+        digits2 = None if scaled_val.is_integer() else 1
 
-        if not self.has_decimal():
-            temp_val = round(float(temperature))
-            set_val = temp_val * divider
+        set_val = round(scaled_val, digits2)
+        if use_divider:
+            temp_val = round(input_val, digits1)
         else:
-            temp_val = set_val = round(float(temperature) * divider)
+            temp_val = set_val
+
         if self._control_device("temperatureSet", {"value": temp_val}):
             self._update_data("temperature", set_val)
 

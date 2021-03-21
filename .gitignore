@@ -38,6 +38,7 @@ camera_recording.py
 home-assistant.env
 home-assistant.*
 known_devices.yaml
+files
 ip_bans.yaml
 entity_registry.yaml
 secrets.yaml
