@@ -46,4 +46,4 @@ automation:
     action:
       - service: vacuum.start
         data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
+          entity_id: vacuum.rockrobo

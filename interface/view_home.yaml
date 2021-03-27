@@ -148,9 +148,10 @@ cards:
 
     ## ROBBIE THE ROVER
     - type: custom:xiaomi-vacuum-card
-      entity: vacuum.xiaomi_vacuum_cleaner
+      entity: vacuum.rockrobo
       name: Robbie the Rover
       buttons: true
+      vendor: valetudo
       image: /local/devices/robbie.jpeg
 
     ## GUEST OPTIONS

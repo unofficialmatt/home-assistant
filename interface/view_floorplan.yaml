@@ -194,7 +194,7 @@ cards:
           - type: state-icon
             tap_action:
               action: more-info
-            entity: vacuum.xiaomi_vacuum_cleaner
+            entity: vacuum.rockrobo
             style:
               top: 84%
               left: 84%

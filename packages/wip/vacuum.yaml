@@ -9,17 +9,14 @@ homeassistant:
     "script.vacuum*":
       icon: mdi:robot-vacuum
 
-#######################################################
-#                                                     #
-#                       COUNTER                       #
-#                                                     #
-#######################################################
-
-counter:
-  vacuum_counter:
-    initial: 0
-    step: 1
-    icon: mdi:counter
+# Vaccum flashed with Valetudo using rrcc app on mac https://github.com/rand256/valetudo
+# rrcc https://github.com/LazyT/rrcc
+# See reddit guide https://www.reddit.com/r/homeassistant/comments/fdrcz0/how_to_install_valetudo_re_on_a_xiaomi_robot/
+# Another guide at https://community.home-assistant.io/t/xiaomi-vacuum-with-valetudo-re-how-to-map-zoned-cleaning-and-notifications-with-home-assistant/172282/20
+# Used DustBuilder to generate firmware https://builder.dontvacuum.me/
+# To reset, hold power button and wifi - this will reset to factory settings
+# Access Valetudo front end by visiting IP Address of Robbie whilst on local network
+# SSH Password is stored in secrets
 
 #######################################################
 #                                                     #
@@ -27,11 +24,23 @@ counter:
 #                                                     #
 #######################################################
 
+# DEPRECATED AS OF MARCH 2021 IN FAVOUR OF RUNNING VALETUDO
+# vacuum:
+#   - platform: xiaomi_miio
+#     friendly_name: Robbie
+#     host: !secret ip_robbie
+#     token: !secret token_robbie
+
 vacuum:
-  - platform: xiaomi_miio
-    friendly_name: Robbie
-    host: !secret ip_robbie
-    token: !secret token_robbie
+  - platform: mqtt
+    name: "Robbie the Rover"
+
+#panel_iframe:
+#  valetudo:
+#    title: "Valetudo"
+#    url: !secret valetudo_url
+#    icon: mdi:robot-vacuum
+
 
 #######################################################
 #                                                     #
@@ -40,12 +49,43 @@ vacuum:
 #######################################################
 
 automation:
+  - alias: Daily Vacuum
+    trigger:
+      - platform: time
+        at: '16:00:00'
+    condition:
+# TODO: DONT RUN IF TV ON
+      condition: not
+      conditions:
+        - condition: state
+          entity_id: input_select.home_status
+          state: "Holiday"
+    action:
+      - service: vacuum.start
+        entity_id: vacuum.rockrobo
+  - alias: Morning Vacuum Away
+    trigger:
+      - platform: time
+        at: '10:00:00'
+    condition:
+      condition: not
+      conditions:
+        - condition: state
+          entity_id: input_select.home_status
+          state: "Home"
+    action:
+      - service: vacuum.start
+        entity_id: vacuum.rockrobo
+
+
+
+
 
   ## Whenever Robbie becomes docked, increment counter
   - alias: Vacuum Counter Increment
     trigger:
       - platform: state
-        entity_id: vacuum.xiaomi_vacuum_cleaner
+        entity_id: vacuum.rockrobo
         to: 'docked'
     action:
       - service: counter.increment
@@ -59,7 +99,7 @@ automation:
         to: '5'
     condition:
       - condition: state
-        entity_id: vacuum.xiaomi_vacuum_cleaner
+        entity_id: vacuum.rockrobo
         state: 'docked'
     action:
       - service: counter.reset
@@ -73,12 +113,12 @@ automation:
         to: '4'
     condition:
       - condition: state
-        entity_id: vacuum.xiaomi_vacuum_cleaner
+        entity_id: vacuum.rockrobo
         state: 'docked'
     action:
       - service: script.tts_engine
         data_template:
-          media_player: media_player.downstairs
+          media_player: media_player.speakergroup_downstairs
           call_no_greeting: 1
           call_no_signoff: 1
           call_empty_robbie: 1
@@ -101,7 +141,7 @@ automation:
             ] | random }}
       - service: vacuum.send_command
         data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
+          entity_id: vacuum.rockrobo
           command: app_goto_target
           params: [19800,26000]
 
@@ -134,11 +174,51 @@ automation:
             "Bleep, bloop I'm full of poop."
             ] | random }}
 
+
+
+
+
+
+
+
+
+
+
+#######################################################
+#                                                     #
+#                       COUNTER                       #
+#                                                     #
+#######################################################
+
+counter:
+  vacuum_counter:
+    initial: 0
+    step: 1
+    icon: mdi:counter
+
+
+
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+
 #######################################################
 #                                                     #
 #                       SCRIPTS                       #
 #                                                     #
 #######################################################
+
+
+
+
+
+
+
+
 
 # TODO: Check these are still working OK
 script:
@@ -147,18 +227,18 @@ script:
     sequence:
       - service: vacuum.set_fan_speed
         data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
+          entity_id: vacuum.rockrobo
           fan_speed: 105
       - service: vacuum.send_command
         data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
+          entity_id: vacuum.rockrobo
           command: app_start
   vacuum_go_home:
     alias: Vacuum - Go Home
     sequence:
       - service: vacuum.return_to_base
         data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
+          entity_id: vacuum.rockrobo
 
   #@link https://community.home-assistant.io/t/howto-xiaomi-vacuum-zoned-cleaning/51293/22
   # Starting point is 25500,25500
@@ -168,7 +248,7 @@ script:
     sequence:
       - service: vacuum.send_command
         data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
+          entity_id: vacuum.rockrobo
           command: app_goto_target
           params: [26000,25600]
 
@@ -177,6 +257,6 @@ script:
   #  sequence:
   #    - service: vacuum.send_command
   #      data:
-  #        entity_id: vacuum.xiaomi_vacuum_cleaner
+  #        entity_id: vacuum.rockrobo
   #        command: app_goto_target
   #        params: [31500, 27500]
