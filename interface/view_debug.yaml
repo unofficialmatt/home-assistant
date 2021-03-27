@@ -181,7 +181,7 @@ cards:
         platform: google_translate
       artwork: none
       idle_view: when_idle
-      entity: 'media_player.speakers'
+      entity: 'media_player.speakergroup_all'
       hide:
         power: true
         controls: true

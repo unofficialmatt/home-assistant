@@ -14,7 +14,7 @@ cards:
         entities:
           - light.master_bedroom_colour
           - light.master_bedroom_lightstrip
-          - media_player.bedroom
+          - media_player.speaker_bedroom
           - switch.bedroom_comfort
           - input_boolean.alarm_clock
         state_image:
@@ -48,7 +48,7 @@ cards:
           - light.man_cave_opihr
           - light.man_cave_sovereign
           - light.matt_desk
-          - media_player.man_cave
+          - media_player.speaker_man_cave
           - input_boolean.guests_staying
         state_image:
           "on": /local/rooms/guest-bedroom.jpg
@@ -102,7 +102,7 @@ cards:
           - light.hue_go
           - switch.star_lamp
           - media_player.philips_tv
-          - media_player.lounge
+          - media_player.speaker_lounge
         state_image:
           "on": /local/rooms/lounge.jpg
           "off": /local/rooms/lounge-bw.jpg
@@ -133,7 +133,7 @@ cards:
         - type: picture-glance
           title: Office
           entities:
-            - media_player.office
+            - media_player.speaker_office
             - light.office_filament
             - light.office_lamp
           state_image:
@@ -182,7 +182,7 @@ cards:
           - light.dining_room_lamp
           - light.dining_room_lamp_left
           - light.dining_room_lamp_right
-          - media_player.dining_room
+          - media_player.speaker_dining_room
           - switch.fairy_lights
           - input_boolean.entertaining
         state_image:
@@ -218,7 +218,7 @@ cards:
           - light.kitchen_oven_2
           - light.kitchen_sink_1
           - light.kitchen_sink_2
-          - light.kitchen_extension
+          - media_player.speaker_kitchen
         state_image:
           "on": /local/rooms/kitchen.jpg
           "off": /local/rooms/kitchen-bw.jpg
@@ -239,7 +239,6 @@ cards:
               - light.kitchen_oven_2
               - light.kitchen_sink_1
               - light.kitchen_sink_2
-              - light.kitchen_extension
               - input_select.scene_kitchen
     - type: custom:stack-in-card
       mode: vertical

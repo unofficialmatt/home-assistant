@@ -105,7 +105,7 @@ automation:
     action:
       - service: script.tts_engine
         data_template:
-          media_player: media_player.bedroom
+          media_player: media_player.speaker_bedroom
           tts_message: >
             This is a travel update from Home Assistant. Traffic Conditions are
             {% if states.sensor.morning_commute.state <= "35" %} GREAT.
@@ -216,7 +216,7 @@ automation:
               thread-id: "matt-commute"
       - service: script.tts_engine
         data_template:
-          media_player: media_player.speakers
+          media_player: media_player.speakergroup_all
           tts_message: >
             Matt has just left work.
             He'll be home in around {{ states.sensor.evening_commute.state }} minutes.

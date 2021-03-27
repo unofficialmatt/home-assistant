@@ -24,10 +24,10 @@ homekit:
       #- switch.lounge_snowflakes
       - switch.star_lamp
     exclude_entities:
-      - media_player.speakers
+      - media_player.speakergroup_all
       - media_player.spotify
-      - media_player.upstairs
-      - media_player.bedroom_dining
+      - media_player.speakergroup_upstairs
+      - media_player.speakergroup_bedroom_dining
       - light.bedroom_entertainment_area
       - light.custom_group_for_lights
       - light.dining_room

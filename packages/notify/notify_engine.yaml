@@ -92,7 +92,7 @@ script:
           ## ELSE TAKE VALUE PASSED
           media_player: >-
             {% if media_player | length == 0 %}
-              {% set media_player = 'media_player.speakers' %}
+              {% set media_player = 'media_player.speakergroup_all' %}
             {% endif %}
             {% if media_player is not string and media_player is sequence %}
               {% set media_player = media_player|join(', ') %}

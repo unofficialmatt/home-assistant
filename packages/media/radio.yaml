@@ -16,13 +16,16 @@ input_select:
   googlehome_radio:
     name: 'Select Speakers:'
     options:
-      - Dining Room
       - Lounge
+      - Kitchen
+      - Dining Room
+      - Kitchen/Dining Room
       - Downstairs
       - Bedroom
       - Office
       - Man Cave
       - Offices
+      - Upstairs
       - All Speakers
     initial: All Speakers
     icon: mdi:google-home
@@ -35,14 +38,17 @@ script:
       - service: media_player.volume_set
         data_template:
           entity_id: >-
-            {% if is_state("input_select.googlehome_radio", "All Speakers") %} media_player.speakers
-            {% elif is_state("input_select.googlehome_radio", "Dining Room") %} media_player.dining_room
-            {% elif is_state("input_select.googlehome_radio", "Lounge") %} media_player.lounge
-            {% elif is_state("input_select.googlehome_radio", "Downstairs") %} media_player.downstairs
-            {% elif is_state("input_select.googlehome_radio", "Bedroom") %} media_player.bedroom
-            {% elif is_state("input_select.googlehome_radio", "Office") %} media_player.office
-            {% elif is_state("input_select.googlehome_radio", "Man Cave") %} media_player.man_cave
-            {% elif is_state("input_select.googlehome_radio", "Offices") %} media_player.offices
+            {% if is_state("input_select.googlehome_radio", "All Speakers") %} media_player.speakergroup_all
+            {% elif is_state("input_select.googlehome_radio", "Dining Room") %} media_player.speaker_dining_room
+            {% elif is_state("input_select.googlehome_radio", "Lounge") %} media_player.speaker_lounge
+            {% elif is_state("input_select.googlehome_radio", "Downstairs") %} media_player.speakergroup_downstairs
+            {% elif is_state("input_select.googlehome_radio", "Kitchen/Dining Room") %} media_player.speakergroup_entertaining
+            {% elif is_state("input_select.googlehome_radio", "Bedroom") %} media_player.speaker_bedroom
+            {% elif is_state("input_select.googlehome_radio", "Office") %} media_player.speaker_office
+            {% elif is_state("input_select.googlehome_radio", "Man Cave") %} media_player.speaker_man_cave
+            {% elif is_state("input_select.googlehome_radio", "Kitchen") %} media_player.speaker_kitchen
+            {% elif is_state("input_select.googlehome_radio", "Offices") %} media_player.speakergroup_offices
+            {% elif is_state("input_select.googlehome_radio", "Upstairs") %} media_player.speakergroup_upstairs
             {% endif %}
           volume_level: >-
             {% if now().strftime('%H')|int < 10 and now().strftime('%H')|int > 6 %}
@@ -55,14 +61,17 @@ script:
       -  service: media_player.play_media
          data_template:
            entity_id: >-
-            {% if is_state("input_select.googlehome_radio", "All Speakers") %} media_player.speakers
-            {% elif is_state("input_select.googlehome_radio", "Dining Room") %} media_player.dining_room
-            {% elif is_state("input_select.googlehome_radio", "Lounge") %} media_player.lounge
-            {% elif is_state("input_select.googlehome_radio", "Downstairs") %} media_player.downstairs
-            {% elif is_state("input_select.googlehome_radio", "Bedroom") %} media_player.bedroom
-            {% elif is_state("input_select.googlehome_radio", "Office") %} media_player.office
-            {% elif is_state("input_select.googlehome_radio", "Man Cave") %} media_player.man_cave
-            {% elif is_state("input_select.googlehome_radio", "Offices") %} media_player.offices
+            {% if is_state("input_select.googlehome_radio", "All Speakers") %} media_player.speakergroup_all
+            {% elif is_state("input_select.googlehome_radio", "Dining Room") %} media_player.speaker_dining_room
+            {% elif is_state("input_select.googlehome_radio", "Lounge") %} media_player.speaker_lounge
+            {% elif is_state("input_select.googlehome_radio", "Downstairs") %} media_player.speakergroup_downstairs
+            {% elif is_state("input_select.googlehome_radio", "Kitchen/Dining Room") %} media_player.speakergroup_entertaining
+            {% elif is_state("input_select.googlehome_radio", "Bedroom") %} media_player.speaker_bedroom
+            {% elif is_state("input_select.googlehome_radio", "Office") %} media_player.speaker_office
+            {% elif is_state("input_select.googlehome_radio", "Man Cave") %} media_player.speaker_man_cave
+            {% elif is_state("input_select.googlehome_radio", "Kitchen") %} media_player.speaker_kitchen
+            {% elif is_state("input_select.googlehome_radio", "Offices") %} media_player.speakergroup_offices
+            {% elif is_state("input_select.googlehome_radio", "Upstairs") %} media_player.speakergroup_upstairs
             {% endif %}
            media_content_id: >-
             {% if is_state("input_select.radio_station", "BBC Radio 1") %} http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p

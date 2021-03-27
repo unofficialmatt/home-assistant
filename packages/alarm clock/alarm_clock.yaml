@@ -146,10 +146,10 @@ automation:
           option: "-"
       - service: media_player.volume_set
         data_template:
-          entity_id: media_player.bedroom_dining
+          entity_id: media_player.speakergroup_bedroom_dining
           volume_level: 0.2
       - service: media_player.play_media
-        entity_id: media_player.bedroom
+        entity_id: media_player.speaker_bedroom
         data:
           media_content_id: 'https://www.gstatic.com/voice_delight/sounds/long/forest.mp3'
           media_content_type: 'music'
@@ -209,21 +209,21 @@ automation:
             The current temperature is {{states('sensor.darksky_temperature')}}°C with projected highs of {{states('sensor.darksky_daytime_high_apparent_temperature_0d')}}°C. The forecast is {{states('sensor.darksky_hourly_summary')}}
       - service: script.tts_engine
         data_template:
-          media_player: media_player.bedroom
+          media_player: media_player.speaker_bedroom
           call_inside_weather: 1
           call_outside_weather: 1
           call_full_moon: 1
           #call_uv_index: 1
       # Delay allows TTS to put together the notification otherwise the wait template would activate immediately
       - delay: '00:00:15'
-      - wait_template: "{{ is_state('media_player.bedroom', 'idle') or is_state('media_player.bedroom', 'off') }}"
+      - wait_template: "{{ is_state('media_player.speaker_bedroom', 'idle') or is_state('media_player.speaker_bedroom', 'off') }}"
       - service: media_player.volume_set
         data_template:
-          entity_id: media_player.bedroom
+          entity_id: media_player.speaker_bedroom
           volume_level: 0.15
       - service: media_player.volume_set
         data_template:
-          entity_id: media_player.dining_room
+          entity_id: media_player.speaker_dining_room
           volume_level: 0.2
       - service: spotcast.start
         data_template:

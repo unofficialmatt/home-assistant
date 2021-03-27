@@ -44,7 +44,7 @@ cards:
           - type: state-icon
             tap_action:
               action: more-info
-            entity: media_player.dining_room
+            entity: media_player.speaker_dining_room
             style:
               top: 59%
               left: 53%
@@ -180,7 +180,7 @@ cards:
           - type: state-icon
             tap_action:
               action: more-info
-            entity: media_player.lounge
+            entity: media_player.speaker_lounge
             style:
               top: 59%
               left: 72%
@@ -225,7 +225,7 @@ cards:
           - type: state-icon
             tap_action:
               action: more-info
-            entity: media_player.bedroom
+            entity: media_player.speaker_bedroom
             style:
               top: 24%
               left: 69.5%
@@ -262,7 +262,7 @@ cards:
           - type: state-icon
             tap_action:
               action: more-info
-            entity: media_player.office
+            entity: media_player.speaker_office
             style:
               top: 22%
               left: 32.5%

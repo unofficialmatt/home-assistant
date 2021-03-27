@@ -57,7 +57,7 @@ automation:
               apns-collapse-id: 'doorbell'
       - service: media_player.play_media
         data_template:
-          entity_id: media_player.speakers
+          entity_id: media_player.speakergroup_all
           media_content_id: https://home.lynwood.club/local/doorbell.mp3
           media_content_type: 'audio/mp3'
   - alias: Doorbell - RESET

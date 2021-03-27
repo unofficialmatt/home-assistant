@@ -15,27 +15,27 @@ cards:
           - type: custom:decluttering-card
             template: media_player_speaker
             variables:
-              - entity: media_player.speakers
+              - entity: media_player.speakergroup_all
           - type: custom:decluttering-card
             template: media_player_speaker
             variables:
-              - entity: media_player.dining_room
+              - entity: media_player.speaker_dining_room
           - type: custom:decluttering-card
             template: media_player_speaker
             variables:
-              - entity: media_player.bedroom
+              - entity: media_player.speaker_bedroom
           - type: custom:decluttering-card
             template: media_player_speaker
             variables:
-              - entity: media_player.lounge
+              - entity: media_player.speaker_lounge
           - type: custom:decluttering-card
             template: media_player_speaker
             variables:
-              - entity: media_player.office
+              - entity: media_player.speaker_office
           - type: custom:decluttering-card
             template: media_player_speaker
             variables:
-              - entity: media_player.man_cave
+              - entity: media_player.speaker_man_cave
 
   ## VIDEO
   - type: custom:stack-in-card

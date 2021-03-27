@@ -17,23 +17,27 @@ cards:
     - type: custom:decluttering-card
       template: pretty_speaker
       variables:
-        - entity: media_player.dining_room
+        - entity: media_player.speaker_dining_room
     - type: custom:decluttering-card
       template: pretty_speaker
       variables:
-        - entity: media_player.lounge
+        - entity: media_player.speaker_kitchen
     - type: custom:decluttering-card
       template: pretty_speaker
       variables:
-        - entity: media_player.bedroom
+        - entity: media_player.speaker_lounge
     - type: custom:decluttering-card
       template: pretty_speaker
       variables:
-        - entity: media_player.office
+        - entity: media_player.speaker_bedroom
     - type: custom:decluttering-card
       template: pretty_speaker
       variables:
-        - entity: media_player.man_cave
+        - entity: media_player.speaker_office
+    - type: custom:decluttering-card
+      template: pretty_speaker
+      variables:
+        - entity: media_player.speaker_man_cave
     - type: custom:decluttering-card
       template: pretty_subheader
       variables:
@@ -42,19 +46,27 @@ cards:
     - type: custom:decluttering-card
       template: pretty_speaker
       variables:
-        - entity: media_player.speakers
+        - entity: media_player.speakergroup_all
     - type: custom:decluttering-card
       template: pretty_speaker
       variables:
-        - entity: media_player.bedroom_dining
+        - entity: media_player.speakergroup_bedroom_dining
     - type: custom:decluttering-card
       template: pretty_speaker
       variables:
-        - entity: media_player.downstairs
+        - entity: media_player.speakergroup_entertaining
     - type: custom:decluttering-card
       template: pretty_speaker
       variables:
-        - entity: media_player.offices
+        - entity: media_player.speakergroup_downstairs
+    - type: custom:decluttering-card
+      template: pretty_speaker
+      variables:
+        - entity: media_player.speakergroup_upstairs
+    - type: custom:decluttering-card
+      template: pretty_speaker
+      variables:
+        - entity: media_player.speakergroup_offices
 
   ## RADIO
   - type: vertical-stack
@@ -94,7 +106,7 @@ cards:
             margin: 0 10px 5px 10px;
           }
     - type: 'custom:spotify-card'
-      device: media_player.downstairs
+      device: media_player.speakergroup_downstairs
       display_style: grid
       grid_covers_per_row: 5
       grid_center_covers: true

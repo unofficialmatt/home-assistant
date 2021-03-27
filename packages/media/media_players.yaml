@@ -11,39 +11,18 @@ homeassistant:
   customize_glob:
     "*.plex*":
       icon: mdi:plex
+    "*philips_tv*":
+      icon: mdi:television
+    "*ps5*":
+      icon: mdi:sony-playstation
+    "media_player.speakergroup_*":
+      icon: mdi:google-home
+      hidden: true
+    "media_player.speaker_*":
+      icon: mdi:google-home
     "automation.automated_music_*":
       icon: mdi:music
   customize:
-    media_player.bedroom:
-      friendly_name: Bedroom
-      icon: mdi:google-home
-    media_player.lounge:
-      friendly_name: Lounge
-      icon: mdi:google-home
-    media_player.office:
-      friendly_name: Office
-      icon: mdi:google-home
-    media_player.dining_room:
-      friendly_name: Dining Room
-      icon: mdi:google-home
-    media_player.man_cave:
-      friendly_name: Man Cave
-      icon: mdi:google-home
-    media_player.speakers:
-      hidden: true
-      icon: mdi:google-home
-    media_player.upstairs:
-      hidden: true
-      icon: mdi:google-home
-    media_player.downstairs:
-      hidden: true
-      icon: mdi:google-home
-    media_player.bedroom_dining:
-      hidden: true
-      icon: mdi:google-home
-    media_player.offices:
-      hidden: true
-      icon: mdi:google-home
     media_player.spotify:
       icon: mdi:spotify
     media_player.philips_tv:
@@ -101,10 +80,10 @@ automation:
     action:
       - service: media_player.volume_set
         data_template:
-          entity_id: media_player.dining_room
+          entity_id: media_player.speaker_dining_room
           volume_level: 0.3
       - service: media_player.play_media
-        entity_id: media_player.dining_room
+        entity_id: media_player.speaker_dining_room
         data:
           media_content_id: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p'
           media_content_type: 'music'
@@ -128,11 +107,11 @@ automation:
     action:
       - service: media_player.volume_set
         data_template:
-          entity_id: media_player.dining_room
+          entity_id: media_player.speaker_dining_room
           volume_level: 0.2
       - service: spotcast.start
         data_template:
-          device_name: 'media_player.dining_room'
+          device_name: 'media_player.speaker_dining_room'
           uri: >
             {{ [
             'spotify:user:spotify:playlist:37i9dQZF1DXcxacyAXkQDu',
