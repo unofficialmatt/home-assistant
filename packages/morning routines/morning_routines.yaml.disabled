@@ -66,7 +66,7 @@ automation:
         entity_id: input_select.scene_master_bedroom
         option: "Dimmed"
     - service: media_player.media_stop
-      entity_id: media_player.bedroom
+      entity_id: media_player.speaker_bedroom
 
 - alias: Morning Routine - Scene Energise
   trigger:
@@ -90,7 +90,7 @@ automation:
   action:
     - service: media_player.volume_set
       data_template:
-        entity_id: media_player.bedroom
+        entity_id: media_player.speaker_bedroom
         volume_level: 0.45
     - service: media_player.media_play
-      entity_id: media_player.bedroom
+      entity_id: media_player.speaker_bedroom
