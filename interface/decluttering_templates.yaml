@@ -12,6 +12,12 @@
 #                                     #
 #######################################
 
+divider:
+  card:
+    type: entities
+    entities:
+      - type: divider
+
 spacer:
   card:
     type: divider

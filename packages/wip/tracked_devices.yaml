@@ -1,0 +1,69 @@
+#######################################################
+#                                                     #
+#              PACKAGES / TRACKED DEVICES             #
+#                                                     #
+#######################################################
+
+homeassistant:
+
+  customize:
+    device_tracker.status_hue_hub:
+      icon: mdi:home-lightbulb
+    device_tracker.status_nest_thermostat:
+      icon: mdi:thermostat
+    device_tracker.status_sarah_imac:
+      icon: mdi:desktop-mac
+    device_tracker.status_matt_desk_light:
+      icon: mdi:led-strip
+    device_tracker.status_nintendo_switch:
+      icon: mdi:nintendo-switch
+    device_tracker.status_robbie_the_rover:
+      icon: mdi:robot-vacuum
+
+  customize_glob:
+    "*mycloud*":
+      icon: mdi:nas
+    "*lynwood_nuc*":
+      icon: mdi:server-network
+    "device_tracker.status_switch_*":
+      icon: mdi:power-plug
+    "device_tracker.status_speaker_*":
+      icon: mdi:google-home
+    "device_tracker.status_macbookpro_*":
+      icon: mdi:laptop-mac
+    "device_tracker.status_*phone":
+      icon: mdi:cellphone
+    "device_tracker.status_*ipad":
+      icon: mdi:tablet-ipad
+    "device_tracker.status_*watch":
+      icon: mdi:watch-variant
+
+    automation.disconnected_device_notify:
+      icon: mdi:minus-circle
+
+#######################################################
+#                                                     #
+#                     AUTOMATIONS                     #
+#                                                     #
+#######################################################
+
+# TODO: IN TESTING
+automation:
+  - alias: Disconnected Device Notify
+    trigger:
+      - platform: state
+        entity_id: device_tracker.status_nest_wifi, device_tracker.status_mycloud, device_tracker.status_lynwood_nuc_wifi, device_tracker.status_hue_hub
+        to: 'away'
+      - platform: state
+        entity_id: binary_sensor.status_google_wifi, binary_sensor.status_lounge_access_point, binary_sensor.status_man_cave_access_point
+        to: 'off'
+
+    action:
+      - service: notify.matt_all
+        data_template:
+          title: >
+            {{ "\uD83D\uDED1" }} Device Disconnected
+          message: "The {{ trigger.to_state.attributes.friendly_name }} has disconnected from the router."
+        data:
+          push:
+            thread-id: "server-notifications"

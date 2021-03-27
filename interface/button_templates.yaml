@@ -29,6 +29,16 @@ pretty_device:
         card:
           - background-color: '#218c74'
           - color: white
+    - value: "not_home"
+      styles:
+        card:
+          - background-color: '#b33939'
+          - color: white
+    - value: "home"
+      styles:
+        card:
+          - background-color: '#218c74'
+          - color: white
 
 pretty_button:
   color_type: icon

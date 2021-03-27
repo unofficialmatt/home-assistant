@@ -51,24 +51,6 @@ homeassistant:
 #######################################################
 
 device_tracker:
-  - platform: ping
-    interval_seconds: 180
-    consider_home: 00:13:00
-    hosts:
-      sarah_ping: !secret ip_sarah_phone
-      matt_ping: !secret ip_matt_phone
-      sarah_watch: !secret ip_sarah_watch
-      matt_watch: !secret ip_matt_watch
-  - platform: ping
-    interval_seconds: 90
-    consider_home: 00:20:00
-    hosts:
-      aimee: !secret ip_aimee_phone
-      james: !secret ip_james_phone
-      katt: !secret ip_katt_phone
-      rashida: !secret ip_rashida_phone
-      #rob: !secret ip_rob_phone
-      beez: !secret ip_beez_phone
   - platform: tile
     username: !secret tile_email
     password: !secret tile_password
@@ -79,8 +61,8 @@ person:
     user_id: c1937753d36940ff9bc20222e7c8ffa3
     device_trackers:
       - device_tracker.matt # HASS App
-      - device_tracker.matt_ping # Router Ping
-      - device_tracker.matt_watch # Router Ping
+      - device_tracker.status_matts_iphone # Router Ping
+      - device_tracker.status_matts_watch # Router Ping
       - device_tracker.matts_iphone # iCloud
       - device_tracker.matts_apple_watch # iCloud
   - name: Sarah
@@ -88,9 +70,9 @@ person:
     user_id: 6484a01f3d07451aa10113e684fec320
     device_trackers:
       - device_tracker.sarah # HASS App
-      - device_tracker.sarah_ping # Router Ping
-      - device_tracker.sarah_watch # Router Ping
-      - device_tracker.sarah_kents_iphone # iCloud
+      - device_tracker.status_sarahs_iphone # Router Ping
+      - device_tracker.status_sarahs_watch # Router Ping
+      - device_tracker.sarahs_iphone # iCloud
       - device_tracker.sarahs_apple_watch # iCloud
 
 #######################################################
@@ -142,6 +124,7 @@ group:
       - device_tracker.aimee
       - device_tracker.james
       - device_tracker.beez
+      - device_tracker.lucy
   friends:
     name: Friends
     entities:

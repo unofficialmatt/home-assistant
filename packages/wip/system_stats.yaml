@@ -24,6 +24,14 @@ homeassistant:
       icon: mdi:timer
     sensor.ha_uptime:
       icon: mdi:timer
+    sensor.google_wifi_upload_speed:
+      icon: mdi:upload
+    sensor.google_wifi_download_speed:
+      icon: mdi:download
+    sensor.google_wifi_upload_traffic:
+      icon: mdi:speedometer-slow
+    sensor.google_wifi_download_traffic:
+      icon: mdi:speedometer
 
 #######################################################
 #                                                     #
@@ -81,7 +89,7 @@ sensor:
     entities:
       - binary_sensor.kitchen_sensor_motion
       - binary_sensor.landing_sensor_motion
-      - vacuum.xiaomi_vacuum_cleaner
+      - vacuum.rockrobo
 
   ## DATABASE AND LOG SIZE
   - platform: filesize
@@ -128,16 +136,3 @@ sensor:
 
             {{ [ phrase(weeks, 'week'), phrase(days, 'day'), phrase(hours, 'hr'), phrase(minutes, 'min') ] | select('!=','') | list | join(', ') }}
           {% endif %}
-
-#######################################################
-#                                                     #
-#                    INTEGRATIONS                     #
-#                                                     #
-#######################################################
-
-speedtestdotnet:
-  scan_interval: '00:15'
-  monitored_conditions:
-    - ping
-    - download
-    - upload

@@ -27,6 +27,20 @@ cards:
         - type: custom:decluttering-card
           template: pretty_bar
           variables:
+            - entity: sensor.macbook_home_storage
+            - title: MBP Home Disk Use
+            - min: 40
+            - mid: 80
+        - type: custom:decluttering-card
+          template: pretty_bar
+          variables:
+            - entity: sensor.macbook_work_storage
+            - title: MBP Work Disk Use
+            - min: 40
+            - mid: 80
+        - type: custom:decluttering-card
+          template: pretty_bar
+          variables:
             - entity: sensor.memory_use_percent
             - title: RAM Use
             - min: 70
@@ -55,7 +69,7 @@ cards:
       - type: custom:decluttering-card
         template: pretty_graph
         variables:
-          - entity: sensor.speedtest_download
+          - entity: sensor.google_wifi_download_speed
           - name: Download Speed
           - hours_to_show: 12
           - extrema: true
@@ -64,7 +78,7 @@ cards:
           - type: custom:decluttering-card
             template: pretty_graph
             variables:
-              - entity: sensor.speedtest_upload
+              - entity: sensor.google_wifi_upload_speed
               - name: Upload
               - hours_to_show: 12
               - extrema: true
@@ -72,31 +86,12 @@ cards:
           - type: custom:decluttering-card
             template: pretty_graph
             variables:
-              - entity: sensor.speedtest_ping
-              - name: Ping
+              - entity: sensor.google_wifi_connected_devices
+              - name: Connected Devices
               - hours_to_show: 12
               - extrema: true
               - color: '#34ace0'
-      - type: horizontal-stack
-        cards:
-          - type: custom:decluttering-card
-            template: pretty_graph
-            variables:
-              - entity: sensor.arris_tg2492lg_85_router_kib_s_received
-              - name: KiB Received
-              - hours_to_show: 24
-              - extrema: true
-              - color: '#706fd3'
-          - type: custom:decluttering-card
-            template: pretty_graph
-            variables:
-              - entity: sensor.arris_tg2492lg_85_router_kib_s_sent
-              - name: KiB Sent
-              - hours_to_show: 24
-              - extrema: true
-              - color: '#34ace0'
 
-  ## DOCKER STACK
   - type: vertical-stack
     cards:
 
@@ -110,88 +105,143 @@ cards:
         cards:
         - type: custom:button-card
           template: pretty_device
-          entity: binary_sensor.router
+          entity: binary_sensor.status_google_wifi
         - type: custom:button-card
           template: pretty_device
-          entity: binary_sensor.server
+          entity: binary_sensor.status_lounge_access_point
         - type: custom:button-card
           template: pretty_device
-          entity: binary_sensor.mycloud
-      - type: horizontal-stack
-        cards:
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.range_extender_office
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.range_extender_man_cave
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.range_extender_kitchen
-      - type: horizontal-stack
-        cards:
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.hue_hub
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.nest
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.robbie_the_rover
-      - type: horizontal-stack
-        cards:
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.bedtime_comfort
-#        - type: custom:button-card
-#          template: pretty_device
-#          entity: binary_sensor.star_lamp
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.fairy_lights
-#        - type: custom:button-card
-#          template: pretty_device
-#          entity: binary_sensor.christmas_tree
-#        - type: custom:button-card
-#          template: pretty_device
-#          entity: binary_sensor.snowflakes
-      - type: horizontal-stack
-        cards:
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.pergola_bulbs
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.pergola_stars
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.man_cave_leds
-      - type: horizontal-stack
-        cards:
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.bedroom_speaker
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.lounge_speaker
-      - type: horizontal-stack
-        cards:
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.office_speaker
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.dining_room_speaker
-      - type: horizontal-stack
-        cards:
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.nintendo_switch
-        - type: custom:button-card
-          template: pretty_device
-          entity: binary_sensor.lounge_tv
+          entity: binary_sensor.status_man_cave_access_point
 
+      - type: custom:decluttering-card
+        template: divider
+
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_hue_hub
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_lynwood_nuc_wifi
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_mycloud
+
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_matt_desk_light
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_nest_thermostat
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_robbie_the_rover
+
+      - type: custom:decluttering-card
+        template: divider
+
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_matts_iphone
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_matts_watch
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_sarahs_iphone
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_sarahs_ipad
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_sarahs_watch
+
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_macbookpro_work
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_macbookpro_home
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_sarah_imac
+
+      - type: custom:decluttering-card
+        template: divider
+
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_nintendo_switch
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_ps5
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_philips_tv
+
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_speaker_kitchen
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_speaker_dining_room
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_speaker_lounge
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_speaker_office
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_speaker_bedroom
+
+      - type: custom:decluttering-card
+        template: divider
+
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_switch_bedroom_comfort
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_switch_effects_pedals
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_switch_fairy_lights
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_switch_festoon_lights
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_switch_festoon_lights_2
+      - type: horizontal-stack
+        cards:
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_switch_pergola_stars
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_switch_star_lamp
+
+## DOCKER STACK
     - type: entities
       title: Docker Containers
       show_header_toggle: false

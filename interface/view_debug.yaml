@@ -172,11 +172,6 @@ cards:
         - type: custom:decluttering-card
           template: pretty_battery
           variables:
-            - entity: sensor.sarahipad_battery_level
-            - title: Sarah's iPad
-        - type: custom:decluttering-card
-          template: pretty_battery
-          variables:
             - entity: sensor.xiaomi_vacuum_cleaner_battery_level
             - title: Robbie the Rover
 

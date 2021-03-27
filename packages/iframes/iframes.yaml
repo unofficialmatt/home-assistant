@@ -10,10 +10,8 @@
 #                                                     #
 #######################################################
 
-# THESE AUTOMATIONS TRIGGER ONLY IF HOME STATUS IS SET TO HOLIDAY
-
 panel_iframe:
   ombi:
     title: 'Ombi'
     url: https://requests.lynwood.club
-    icon: mdi:library-movie
+    icon: mdi:movie-search
