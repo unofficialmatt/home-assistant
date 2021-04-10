@@ -69,12 +69,6 @@ scene:
         transition: 900
         rgb_color: [165,115,42]
 
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
-
 ## ALL AUTOMATIONS ONLY TRIGGER IF SOMEBODY IS HOME AND THE ALARM CLOCK IS ENABLED
 
 automation:

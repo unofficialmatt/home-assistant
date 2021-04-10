@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#             PACKAGES / HEATED MATTRESS              #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize:
     switch.bedroom_comfort:
@@ -13,12 +7,6 @@ homeassistant:
     "*heated_mattress*":
       icon: mdi:radiator
 
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
 
