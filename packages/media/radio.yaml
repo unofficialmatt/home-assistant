@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#                   PACKAGES / RADIO                  #
-#                                                     #
-#######################################################
-
 input_select:
   radio_station:
     name: 'Select Radio Station:'
@@ -42,7 +36,6 @@ script:
             {% elif is_state("input_select.googlehome_radio", "Dining Room") %} media_player.speaker_dining_room
             {% elif is_state("input_select.googlehome_radio", "Lounge") %} media_player.speaker_lounge
             {% elif is_state("input_select.googlehome_radio", "Downstairs") %} media_player.speakergroup_downstairs
-            {% elif is_state("input_select.googlehome_radio", "Kitchen/Dining Room") %} media_player.speakergroup_entertaining
             {% elif is_state("input_select.googlehome_radio", "Bedroom") %} media_player.speaker_bedroom
             {% elif is_state("input_select.googlehome_radio", "Office") %} media_player.speaker_office
             {% elif is_state("input_select.googlehome_radio", "Man Cave") %} media_player.speaker_man_cave
@@ -65,7 +58,6 @@ script:
             {% elif is_state("input_select.googlehome_radio", "Dining Room") %} media_player.speaker_dining_room
             {% elif is_state("input_select.googlehome_radio", "Lounge") %} media_player.speaker_lounge
             {% elif is_state("input_select.googlehome_radio", "Downstairs") %} media_player.speakergroup_downstairs
-            {% elif is_state("input_select.googlehome_radio", "Kitchen/Dining Room") %} media_player.speakergroup_entertaining
             {% elif is_state("input_select.googlehome_radio", "Bedroom") %} media_player.speaker_bedroom
             {% elif is_state("input_select.googlehome_radio", "Office") %} media_player.speaker_office
             {% elif is_state("input_select.googlehome_radio", "Man Cave") %} media_player.speaker_man_cave

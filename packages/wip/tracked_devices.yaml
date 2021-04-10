@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#              PACKAGES / TRACKED DEVICES             #
-#                                                     #
-#######################################################
-
 homeassistant:
 
   customize:
@@ -40,12 +34,6 @@ homeassistant:
 
     automation.disconnected_device_notify:
       icon: mdi:minus-circle
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 # TODO: IN TESTING
 automation:

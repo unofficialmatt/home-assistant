@@ -1,16 +1,4 @@
-#######################################
-#                                     #
-#       DECLUTTERING TEMPLATES        #
-#                                     #
-#######################################
-
 # @link https://github.com/custom-cards/decluttering-card
-
-#######################################
-#                                     #
-#               GLOBAL                #
-#                                     #
-#######################################
 
 divider:
   card:
@@ -173,12 +161,6 @@ pretty_bar:
     - max_color: '#b33939'
     - icon: 'inside'
 
-#######################################
-#                                     #
-#             VIEW: HOME              #
-#                                     #
-#######################################
-
 occupant_card:
   card:
     type: picture-elements
@@ -208,13 +190,6 @@ occupant_card:
       - type: state-label
         style: {color: white, font-weight: bold, bottom: 0%, left: 20px, font-size: 15px, transform: initial}
         entity: 'sensor.[[person]]_steps'
-
-
-#######################################
-#                                     #
-#             VIEW: MEDIA             #
-#                                     #
-#######################################
 
 media_player_speaker:
   card:
@@ -264,12 +239,6 @@ pretty_speaker:
         ha-card {
           margin: 0 10px 5px 10px;
         }
-
-#######################################
-#                                     #
-#             VIEW: DEBUG             #
-#                                     #
-#######################################
 
 pretty_battery:
   card:

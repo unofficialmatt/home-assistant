@@ -1,20 +1,8 @@
-#######################################################
-#                                                     #
-#           PACKAGES / HOLIDAY / MOCKUPANCY           #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize_glob:
     "*holiday_lights*":
       hidden: true
       icon: mdi:island
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 # THESE AUTOMATIONS TRIGGER ONLY IF HOME STATUS IS SET TO HOLIDAY
 

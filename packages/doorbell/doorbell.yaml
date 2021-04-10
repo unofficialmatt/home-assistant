@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#                 PACKAGES / DOOR BELL                #
-#                                                     #
-#######################################################
-
 # @link https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Xiaomi-WXKG01LM
 
 homeassistant:
@@ -11,22 +5,10 @@ homeassistant:
     "*.doorbell*":
       icon: mdi:bell-ring
 
-#######################################################
-#                                                     #
-#                    INPUT BOOLEAN                    #
-#                                                     #
-#######################################################
-
 input_boolean:
   doorbell_pressed:
     name: Doorbell Pressed
     initial: off
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
   # PLAYS AN MP3 ON SPEAKERS IF DOORBELL HAS NOT BEEN PRESSED WITHIN LAST 3 SECONDS

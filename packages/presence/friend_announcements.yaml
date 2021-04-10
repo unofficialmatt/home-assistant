@@ -1,20 +1,8 @@
-#######################################################
-#                                                     #
-#           PACKAGES / FRIEND ANNOUNCEMENTS           #
-#                                                     #
-#######################################################
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
-
 automation:
   - alias: Friends Entrance Music
     trigger:
       - platform: state
-        entity_id: device_tracker.katt, device_tracker.rob, device_tracker.aimee, device_tracker.lucy
+        entity_id: device_tracker.katts_phone, device_tracker.rob, device_tracker.aimee, device_tracker.lucy
         to: 'home'
     condition:
       condition: and
@@ -38,6 +26,8 @@ automation:
             "Hello, " ~ trigger_name +". I've missed you.",
             "Hello, " ~ trigger_name +". How have you been?",
             "Boy am I glad to see you, " ~ trigger_name +".",
+            "Hello, " ~ trigger_name +".",
+            "Howdy, " ~ trigger_name +".",
             "I think I hear " ~ trigger_name +". Hello!",
             "What's up, " ~ trigger_name +".",
             "Hey, " ~ trigger_name +". It's great to feel your presence."

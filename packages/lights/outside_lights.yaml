@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#              PACKAGES / OUTSIDE LIGHTS              #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize_glob:
     "automation.outside_lights_*":
@@ -33,12 +27,6 @@ ios:
             title: 'No'
             activationMode: 'background'
             authenticationRequired: false
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
 
@@ -106,7 +94,7 @@ automation:
     action:
       - service: switch.turn_off
         entity_id: switch.festoon_lights, switch.pergola_stars
-      - service: notify.mobile_app_matts_phone
+      - service: notify.mobile_app_matts_iphone
         data:
           title: 'WORKED'
           message: 'YES'

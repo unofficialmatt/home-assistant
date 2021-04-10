@@ -1,19 +1,7 @@
-#######################################################
-#                                                     #
-#            PACKAGES / WASHING MACHINE               #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize_glob:
     "*washing_machine*":
       icon: mdi:washing-machine
-
-#######################################################
-#                                                     #
-#                       SENSOR                        #
-#                                                     #
-#######################################################
 
 sensor:
   - platform: history_stats
@@ -25,22 +13,10 @@ sensor:
     duration:
       minutes: 10
 
-#######################################################
-#                                                     #
-#                    INPUT BOOLEAN                    #
-#                                                     #
-#######################################################
-
 input_boolean:
   washing_machine_running:
     name: Washing Machine Running
     initial: off
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
   - alias: Alert Washing Machine Finished

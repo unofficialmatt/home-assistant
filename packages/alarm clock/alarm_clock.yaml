@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#                PACKAGES / ALARM CLOCK               #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize_glob:
     "*alarm*":
@@ -16,12 +10,6 @@ homeassistant:
     sensor.time_until_alarm:
       hidden: true
       icon: mdi:timelapse
-
-#######################################################
-#                                                     #
-#                       SENSOR                        #
-#                                                     #
-#######################################################
 
 sensor:
   - platform: template
@@ -51,12 +39,6 @@ sensor:
            - sensor.relative_alarm_time
         value_template: '{{  (states.sensor.relative_alarm_time.state.split(" ")[0] | int *60 ) | timestamp_custom("%H:%M") }}'
 
-#######################################################
-#                                                     #
-#                    INPUT NUMBER                     #
-#                                                     #
-#######################################################
-
 input_number:
   alarm_hour:
     name: Hours
@@ -73,23 +55,11 @@ input_number:
     max: 59
     step: 5
 
-#######################################################
-#                                                     #
-#                    INPUT BOOLEAN                    #
-#                                                     #
-#######################################################
-
 input_boolean:
   alarm_clock:
     name: Enable Alarm Clock
     initial: on
     icon: mdi:alarm-check
-
-#######################################################
-#                                                     #
-#                        SCENE                        #
-#                                                     #
-#######################################################
 
 scene:
   - name: Master Bedroom Wake Up

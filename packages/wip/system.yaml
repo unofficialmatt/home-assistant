@@ -1,10 +1,3 @@
-#######################################################
-#                                                     #
-#                       SENSOR                        #
-#                                                     #
-#######################################################
-
-
 # for huesensor component
 #sensor:
 #  - platform: template
@@ -26,12 +19,6 @@
 #        friendly_name: 'Landing Humidity'
 #        unit_of_measurement: '%'
 
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
 
@@ -62,6 +49,7 @@ automation:
           #     clear-dark
           #   {% endif %}
 
+  # TODO: I dont think that the hooks in Sonarr/Radarr are working anymore
   - alias: 'Notify of Sonarr / Radarr activity'
     trigger:
       - platform: template

@@ -15,13 +15,6 @@ switch:
       #- light.lounge
 
 
-
-#######################################################
-#                                                     #
-#                    INPUT SELECT                     #
-#                                                     #
-#######################################################
-
 input_select:
   lights_status:
     name: Lights Status
@@ -29,12 +22,6 @@ input_select:
       - "Off"
       - "Lights On"
     initial: "Off"
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
 
@@ -96,13 +83,6 @@ automation:
   #    data:
   #      entity_id: input_select.scene_lounge
   #      option: "Relax"
-
-
-#######################################################
-#                                                     #
-#                        SCENE                        #
-#                                                     #
-#######################################################
 
 scene:
   - name: Matt Workday

@@ -113,9 +113,6 @@ cards:
           template: pretty_device
           entity: binary_sensor.status_man_cave_access_point
 
-      - type: custom:decluttering-card
-        template: divider
-
       - type: horizontal-stack
         cards:
         - type: custom:button-card
@@ -140,9 +137,6 @@ cards:
           template: pretty_device
           entity: device_tracker.status_robbie_the_rover
 
-      - type: custom:decluttering-card
-        template: divider
-
       - type: horizontal-stack
         cards:
         - type: custom:button-card
@@ -151,6 +145,9 @@ cards:
         - type: custom:button-card
           template: pretty_device
           entity: device_tracker.status_matts_watch
+        - type: custom:button-card
+          template: pretty_device
+
       - type: horizontal-stack
         cards:
         - type: custom:button-card
@@ -158,10 +155,10 @@ cards:
           entity: device_tracker.status_sarahs_iphone
         - type: custom:button-card
           template: pretty_device
-          entity: device_tracker.status_sarahs_ipad
+          entity: device_tracker.status_sarahs_watch
         - type: custom:button-card
           template: pretty_device
-          entity: device_tracker.status_sarahs_watch
+          entity: device_tracker.status_sarahs_ipad
 
       - type: horizontal-stack
         cards:
@@ -174,9 +171,6 @@ cards:
         - type: custom:button-card
           template: pretty_device
           entity: device_tracker.status_sarah_imac
-
-      - type: custom:decluttering-card
-        template: divider
 
       - type: horizontal-stack
         cards:
@@ -209,9 +203,8 @@ cards:
         - type: custom:button-card
           template: pretty_device
           entity: device_tracker.status_speaker_bedroom
-
-      - type: custom:decluttering-card
-        template: divider
+        - type: custom:button-card
+          template: pretty_device
 
       - type: horizontal-stack
         cards:
@@ -232,14 +225,20 @@ cards:
         - type: custom:button-card
           template: pretty_device
           entity: device_tracker.status_switch_festoon_lights_2
+        - type: custom:button-card
+          template: pretty_device
+          entity: device_tracker.status_switch_pergola_stars
+
       - type: horizontal-stack
         cards:
         - type: custom:button-card
           template: pretty_device
-          entity: device_tracker.status_switch_pergola_stars
+          entity: device_tracker.status_switch_star_lamp
         - type: custom:button-card
           template: pretty_device
-          entity: device_tracker.status_switch_star_lamp
+        - type: custom:button-card
+          template: pretty_device
+
 
 ## DOCKER STACK
     - type: entities

@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#                PACKAGES / FRIDGE DOOR               #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize_glob:
     "*.fridge_door*":
@@ -14,12 +8,6 @@ homeassistant:
     binary_sensor.freezer_door:
       icon: mdi:fridge
       friendly_name: Freezer Door
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
   # SENDS A NOTIFICATION IF FRIDGE / FREEZER DOOR OPEN TOO LONG
@@ -82,4 +70,3 @@ automation:
               "My parts are shrivelling."
               ] | random }}
             Please close the {{ trigger.to_state.attributes.friendly_name }}, it has been open for {{ trigger.for }} minutes!
-

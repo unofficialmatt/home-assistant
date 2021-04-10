@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#                 PACKAGES / BEDTIME                  #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize_glob:
     "*bedtime*":
@@ -11,12 +5,6 @@ homeassistant:
   customize:
     script.turn_off_bedtime:
       icon: mdi:power
-
-#######################################################
-#                                                     #
-#                    INPUT SELECT                     #
-#                                                     #
-#######################################################
 
 input_select:
   bedtime_trigger:
@@ -26,12 +14,6 @@ input_select:
       - Lights On
       - Asleep
     initial: "Off"
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
   # TURN ON BEDROOM LIGHTS WHEN LANDING MOTION SENSOR TRIPPED BETWEEN 20:30 and 04:00
@@ -71,7 +53,7 @@ automation:
           {% endif %}
       - service: script.tts_engine
         data_template:
-          media_player: media_player.bedroom
+          media_player: media_player.speaker_bedroom
           call_no_greeting: 1
           call_no_signoff: 1
           tts_message: >
@@ -108,7 +90,7 @@ automation:
     action:
       - service: script.tts_engine
         data_template:
-          media_player: media_player.bedroom
+          media_player: media_player.speaker_bedroom
           tts_message: >
             {% if is_state('input_boolean.alarm_clock', 'on') %}
             Your alarm is set for {{ states.sensor.alarm_time.state }}AM.
@@ -168,12 +150,6 @@ automation:
           entity_id: input_select.bedtime_trigger
           option: "Off"
 
-#######################################################
-#                                                     #
-#                       SCRIPTS                       #
-#                                                     #
-#######################################################
-
 script:
   turn_off_bedtime:
     sequence:
@@ -188,8 +164,10 @@ script:
       - service: automation.turn_off
         entity_id: automation.rain_alert
       - service: media_player.media_stop
-        entity_id: media_player.bedroom, media_player.dining_room, media_player.lounge, media_player.office, media_player.man_cave
+        entity_id: media_player.speaker_bedroom, media_player.speaker_dining_room, media_player.lounge, media_player.speaker_office, media_player.speaker_man_cave, media_player.speaker_kitchen
       - service: switch.turn_off
-        entity_id: switch.fairy_lights, switch.star_lamp, switch.festoon_lights, switch.pergola_stars
+        entity_id: switch.fairy_lights, switch.star_lamp, switch.festoon_lights, switch.pergola_stars, switch.effects_pedals
       - service: media_player.turn_off
         entity_id: media_player.philips_tv
+      - service: switch.turn_off
+        entity_id: switch.adaptive_lighting_dining_room, switch.adaptive_lighting_hallway, switch.adaptive_lighting_man_cave, switch.adaptive_lighting_master_bedroom, switch.adaptive_lighting_lounge

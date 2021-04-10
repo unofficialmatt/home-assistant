@@ -1,12 +1,3 @@
-#######################################################
-#
-#  This package contains components, sensor and
-#  automations which are currently in a WIP state.
-#
-#
-#######################################################
-
-
 # @link https://developer.transportapi.com/docs?raml=https://transportapi.com/v3/raml/transportapi.raml##uk_public_journey_from_from_to_to_json
 # Might be possible to eventually replace with direct calls to the json as they have apublic transport planner
 sensor:
@@ -47,9 +38,6 @@ ios:
 
 
 automation:
-
-
-
 
   # Starts playing Spotify on my phone at 8:15 on workdays
 #  - alias: "Commute Start Spotify"
@@ -98,7 +86,7 @@ automation:
   #        entity_id: sensor.average_home_temperature
   #        below: 16
   #  action:
-  #    - service: notify.mobile_app_matts_phone
+  #    - service: notify.mobile_app_matts_iphone
   #      data_template:
   #        title: >
   #          {{ "\uD83C\uDF21" }} It's a little chilly at home
@@ -115,7 +103,7 @@ automation:
       event_data:
         actionName: PREHEAT_YES
     action:
-      - service: notify.mobile_app_matts_phone
+      - service: notify.mobile_app_matts_iphone
         data_template:
           message: >
             {{ "\uD83C\uDF21" }} OK, I've turned the thermostat on. See you soon.

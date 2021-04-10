@@ -14,10 +14,6 @@ homeassistant:
       icon: mdi:volume-medium
 
 automation:
-
-  ########################
-  #     WORK MACBOOK     #
-  ########################
   - alias: Conference Call Lights Up
     trigger:
       - platform: state
@@ -119,9 +115,6 @@ automation:
       - service: media_player.media_play
         entity_id: media_player.spotify
 
-  ########################
-  #     HOME MACBOOK     #
-  ########################
   - alias: Conference Call Home Spotify Pause
     trigger:
       - platform: state

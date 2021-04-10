@@ -54,10 +54,6 @@ cards:
     - type: custom:decluttering-card
       template: pretty_speaker
       variables:
-        - entity: media_player.speakergroup_entertaining
-    - type: custom:decluttering-card
-      template: pretty_speaker
-      variables:
         - entity: media_player.speakergroup_downstairs
     - type: custom:decluttering-card
       template: pretty_speaker

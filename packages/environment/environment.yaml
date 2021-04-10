@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#                PACKAGES / ENVIRONMENT               #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize:
     climate.hallway:
@@ -30,29 +24,12 @@ homeassistant:
     "binary_sensor.*workday*":
       icon: mdi:calendar-outline
 
-#######################################################
-#                                                     #
-#                     INTEGRATIONS                    #
-#                                                     #
-#######################################################
 
 nest:
   client_id: !secret nest_client_id
   client_secret: !secret nest_client_secret
 
-#######################################################
-#                                                     #
-#                       ENABLES                       #
-#                                                     #
-#######################################################
-
 sun:
-
-#######################################################
-#                                                     #
-#                    BINARY SENSOR                    #
-#                                                     #
-#######################################################
 
 binary_sensor:
   - platform: workday
@@ -61,12 +38,6 @@ binary_sensor:
     name: Is Workday Tomorrow
     country: UK
     days_offset: 1
-
-#######################################################
-#                                                     #
-#                       SENSOR                        #
-#                                                     #
-#######################################################
 
 sensor:
   # CURRENT TIME

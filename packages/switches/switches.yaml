@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#                 PACKAGES / SWITCHES                 #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize_domain:
     switch:
@@ -13,12 +7,6 @@ homeassistant:
       icon: mdi:power-plug
     switch.effects_pedals:
       icon: mdi:guitar-electric
-
-#######################################################
-#                                                     #
-#                        GROUPS                       #
-#                                                     #
-#######################################################
 
 group:
   hardware_switches:
@@ -33,11 +21,5 @@ group:
       - switch.christmas_wreath
       - switch.christmas_window
       - switch.effects_pedals
-
-#######################################################
-#                                                     #
-#                     INTEGRATIONS                    #
-#                                                     #
-#######################################################
 
 tplink:

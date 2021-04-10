@@ -20,23 +20,11 @@ homeassistant:
 
   packages: !include_dir_named packages
 
-#######################################################
-#                                                     #
-#                    CUSTOMISATION                    #
-#                                                     #
-#######################################################
-
 frontend:
   themes: !include_dir_merge_named themes
 
 lovelace:
   mode: yaml
-
-#######################################################
-#                                                     #
-#                       ENABLES                       #
-#                                                     #
-#######################################################
 
 zone:
   - name: Home
@@ -75,6 +63,7 @@ logbook: !include includes/logging.yaml
 
 recorder:
   purge_keep_days: 6
+  db_url: !secret mariadb_url
 
 logger:
   default: error

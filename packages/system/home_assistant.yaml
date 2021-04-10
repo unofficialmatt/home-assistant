@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#              PACKAGES / HOME ASSISTANT              #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize_glob:
     "*version*":
@@ -26,22 +20,10 @@ homeassistant:
     automation.theme_switch:
       icon: mdi:view-quilt
 
-#######################################################
-#                                                     #
-#                     INTEGRATIONS                    #
-#                                                     #
-#######################################################
-
 fontawesome:
   regular:
   solid:
   brands:
-
-#######################################################
-#                                                     #
-#                       SENSOR                        #
-#                                                     #
-#######################################################
 
 sensor:
   ## HA version
@@ -53,12 +35,6 @@ sensor:
     name: Latest Available Version
     beta: false
     source: hassio
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
   - alias: Hass Notify - New Release
@@ -118,12 +94,6 @@ automation:
             {% else %}
               lynwood-synthwave
             {% endif %}
-
-#######################################################
-#                                                     #
-#                       SCRIPTS                       #
-#                                                     #
-#######################################################
 
 script:
   restart_hass:

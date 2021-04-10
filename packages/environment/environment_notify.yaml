@@ -1,19 +1,7 @@
-#######################################################
-#                                                     #
-#            PACKAGES / ENVIRONMENT NOTIFY            #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize:
     automation.full_moon_notify:
       icon: mdi:moon-full
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
   - alias: Full Moon Notify

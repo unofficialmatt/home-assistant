@@ -1,34 +1,16 @@
-#######################################################
-#                                                     #
-#              PACKAGES / NOTIFY ENGINE               #
-#                                                     #
-#######################################################
-
-#######################################################
-#                                                     #
-#                    INPUT BOOLEAN                    #
-#                                                     #
-#######################################################
-
 input_boolean:
   tts_notifications:
     name: TTS Notifications
     initial: on
     icon: mdi:text-to-speech
 
-#######################################################
-#                                                     #
-#                        SCRIPT                       #
-#                                                     #
-#######################################################
-
-# @link https://github.com/CCOSTAN/Home-AssistantConfig
 
 script:
+  ## @link https://github.com/CCOSTAN/Home-AssistantConfig
   ## The Notify Engine script will check to see who is home, and send a title and message to their phones only.
   notify_engine:
 
-  ## CHANGE THIS SO:
+  ## TODO: CHANGE THIS SO:
   ## is_home: 0/1
   ## person: matt, sarah
   ## then can make it so it only notifys matt if home, both if away etc. Can then replace all notifies with it
@@ -40,7 +22,7 @@ script:
           {% elif is_state('person.sarah', 'home') and not is_state('person.matt', 'home') %}
             notify.mobile_app_sarahs_phone
           {% elif is_state('person.matt', 'home') and not is_state('person.sarah', 'home') %}
-            notify.mobile_app_matts_phone
+            notify.mobile_app_matts_iphone
           {% endif %}
         data_template:
           title: "{{ notify_title }}"
@@ -103,7 +85,7 @@ script:
   tts_process:
     alias: TTS Process
     sequence:
-#      - service: notify.mobile_app_matts_phone
+#      - service: notify.mobile_app_matts_iphone
 #        data_template:
 #          title: >
 #            {{ media_player }}

@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#                 PACKAGES / SECURITY                 #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize:
     automation.intruder_alerts:
@@ -12,12 +6,6 @@ homeassistant:
       icon: mdi:door
     binary_sensor.front_door:
       icon: mdi:door
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
   - alias: Intruder Alerts

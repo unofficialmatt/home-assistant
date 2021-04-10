@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#             PACKAGES / LIGHTING / SCENES            #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize_glob:
     "input_select.scene_*":
@@ -31,12 +25,6 @@ homeassistant:
       icon: mdi:brightness-7
     scene.lounge_movie:
       icon: mdi:brightness-2
-
-#######################################################
-#                                                     #
-#                    INPUT SELECT                     #
-#                                                     #
-#######################################################
 
 input_select:
   scene_master_bedroom:
@@ -100,12 +88,6 @@ input_select:
       - "-"
     initial: "-"
 
-#######################################################
-#                                                     #
-#                        SCENE                        #
-#                                                     #
-#######################################################
-
 scene:
 
   - name: Hallway Dimmed
@@ -114,14 +96,12 @@ scene:
         state: on
         transition: 5
         brightness: 5
-
   - name: Porch Dimmed
     entities:
       light.porch:
         state: on
         transition: 5
         brightness: 45
-
   - name: Porch Bright
     entities:
       light.porch:
@@ -329,12 +309,6 @@ scene:
         transition: 2
         brightness: 20
         rgb_color: [255,119,75]
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
   - alias: Scene SELECT

@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#                 PACKAGES / VACUUM                   #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize_glob:
     "script.vacuum*":
@@ -18,11 +12,6 @@ homeassistant:
 # Access Valetudo front end by visiting IP Address of Robbie whilst on local network
 # SSH Password is stored in secrets
 
-#######################################################
-#                                                     #
-#                     INTEGRATIONS                    #
-#                                                     #
-#######################################################
 
 # DEPRECATED AS OF MARCH 2021 IN FAVOUR OF RUNNING VALETUDO
 # vacuum:
@@ -41,12 +30,6 @@ vacuum:
 #    url: !secret valetudo_url
 #    icon: mdi:robot-vacuum
 
-
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
 
 automation:
   - alias: Daily Vacuum
@@ -177,19 +160,6 @@ automation:
 
 
 
-
-
-
-
-
-
-
-#######################################################
-#                                                     #
-#                       COUNTER                       #
-#                                                     #
-#######################################################
-
 counter:
   vacuum_counter:
     initial: 0
@@ -199,18 +169,6 @@ counter:
 
 
 
-#######################################################
-#                                                     #
-#                     AUTOMATIONS                     #
-#                                                     #
-#######################################################
-
-
-#######################################################
-#                                                     #
-#                       SCRIPTS                       #
-#                                                     #
-#######################################################
 
 
 

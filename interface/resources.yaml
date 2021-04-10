@@ -52,7 +52,7 @@
 
   # group multiple cards into one card without the borders
   # @link https://github.com/custom-cards/stack-in-card
-  - url: /hacsfiles/stack-in-card/stack-in-card.js
+  - url: /local/community/stack-in-card/stack-in-card.js
     type: module
 
 

@@ -1,10 +1,3 @@
-########################################
-#                                      #
-# This file defines what is logged in  #
-# Home Assistant's History and Logbook #
-#                                      #
-########################################
-
 include:
   domains:
     #- device_tracker

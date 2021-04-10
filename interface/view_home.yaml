@@ -122,7 +122,7 @@ cards:
       entities:
         - device_tracker.aimee
         - device_tracker.james
-        - device_tracker.katt
+        - device_tracker.katts_phone
         - device_tracker.rashida
         - device_tracker.rob
       state_filter:
