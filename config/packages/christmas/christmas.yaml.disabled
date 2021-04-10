@@ -1,0 +1,94 @@
+homeassistant:
+  customize_glob:
+    "*christmas*":
+      icon: mdi:pine-tree
+
+group:
+  christmas_switches:
+    name: Christmas Switches
+    entities:
+      - switch.fairy_lights
+      - switch.star_lamp
+      - switch.christmas_tree
+      - switch.christmas_wreath
+      - switch.christmas_window
+
+automation:
+  - alias: Christmas Lights - ON Evening
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.sunlight_pct
+        below: 20
+        for:
+          minutes: 5
+      - platform: numeric_state
+        entity_id: sensor.sunlight_pct
+        below: 10
+        for:
+          minutes: 5
+      - platform: state
+        entity_id: input_select.home_status
+        to: "Home"
+      - platform: sun
+        event: sunset
+        offset: "-01:30:00"
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_select.home_status
+          state: "Home"
+        - condition: numeric_state
+          entity_id: sensor.sunlight_pct
+          below: 20
+        - condition: state
+          entity_id: input_select.bedtime_trigger
+          state: 'Off'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: group.christmas_switches
+
+  - alias: Christmas Lights - ON Morning
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.landing_sensor_motion
+        to: 'on'
+    condition:
+      - condition: time
+        after: '06:00:00'
+        before: '10:00:00'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.fairy_lights
+      - service: switch.turn_on
+        entity_id: switch.christmas_tree
+      - service: switch.turn_on
+        entity_id: switch.christmas_wreath
+
+  - alias: Christmas Lights - OFF Morning
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.sunlight_pct
+        above: 5
+      - platform: time
+        at: '10:05:00'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          after: '10:05:00'
+        - condition: numeric_state
+          entity_id: sensor.sunlight_pct
+          above: 5
+    action:
+      - service: homeassistant.turn_off
+        entity_id: group.christmas_switches
+
+  - alias: Christmas Lights - OFF Bedtime
+    trigger:
+      - platform: state
+        entity_id: input_select.bedtime_trigger
+        to: 'Asleep'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: group.christmas_switches
