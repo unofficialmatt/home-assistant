@@ -1,9 +1,3 @@
-#######################################################
-#                                                     #
-#               PACKAGES / SYSTEM STATS               #
-#                                                     #
-#######################################################
-
 homeassistant:
   customize:
     sensor.home_assistant_v2_db:
@@ -32,12 +26,6 @@ homeassistant:
       icon: mdi:speedometer-slow
     sensor.google_wifi_download_traffic:
       icon: mdi:speedometer
-
-#######################################################
-#                                                     #
-#                       SENSOR                        #
-#                                                     #
-#######################################################
 
 sensor:
 

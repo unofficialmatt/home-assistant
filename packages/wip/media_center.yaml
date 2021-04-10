@@ -28,10 +28,63 @@ sensor:
     ssl: false
     max: 10
 
+# TODO: Google in the Lounge is supposed to say 'Downloading' when something found but it doesnt
+shell_command:
+  download_movie: /bin/bash /config/scripts/download.sh "{{movie}}" 0
+  search_movie: /bin/bash /config/scripts/download.sh "{{movie}}" 1
+  download_option: /bin/bash /config/scripts/download.sh "{{option}}" 2
+  download_tvshow: /bin/bash /config/scripts/download_tvshow.sh "{{tvshow}}" 0 "missing"
 
-sabnzbd:
-  api_key: !secret sabnzbd_api_key
-  host: !secret ip_nuc
-  port: !secret sabnzbd_port
-  ssl: true
-  name: SABnzbd
+script:
+  download_movie:
+    alias: download_movie
+    sequence:
+    - service: shell_command.download_movie
+      data_template:
+        movie: "{{ movie }}"
+  search_movie:
+    alias: search_movie
+    sequence:
+    - service: shell_command.search_movie
+      data_template:
+        movie: "{{ movie }}"
+  download_option:
+    alias: download_option
+    sequence:
+    - service: shell_command.download_option
+      data_template:
+        option: "{{ option }}"
+  download_tvshow:
+    alias: download_tvshow
+    sequence:
+    - service: shell_command.download_tvshow
+      data_template:
+        tvshow: "{{ tvshow }}"
+
+automation:
+  - alias: 'IFTTT Movies'
+    trigger:
+      - platform: event
+        event_type: ifttt_webhook_received
+        event_data:
+          action: call_service
+    condition:
+      - condition: template
+        value_template: "{{ trigger.event.data.service == 'script.download_movie' }}"
+    action:
+      - service_template: '{{ trigger.event.data.service }}'
+        data_template:
+          movie:  "{{ trigger.event.data['movie'] }}"
+  - alias: 'IFTTT TVShow'
+    trigger:
+      - platform: event
+        event_type: ifttt_webhook_received
+        event_data:
+          action: call_service
+    condition:
+      - condition: template
+        value_template: "{{ trigger.event.data.service == 'script.download_tvshow' }}"
+    action:
+      - service_template: '{{ trigger.event.data.service }}'
+        data_template:
+          tvshow:  "{{ trigger.event.data['tvshow'] }}"
